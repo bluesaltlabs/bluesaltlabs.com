@@ -1,25 +1,24 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
+import { navLinks } from '../routes/routes';
 
 
-import {
-  HomeIcon,
-  IdentificationIcon,
-  ChatBubbleLeftRightIcon,
-  NewspaperIcon,
-  BriefcaseIcon,
-  CommandLineIcon,
-} from '@heroicons/react/24/outline'
+
 
 function HeaderLink({ to, title, Icon }) {
 
   return (
-    <li className="py-2 hover:bg-indigo-300 rounded">
-      <Link to={to}>
-      <div>
+    <li>
+      <NavLink
+        to={to}
+        className={({ isActive, isPending }) =>
+          `block py-2 hover:bg-indigo-300 rounded ` +
+          `${(isPending ? "bg-indigo-100" : isActive ? "bg-indigo-200" : "")}`
+        }
+      >
         <Icon className="w-7 sm:mx-2 mx-4 inline" />
         <span className="hidden sm:inline">{title}</span>
-      </div>
-      </Link>
+      </NavLink>
     </li>
   )
 }
@@ -30,14 +29,12 @@ function Header() {
       <div className="sticky top-0 p-4 bg-gray-100 rounded-xl w-full">
         <ul className="flex sm:flex-col overflow-hidden content-center justify-between">
 
-          {/* todo: add active class when page is navigated to.  */}
-          <HeaderLink to="/" title="Home" Icon={HomeIcon} />
-          <HeaderLink to="/about" title="About" Icon={IdentificationIcon} />
-          <HeaderLink to="/blog" title="Blog" Icon={NewspaperIcon} />
-          <HeaderLink to="/projects" title="Projects" Icon={CommandLineIcon} />
-          <HeaderLink to="/resume" title="Resume" Icon={BriefcaseIcon} />
-          <HeaderLink to="/contact" title="Contact" Icon={ChatBubbleLeftRightIcon} />
-          
+          {navLinks.map((link, index) => (
+            <HeaderLink
+              key={index} to={link.to} title={link.title} Icon={link.Icon}
+            />
+          ))}
+
         </ul>
       </div>
       <div className="bg-gray-50 rounded-xl border my-3 w-full">
