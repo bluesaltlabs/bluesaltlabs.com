@@ -1,7 +1,7 @@
 // https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/config.full.js
 
 // Application theme colors
-import colors from './theme/colors';
+import colors from './src/theme/colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
