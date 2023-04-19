@@ -1,13 +1,20 @@
+import PageSection from '../layouts/PageSection';
+
 
 function About() {
   return (
-    <div className="bg-gray-800">
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-white">
-          About
-        </h1>
-      </div>
-    </div>
+    <PageSection>
+      <h1 className="text-4xl font-bold">About</h1>
+      <p className="py-2 text-xl">
+        lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Donec auctor, nisl eget ultricies tincidunt, nunc nisl
+        aliquam lorem, nec ultricies nisl nunc vel nisl. Donec
+        auctor, nisl eget ultricies tincidunt, nunc nisl aliquam
+        lorem, nec ultricies nisl nunc vel nisl. Donec auctor,
+        nisl eget ultricies tincidunt, nunc nisl aliquam lorem,
+        nec ultricies nisl nunc vel nisl.
+      </p>
+    </PageSection>
   )
 }
 

@@ -1,7 +1,8 @@
+import PageSection from '../layouts/PageSection';
 
 function Home() {
   return (
-    <>
+    <PageSection>
       <h1 className="text-3xl md:text-5xl mb-4 font-extrabold" id="home">Single-page App Layout</h1>
       <p className="py-2 text-xl">This single-page "app" style layout features a <span className="font-bold">sidebar</span>, <span className="font-bold">main</span> 
         content area, and <span className="font-bold">footer</span>.
@@ -15,7 +16,8 @@ function Home() {
         The sidebar orientation is flipped from vertical to horizontal (<code>flex-col sm:flex-row</code>), and the main content area fills the remaining height
         above the footer.
         </p>
-    </>
+        
+    </PageSection>
   )
 }
 

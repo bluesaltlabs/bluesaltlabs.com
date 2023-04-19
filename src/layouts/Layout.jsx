@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { routes } from '../routes/routes';
 
-import PageContent from './PageContent';
-import Header from './Header';
+import PageContent from '../layouts/PageContent';
+import Header from '../layouts/Header';
 import Footer from './Footer';
 
 function Layout() {
   return (
     <BrowserRouter>
-      <div className="flex-row h-full">
-        <div className="w-full flex flex-col sm:flex-row flex-grow overflow-hidden">
+      <div className="flex-row">
+        <div className="w-full flex flex-col lg:flex-row flex-grow overflow-hidden">
           <Header />
         
           <PageContent>

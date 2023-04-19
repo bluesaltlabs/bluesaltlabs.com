@@ -18,6 +18,8 @@ import Projects from './projects';
 import Resume from './resume';
 import NoMatch from './noMatch';
 
+// todo : use this video to convert this to the new format, but figure out why I'm doing this first:
+//       https://www.youtube.com/watch?v=5s57C7leXc4&list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf&index=3
 export const routes = {
   "home": {
     path: "/",
@@ -86,5 +88,3 @@ export const navLinks = [
     Icon: ChatBubbleLeftRightIcon,
   },
 ];
-
-console.debug(navLinks);
