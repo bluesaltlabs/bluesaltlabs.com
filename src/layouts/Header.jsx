@@ -7,17 +7,28 @@ import { navLinks } from '../routes/routes';
 
 function HeaderLink({ to, title, Icon }) {
 
+  // dark:
+    // light:
+      // active: blue-100
+      // hover: blue-200
+      // pending: blue-50
+    // dark:
+      // active: blue-500
+      // hover: blue-600
+      // pending: blue-200
+  // light:
+
   return (
     <li title={title}>
       <NavLink
         to={to}
         className={({ isActive, isPending }) =>
-          `block py-2 hover:bg-indigo-300 rounded ` +
-          `${(isPending ? "bg-indigo-100" : isActive ? "bg-indigo-200" : "")}`
+          `block py-2 hover:bg-blue-200 dark:hover:bg-blue-600 rounded ` +
+          `${(isPending ? "bg-blue-50 dark:bg-blue-200" : isActive ? "bg-blue-100 dark:bg-blue-500" : "")}`
         }
       >
-        <Icon className="w-7 lg:mx-2 mx-4 inline" />
-        <span className="hidden lg:inline">{title}</span>
+        <Icon className="w-7 lg:mx-2 mx-4 inline dark:text-white" />
+        <span className="hidden lg:inline dark:text-white">{title}</span>
       </NavLink>
     </li>
   )
@@ -26,7 +37,7 @@ function HeaderLink({ to, title, Icon }) {
 function Header() {
   return (
     <div className="lg:w-1/3 xl:1/4 w-full flex-shrink flex-grow-0 p-4">
-      <div className="sticky top-0 p-4 bg-gray-100 rounded-xl w-full">
+      <div className="sticky top-0 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl w-full">
         <ul className="flex lg:flex-col overflow-hidden content-center justify-between">
 
           {navLinks.map((link, index) => (

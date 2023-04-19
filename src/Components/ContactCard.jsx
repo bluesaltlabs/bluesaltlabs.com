@@ -19,7 +19,7 @@ function ContactCard({ vCard }) {
   
   {/* Contact Card */}
   return (
-    <div className="contact-card flex my-5 mx-1 p-3 rounded bg-slate-600">
+    <div className="contact-card flex my-5 mx-1 p-3 rounded bg-slate-800/50">
       
       {/* Contact Card Photo */}
       <div className="contact-card-photo m-3">
