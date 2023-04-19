@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { routes } from '../routes/routes';
 
-import PageContent from '../layouts/PageContent';
-import Header from '../layouts/Header';
+import PageContent from './PageContent';
+import Header from './Header';
 import Footer from './Footer';
 
 function Layout() {

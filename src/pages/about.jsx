@@ -1,16 +1,21 @@
-import PageSection from '../layouts/PageSection';
-import ContactCard from '../Components/ContactCard';
-import vCardsJS from 'vcards-js';
+import PageSection from "../components/PageSection";
+import PageTitle from "../components/PageTitle";
+import PageSubtitle from "../components/PageSubtitle";
+import PageDescription from "../components/PageDescription";
+
+import ContactCard from "../components/ContactCard";
+import vCardsJS from "vcards-js";
 
 
+function About() {
 
-
-function Contact() {
+  // DEMO!!
 
   // create a new vCard
   // https://github.com/enesser/vCards-js
   const vCard = vCardsJS();
-    
+
+
   //set properties
   vCard.firstName = 'Luke';
   vCard.middleName = 'R';
@@ -29,12 +34,14 @@ function Contact() {
   return (
     <PageSection>
   
-      <h1 className="text-4xl font-bold">Contact</h1>
-      <hr />
+      <PageTitle>About</PageTitle>
+      <PageSubtitle></PageSubtitle>
+      <PageDescription></PageDescription>
 
-        <ContactCard vCard={vCard} />
+      <ContactCard vCard={vCard} />
+
     </PageSection>
   )
 }
 
-export default Contact;
+export default About;

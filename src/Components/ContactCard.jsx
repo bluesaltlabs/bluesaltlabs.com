@@ -12,10 +12,10 @@ function ContactCard({ vCard }) {
   
 
   // //save to file
-  // // vCard.saveToFile('./luke-sontrop.vcf');
+  // // vCard?.saveToFile('./luke-sontrop.vcf');
 
   // get as formatted string
-  console.debug(vCard.getFormattedString());
+  console.debug(vCard?.getFormattedString());
   
   {/* Contact Card */}
   return (
@@ -23,14 +23,14 @@ function ContactCard({ vCard }) {
       
       {/* Contact Card Photo */}
       <div className="contact-card-photo m-3">
-        <img src={vCard.photo?.url} alt={vCard.formattedName} />
+        <img src={vCard?.photo?.url} alt={vCard?.formattedName} />
 
       </div>
 
       {/* Contact Card Info */}
       <div className="contact-card-info m-3">
-        <h2 className="text-2xl font-bold">{vCard.formattedName}</h2>
-        <p className="text-xl">{vCard.title}</p>
+        <h2 className="text-2xl font-bold">{vCard?.formattedName}</h2>
+        <p className="text-xl">{vCard?.title}</p>
         <p className="text-xl">{vCard?.organization}</p>
 
 

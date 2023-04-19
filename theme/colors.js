@@ -1,4 +1,5 @@
-// Helpful tool: https://tailwindpalette.jurs.me
+// Helpful tools: https://tailwindpalette.jurs.me
+//                https://javisperez.github.io/tailwindcolorshades
 
 // Application theme colors (Override Tailwind CSS default theme colors)
 export default ({ colors }) => ({
