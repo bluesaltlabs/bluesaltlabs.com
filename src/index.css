@@ -4,6 +4,10 @@
 
 html, body, #root {
   @apply h-screen;
+  
   @apply bg-slate-50;
   @apply dark:bg-slate-800;
+
+  @apply text-slate-900;
+  @apply dark:text-slate-50;
 }

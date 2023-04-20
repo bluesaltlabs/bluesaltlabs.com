@@ -12,7 +12,6 @@ function Home() {
       <PageDescription>
         Work in progress - excuse the mess!
       </PageDescription>
-      
         
     </PageSection>
   )

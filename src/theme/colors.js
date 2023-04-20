@@ -3,7 +3,11 @@
 
 // Application theme colors (Override Tailwind CSS default theme colors)
 export default ({ colors }) => ({
-  ...colors,
+  inherit: colors.inherit,
+  current: colors.current,
+  transparent: colors.transparent,
+  black: colors.black,
+  white: colors.white,
   slate: {
     50: '#e8ebed',
     100: '#cfd3d8',
@@ -28,6 +32,19 @@ export default ({ colors }) => ({
     800: '#425060',
     900: '#364454',
   },
+  zinc: colors.zinc,
+  neutral: colors.neutral,
+  stone: colors.stone,
+  red: colors.red,
+  orange: colors.orange,
+  amber: colors.amber,
+  yellow: colors.yellow,
+  lime: colors.lime,
+  green: colors.green,
+  emerald: colors.emerald,
+  teal: colors.teal,
+  cyan: colors.cyan,
+  sky: colors.sky,
   blue: {
     50: '#ffffff',
     100: '#dce5f8',
@@ -51,5 +68,10 @@ export default ({ colors }) => ({
     700: '#505dab',
     800: '#41508d',
     900: '#2c4075',
-  }
+  },
+  violet: colors.violet,
+  purple: colors.purple,
+  fuchsia: colors.fuchsia,
+  pink: colors.pink,
+  rose: colors.rose,
 });

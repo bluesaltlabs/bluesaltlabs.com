@@ -12,13 +12,15 @@ function NoMatch() {
       <PageSubtitle>Page Not Found - Nothing to see here!</PageSubtitle>
       
       <PageDescription>
-        The page you are looking for does not exist.
-        <p className="mt-4">
+        <span>The page you are looking for does not exist.</span>
+
+        <div className="mt-4">
           {/* tailwind link button to the home page */}
-          <Link to="/" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <Link to="/" className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded">
             Go Home
           </Link>
-        </p>
+
+        </div>
       </PageDescription>
       
     </PageSection>
