@@ -1,5 +1,5 @@
 
-function PageTitle({ metaOnly = false, children }) {
+function PageDescription({ metaOnly = false, children }) {
   // todo: this could trigger a hook to update the page description too. 
   // todo: hide if metaOnly is true
 
@@ -8,4 +8,4 @@ function PageTitle({ metaOnly = false, children }) {
   )
 }
 
-export default PageTitle;
+export default PageDescription;
