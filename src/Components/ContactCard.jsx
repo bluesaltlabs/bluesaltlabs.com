@@ -1,6 +1,7 @@
 import {
   PhoneIcon,
   EnvelopeIcon,
+  LinkIcon,
 } from '@heroicons/react/24/outline'
 
 
@@ -15,7 +16,7 @@ function ContactCard({ vCard }) {
   // // vCard?.saveToFile('./luke-sontrop.vcf');
 
   // get as formatted string
-  console.debug(vCard?.getFormattedString());
+  // console.debug(vCard?.getFormattedString());
   
   {/* Contact Card */}
   return (
@@ -33,40 +34,65 @@ function ContactCard({ vCard }) {
         <p className="text-xl">{vCard?.title}</p>
         <p className="text-xl">{vCard?.organization}</p>
 
+        <div className="flex"></div>
 
-        <div className="flex">
-          <PhoneIcon width={16} className="mr-3" />
-          <a
-            href={`tel:${vCard?.workPhone}`}
-            className="p-1 block hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded"
-          >
-            {vCard?.workPhone}
-          </a>
-        </div>
-        
-        <div className="flex">
-          <EnvelopeIcon width={16} className="mr-3" />
-          <a
-            href={`mailto:${vCard?.email}`}
-            className="p-1 block hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded"
-          >
-            {vCard?.email}
-          </a>
-        </div>
-
-        <div className="flex">
-          <div className="flex text-3xl">
-            <a href={vCard?.socialUrls?.github} className="px-2 py-1 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded">
-              <FontAwesomeIcon icon={faGithubSquare} />
+        {vCard?.url ? (
+          <div className="flex">
+            <LinkIcon width={16} className="mr-3" />
+            <a
+              href={vCard?.url}
+              className="p-1 block hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded"
+              target="_blank"
+            >
+              {`${vCard?.url}`.replace(/^https?\:\/\//i, "")}
             </a>
           </div>
+        ): null}
 
-          <div className="flex text-3xl">
-            <a href={vCard?.socialUrls?.twitter} className="px-2 py-1 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded">
-              <FontAwesomeIcon icon={faTwitterSquare} />
+        {vCard?.workPhone ??
+          <div className="flex">
+            <PhoneIcon width={16} className="mr-3" />
+            <a
+              href={`tel:${vCard?.workPhone}`}
+              className="p-1 block hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded"
+            >
+              {vCard?.workPhone}
             </a>
           </div>
-        </div>
+        }
+          
+        { vCard?.email ? (
+          <div className="flex">
+            <EnvelopeIcon width={16} className="mr-3" />
+            <a
+              href={`mailto:${vCard?.email}`}
+              className="p-1 block hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded"
+            >
+              {vCard?.email}
+            </a>
+          </div>
+        ): null}
+
+        {/* Social Links */}
+        <div className="flex">
+
+          { vCard?.socialUrls?.github ? (
+            <div className="flex text-3xl">
+              <a href={vCard?.socialUrls?.github} target="_blank" className="px-2 py-1 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded">
+                <FontAwesomeIcon icon={faGithubSquare} />
+              </a>
+            </div>
+          ): null}
+
+          { vCard?.socialUrls?.twitter ? (
+            <div className="flex text-3xl">
+              <a href={vCard?.socialUrls?.twitter} target="_blank" className="px-2 py-1 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded">
+                <FontAwesomeIcon icon={faTwitterSquare} />
+              </a>
+            </div>
+          ): null}
+
+          </div>
 
       </div>      
     

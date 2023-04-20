@@ -13,7 +13,7 @@ import {
 import Home from '../pages/home';
 import About from '../pages/about';
 import Projects from '../pages/projects';
-import Blog from '../pages/blog';
+import Journal from '../pages/Journal';
 import NoMatch from '../pages/noMatch';
 
 // todo : use this video to convert this to the new format, but figure out why I'm doing this first:
@@ -33,10 +33,10 @@ export const routes = {
     path: "/projects",
     element: <Projects />,
   },
-  "blog": {
-    key: "blog",
-    path: "/blog",
-    element: <Blog />,
+  "journal": {
+    key: "journal",
+    path: "/journal",
+    element: <Journal />,
   },
   "noMatch": {
     path: "*",
@@ -61,8 +61,8 @@ export const navLinks = [
     Icon: CommandLineIcon,
   },
   {
-    to: routes.blog.path,
-    title: "Blog",
+    to: routes.journal.path,
+    title: "Journal",
     Icon: NewspaperIcon,
   },
 ];

@@ -24,7 +24,7 @@ function About() {
   vCard.formattedName = 'Luke Sontrop';
   vCard.organization = 'BlueSalt Labs';
   vCard.photo.attachFromUrl('https://avatars.githubusercontent.com/u/72760763?s=200&v=4', 'JPEG');
-  vCard.workPhone = '555-555-5555';
+  //vCard.workPhone = '555-555-5555';
   vCard.birthday = new Date(1990, 11, 11);
   vCard.title = 'Software Developer';
   vCard.url = 'https://bluesaltlabs.com';

@@ -3,14 +3,20 @@ import PageTitle from "../components/PageTitle";
 import PageSubtitle from "../components/PageSubtitle";
 import PageDescription from "../components/PageDescription";
 
-function Blog() {
+function Journal() {
   return (
     <PageSection>
-      <PageTitle>Blog</PageTitle>
+      <PageTitle>Journal</PageTitle>
       <PageSubtitle></PageSubtitle>
-      <PageDescription>Blog Content</PageDescription>
+      <PageDescription>Journal Content</PageDescription>
+
+      <div>
+        
+      </div>
+
+
     </PageSection>
   )
 }
 
-export default Blog;
+export default Journal;
