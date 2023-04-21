@@ -19,7 +19,7 @@ function PreloadedImage({ height, width, src, alt, className, ...rest }) {
         src={src}
         alt={alt}
         onLoad={handleOnLoad}
-        className={className}
+        className={`${className ? `${className}` : ''}${loaded ? '' : ' hidden'}`}
         {...{ rest, height, width }}
       />
     </>
