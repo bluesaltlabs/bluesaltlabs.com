@@ -4,7 +4,7 @@ import LoadingSpinner from "./LoadingSpinner";
 function CodePen({ height = 300, width, embedUrl, children, ...rest }) {
   const [loaded, setLoaded] = useState(false);
 
-  function handleIframeLoad(e) {
+  function handleIframeLoad() {
     setLoaded(true);
   }
 

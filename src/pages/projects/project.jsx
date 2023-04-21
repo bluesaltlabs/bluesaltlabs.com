@@ -1,11 +1,11 @@
 
-import PageSection from "../components/PageSection";
-import PageTitle from "../components/PageTitle";
-import PageSubtitle from "../components/PageSubtitle";
-import PageDescription from "../components/PageDescription";
+import PageSection from "../../components/PageSection";
+import PageTitle from "../../components/PageTitle";
+import PageSubtitle from "../../components/PageSubtitle";
+import PageDescription from "../../components/PageDescription";
 import { useLoaderData } from "react-router-dom";
 
-export function projectsLoader({ params }) {
+export function projectLoader({ params }) {
   
   const projectID = params?.id;
   let projects = [];
@@ -24,8 +24,8 @@ export function projectsLoader({ params }) {
   };
 }
 
-function Projects() {
-  const { projectID, projects } = useLoaderData(projectsLoader);
+function Project() {
+  const { projectID, project } = useLoaderData(projectLoader);
 
   return (
     <PageSection>
@@ -42,4 +42,4 @@ function Projects() {
   )
 }
 
-export default Projects;
+export default Project;

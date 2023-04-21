@@ -12,7 +12,7 @@ interface JournalEntry {
 }
 */
 
-const journalEntries = [
+export default [
   {
     id: 1,
     title: 'Test Post',
@@ -38,6 +38,3 @@ const journalEntries = [
     content: 'This is a third test post.',
   },
 ];
-
-
-export default journalEntries;

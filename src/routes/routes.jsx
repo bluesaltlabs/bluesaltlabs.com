@@ -11,8 +11,10 @@ import {
 import Layout from '../layout/Layout'
 import Home from '../pages/home';
 import About, { aboutLoader } from '../pages/about';
-import Projects, { projectsLoader } from '../pages/projects';
-import Journal, { journalLoader } from '../pages/journal';
+import Projects, { projectsLoader } from '../pages/projects/projects';
+import Project, { projectLoader } from '../pages/projects/project';
+import Journal, { journalLoader } from '../pages/journal/journal';
+import JournalEntry, { journalEntryLoader } from '../pages/journal/entry';
 import Toys, { toysLoader } from '../pages/toys';
 import NoMatch from '../pages/noMatch';
 import Error from '../pages/error';
@@ -36,12 +38,11 @@ export const routes = [
         path: "projects",
         loader: projectsLoader,
         element: <Projects />,
-        children: [
-          {
-            path: ":slug",
-            element: <Projects />,
-          }
-        ]
+      },
+      {
+        path: "projects/:slug",
+        loader: projectLoader,
+        element: <Project />,
       },
       {
         path: "toys",
@@ -58,16 +59,11 @@ export const routes = [
         path: "journal",
         loader: journalLoader,
         element: <Journal />,
-        children: [
-          {
-            path: ":slug",
-            element: <Journal />,
-          }
-        ]
       },
       {
-        path: "*",
-        element: <NoMatch />,
+        path: "journal/:slug",
+        loader: journalEntryLoader,
+        element: <JournalEntry />,
       }
     ]
   },

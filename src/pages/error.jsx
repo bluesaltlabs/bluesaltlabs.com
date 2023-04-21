@@ -4,11 +4,11 @@ import PageSection from "../components/PageSection";
 import PageTitle from "../components/PageTitle";
 import PageSubtitle from "../components/PageSubtitle";
 
-function Error() {
+function Error({ error }) {
   return (
     <PageSection>
       <PageTitle>Oops!</PageTitle>
-      <PageSubtitle>Sorry, an unexpected error has occurred</PageSubtitle>
+      <PageSubtitle>{error ?? "Sorry, an unexpected error has occurred"}</PageSubtitle>
       
 
       <div className="mt-4">
