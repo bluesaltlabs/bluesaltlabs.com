@@ -4,7 +4,7 @@ function PageTitle({ className, metaOnly = false, children }) {
   // todo: hide if metaOnly is true
 
   return (
-    <h1 className={`text-4xl font-bold mb-5 text-gray-900 dark:text-gray-100 ${className ?? ''}`}>
+    <h1 className={`text-4xl font-bold pb-3 mb-2 text-gray-900 dark:text-gray-50 ${className ?? ''}`}>
       {children}
     </h1>
   )

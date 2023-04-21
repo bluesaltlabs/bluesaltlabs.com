@@ -7,8 +7,8 @@ function HeaderLink({ to, title, Icon }) {
       <NavLink
         to={to}
         className={({ isActive, isPending }) =>
-          `block py-2 hover:bg-blue-200 dark:hover:bg-slate-600 rounded ` +
-          `${(isPending ? "bg-blue-50 dark:bg-slate-200" : isActive ? "bg-slate-100 dark:bg-slate-500" : "")}`
+          `block py-2  hover:bg-slate-500/20 dark:hover:bg-slate-50/40 rounded ` +
+          `${(isPending ? "bg-gray-500/50 dark:bg-gray-200/50" : isActive ? "bg-slate-500/40 dark:bg-slate-100/20" : "")}`
         }
       >
         <Icon className="w-7 lg:mx-2 mx-4 inline dark:text-white" />
