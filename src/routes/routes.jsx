@@ -7,14 +7,13 @@ import {
   CommandLineIcon,
 } from '@heroicons/react/24/outline'
 
-
 // Route Components
 import Layout from '../layout/Layout'
 import Home from '../pages/home';
 import About from '../pages/about';
 import Projects from '../pages/projects';
 import Journal from '../pages/journal';
-import Toys from '../pages/toys';
+import Toys, { toysLoader } from '../pages/toys';
 import NoMatch from '../pages/noMatch';
 import Error from '../pages/error';
 
@@ -42,7 +41,14 @@ export const routes = [
       },
       {
         path: "toys",
+        loader: toysLoader,
         element: <Toys />,
+        children: [
+          {
+            path: ":id",
+            element: <Toys />,
+          }
+        ]
       },
       {
         path: "journal",

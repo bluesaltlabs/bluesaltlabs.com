@@ -1,7 +1,12 @@
 
-function PageSubtitle({ children }) {
+function PageSubtitle({ className, metaOnly = false, children }) {
+  // todo: this could trigger a hook to update the page title too. 
+  // todo: hide if metaOnly is true
+
   return (
-    <h2 className="text-lg pt-2 pb-3 text-gray-300 dark:text-grey-700">{children}</h2>
+    <h2 className={`text-xl pb-3 text-gray-100 dark:text-grey-900 ${className ?? ''}`}>
+      {children}
+    </h2>
   )
 }
 
