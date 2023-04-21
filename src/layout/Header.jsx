@@ -1,23 +1,7 @@
 import { NavLink } from 'react-router-dom'
-
 import { navLinks } from '../routes/routes';
 
-
-// https://codepen.io/ojbravo/pen/npaBdZ
-
 function HeaderLink({ to, title, Icon }) {
-
-  // dark:
-    // light:
-      // active: blue-100
-      // hover: blue-200
-      // pending: blue-50
-    // dark:
-      // active: blue-500
-      // hover: blue-600
-      // pending: blue-200
-  // light:
-
   return (
     <li title={title}>
       <NavLink

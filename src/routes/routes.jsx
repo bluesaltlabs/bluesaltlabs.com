@@ -9,72 +9,85 @@ import {
 
 
 // Route Components
+import Layout from '../layout/Layout'
 import Home from '../pages/home';
 import About from '../pages/about';
 import Projects from '../pages/projects';
-import Journal from '../pages/Journal';
-import Toys from '../pages/Toys';
+import Journal from '../pages/journal';
+import Toys from '../pages/toys';
 import NoMatch from '../pages/noMatch';
+import Error from '../pages/error';
 
-// todo : use this video to convert this to the new format, but figure out why I'm doing this first:
-//       https://www.youtube.com/watch?v=5s57C7leXc4&list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf&index=3
-
-// todo: combine the routes and navLinks into one object, and use that to generate the navLinks and routes
-export const routes = {
-  "home": {
+export const routes = [
+  {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
+        path: "projects/:id",
+        element: <Projects />,
+      },
+      {
+        path: "toys",
+        element: <Toys />,
+      },
+      {
+        path: "journal",
+        element: <Journal />,
+      },
+      {
+        path: "journal/:id",
+        element: <Journal />,
+      },
+      {
+        path: "*",
+        element: <NoMatch />,
+      }
+    ]
   },
-  "about": {
-    key: "about",
-    path: "/about",
-    element: <About />,
-  },
-  "toys": {
-    key: "toys",
-    path: "/toys",
-    element: <Toys />,
-  },
-  "projects": {
-    key: "projects",
-    path: "/projects",
-    element: <Projects />,
-  },
-  "journal": {
-    key: "journal",
-    path: "/journal",
-    element: <Journal />,
-  },
-  "noMatch": {
+  {
     path: "*",
     element: <NoMatch />,
   }
-};
+];
 
 export const navLinks = [
   {
-    to: routes.home.path,
+    to: "/",
     title: "Home",
     Icon: HomeIcon,
   },
   {
-    to: routes.about.path,
+    to: "/about",
     title: "About",
     Icon: IdentificationIcon,
   },
   {
-    to: routes.projects.path,
+    to: "/projects",
     title: "Projects",
     Icon: CommandLineIcon,
   },
   {
-    to: routes.toys.path,
+    to: "/toys",
     title: "Toys",
     Icon: BeakerIcon,
   },
   {
-    to: routes.journal.path,
+    to: "/journal",
     title: "Journal",
     Icon: NewspaperIcon,
-  },
+  }
 ];
