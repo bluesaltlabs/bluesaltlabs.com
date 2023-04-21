@@ -36,7 +36,7 @@ function HeaderLink({ to, title, Icon }) {
 
 function Header() {
   return (
-    <div className="lg:w-1/3 xl:1/4 w-full flex-shrink flex-grow-0 p-3">
+    <div className="lg:w-1/3 xl:1/4 lg:max-w-[350px] w-full flex-shrink flex-grow-0 p-3">
       <div className="sticky top-0 p-3 bg-gray-100 dark:bg-gray-900 w-full rounded">
         <ul className="flex lg:flex-col overflow-hidden content-center justify-between">
 
@@ -51,7 +51,7 @@ function Header() {
 
       <div className="hidden lg:block bg-gray-50 dark:bg-gray-900 text-blue-500 rounded my-3 w-full">
         <div className="max-w-7xl mx-auto py-8 px-4 lg:px-6 xl:py-12 xl:px-8 xl:flex xl:items-center xl:justify-between">
-          <div className="mx-auto text-3xl font-extrabold tracking-tight xl:text-4xl">
+          <div className="mx-auto text-xl font-bold tracking-tight xl:text-2xl">
           
             <img
               src="./bluesaltlabs-logo.svg"
@@ -59,7 +59,7 @@ function Header() {
               height="100%"
               alt="BlueSalt Labs Logo"
               title="BlueSalt Labs Logo"
-              className="block mx-auto"
+              className="block mx-auto max-w-[120px]"
             />
             <span className=" block mt-4 text-center">BlueSalt Labs</span>
 
