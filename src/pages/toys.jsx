@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 
+// I also could have just used useParams here, but I wanted to learn how to use useLoaderData.
 const codepenProjects = {
   "calculator": {
     title: "JavaScript Calculator (FreeCodeCamp)",

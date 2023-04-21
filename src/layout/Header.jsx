@@ -33,7 +33,7 @@ function Header() {
         </ul>
       </div>
 
-      <div className="hidden lg:block bg-gray-50 dark:bg-gray-900 text-blue-500 rounded my-3 w-full">
+      <div className="hidden lg:block bg-gray-100 dark:bg-gray-900 text-blue-500 rounded my-3 w-full">
         <div className="max-w-7xl mx-auto py-8 px-4 lg:px-6 xl:py-12 xl:px-8 xl:flex xl:items-center xl:justify-between">
           <div className="mx-auto text-xl font-bold tracking-tight xl:text-2xl">
           

@@ -10,7 +10,7 @@ import {
 // Route Components
 import Layout from '../layout/Layout'
 import Home from '../pages/home';
-import About from '../pages/about';
+import About, { aboutLoader } from '../pages/about';
 import Projects from '../pages/projects';
 import Journal from '../pages/journal';
 import Toys, { toysLoader } from '../pages/toys';
@@ -30,6 +30,7 @@ export const routes = [
       {
         path: "about",
         element: <About />,
+        loader: aboutLoader,
       },
       {
         path: "projects",
