@@ -2,15 +2,12 @@ import {
   ArrowPathIcon,
 } from '@heroicons/react/24/outline'
 
-function LoadingSpinner({ className, height, loaded = false, fullPage = false, ...rest }) {
+function LoadingSpinner({ className, height, width, loaded = false, fullPage = false, ...rest }) {
   let spinnerStyle = rest?.style || {};
 
-  if (parseInt(height) > 0) {
-    console.debug("height", height)
-    spinnerStyle.height = `${height}px`;
-  }
+  if (parseInt(height) > 0) { spinnerStyle.height = `${height}px`; }
+  if (parseInt(width) > 0) { spinnerStyle.width = `${width}px`; }
 
-  {/* Tailwind loading spinner page */ }
   return (
     <div
       style={spinnerStyle}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 
-function CodePen({ height = 300, width = "100%", embedUrl, children, ...rest }) {
+function CodePen({ height = 300, width, embedUrl, children, ...rest }) {
   const [loaded, setLoaded] = useState(false);
 
   function handleIframeLoad(e) {
@@ -11,8 +11,7 @@ function CodePen({ height = 300, width = "100%", embedUrl, children, ...rest }) 
   return (
     <>
       <LoadingSpinner
-        height={height}
-        loaded={loaded}
+        {...{ width, height, loaded }}
       />
       <iframe
         height={!loaded ? 0 : height}

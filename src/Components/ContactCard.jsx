@@ -12,17 +12,23 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
+import PreloadedImage from './PreloadedImage';
+
 function ContactCard({ vCard }) {
+
+  const photoSize = 250;
 
   return (
     <div className="contact-card flex flex-col md:flex-row my-5 mx-1 p-3 items-center rounded bg-slate-200/50 dark:bg-slate-800/50 shadow-lg">
       
       {/* Contact Card Photo */}
       <div className="flex-shrink bg-gray-300/50 dark:bg-gray-500/50 rounded p-2">
-        <img
+        <PreloadedImage
           src={vCard?.photo?.url}
           alt={vCard?.formattedName}
-          className="object-contain max-w-[250px]"
+          className={`object-contain max-w-[${photoSize}px]`}
+          height={photoSize}
+          width={photoSize}
         />
       </div>
 

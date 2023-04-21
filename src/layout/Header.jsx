@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { navLinks } from '../routes/routes';
+import BlueSaltLabsLogo from '../assets/bluesaltlabs-logo.svg';
 
 function HeaderLink({ to, title, Icon }) {
   return (
@@ -38,7 +39,7 @@ function Header() {
           <div className="mx-auto text-xl font-bold tracking-tight xl:text-2xl">
           
             <img
-              src="./bluesaltlabs-logo.svg"
+              src={BlueSaltLabsLogo}
               width="100%"
               height="100%"
               alt="BlueSalt Labs Logo"
