@@ -11,8 +11,13 @@ import {
 import Layout from '../layout/Layout'
 import Home from '../pages/home';
 import About, { aboutLoader } from '../pages/about';
-import Projects, { projectsLoader } from '../pages/projects/projects';
-import Project, { projectLoader } from '../pages/projects/project';
+
+import Projects from '../pages/projects/projects';
+import Project from '../pages/projects/project';
+
+import OpenEyeWebsite from '../pages/projects/openeye-website';
+import TaylorStudyMethod from '../pages/projects/taylor-study-method';
+
 import Journal, { journalLoader } from '../pages/journal/journal';
 import JournalEntry, { journalEntryLoader } from '../pages/journal/entry';
 import Toys, { toysLoader } from '../pages/toys';
@@ -36,13 +41,17 @@ export const routes = [
       },
       {
         path: "projects",
-        loader: projectsLoader,
         element: <Projects />,
-      },
-      {
-        path: "projects/:slug",
-        loader: projectLoader,
-        element: <Project />,
+        children: [
+          {
+            path: "taylor-study-method",
+            element: <TaylorStudyMethod />,
+          },
+          {
+            path: "openeye-website",
+            element: <OpenEyeWebsite />,
+          },
+        ]
       },
       {
         path: "toys",

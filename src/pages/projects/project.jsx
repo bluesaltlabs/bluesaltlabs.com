@@ -1,44 +1,27 @@
 
-import PageSection from "../../components/PageSection";
-import PageTitle from "../../components/PageTitle";
-import PageSubtitle from "../../components/PageSubtitle";
-import PageDescription from "../../components/PageDescription";
-import { useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-export function projectLoader({ params }) {
+function Project({ title, subtitle, description }) {
   
-  const projectID = params?.id;
-  let projects = [];
-  /*
-
-  if (projectID) {
-    projects = {}
-    projects[projectID] = codepenProjects[projectID];
-  } else {
-    projects = codepenProjects;
-  }
-  */
-  return {
-    projectID,
-    projects,
-  };
-}
-
-function Project() {
-  const { projectID, project } = useLoaderData(projectLoader);
 
   return (
-    <PageSection>
-      <PageTitle>Projects</PageTitle>
-      <PageSubtitle></PageSubtitle>
+    <>
+      {/* Project Header */}
+      <PageSection>
+
+        <PageTitle>{title}</PageTitle>
+        <PageSubtitle>{subtitle}</PageSubtitle>
+        <PageDescription>{description}</PageDescription>
+        <BackNavButton to="/projects">
+            <ArrowLeftOnRectangleIcon width={16} className="inline-block mr-2" />
+            <span>All Projects</span>
+          </BackNavButton>
+        
+      </PageSection>  
+
+      {/* Entry Markdown Content */}
       
-      <PageDescription>
-        Projects, Projects, Projects!
-      </PageDescription>
-
-      {/* Projects Grid */}
-
-    </PageSection>
+    </>
   )
 }
 

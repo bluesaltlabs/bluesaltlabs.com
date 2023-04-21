@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 
 import PageSection from "../../components/PageSection";
@@ -47,14 +47,14 @@ function Journal() {
           {entries.length > 0 && entries.map((entry, index) => (
             <div key={index} className="flex-grow">
 
-              <a href={`/journal/${entry.slug}`} className="block m-2 p-1 bg-slate-200/50 hover:bg-slate-200/60 rounded shadow-lg hover:shadow-xl">
+              <Link href={`/journal/${entry.slug}`} className="block m-2 p-1 bg-slate-200/50 hover:bg-slate-200/60 rounded shadow-lg hover:shadow-xl">
                 <span className="block text-lg font-bold px-2 pt-1 mb-2">
                   {entry.title}
                 </span>
                 <span className="block">
                   {entry.subtitle ?? '<no content>'}
                 </span>
-              </a>
+              </Link>
 
             </div>
           ))}
