@@ -3,7 +3,9 @@ import PageTitle from "../components/PageTitle";
 import PageSubtitle from "../components/PageSubtitle";
 //import PageDescription from "../components/PageDescription";
 import CodePen from "../components/CodePen";
-import { NavLink, useLoaderData } from "react-router-dom";
+import BackNavButton from "../components/BackNavButton";
+
+import { useLoaderData } from "react-router-dom";
 
 import {
   ArrowLeftOnRectangleIcon,
@@ -35,33 +37,33 @@ const codepenProjects = {
 };
 
 export function toysLoader({ params }) {
-  const projectID = params?.id;
-  let projects = [];
+  const toySlug = params?.slug;
+  let toys = [];
 
-  if (projectID) {
-    projects = {}
-    projects[projectID] = codepenProjects[projectID];
+  if (toySlug) {
+    toys = {}
+    toys[toySlug] = codepenProjects[toySlug];
   } else {
-    projects = codepenProjects;
+    toys = codepenProjects;
   }
   
   return {
-    projectID,
-    projects,
+    toySlug,
+    toys,
   };
 }
 
 function Toys() {
-  const { projectID, projects } = useLoaderData(toysLoader);
+  const { toySlug, toys } = useLoaderData(toysLoader);
   
   return (
     <PageSection>
       <PageTitle>Toys</PageTitle>
 
 
-      { !projectID && Object.keys(projects).length > 1 && (
+      { !toySlug && Object.keys(toys).length > 1 && (
         <div className="flex flex-wrap">
-          {Object.keys(projects).map((key) => (
+          {Object.keys(toys).map((key) => (
 
             <div
               key={key}
@@ -70,14 +72,14 @@ function Toys() {
 
               <h3 className="text-lg font-bold px-2 pt-1 mb-2">
                 <a href={`/toys/${key}`} className="block">
-                  {projects[key]?.title}
+                  {toys[key]?.title}
                 </a>
               </h3>
               
               <CodePen
-                title={projects[key]?.title || undefined}
-                embedUrl={projects[key].embedUrl}
-                height={projects[key]?.height || undefined}
+                title={toys[key]?.title || undefined}
+                embedUrl={toys[key].embedUrl}
+                height={toys[key]?.height || undefined}
                 width="100%"
               />
             </div>
@@ -85,26 +87,22 @@ function Toys() {
         </div>
       )}
         
-      {(projectID && projects.hasOwnProperty(projectID)) ? (
+      {(toySlug && toys.hasOwnProperty(toySlug)) ? (
         <>
-          
-          <NavLink
-            to="/toys"
-            className="inline-block px-2 py-1 mb-2 text-sm font-semibold text-gray-50 bg-slate-200/50 hover:bg-slate-200/60 rounded shadow-lg hover:shadow-xl"
-          >
+          <BackNavButton to="/toys">
             <ArrowLeftOnRectangleIcon width={16} className="inline-block mr-2" />
             <span>All Toys</span>
-          </NavLink>
+          </BackNavButton>
 
-          <PageSubtitle>{projects[projectID]?.title}</PageSubtitle>
+          <PageSubtitle>{toys[toySlug]?.title}</PageSubtitle>
 
           <div
             className="w-100 m-2 p-1 rounded shadow-xl bg-slate-200/50"
           >
             <CodePen
-              title={projects[projectID]?.title || undefined}
-              embedUrl={projects[projectID].embedUrl}
-              height={projects[projectID]?.height || undefined}
+              title={toys[toySlug]?.title || undefined}
+              embedUrl={toys[toySlug].embedUrl}
+              height={toys[toySlug]?.height || undefined}
               width="100%"
             />
           </div>

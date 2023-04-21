@@ -11,8 +11,8 @@ import {
 import Layout from '../layout/Layout'
 import Home from '../pages/home';
 import About, { aboutLoader } from '../pages/about';
-import Projects from '../pages/projects';
-import Journal from '../pages/journal';
+import Projects, { projectsLoader } from '../pages/projects';
+import Journal, { journalLoader } from '../pages/journal';
 import Toys, { toysLoader } from '../pages/toys';
 import NoMatch from '../pages/noMatch';
 import Error from '../pages/error';
@@ -34,11 +34,14 @@ export const routes = [
       },
       {
         path: "projects",
+        loader: projectsLoader,
         element: <Projects />,
-      },
-      {
-        path: "projects/:id",
-        element: <Projects />,
+        children: [
+          {
+            path: ":slug",
+            element: <Projects />,
+          }
+        ]
       },
       {
         path: "toys",
@@ -46,18 +49,21 @@ export const routes = [
         element: <Toys />,
         children: [
           {
-            path: ":id",
+            path: ":slug",
             element: <Toys />,
           }
         ]
       },
       {
         path: "journal",
+        loader: journalLoader,
         element: <Journal />,
-      },
-      {
-        path: "journal/:id",
-        element: <Journal />,
+        children: [
+          {
+            path: ":slug",
+            element: <Journal />,
+          }
+        ]
       },
       {
         path: "*",
