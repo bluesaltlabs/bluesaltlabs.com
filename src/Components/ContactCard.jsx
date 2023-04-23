@@ -10,19 +10,21 @@ import {
   faTwitter,
   faFacebook,
   faLinkedin,
+  faStackOverflow,
+  faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
 import PreloadedImage from './PreloadedImage';
 
-function ContactCard({ vCard }) {
+function ContactCard({ vCard, className }) {
 
   const photoSize = 250;
 
   return (
-    <div className="contact-card flex flex-col md:flex-row my-5 mx-1 p-3 items-center rounded bg-slate-200/50 dark:bg-slate-800/50 shadow-lg">
+    <div className="contact-card flex flex-col md:flex-row lg:flex-col xl:flex-row my-5 mx-1 p-3 items-center rounded bg-slate-200/50 dark:bg-slate-800/50 shadow-lg">
       
       {/* Contact Card Photo */}
-      <div className="flex-shrink bg-gray-300/50 dark:bg-gray-500/50 rounded p-2">
+      <div className={`flex-shrink w-auto md:w-64 lg:w-auto bg-gray-300/50 dark:bg-gray-500/50 rounded p-2${className ? ` ${className}` : ''}`}>
         <PreloadedImage
           src={vCard?.photo?.url}
           alt={vCard?.formattedName}
@@ -34,7 +36,7 @@ function ContactCard({ vCard }) {
 
       {/* Contact Card Info */}
       <div className="flex-grow contact-card-info m-2 px-2 md:px-4">
-        <h2 className="text-2xl font-bold">{vCard?.formattedName}</h2>
+        <h2 className="text-2xl font-bold">{vCard?.formattedName ?? `${vCard?.firstName} ${vCard?.lastName}`}</h2>
         <h3 className="text-xl">{vCard?.title}</h3>
         <h3 className="text-xl text-slate-800 dark:text-slate-200">{vCard?.organization}</h3>
 
@@ -78,6 +80,13 @@ function ContactCard({ vCard }) {
             faIcon={faGithub}
           />
 
+          {/* Stack Overflow */}
+          <SocialIconButton
+            url={vCard?.socialUrls?.stackoverflow}
+            title="Stack Overflow"
+            faIcon={faStackOverflow}
+          />
+
           {/* LinkedIn */}
           <SocialIconButton
             url={vCard?.socialUrls?.linkedin}
@@ -97,7 +106,14 @@ function ContactCard({ vCard }) {
             url={vCard?.socialUrls?.twitter}
             title="Twitter"
             faIcon={faTwitter}
-          />         
+          />
+
+          {/* Instagram */}
+          <SocialIconButton
+            url={vCard?.socialUrls?.instagram}
+            title="Instagram"
+            faIcon={faInstagram}
+          />
 
         </div>
       </div>
@@ -126,7 +142,11 @@ function SocialIconButton({ url, faIcon, title }) {
   
   return (
     <div className="flex mx-1 text-xl">
-      <a href={url} className="px-2 py-1 bg-slate-500/50 hover:bg-slate-200/50 dark:hover:bg-slate-100/50 hover:shadow rounded">
+      <a
+        href={url}
+        target="_blank"
+        className="px-2 py-1 bg-slate-500/50 hover:bg-slate-200/50 dark:hover:bg-slate-100/50 hover:shadow rounded"
+      >
         <FontAwesomeIcon icon={faIcon} title={title ?? url} />
       </a>
     </div>

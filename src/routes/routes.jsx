@@ -13,8 +13,6 @@ import Home from '../pages/home';
 import About, { aboutLoader } from '../pages/about';
 
 import Projects from '../pages/projects/projects';
-import Project from '../pages/projects/project';
-
 import OpenEyeWebsite from '../pages/projects/openeye-website';
 import TaylorStudyMethod from '../pages/projects/taylor-study-method';
 

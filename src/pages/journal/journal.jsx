@@ -5,8 +5,6 @@ import PageSection from "../../components/PageSection";
 import PageTitle from "../../components/PageTitle";
 import PageSubtitle from "../../components/PageSubtitle";
 import PageDescription from "../../components/PageDescription";
-import MarkdownAsHtml from "../../components/MarkdownAsHtml";
-
 import journalEntries from '../../data/journalEntries/journalEntries';
 
 export async function journalLoader({ params }) {
@@ -47,7 +45,7 @@ function Journal() {
           {entries.length > 0 && entries.map((entry, index) => (
             <div key={index} className="flex-grow">
 
-              <Link href={`/journal/${entry.slug}`} className="block m-2 p-1 bg-slate-200/50 hover:bg-slate-200/60 rounded shadow-lg hover:shadow-xl">
+              <Link to={`/journal/${entry.slug}`} className="block m-2 p-1 bg-slate-200/50 hover:bg-slate-200/60 rounded shadow-lg hover:shadow-xl">
                 <span className="block text-lg font-bold px-2 pt-1 mb-2">
                   {entry.title}
                 </span>
