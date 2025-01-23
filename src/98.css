@@ -1,0 +1,14 @@
+/* none of these work and I don't understand why ... */
+/* @import '98.css'; */
+/* @import '../node_modules/98.css/dist/98.css'; */
+/* @import url('node_modules/98.css/style.css'); */
+
+:root {
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
