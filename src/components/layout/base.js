@@ -1,8 +1,12 @@
 import { LitElement, html } from 'lit-element';
+import './navbar.js';
 
 class LayoutBase extends LitElement {
   render() {
-    return html`<slot></slot>`;
+    return html`
+      <layout-navbar></layout-navbar>
+      <slot></slot>
+      `;
   }
 }
 

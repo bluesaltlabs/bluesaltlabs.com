@@ -7,4 +7,8 @@
 .w-auto { width: auto; }
 .w-100 { width: 100%; }
 
-.m-1 { margin: }
+.m-1 { /* todo:  */}
+
+mx-1 {
+  margin-left: 0.25em;
+}
