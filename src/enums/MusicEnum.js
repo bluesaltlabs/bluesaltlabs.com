@@ -1,5 +1,5 @@
 class MusicEnum {
-  static PITCH = {
+  static PITCHES = {
     C: "C",
     D: "D",
     E: "E",
@@ -7,9 +7,10 @@ class MusicEnum {
     G: "G",
     A: "A",
     B: "B",
+
   };
 
-  static OCTIVE = {
+  static OCTIVES = {
     0: "0",
     1: "1",
     2: "2",
@@ -21,9 +22,21 @@ class MusicEnum {
     8: "8",
   }
 
-  static TEMPO = {
+  static TEMPOS = {
     MIN: 22,
     MAX: 220,
+  }
+
+  static SHARP = '#';
+  static FLAT = 'b';
+
+  static OSCILLATORS = {
+    SINE: "sine",
+    SQUARE: "square",
+    SAWTOOTH: "sawtooth",
+    TRIANGLE: "triangle",
+    PULSE: "pulse",
+    PWM: "pwm",
   }
 
 // Source: https://en.wikipedia.org/wiki/Tempo#Approximately_from_the_slowest_to_the_fastest
@@ -31,7 +44,7 @@ class MusicEnum {
   // Larghissimo – extremely slow, slowest type of tempo (24 bpm and under)
   static LARGHISSIMO = {
     name: "Larghissimo",
-    min: this.TEMPO.MIN,
+    min: this.TEMPOS.MIN,
     max: 24,
   }
   // Adagissimo and Grave – very slow and solemn (24–40 bpm)
@@ -140,7 +153,7 @@ class MusicEnum {
   static PRESTISSIMO = {
     name: "Prestissimo",
     min: 200,
-    max: this.TEMPO.MAX,
+    max: this.TEMPOS.MAX,
   }
 
   constructor() {

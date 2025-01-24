@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import AudioService from '@/services/AudioService.js';
+//import AudioService from '@/services/AudioService.js';
 
 class SequencerDemoUi extends LitElement {
   static styles = css`
@@ -16,12 +16,12 @@ class SequencerDemoUi extends LitElement {
 
   static properties = {
 
-    service: { type: AudioService },
+//    service: { type: AudioService },
   };
 
   constructor() {
     super();
-    this.service = AudioService;
+    //this.service = AudioService;
 
   }
 

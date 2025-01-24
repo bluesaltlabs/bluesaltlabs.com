@@ -3,14 +3,9 @@ import * as Tone from 'tone';
 
 import MusicEnum from '@/enums/MusicEnum.js'
 
-// define note and pitch enums
-// // todo: move these to a separate file.
-//const pitches = { C: 'C', D: 'D', E: 'E', F: 'F', G: 'G', A: 'A', B: 'B'};
-const pitches = MusicEnum.PITCH; // todo: fix this.
-//const octives = { 0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8'};
-const octives = MusicEnum.OCTIVE;
-const sharp = '#';
-const flat = 'b';
+const pitches = MusicEnum.PITCHES; // todo: fix this.
+const octives = MusicEnum.OCTIVES;
+const oscillators = MusicEnum.OSCILLATORS;
 
 class MusicMetronome extends LitElement {
   static styles = css`
@@ -54,24 +49,25 @@ class MusicMetronome extends LitElement {
     this.tempo = 120; // default BPM
     this.pitch = pitches.C;
     this.octive = octives[2];
-    this.duration = '16n'
+    this.duration = '16n';
+    this.oscillator = oscillators.SINE
     this.isPlaying = false;
 
     // Tone.js setup
     //this.synth = new Tone.Synth().toDestination();
-    this.synth = new Tone.MonoSynth({
-      oscillator: { type: "sine" }
-    }).toDestination();
-    this.synth.toDestination();
+    this.updateSynth();
 
     // Loop
-    //this.tone = new Tone()
-    this.loop = new Tone.Loop((time) => this.loopCallback(time) , '4n');
+    this.updateLoop();
 
   }
 
   getNote() {
     return `${this.pitch}${this.octive}`;
+  }
+
+  updateLoop() {
+    this.loop = new Tone.Loop((time) => this.loopCallback(time) , '4n');
   }
 
   loopCallback(time) {
@@ -98,17 +94,33 @@ class MusicMetronome extends LitElement {
     //console.log("testing from updated()", { musicEnum: MusicEnum });
   }
 
+  updateSynth(oscillator = null) {
+    if(oscillator) {
+      this.oscillator = oscillator;
+    }
+
+    this.synth = new Tone.MonoSynth({
+      oscillator: { type: (oscillator ?? this.oscillator) } // todo: this nesting is annoying..
+    }).toDestination();
+
+
+  }
+
   updateTempo(event) {
     this.tempo = event.target.value;
-    Tone.getTransport().bpm.value = this.tempo;
+  }
+
+  updateOctive(event) {
+    this.octive = event.target.value;
   }
 
   updatePitch(event) {
     this.pitch = event.target.value;
   }
 
-  updateOctive(event) {
-    this.octive = event.target.value;
+  updateOscillator(event) {
+    this.oscillator = event.target.value;
+    this.updateSynth(event.target.value);
   }
 
   render() {
@@ -149,7 +161,7 @@ class MusicMetronome extends LitElement {
 
       <div class="controls">
         <label for="pitch">
-          Pitch: ${this.pitch}
+          Pitch
         </label>
         <select
           name="pitch"
@@ -163,6 +175,26 @@ class MusicMetronome extends LitElement {
               .key=${pitchKey}
               .selected=${this.pitch === pitch}
             >${pitch}</option>`
+          )}
+        </select>
+      </div>
+
+      <div class="controls">
+        <label for="oscillator">
+          Oscillator
+        </label>
+        <select
+          name="oscillator"
+          id="oscillator"
+          .value=${this.oscillator}
+          @input=${this.updateOscillator}
+        >
+          ${Object.values(oscillators).map((oscillator, oscillatorKey) =>
+            html`<option
+              .value=${oscillator}
+              .key=${oscillatorKey}
+              .selected=${this.oscillator === oscillator}
+            >${oscillator}</option>`
           )}
         </select>
       </div>
