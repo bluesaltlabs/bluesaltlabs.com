@@ -15,11 +15,13 @@ class SequencerDemoUi extends LitElement {
   `;
 
   static properties = {
-    //const A
+
+    service: { type: AudioService },
   };
 
   constructor() {
     super();
+    this.service = AudioService;
 
   }
 

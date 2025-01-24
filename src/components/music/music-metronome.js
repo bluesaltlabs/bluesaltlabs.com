@@ -78,23 +78,23 @@ class MusicMetronome extends LitElement {
     this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
   }
 
-  // todo: set note(pitch, octive) {}
-  // todo: get note() {}
-
   togglePlayback() {
-    if (this.isPlaying) {
-      this.loop.stop();
-      Tone.getTransport().stop();
-    } else {
-      Tone.start();
-      Tone.getTransport().start();
-      this.loop.start(0);
-    }
-    this.isPlaying = !this.isPlaying;
+    Tone.start().then(() => {
+      if (this.isPlaying) {
+        this.loop.stop();
+        Tone.getTransport().stop();
+      } else {
+        Tone.getTransport().start();
+        this.loop.start(0);
+      }
+      this.isPlaying = !this.isPlaying;
+    }).catch((error) => {
+      console.error('Error starting Tone.js:', error);
+    });
   }
 
   updated() {
-    console.log("ran updated");
+    console.log("ran updated"); // todo: why doesn't this function?
     //console.log("testing from updated()", { musicEnum: MusicEnum });
   }
 
@@ -104,7 +104,6 @@ class MusicMetronome extends LitElement {
   }
 
   updateOctive(event) {
-    console.log("ran updated");
     this.octive = event.target.value;
   }
 
