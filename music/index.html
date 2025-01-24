@@ -3,19 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>simple.bluesaltlabs.com | Metronome</title>
+  <title>simple.bluesaltlabs.com | Music</title>
   <link rel="stylesheet" href="/src/styles/index.css" />
+
   <script type="module" src="/src/components/music/music-metronome.js"></script>
+  <script type="module" src="/src/components/music/music-demo.js"></script>
 </head>
 <body>
   <div>
     <button onclick="window.location.href='/'">Home</button>
     <hr />
-    <h1>Metronome</h1>
+    <h1>Music</h1>
     <div class="pure-g">
+
+      <div class="pure-u mx-auto">
+        <music-demo></music-demo>
+
+        <hr />
+      </div>
+
       <div class="pure-u mx-auto">
         <music-metronome></music-metronome>
+        <hr />
       </div>
+
+
     </div>
 
   </div>

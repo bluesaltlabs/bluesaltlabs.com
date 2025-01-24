@@ -4,35 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>simple.bluesaltlabs.com</title>
+  <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/index.css" />
-  <script type="module" src="/src/my-element.js"></script>
+
+  <!-- Lit Components -->
+  <script type="module" src="/src/components/layout/base.js"></script>
   <script type="module" src="/src/components/music/music-metronome.js"></script>
+
 </head>
 <body>
-  <div>
-  <h1>Simple Bluesaltlabs</h1>
+  <layout-base>
+
+
+    <div class="pure-g mx-1">
+      <h1>Simple BlueSaltLabs</h1>
+      <hr />
+    </div>
 
     <div class="pure-g">
       <div class="pure-u pure-u-lg">&nbsp;</div>
 
       <div class="pure-u pure-u-lg-2-5 mx-auto">
-        <h2>Music</h2>
-        <music-metronome></music-metronome>
-        <hr />
+
+        <h2>Links</h2>
+          <ul>
+            <li><a href="/music/index.html">Music</a></li>
+            <li><a href="/98.html">Windows 98 Page</a></li>
+          </ul>
       </div>
 
       <div class="pure-u pure-u-lg-2-5 mx-auto">
-        <h2>Links</h2>
-        <ul>
-          <li><a href="/98.html">98.html</a></li>
-          <li><a href="/music/metronome.html">Metronome.html</a></li>
-        </ul>
+        &nbsp;
       </div>
 
       <div class="pure-u pure-u-lg">&nbsp;</div>
     </div>
 
     <hr />
-  </div>
+  </layout-base>
 </body>
 </html>

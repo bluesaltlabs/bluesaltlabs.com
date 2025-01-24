@@ -1,9 +1,14 @@
 import { LitElement, html, css } from 'lit';
 import * as Tone from 'tone';
 
+import MusicEnum from '@/enums/MusicEnum.js'
+
 // define note and pitch enums
+// // todo: move these to a separate file.
 const pitches = { c: 'C', d: 'D', e: 'E', f: 'F', g: 'G', a: 'A', b: 'B'};
+//const pitches = MusicEnum.PITCH; // todo: fix this.
 const octives = { 0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8'};
+//const octives = MusicEnum.OCTIVE;
 const sharp = '#';
 const flat = 'b';
 
@@ -60,6 +65,8 @@ class MusicMetronome extends LitElement {
     this.loop = new Tone.Loop((time) => {
       this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
     }, '4n');
+
+    console.log("testing from the constructor", { musicEnum: MusicEnum })
   }
 
   getNote() {
