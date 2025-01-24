@@ -12,11 +12,17 @@ export class MusicMetronome extends LitElement {
     this.isPlaying = false;
   }
 
-  render() {
-    return html`
-      <button @click=${this.togglePlay}>
-        ${this.isPlaying ? "Stop" : "Start"}
-      </button>
+  static get styles() {
+    return css`
+      button {
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+      }
     `;
   }
 
@@ -39,19 +45,11 @@ export class MusicMetronome extends LitElement {
     console.log("Music Metronome: stop");
   }
 
-
-
-  static get styles() {
-    return css`
-      button {
-        font-size: 1.5rem;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        background-color: #007bff;
-        color: white;
-        cursor: pointer;
-      }
+  render() {
+    return html`
+      <button @click=${this.togglePlay}>
+        ${this.isPlaying ? "Stop" : "Start"}
+      </button>
     `;
   }
 
