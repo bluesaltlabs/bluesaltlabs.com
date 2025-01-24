@@ -10,6 +10,11 @@
 - [ ] The sequencer first needs to play the same note, then update it so each row can be a different not (from my object constant.)
 - [ ] next, the sequencer should either load drum samples (or ideally) let you define your own sounds so I can make my own samples.
 - [ ] create a demo page for purecss so I can figure out how the layout system works. it doesn't make sense to me yet.
-- [ ]
+- [ ] Investigate these event types (Loop, Part, Pattern, Sequence, ToneEvent)
+    - [ ] https://tonejs.github.io/docs/15.0.4/classes/Loop.html
+    - [ ] https://tonejs.github.io/docs/15.0.4/classes/Part.html
+    - [ ] https://tonejs.github.io/docs/15.0.4/classes/Pattern.html
+    - [ ] https://tonejs.github.io/docs/15.0.4/classes/Sequence.html
+    - [ ] https://tonejs.github.io/docs/15.0.4/classes/ToneEvent.html
 - [ ]
 - [ ]

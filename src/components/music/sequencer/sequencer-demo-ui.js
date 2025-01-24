@@ -12,6 +12,20 @@ class SequencerDemoUi extends LitElement {
       max-width: 500px;
       margin: 0 auto;
     }
+
+    .sequencer-timeline .sequencer-timeline_row .indicator {
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    .indicator > span {
+      border-radius:50%;
+      background:red;
+      width:15px;
+      height:15px;
+      display: block;
+      border: 1px solid black;
+    }
   `;
 
   static properties = {
@@ -46,12 +60,23 @@ class SequencerDemoUi extends LitElement {
         <hr />
 
         <div class="sequencer-body">
-          <p>body content</p>
+
+          <div class="sequencer-timeline">
+            <div class="sequencer-timeline_row">
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+              <div class="indicator"><span style="">&nbsp;</span></div>
+            </div>
+            <div class="sequencer-timeline_row"></div>
+            <div class="sequencer-timeline_row"></div>
+
+          </div>
         </div>
-
-
-
-
 
       </div>
     `;

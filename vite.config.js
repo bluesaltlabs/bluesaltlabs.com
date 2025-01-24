@@ -14,6 +14,7 @@ export default {
         '98': '98.html',
         music: 'music/index.html',
         metronome: 'music/metronome.html',
+        sequencer: 'music/sequencer.html',
         games: 'games/index.html',
         tools: 'tools/index.html',
       },

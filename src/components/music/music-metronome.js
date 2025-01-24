@@ -3,7 +3,7 @@ import * as Tone from 'tone';
 
 import MusicEnum from '@/enums/MusicEnum.js'
 
-const pitches = MusicEnum.PITCHES; // todo: fix this.
+const pitches = MusicEnum.PITCHES;
 const octives = MusicEnum.OCTIVES;
 const oscillators = MusicEnum.OSCILLATORS;
 
@@ -37,41 +37,83 @@ class MusicMetronome extends LitElement {
 
   static properties = {
     loop: { type: Object },
+    //pattern: { type: Object },
+    FeedbackDelay: { type: Object },
     tempo: { type: Number },
     pitch: { type: String },
     octive: { type: String },
     duration: { type: String },
     isPlaying: { type: Boolean },
+    isSharp: { type: Boolean },
+    isFlat: { type: Boolean },
   };
 
   constructor() {
     super();
+    this.loop = null;
+    this.feedbackDelay = null;
+    //this.pattern = null;
     this.tempo = 120; // default BPM
+    this.feedbackDelay = new Tone.FeedbackDelay();
+
     this.pitch = pitches.C;
     this.octive = octives[2];
+    this.isSharp = false;
+    this.isFlat = false;
     this.duration = '16n';
     this.oscillator = oscillators.SINE
     this.isPlaying = false;
 
-    // Tone.js setup
-    //this.synth = new Tone.Synth().toDestination();
+    //this.updatePattern();
     this.updateSynth();
 
     // Loop
     this.updateLoop();
+  }
 
+  setIsSharp(isSharp) {
+    this.isSharp = !!isSharp;
+    this.isFlat = false;
+    this.updateLoop();
+  }
+
+  setIsFlat(isFlat) {
+    this.isFlat = !!isFlat;
+    this.isSharp = false;
+    this.updateLoop();
+  }
+
+  setIsNatural() {
+    this.isFlat = false;
+    this.isSharp = false;
+    this.updateLoop();
+  }
+
+  // used for getNote
+  getSharpOrFlat() {
+    console.debug("getSharpOrFlat", { sharp: this.isSharp, flat: this.isFlat })
+    return (
+      this.isSharp ? MusicEnum.SHARP :
+        this.isFlat ? MusicEnum.FLAT : ''
+    );
   }
 
   getNote() {
-    return `${this.pitch}${this.octive}`;
+    const note = `${this.pitch}${this.getSharpOrFlat()}${this.octive}`;
+    console.debug(`Note: ${note}`);
+    return note;
   }
 
   updateLoop() {
-    this.loop = new Tone.Loop((time) => this.loopCallback(time) , '4n');
+
+    this.loop = new Tone.Loop(
+      (time) =>
+        this.synth.triggerAttackRelease(this.getNote(), this.duration, time)
+      , '4n');
   }
 
   loopCallback(time) {
-    this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
+
   }
 
   togglePlayback() {
@@ -89,11 +131,6 @@ class MusicMetronome extends LitElement {
     });
   }
 
-  updated() {
-    console.log("ran updated"); // todo: why doesn't this function?
-    //console.log("testing from updated()", { musicEnum: MusicEnum });
-  }
-
   updateSynth(oscillator = null) {
     if(oscillator) {
       this.oscillator = oscillator;
@@ -102,12 +139,11 @@ class MusicMetronome extends LitElement {
     this.synth = new Tone.MonoSynth({
       oscillator: { type: (oscillator ?? this.oscillator) } // todo: this nesting is annoying..
     }).toDestination();
-
-
   }
 
   updateTempo(event) {
     this.tempo = event.target.value;
+    Tone.getTransport().bpm.value = event.target.value;
   }
 
   updateOctive(event) {
@@ -124,13 +160,12 @@ class MusicMetronome extends LitElement {
   }
 
   render() {
-
     return html`
       <div class="controls">
         <button @click=${this.togglePlayback}>
           ${this.isPlaying ? 'Stop' : 'Start'}
         </button>
-        <label for "temo">
+        <label for="tempo">
           Tempo: ${this.tempo} BPM
           <input
             name="tempo"
@@ -158,6 +193,49 @@ class MusicMetronome extends LitElement {
           />
         </label>
       </div>
+
+
+      <div class="controls">
+        <label for="flat">
+          <input
+            id="flat"
+            value="Flat"
+            name="sharp_flat"
+            type="radio"
+            .checked=${!!this.isFlat}
+            @input=${this.setIsFlat()}
+          />
+          flat (b)
+        </label>
+      <div/>
+
+      <div class="controls">
+        <label for="sharp">
+          <input
+            id="sharp"
+            value="Sharp"
+            name="sharp_flat"
+            type="radio"
+            .checked=${!!this.isSharp}
+            @input=${this.setIsSharp()}
+          />
+          sharp (#)
+        </label>
+      <div/>
+
+      <div class="controls">
+        <label for="natural">
+          <input
+            id="natural"
+            value="Natural"
+            name="sharp_flat"
+            type="radio"
+            .checked=${!this.isFlat && !this.isSharp}
+            @input=${this.setIsNatural()}
+          />
+          natural (reset)
+        </label>
+      <div/>
 
       <div class="controls">
         <label for="pitch">
@@ -197,12 +275,6 @@ class MusicMetronome extends LitElement {
             >${oscillator}</option>`
           )}
         </select>
-      </div>
-
-      <div class="debug">
-        <pre><code>
-
-        </code></pre>
       </div>
 
     `;

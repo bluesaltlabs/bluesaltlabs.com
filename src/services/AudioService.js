@@ -2,29 +2,24 @@ import * as Tone from 'tone';
 
 class AudioService {
   static properties = {
-    synth: { type: Object },
-    loop: { type: Object },
+    event: { type: Object }, // Loop, Part, Pattern, Sequence, ToneEvent
     tempo: { type: Number },
-    pitch: { type: String },
-    octive: { type: String },
-    duration: { type: String }, // todo: temp
     isPlaying: { type: Boolean },
+    // todo: others?
   };
 
   constructor(synth) {
     if (!AudioService.instance) {
-      this.synth = new Tone.MonoSynth({
-        oscillator: { type: "sine" }
-      }).toDestination();
-      this.synth = null;
-      this.loop = null;
-      this.duration = '4n'; // todo: temp
+      this.event = null;
+      this.tempo = 120; // default
+      this.isPlaying = false;
+
       AudioService.instance = this;
     }
     return AudioService.instance;
   }
 
-  startLoop(callback, interval = null) {
+  startEvent(callback, interval = null) {
     if(interval) {
 
     }
