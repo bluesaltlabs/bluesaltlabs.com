@@ -98,8 +98,8 @@ class MusicMetronome extends LitElement {
     );
   }
 
-  getNote() {
-    const note = `${this.pitch}${this.getSharpOrFlat()}${this.octive}`;
+  getNote(pitch = null, sharpOrFlat = null, octive = null) {
+    const note = `${pitch ?? this.pitch}${sharpOrFlat ?? this.getSharpOrFlat()}${octive ?? this.octive}`;
     console.debug(`Note: ${note}`);
     return note;
   }
@@ -107,9 +107,12 @@ class MusicMetronome extends LitElement {
   updateLoop() {
 
     this.loop = new Tone.Loop(
-      (time) =>
-        this.synth.triggerAttackRelease(this.getNote(), this.duration, time)
-      , '4n');
+      (time) => {
+        this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
+        //this.synth.triggerAttackRelease(this.getNote(null, MusicEnum.SHARP), "16n", time + 0.05);
+        //this.synth.triggerAttackRelease(this.getNote(), "16n", time + 0.1);
+        //this.synth.triggerAttackRelease(this.getNote(null, MusicEnum.FLAT), "16n", time + 0.15);
+      }, '4n');
   }
 
   loopCallback(time) {

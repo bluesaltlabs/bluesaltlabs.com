@@ -13,6 +13,10 @@ class SequencerDemoUi extends LitElement {
       margin: 0 auto;
     }
 
+    .sequencer-timeline .sequencer-timeline_row {
+      width: 100%;
+    }
+
     .sequencer-timeline .sequencer-timeline_row .indicator {
       display: inline-block;
       margin: 0 2px;
