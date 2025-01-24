@@ -1,58 +1,86 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, html, css } from 'lit';
+import * as Tone from 'tone';
 
-export class MusicMetronome extends LitElement {
-  static get properties() {
-    return {
-      isPlaying: { type: Boolean },
-    };
-  }
+class MusicMetronome extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      font-family: Arial, sans-serif;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #0078d7;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:disabled {
+      background: #cccccc;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+  `;
+
+  static properties = {
+    tempo: { type: Number },
+    isPlaying: { type: Boolean },
+  };
 
   constructor() {
     super();
+    this.tempo = 120; // default BPM
     this.isPlaying = false;
+
+    // Tone.js setup
+    this.synth = new Tone.MembraneSynth().toDestination();
+    this.loop = new Tone.Loop((time) => {
+      this.synth.triggerAttackRelease('C4', '8n', time);
+    }, '4n');
   }
 
-  static get styles() {
-    return css`
-      button {
-        font-size: 1.5rem;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        background-color: #007bff;
-        color: white;
-        cursor: pointer;
-      }
-    `;
-  }
-
-  togglePlay() {
-    this.isPlaying = !this.isPlaying;
+  togglePlayback() {
     if (this.isPlaying) {
-      this.start();
+      this.loop.stop();
+      Tone.getTransport().stop();
     } else {
-      this.stop();
+      Tone.getTransport().start();
+      this.loop.start(0);
     }
+    this.isPlaying = !this.isPlaying;
   }
 
-  start() {
-    // todo
-    console.log("Music Metronome: start");
-  }
-
-  stop() {
-    // todo
-    console.log("Music Metronome: stop");
+  updateTempo(event) {
+    this.tempo = event.target.value;
+    Tone.getTransport().bpm.value = this.tempo;
   }
 
   render() {
     return html`
-      <button @click=${this.togglePlay}>
-        ${this.isPlaying ? "Stop" : "Start"}
-      </button>
+      <div class="controls">
+        <button @click=${this.togglePlayback}>
+          ${this.isPlaying ? 'Stop' : 'Start'}
+        </button>
+        <label>
+          Tempo: ${this.tempo} BPM
+          <input
+            type="range"
+            min="40"
+            max="240"
+            .value=${this.tempo}
+            @input=${this.updateTempo}
+          />
+        </label>
+      </div>
     `;
   }
-
 }
 
 customElements.define('music-metronome', MusicMetronome);
