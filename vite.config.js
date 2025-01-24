@@ -5,6 +5,7 @@ export default {
       input: {
         main: 'index.html',
         '98': '98.html',
+        metronome: 'music/metronome.html'
       },
     },
   },
