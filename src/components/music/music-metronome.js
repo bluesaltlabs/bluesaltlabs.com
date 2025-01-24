@@ -103,6 +103,10 @@ class MusicMetronome extends LitElement {
     Tone.getTransport().bpm.value = this.tempo;
   }
 
+  updatePitch(event) {
+    this.pitch = event.target.value;
+  }
+
   updateOctive(event) {
     this.octive = event.target.value;
   }
@@ -114,9 +118,11 @@ class MusicMetronome extends LitElement {
         <button @click=${this.togglePlayback}>
           ${this.isPlaying ? 'Stop' : 'Start'}
         </button>
-        <label>
+        <label for "temo">
           Tempo: ${this.tempo} BPM
           <input
+            name="tempo"
+            id="tempo"
             type="range"
             min="40"
             max="240"
@@ -125,17 +131,46 @@ class MusicMetronome extends LitElement {
           />
         </label>
       </div>
+
       <div class="controls">
-      <label>
-        Octive: ${this.octive}
-        <input
-          type="range"
-          min="${octives[0]}"
-          max="${octives[ Object.keys(octives).length - 1 ]}"
-          .value=${this.octive}
-          @input=${this.updateOctive}
-        />
-      </label>
+        <label for="octive">
+          Octive: ${this.octive}
+          <input
+            name="octive"
+            id="octive"
+            type="range"
+            min="${octives[0]}"
+            max="${octives[ Object.keys(octives).length - 1 ]}"
+            .value=${this.octive}
+            @input=${this.updateOctive}
+          />
+        </label>
+      </div>
+
+      <div class="controls">
+        <label for="pitch">
+          Pitch: ${this.pitch}
+        </label>
+        <select
+          name="pitch"
+          id="pitch"
+          .value=${this.pitch}
+          @input=${this.updatePitch}
+        >
+          ${Object.keys(pitches).map((pitch, pitchKey) =>
+            html`<option
+              .value=${pitch}
+              .key=${pitchKey}
+              .selected=${this.pitch === pitch}
+            >${pitch}</option>`
+          )}
+        </select>
+      </div>
+
+      <div class="debug">
+        <pre><code>
+
+        </code></pre>
       </div>
 
     `;

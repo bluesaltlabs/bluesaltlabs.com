@@ -35,7 +35,9 @@ class AudioService {
     Tone.getTransport().start();
   }
 
-  set duration(duration) { this.duration = duration; }
+  set duration(duration) {
+    //this.duration = duration;
+  }
   get duration() { return this.duration; }
 
   stopLoop() {
@@ -48,9 +50,10 @@ class AudioService {
   }
 
   // todo: this would belong somewhere else.
-  triggerSynth(note, duration = '16n', time = Tone.now()) {
-    if(note) { set}
-    this.synth.triggerAttackRelease(note, duration, time);
+  triggerSynth(time = Tone.now()) {
+    //note, duration = '16n', time = Tone.now()
+    //if(tis.note) { set}
+    this.synth.triggerAttackRelease(this.note, this.duration, time);
   }
 }
 
