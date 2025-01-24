@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-class SequencerControls extends LitElement {
+class SequencerDemoUi extends LitElement {
   static properties = {
     // todo?
   };
@@ -17,6 +17,7 @@ class SequencerControls extends LitElement {
 
   render() {
     return html`
+      <slot></slot>
       <div class="sequencer-demo-ui">
         <!-- <button @click=${() => this.dispatchEvent(new Event('play'))}>Play</button>
         <button @click=${() => this.dispatchEvent(new Event('stop'))}>Stop</button>
@@ -29,4 +30,4 @@ class SequencerControls extends LitElement {
   }
 }
 
-customElements.define('sequencer-controls', SequencerControls);
+customElements.define('sequencer-demo-ui', SequencerDemoUi);

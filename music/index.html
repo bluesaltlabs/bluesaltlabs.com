@@ -4,22 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>simple.bluesaltlabs.com | Music</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/index.css" />
 
+  <!-- Lit Components -->
+  <script type="module" src="/src/components/layout/base.js"></script>
+
   <script type="module" src="/src/components/music/music-metronome.js"></script>
-  <script type="module" src="/src/components/music/music-demo.js"></script>
+  <script type="module" src="/src/components/music/sequencer/sequencer-demo-ui.js"></script>
 </head>
 <body>
-  <div>
-    <button onclick="window.location.href='/'">Home</button>
-    <hr />
-    <h1>Music</h1>
+  <layout-base>
+    <h1>BlueSaltLabs | Music</h1>
     <a href="about.html">About</a>
     <hr />
     <div class="pure-g">
 
       <div class="pure-u pure-u-lg w-100">
-        <music-demo>Test Music Demo Slot Content</music-demo>
+        <sequencer-demo-ui>Test Music Demo Slot Content</sequencer-demo-ui>
 
         <hr />
 
@@ -35,6 +38,6 @@
 
     </div>
 
-  </div>
+  </layout-base>
 </body>
 </html>
