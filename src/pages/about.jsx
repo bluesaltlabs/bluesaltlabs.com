@@ -42,6 +42,7 @@ export function aboutLoader() {
   vCards[1].socialUrls.facebook = 'https://www.facebook.com/lukerz8';
   vCards[1].socialUrls.twitter = 'https://www.twitter.com/lukerz8';
   vCards[1].socialUrls.instagram = 'https://www.instagram.com/lukerz8';
+  vCards[1].socialUrls.aboutme = 'https://about.me/luke.sontrop';
   
   return { vCards };
 }
