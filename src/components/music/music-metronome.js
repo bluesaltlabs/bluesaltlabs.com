@@ -1,6 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import * as Tone from 'tone';
 
+// define note and pitch enums
+const pitches = { c: 'C', d: 'D', e: 'E', f: 'F', g: 'G', a: 'A', b: 'B'};
+const octives = { 0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8'};
+const sharp = '#';
+const flat = 'b';
+
 class MusicMetronome extends LitElement {
   static styles = css`
     :host {
@@ -31,20 +37,37 @@ class MusicMetronome extends LitElement {
 
   static properties = {
     tempo: { type: Number },
+    pitch: { type: String },
+    octive: { type: String },
+    duration: { type: String },
     isPlaying: { type: Boolean },
   };
 
   constructor() {
     super();
     this.tempo = 120; // default BPM
+    this.pitch = pitches.c;
+    this.octive = octives[3];
+    this.duration = '16n'
     this.isPlaying = false;
 
     // Tone.js setup
-    this.synth = new Tone.MembraneSynth().toDestination();
+    //this.synth = new Tone.Synth().toDestination();
+    this.synth = new Tone.Synth('sine');
+    this.synth.toDestination();
+
+    // Loop
     this.loop = new Tone.Loop((time) => {
-      this.synth.triggerAttackRelease('C4', '8n', time);
+      this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
     }, '4n');
   }
+
+  getNote() {
+    return `${this.pitch}${this.octive}`;
+  }
+
+  // todo: set note(pitch, octive) {}
+  // todo: get note() {}
 
   togglePlayback() {
     if (this.isPlaying) {
@@ -60,6 +83,10 @@ class MusicMetronome extends LitElement {
   updateTempo(event) {
     this.tempo = event.target.value;
     Tone.getTransport().bpm.value = this.tempo;
+  }
+
+  updateOctive(event) {
+    this.octive = event.target.value;
   }
 
   render() {
@@ -79,6 +106,19 @@ class MusicMetronome extends LitElement {
           />
         </label>
       </div>
+      <div class="controls">
+      <label>
+        Octive: ${this.octive}
+        <input
+          type="range"
+          min="${octives[0]}"
+          max="${octives[ Object.keys(octives).length - 1 ]}"
+          .value=${this.octive}
+          @input=${this.updateOctive}
+        />
+      </label>
+      </div>
+
     `;
   }
 }
