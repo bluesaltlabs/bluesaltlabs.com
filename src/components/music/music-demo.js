@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-class MusicArpeggiator extends LitElement {
+class MusicDemo extends LitElement {
   static properties = {
   //  synth: { type: Object }
   };
@@ -23,4 +23,4 @@ class MusicArpeggiator extends LitElement {
   }
 }
 
-customElements.define('music-arpeggiator', MusicArpeggiator);
+customElements.define('music-demo', MusicDemo);
