@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
 
-class AudioManager {
+class AudioService {
   static properties = {
     synth: { type: Object },
     loop: { type: Object },
@@ -12,14 +12,16 @@ class AudioManager {
   };
 
   constructor(synth) {
-    if (!AudioManager.instance) {
-      //this.synth = new Tone.MembraneSynth().toDestination();
+    if (!AudioService.instance) {
+      this.synth = new Tone.MonoSynth({
+        oscillator: { type: "sine" }
+      }).toDestination();
       this.synth = null;
       this.loop = null;
       this.duration = '4n'; // todo: temp
-      AudioManager.instance = this;
+      AudioService.instance = this;
     }
-    return AudioManager.instance;
+    return AudioService.instance;
   }
 
   startLoop(callback, interval = null) {
@@ -53,7 +55,7 @@ class AudioManager {
 }
 
 // todo: how does this work for modifyhing the AudioManager's internal properties?
-const instance = new AudioManager();
+const instance = new AudioService();
 Object.freeze(instance);
 
 export default instance;

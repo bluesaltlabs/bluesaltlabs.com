@@ -1,8 +1,21 @@
 import { LitElement, html, css } from 'lit';
+import AudioService from '@/services/AudioService.js';
 
 class SequencerDemoUi extends LitElement {
+  static styles = css`
+    :host {
+
+    }
+
+    .sequencer-demo-ui {
+      display: block;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  `;
+
   static properties = {
-    // todo?
+    //const A
   };
 
   constructor() {
@@ -10,21 +23,34 @@ class SequencerDemoUi extends LitElement {
 
   }
 
-  // updateTempo(event) {
-  //   this.tempo = event.target.value;
-  //   this.dispatchEvent(new CustomEvent('tempo-change', { detail: this.tempo }));
-  // }
+  play() {
+    // todo
+  }
+
+  stop() {
+    // todo
+  }
 
   render() {
     return html`
       <slot></slot>
       <div class="sequencer-demo-ui">
-        <!-- <button @click=${() => this.dispatchEvent(new Event('play'))}>Play</button>
-        <button @click=${() => this.dispatchEvent(new Event('stop'))}>Stop</button>
-        <label>
-          Tempo: ${this.tempo}
-          <input type="range" min="60" max="180" .value=${this.tempo} @input=${this.updateTempo} />
-        </label> -->
+
+        <div class="sequencer-header">
+          <button @click=${this.play()}>Play</button>
+          <button @click=${this.stop()}>Stop</button>
+        </div>
+
+        <hr />
+
+        <div class="sequencer-body">
+          <p>body content</p>
+        </div>
+
+
+
+
+
       </div>
     `;
   }

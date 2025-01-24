@@ -5,10 +5,10 @@ import MusicEnum from '@/enums/MusicEnum.js'
 
 // define note and pitch enums
 // // todo: move these to a separate file.
-const pitches = { c: 'C', d: 'D', e: 'E', f: 'F', g: 'G', a: 'A', b: 'B'};
-//const pitches = MusicEnum.PITCH; // todo: fix this.
-const octives = { 0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8'};
-//const octives = MusicEnum.OCTIVE;
+//const pitches = { C: 'C', D: 'D', E: 'E', F: 'F', G: 'G', A: 'A', B: 'B'};
+const pitches = MusicEnum.PITCH; // todo: fix this.
+//const octives = { 0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8'};
+const octives = MusicEnum.OCTIVE;
 const sharp = '#';
 const flat = 'b';
 
@@ -41,6 +41,7 @@ class MusicMetronome extends LitElement {
   `;
 
   static properties = {
+    loop: { type: Object },
     tempo: { type: Number },
     pitch: { type: String },
     octive: { type: String },
@@ -51,26 +52,30 @@ class MusicMetronome extends LitElement {
   constructor() {
     super();
     this.tempo = 120; // default BPM
-    this.pitch = pitches.c;
-    this.octive = octives[3];
+    this.pitch = pitches.C;
+    this.octive = octives[2];
     this.duration = '16n'
     this.isPlaying = false;
 
     // Tone.js setup
     //this.synth = new Tone.Synth().toDestination();
-    this.synth = new Tone.Synth('sine');
+    this.synth = new Tone.MonoSynth({
+      oscillator: { type: "sine" }
+    }).toDestination();
     this.synth.toDestination();
 
     // Loop
-    this.loop = new Tone.Loop((time) => {
-      this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
-    }, '4n');
+    //this.tone = new Tone()
+    this.loop = new Tone.Loop((time) => this.loopCallback(time) , '4n');
 
-    console.log("testing from the constructor", { musicEnum: MusicEnum })
   }
 
   getNote() {
     return `${this.pitch}${this.octive}`;
+  }
+
+  loopCallback(time) {
+    this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
   }
 
   // todo: set note(pitch, octive) {}
@@ -81,10 +86,16 @@ class MusicMetronome extends LitElement {
       this.loop.stop();
       Tone.getTransport().stop();
     } else {
+      Tone.start();
       Tone.getTransport().start();
       this.loop.start(0);
     }
     this.isPlaying = !this.isPlaying;
+  }
+
+  updated() {
+    console.log("ran updated");
+    //console.log("testing from updated()", { musicEnum: MusicEnum });
   }
 
   updateTempo(event) {
@@ -93,10 +104,12 @@ class MusicMetronome extends LitElement {
   }
 
   updateOctive(event) {
+    console.log("ran updated");
     this.octive = event.target.value;
   }
 
   render() {
+
     return html`
       <div class="controls">
         <button @click=${this.togglePlayback}>

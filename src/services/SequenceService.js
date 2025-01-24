@@ -1,6 +1,6 @@
 import { sequencerDB } from '@/db/sequencerDB.js';
 
-class SequenceManager {
+class SequenceService {
   async saveSequence(id, pattern) {
     await sequencerDB.patterns.put({ id, pattern });
   }
@@ -19,7 +19,7 @@ class SequenceManager {
   }
 }
 
-const instance = new SequenceManager();
+const instance = new SequenceService();
 Object.freeze(instance);
 
 export default instance;

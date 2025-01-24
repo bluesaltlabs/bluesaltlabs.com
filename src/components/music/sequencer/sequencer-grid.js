@@ -1,4 +1,4 @@
-import sequenceManager from '@/services/sequenceManager.js';
+import SequenceService from '@/services/SequenceService.js';
 
 import { LitElement, html, css } from 'lit';
 
