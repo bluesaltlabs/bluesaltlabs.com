@@ -1,0 +1,31 @@
+
+
+
+/* https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c */
+
+:root {
+
+  --color-red: #EF476F;
+  --color-yellow: #FFD166;
+  --color-green: #06D6A0;
+  --color-blue: #073B4C;
+  --color-blue-alt: #118AB2;
+
+  --color-gray-100: #4A4A4A;
+  --color-gray-200: #3E3E3E;
+  --color-gray-300: #333333;
+  --color-gray-400: #252525;
+  --color-gray-500: #131313;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: var(--color-gray-400);
+    color: #fff;
+  }
+
+  a {  color: var(--color-blue-alt); }
+
+
+}
