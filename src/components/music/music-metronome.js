@@ -1,11 +1,9 @@
 import { LitElement, html, css } from 'lit';
-import * as Tone from 'tone';
+import AudioService from '@/services/AudioService';
 
-import MusicEnum from '@/enums/MusicEnum.js'
+const octives = AudioService.enums.OCTIVES;
+const oscillators = AudioService.enums.OSCILLATORS;
 
-const pitches = MusicEnum.PITCHES;
-const octives = MusicEnum.OCTIVES;
-const oscillators = MusicEnum.OSCILLATORS;
 
 class MusicMetronome extends LitElement {
   static styles = css`
@@ -54,14 +52,14 @@ class MusicMetronome extends LitElement {
     this.feedbackDelay = null;
     //this.pattern = null;
     this.tempo = 120; // default BPM
-    this.feedbackDelay = new Tone.FeedbackDelay();
+    this.feedbackDelay = new AudioService.t.FeedbackDelay();
 
-    this.pitch = pitches.C;
-    this.octive = octives[2];
+    this.pitch = AudioService.enums.PITCHES.C;
+    this.octive = AudioService.getOctive(2);
     this.isSharp = false;
     this.isFlat = false;
     this.duration = '16n';
-    this.oscillator = oscillators.SINE
+    this.oscillator = AudioService.enums.OSCILLATORS.SINE
     this.isPlaying = false;
 
     //this.updatePattern();
@@ -93,8 +91,8 @@ class MusicMetronome extends LitElement {
   getSharpOrFlat() {
     console.debug("getSharpOrFlat", { sharp: this.isSharp, flat: this.isFlat })
     return (
-      this.isSharp ? MusicEnum.SHARP :
-        this.isFlat ? MusicEnum.FLAT : ''
+      this.isSharp ? AudioService.enums.SHARP :
+        this.isFlat ? AudioService.enums.FLAT : ''
     );
   }
 
@@ -106,12 +104,12 @@ class MusicMetronome extends LitElement {
 
   updateLoop() {
 
-    this.loop = new Tone.Loop(
+    this.loop = new AudioService.t.Loop(
       (time) => {
         this.synth.triggerAttackRelease(this.getNote(), this.duration, time);
-        //this.synth.triggerAttackRelease(this.getNote(null, MusicEnum.SHARP), "16n", time + 0.05);
+        //this.synth.triggerAttackRelease(this.getNote(null, AudioService.enums.SHARP), "16n", time + 0.05);
         //this.synth.triggerAttackRelease(this.getNote(), "16n", time + 0.1);
-        //this.synth.triggerAttackRelease(this.getNote(null, MusicEnum.FLAT), "16n", time + 0.15);
+        //this.synth.triggerAttackRelease(this.getNote(null, AudioService.enums.FLAT), "16n", time + 0.15);
       }, '4n');
   }
 
@@ -120,12 +118,12 @@ class MusicMetronome extends LitElement {
   }
 
   togglePlayback() {
-    Tone.start().then(() => {
+    AudioService.t.start().then(() => {
       if (this.isPlaying) {
         this.loop.stop();
-        Tone.getTransport().stop();
+        AudioService.t.getTransport().stop();
       } else {
-        Tone.getTransport().start();
+        AudioService.t.getTransport().start();
         this.loop.start(0);
       }
       this.isPlaying = !this.isPlaying;
@@ -139,14 +137,14 @@ class MusicMetronome extends LitElement {
       this.oscillator = oscillator;
     }
 
-    this.synth = new Tone.MonoSynth({
+    this.synth = new AudioService.t.MonoSynth({
       oscillator: { type: (oscillator ?? this.oscillator) } // todo: this nesting is annoying..
     }).toDestination();
   }
 
   updateTempo(event) {
     this.tempo = event.target.value;
-    Tone.getTransport().bpm.value = event.target.value;
+    AudioService.t.getTransport().bpm.value = event.target.value;
   }
 
   updateOctive(event) {
@@ -189,8 +187,8 @@ class MusicMetronome extends LitElement {
             name="octive"
             id="octive"
             type="range"
-            min="${octives[0]}"
-            max="${octives[ Object.keys(octives).length - 1 ]}"
+            min="${AudioService.getOctive(0)}"
+            max="${AudioService.getOctives()[ AudioService.countOctives() - 1 ]}"
             .value=${this.octive}
             @input=${this.updateOctive}
           />
@@ -250,7 +248,7 @@ class MusicMetronome extends LitElement {
           .value=${this.pitch}
           @input=${this.updatePitch}
         >
-          ${Object.keys(pitches).map((pitch, pitchKey) =>
+          ${Object.keys(AudioService.getPitches()).map((pitch, pitchKey) =>
             html`<option
               .value=${pitch}
               .key=${pitchKey}
