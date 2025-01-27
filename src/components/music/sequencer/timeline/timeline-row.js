@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 
-
 class TimelineRow extends LitElement {
   static styles = css`
     :host {

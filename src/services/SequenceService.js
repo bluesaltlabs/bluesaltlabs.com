@@ -23,3 +23,5 @@ const instance = new SequenceService();
 Object.freeze(instance);
 
 export default instance;
+
+//event: { type: Object }, // Loop, Part, Pattern, Sequence, ToneEvent
