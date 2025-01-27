@@ -29,11 +29,10 @@ class MusicButton extends LitElement {
       -webkit-appearance: none;
       -moz-appearance: none;
 
-
-
       &:hover, &:focus {
         background: #88aaffcc;
         border-color: #ffffffcc;
+        transform: scale(1.05);
       }
 
       &:focus {
@@ -42,10 +41,9 @@ class MusicButton extends LitElement {
       }
 
       &:active {
-        transform: scale(0.99);
+        transform: scale(0.98);
       }
     }
-
   `
 
   static properties = {

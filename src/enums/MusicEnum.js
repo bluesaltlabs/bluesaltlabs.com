@@ -29,6 +29,9 @@ class MusicEnum {
 
   static SHARP = '#';
   static FLAT = 'b';
+  static SHARP_CHAR = '♯'
+  static FLAT_CHAR = '♭'
+  static NATURAL_CHAR = '♮'
 
   static OSCILLATORS = {
     SINE: "sine",
