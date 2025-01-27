@@ -1,8 +1,57 @@
 import { LitElement, html, css } from 'lit';
 
-class ButtonPlay extends LitElement {
+class MusicButton extends LitElement {
   static styles = css`
+    .music-button {
+      font-family: 'Courier New', monospace;
+      display: inline-block;
+      border: 1px solid #88aaffcc;
+      padding: 0.5rem;
+      width: 36px;
+      height: 36px;
+      margin: 0;
+      text-decoration: none;
+      background: #11088311;
+      color: #fff;
+      font-family: sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 150ms ease-in-out,
+                  border-color 150ms ease-in-out,
+                  transform 50ms ease;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+
+
+      &:hover, &:focus {
+        background: #88aaffcc;
+        border-color: #ffffffcc;
+      }
+
+      &:focus {
+        outline: 1px solid #fff;
+        outline-offset: -4px;
+      }
+
+      &:active {
+        transform: scale(0.99);
+      }
+    }
+
   `
+
+  static properties = {
+  }
+
+  constructor() {
+    super()
+  }
+}
+
+class ButtonPlay extends MusicButton {
+
 
   static properties = {
   }
@@ -20,9 +69,8 @@ class ButtonPlay extends LitElement {
 customElements.define('music-button-play', ButtonPlay)
 
 
-class ButtonPause extends LitElement {
-  static styles = css`
-  `
+class ButtonPause extends MusicButton {
+
 
   static properties = {
   }
@@ -40,9 +88,8 @@ class ButtonPause extends LitElement {
 customElements.define('music-button-pause', ButtonPause)
 
 
-class ButtonPlayPause extends LitElement {
-  static styles = css`
-  `
+class ButtonPlayPause extends MusicButton {
+
 
   static properties = {
   }
@@ -60,9 +107,8 @@ class ButtonPlayPause extends LitElement {
 customElements.define('music-button-play-pause', ButtonPlayPause)
 
 
-class ButtonReverse extends LitElement {
-  static styles = css`
-  `
+class ButtonReverse extends MusicButton {
+
 
   static properties = {
   }
@@ -80,9 +126,8 @@ class ButtonReverse extends LitElement {
 customElements.define('music-button-reverse', ButtonReverse)
 
 
-class ButtonStop extends LitElement {
-  static styles = css`
-  `
+class ButtonStop extends MusicButton {
+
 
   static properties = {
   }
@@ -100,9 +145,8 @@ class ButtonStop extends LitElement {
 customElements.define('music-button-stop', ButtonStop)
 
 
-class ButtonFastBackward extends LitElement {
-  static styles = css`
-  `
+class ButtonFastBackward extends MusicButton {
+
 
   static properties = {
   }
@@ -120,9 +164,8 @@ class ButtonFastBackward extends LitElement {
 customElements.define('music-button-fast-backward', ButtonFastBackward)
 
 
-class ButtonFastForward extends LitElement {
-  static styles = css`
-  `
+class ButtonFastForward extends MusicButton {
+
 
   static properties = {
   }
@@ -140,9 +183,8 @@ class ButtonFastForward extends LitElement {
 customElements.define('music-button-fast-forward', ButtonFastForward)
 
 
-class ButtonSkipBackward extends LitElement {
-  static styles = css`
-  `
+class ButtonSkipBackward extends MusicButton {
+
 
   static properties = {
   }
@@ -160,9 +202,8 @@ class ButtonSkipBackward extends LitElement {
 customElements.define('music-button-skip-backward', ButtonSkipBackward)
 
 
-class ButtonSkipForward extends LitElement {
-  static styles = css`
-  `
+class ButtonSkipForward extends MusicButton {
+
 
   static properties = {
   }
@@ -180,9 +221,8 @@ class ButtonSkipForward extends LitElement {
 customElements.define('music-button-skip-forward', ButtonSkipForward)
 
 
-class ButtonRecord extends LitElement {
-  static styles = css`
-  `
+class ButtonRecord extends MusicButton {
+
 
   static properties = {
   }
@@ -200,9 +240,8 @@ class ButtonRecord extends LitElement {
 customElements.define('music-button-record', ButtonRecord)
 
 
-class ButtonEject extends LitElement {
-  static styles = css`
-  `
+class ButtonEject extends MusicButton {
+
 
   static properties = {
   }
@@ -220,9 +259,8 @@ class ButtonEject extends LitElement {
 customElements.define('music-button-eject', ButtonEject)
 
 
-class ButtonShuffle extends LitElement {
-  static styles = css`
-  `
+class ButtonShuffle extends MusicButton {
+
 
   static properties = {
   }
@@ -240,9 +278,8 @@ class ButtonShuffle extends LitElement {
 customElements.define('music-button-shuffle', ButtonShuffle)
 
 
-class ButtonRepeat extends LitElement {
-  static styles = css`
-  `
+class ButtonRepeat extends MusicButton {
+
 
   static properties = {
   }
@@ -260,9 +297,8 @@ class ButtonRepeat extends LitElement {
 customElements.define('music-button-repeat', ButtonRepeat)
 
 
-class ButtonRepeatOnce extends LitElement {
-  static styles = css`
-  `
+class ButtonRepeatOnce extends MusicButton {
+
 
   static properties = {
   }
@@ -280,9 +316,8 @@ class ButtonRepeatOnce extends LitElement {
 customElements.define('music-button-repeat-once', ButtonRepeatOnce)
 
 
-class ButtonReload extends LitElement {
-  static styles = css`
-  `
+class ButtonReload extends MusicButton {
+
 
   static properties = {
   }
@@ -300,9 +335,8 @@ class ButtonReload extends LitElement {
 customElements.define('music-button-reload', ButtonReload);
 
 
-class ButtonRefresh extends LitElement {
-  static styles = css`
-  `
+class ButtonRefresh extends MusicButton {
+
 
   static properties = {
   }
@@ -320,9 +354,8 @@ class ButtonRefresh extends LitElement {
 customElements.define('music-button-refresh', ButtonRefresh)
 
 
-class ButtonVolumeUp extends LitElement {
-  static styles = css`
-  `
+class ButtonVolumeUp extends MusicButton {
+
 
   static properties = {
   }
@@ -340,9 +373,8 @@ class ButtonVolumeUp extends LitElement {
 customElements.define('music-button-volume-up', ButtonVolumeUp)
 
 
-class ButtonVolume extends LitElement {
-  static styles = css`
-  `
+class ButtonVolume extends MusicButton {
+
 
   static properties = {
   }
@@ -360,9 +392,8 @@ class ButtonVolume extends LitElement {
 customElements.define('music-button-volume', ButtonVolume)
 
 
-class ButtonVolumeDown extends LitElement {
-  static styles = css`
-  `
+class ButtonVolumeDown extends MusicButton {
+
 
   static properties = {
   }
@@ -380,9 +411,8 @@ class ButtonVolumeDown extends LitElement {
 customElements.define('music-button-volume-down', ButtonVolumeDown)
 
 
-class ButtonVolumeMute extends LitElement {
-  static styles = css`
-  `
+class ButtonVolumeMute extends MusicButton {
+
 
   static properties = {
   }
