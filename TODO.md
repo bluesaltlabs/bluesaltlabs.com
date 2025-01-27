@@ -2,6 +2,13 @@
 
 ## 2025.01.23
 
+- [ ] THe UI stuff for the sequencer is driving me nuts. work on putting together the site layout and figuring that out.
+  - [ ] what does the CSS framework provide? what does it not provide that I'm used to having?
+  - [ ] what elements does a website normally have?
+    - [ ] navbar / sidebar / header
+    - [ ] main content
+      - [ ] subdivisions of this.
+    - [ ] footer
 - [ ] create a demo UI component to add all the events and stuff to. (see /src/components/sequencer/sequencer-demo-ui.js)
 - [ ] needs drag-and-drop functionality, but this can be added later.
   - I have notes on this already. where are they?

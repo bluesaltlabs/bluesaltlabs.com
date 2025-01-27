@@ -17,6 +17,7 @@ export default {
         sequencer: 'music/sequencer.html',
         games: 'games/index.html',
         tools: 'tools/index.html',
+        resources: 'resources/index.html',
       },
     },
   },
