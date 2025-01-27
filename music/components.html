@@ -11,6 +11,7 @@
   <!-- Lit Components -->
   <script type="module" src="/src/components/layout/base.js"></script>
   <script type="module" src="/src/components/music/music-components.js"></script>
+  <script type="module" src="/src/components/music/controls/buttons.js"></script>
 </head>
 <body>
   <layout-base>
@@ -22,12 +23,104 @@
           This is the components page.
         </p>
         <a href="/music/index.html">Back</a>
+        <hr />
       </div>
-
     </div>
+
     <div class="pure-g">
       <div class="pure-u mx-auto">
-      <music-components></music-components>
+
+        <table class="pure-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Example</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Play</td>
+              <td><music-button-play></music-button-play></td>
+            </tr>
+            <tr>
+              <td>Pause</td>
+              <td><music-button-pause></music-button-pause></td>
+            </tr>
+            <tr>
+              <td>Play / Pause</td>
+              <td><music-button-play-pause></music-button-play-pause></td>
+            </tr>
+            <tr>
+              <td>Reverse</td>
+              <td><music-button-reverse></music-button-reverse></td>
+            </tr>
+            <tr>
+              <td>Stop</td>
+              <td><music-button-stop></music-button-stop></td>
+            </tr>
+            <tr>
+              <td>Fast Backward</td>
+              <td><music-button-fast-backward></music-button-fast-backward></td>
+            </tr>
+            <tr>
+              <td>Fast Forward</td>
+              <td><music-button-fast-forward></music-button-fast-forward></td>
+            </tr>
+            <tr>
+              <td>Skip Backward</td>
+              <td><music-button-skip-backward></music-button-skip-backward></td>
+            </tr>
+            <tr>
+              <td>Skip Forward</td>
+              <td><music-button-skip-forward></music-button-skip-forward></td>
+            </tr>
+            <tr>
+              <td>Record</td>
+              <td><music-button-record></music-button-record></td>
+            </tr>
+            <tr>
+              <td>Eject</td>
+              <td><music-button-eject></music-button-eject></td>
+            </tr>
+            <tr>
+              <td>Shuffle</td>
+              <td><music-button-shuffle></music-button-shuffle></td>
+            </tr>
+            <tr>
+              <td>Repeat</td>
+              <td><music-button-repeat></music-button-repeat></td>
+            </tr>
+            <tr>
+              <td>Repeat Once</td>
+              <td><music-button-repeat-once></music-button-repeat-once></td>
+            </tr>
+            <tr>
+              <td>Reload</td>
+              <td><music-button-reload></music-button-reload></td>
+            </tr>
+            <tr>
+              <td>Refresh</td>
+              <td><music-button-refresh></music-button-refresh></td>
+            </tr>
+            <tr>
+              <td>Volume Up</td>
+              <td><music-button-volume-up></music-button-volume-up></td>
+            </tr>
+            <tr>
+              <td>Volume</td>
+              <td><music-button-volume></music-button-volume></td>
+            </tr>
+            <tr>
+              <td>Volume Down</td>
+              <td><music-button-volume-down></music-button-volume-down></td>
+            </tr>
+            <tr>
+              <td>Mute</td>
+              <td><music-button-volume-mute></music-button-volume-mute></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </layout-base>
