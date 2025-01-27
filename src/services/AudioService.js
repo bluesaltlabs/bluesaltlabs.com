@@ -9,6 +9,7 @@ class AudioService {
   }
 
   constructor() {
+    //console.debug("calling the AudioService constructor")
     if (!AudioService.instance) {
       this.isPlaying = false;
       this.t = Tone;
@@ -27,7 +28,7 @@ class AudioService {
     if(isPlaying === true || isPlaying === false) {
       this.setIsPlaying(isPlaying)
     }
-    return this.getIsPlaying()
+    return !!this.isPlaying
   }
 
   togglePlayback(callback = null) {

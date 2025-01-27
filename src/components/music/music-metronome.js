@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import AudioService from '@/services/AudioService';
+// import
 
 const octives = AudioService.enums.OCTIVES;
 const oscillators = AudioService.enums.OSCILLATORS;
@@ -37,6 +38,7 @@ class MusicMetronome extends LitElement {
     loop: { type: Object },
     //pattern: { type: Object },
     FeedbackDelay: { type: Object },
+    isPlaying: { type: Boolean },
     tempo: { type: Number },
     pitch: { type: String },
     octive: { type: String },
@@ -52,7 +54,7 @@ class MusicMetronome extends LitElement {
     //this.pattern = null;
     this.tempo = 120; // default BPM
     this.feedbackDelay = new AudioService.t.FeedbackDelay();
-
+    this.isPlaying = AudioService.isPlaying;
     this.pitch = AudioService.enums.PITCHES.C;
     this.octive = AudioService.getOctive(2);
     this.isSharp = false;
@@ -87,7 +89,7 @@ class MusicMetronome extends LitElement {
 
   // used for getNote
   getSharpOrFlat() {
-    console.debug("getSharpOrFlat", { sharp: this.isSharp, flat: this.isFlat })
+    //console.debug("getSharpOrFlat", { sharp: this.isSharp, flat: this.isFlat })
     return (
       this.isSharp ? AudioService.enums.SHARP :
         this.isFlat ? AudioService.enums.FLAT : ''
@@ -96,7 +98,7 @@ class MusicMetronome extends LitElement {
 
   getNote(pitch = null, sharpOrFlat = null, octive = null) {
     const note = `${pitch ?? this.pitch}${sharpOrFlat ?? this.getSharpOrFlat()}${octive ?? this.octive}`;
-    console.debug(`Note: ${note}`);
+    //console.debug(`Note: ${note}`);
     return note;
   }
 
@@ -117,7 +119,8 @@ class MusicMetronome extends LitElement {
 
   togglePlayback() {
     AudioService.togglePlayback((isPlaying) => {
-      isPlaying === true ? this.loop.start(0) : this.loop.stop()
+      this.isPlaying = !!isPlaying
+      this.isPlaying === true ? this.loop.start(0) : this.loop.stop()
     })
   }
 
@@ -153,7 +156,7 @@ class MusicMetronome extends LitElement {
     return html`
       <div class="controls">
         <button @click=${this.togglePlayback}>
-          ${AudioService.playing() ? 'Stop' : 'Start'}
+          ${this.isPlaying === true ? 'Stop' : 'Start'}
         </button>
         <label for="tempo">
           Tempo: ${this.tempo} BPM
