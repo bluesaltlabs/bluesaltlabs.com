@@ -41,7 +41,6 @@ class MusicMetronome extends LitElement {
     pitch: { type: String },
     octive: { type: String },
     duration: { type: String },
-    isPlaying: { type: Boolean },
     isSharp: { type: Boolean },
     isFlat: { type: Boolean },
   };
@@ -60,7 +59,6 @@ class MusicMetronome extends LitElement {
     this.isFlat = false;
     this.duration = '16n';
     this.oscillator = AudioService.enums.OSCILLATORS.SINE
-    this.isPlaying = false;
 
     //this.updatePattern();
     this.updateSynth();
@@ -118,18 +116,9 @@ class MusicMetronome extends LitElement {
   }
 
   togglePlayback() {
-    AudioService.t.start().then(() => {
-      if (this.isPlaying) {
-        this.loop.stop();
-        AudioService.t.getTransport().stop();
-      } else {
-        AudioService.t.getTransport().start();
-        this.loop.start(0);
-      }
-      this.isPlaying = !this.isPlaying;
-    }).catch((error) => {
-      console.error('Error starting Tone.js:', error);
-    });
+    AudioService.togglePlayback((isPlaying) => {
+      isPlaying === true ? this.loop.start(0) : this.loop.stop()
+    })
   }
 
   updateSynth(oscillator = null) {
@@ -164,7 +153,7 @@ class MusicMetronome extends LitElement {
     return html`
       <div class="controls">
         <button @click=${this.togglePlayback}>
-          ${this.isPlaying ? 'Stop' : 'Start'}
+          ${AudioService.playing() ? 'Stop' : 'Start'}
         </button>
         <label for="tempo">
           Tempo: ${this.tempo} BPM

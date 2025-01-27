@@ -23,9 +23,29 @@ class AudioService {
   setIsPlaying(isPlaying)  { this.isPlaying = !!isPlaying }
   getIsPlaying()           { return !!this.isPlaying }
 
-  //
+  playing(isPlaying = null) {
+    if(isPlaying === true || isPlaying === false) {
+      this.setIsPlaying(isPlaying)
+    }
+    return this.getIsPlaying()
+  }
 
-  // MusicEnum getters
+  togglePlayback(callback = null) {
+    this.t.start().then(() => {
+      if( this.playing() ) {
+        this.t.getTransport().stop();
+      } else {
+        this.t.getTransport().start();
+      }
+      this.playing( !this.isPlaying )
+      if(typeof callback === 'function') { callback(this.isPlaying) }
+    }).catch((error) => {
+      console.error('Error starting Tone.js:', error);
+    })
+  }
+
+
+  // MusicEnum helper methods
   getEnums() { return MusicEnum }
   getPitches() { return MusicEnum.PITCHES }
   getOctives() { return MusicEnum.OCTIVES }
@@ -33,9 +53,11 @@ class AudioService {
   getOctive(index) { return MusicEnum.OCTIVES[index] ?? null }
   getTempos() { return MusicEnum.TEMPOS }
   getOscillators() { return MusicEnum.OSCILLATORS }
+
+  //
 }
 
-const instance = new AudioService();
-Object.freeze(instance);
+const instance = new AudioService()
+//Object.freeze(instance) // todo: freeze only the t and enums, playing needs to be settable.
 
 export default instance;
