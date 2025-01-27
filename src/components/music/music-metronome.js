@@ -55,6 +55,7 @@ class MusicMetronome extends LitElement {
     this.isPlaying = AudioService.isPlaying;
     this.pitch = AudioService.enums.PITCHES.C;
     this.octive = AudioService.getOctive(2);
+    this.sharpOrFlat = "natural";
     this.isSharp = false;
     this.isFlat = false;
     this.duration = '16n';
@@ -196,72 +197,60 @@ class MusicMetronome extends LitElement {
 
 
 
-        <div class="controls">
+        <!-- todo: figure out why the pure styling isn't appling to these components!! -->
+        <div class="pure-g">
+
 
           <!-- Control: Pitch -->
-          <div class="">
-            <label for="pitch">Pitch</label>
-            <select
-              name="pitch"
-              id="pitch"
-              .value=${this.pitch}
-              @input=${this.updatePitch}
-            >
-              ${Object.keys(AudioService.getPitches()).map((pitch, pitchKey) =>
-                html`<option
-                  .value=${pitch}
-                  .key=${pitchKey}
-                  .selected=${this.pitch === pitch}
-                >${pitch}</option>`
-              )}
-            </select>
+          <div style=" pure-u-1-2">
+            <div style="width:100%;display:block;">
+              <label style="display:block" for="pitch">Pitch</label>
+              <select
+                style="display:block"
+                name="pitch"
+                id="pitch"
+                .value=${this.pitch}
+                @input=${this.updatePitch}
+              >
+                ${Object.keys(AudioService.getPitches()).map((pitch, pitchKey) =>
+                  html`<option
+                    .value=${pitch}
+                    .key=${pitchKey}
+                    .selected=${this.pitch === pitch}
+                  >${pitch}</option>`
+                )}
+              </select>
+            </div>
           </div>
           <!--Control: Pitch End -->
 
 
+          <!-- Control: SharpOrFlat -->
+          <div style="pure-u-1-2">
+            <div style="width:100%;display:block;">
+              <label style="display:block" for="sharp_flat" aria-hidden="true" aria-label="Sharp / Flat">&nbsp;</label>
+              <select
+                style="display:block"
+                name="sharp_flat"
+                id="sharp_flat"
+                .value=${this.sharpOrFlat}
+                @input=${this.updateSharpFlat}
+              >
+                <option value="flat" .selected=${this.isFlat}>
+                  ${AudioService.enums.FLAT_CHAR}
+                </option>
+                <option value="natural" .selected=${!this.isFlat && !this.isSharp}>
+                  ${AudioService.enums.NATURAL_CHAR}
+                </option>
+                <option value="sharp" .selected=${this.isSharp}>
+                  ${AudioService.enums.SHARP_CHAR}
+                </option>
+              </select>
+            </div>
+          </div>
+          <!--Control: SharpOrFlat End -->
 
         </div>
-
-        <div class="">
-
-          <label for="flat">
-            <input
-              id="flat"
-              value="flat"
-              name="sharp_flat"
-              type="radio"
-              .checked=${!!this.isFlat}
-              @click=${this.updateSharpFlat}
-            />
-            ${AudioService.enums.FLAT_CHAR}
-          </label>
-
-          <label for="natural">
-            <input
-              id="natural"
-              value="natural"
-              name="sharp_flat"
-              type="radio"
-              .checked=${!this.isFlat && !this.isSharp}
-              @click=${this.updateSharpFlat}
-            />
-            ${AudioService.enums.NATURAL_CHAR}
-          </label>
-
-          <label for="sharp">
-            <input
-              id="sharp"
-              value="sharp"
-              name="sharp_flat"
-              type="radio"
-              .checked=${!!this.isSharp}
-              @click=${this.updateSharpFlat}
-            />
-            ${AudioService.enums.SHARP_CHAR}
-          </label>
-        </div>
-
-
 
         <!-- Control: Oscillator -->
         <div class="controls">
