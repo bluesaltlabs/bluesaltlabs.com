@@ -1,27 +1,36 @@
-import { sequencerDB } from '@/db/sequencerDB.js';
+//import { sequencerDB } from '@/db/sequencerDB.js';
 
 class SequenceService {
-  async saveSequence(id, pattern) {
-    await sequencerDB.patterns.put({ id, pattern });
+  static properties = {
+    sequences: { type: Array },
   }
 
-  async loadSequence(id) {
-    const sequence = await sequencerDB.patterns.get(id);
-    return sequence ? sequence.pattern : null;
+  // async saveSequence(id, pattern) {
+  //   await sequencerDB.patterns.put({ id, pattern });
+  // }
+
+  constructor() {
+
+    this.sequences = []//this.getNewSequence()
   }
 
-  async deleteSequence(id) {
-    await sequencerDB.patterns.delete(id);
-  }
+  // async loadSequence(id) {
+  //   const sequence = await sequencerDB.patterns.get(id);
+  //   return sequence ? sequence.pattern : null;
+  // }
 
-  async getAllSequences() {
-    return await sequencerDB.patterns.toArray();
-  }
+  // async deleteSequence(id) {
+  //   await sequencerDB.patterns.delete(id);
+  // }
+
+  // async getAllSequences() {
+  //   return await sequencerDB.patterns.toArray();
+  // }
 }
 
-const instance = new SequenceService();
-Object.freeze(instance);
+const instance = new SequenceService()
+//Object.freeze(instance);
 
-export default instance;
+export default instance
 
 //event: { type: Object }, // Loop, Part, Pattern, Sequence, ToneEvent
