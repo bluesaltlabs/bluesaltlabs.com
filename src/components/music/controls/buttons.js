@@ -1,7 +1,13 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from 'lit'
+import AudioService from '@/services/AudioService'
 
 class MusicButton extends LitElement {
   static styles = css`
+    :root {
+      width: 36px;
+      height: 36px;
+      margin: 0;
+    }
     .music-button {
       font-family: 'Courier New', monospace;
       display: inline-block;
@@ -48,11 +54,34 @@ class MusicButton extends LitElement {
   constructor() {
     super()
   }
+
+  render() {
+    return html`
+      <button alt="Music Button" class="music-button ">[!]</button>
+    `
+  }
 }
 
-class ButtonPlay extends MusicButton {
+export class ButtonSequencerStep extends MusicButton {
 
+  // todo: alt is variable based on the id of the step
 
+  render() {
+    return html`
+      <button alt="Sequencer Button" class="music-button music-button__sequencer-step">
+        <slot></slot>
+      </button>
+    `
+  }
+}
+customElements.define('music-button-sequencer-step', ButtonSequencerStep)
+
+export class ButtonPlayPauseNew extends MusicButton {
+
+}
+customElements.define('music-button-play-pause-new', ButtonPlayPauseNew)
+
+export class ButtonPlay extends MusicButton {
   static properties = {
   }
 
@@ -62,14 +91,14 @@ class ButtonPlay extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Play" class="music-button music-button__play">&#x23F5;</button>
+      <button alt="Music Play" class="music-button music-button__play">&#x23F5;</button>
     `
   }
 }
 customElements.define('music-button-play', ButtonPlay)
 
 
-class ButtonPause extends MusicButton {
+export class ButtonPause extends MusicButton {
 
 
   static properties = {
@@ -81,14 +110,14 @@ class ButtonPause extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Pause" class="music-button music-button__pause">&#x23F8;</button>
+      <button alt="Music Pause" class="music-button music-button__pause">&#x23F8;</button>
     `
   }
 }
 customElements.define('music-button-pause', ButtonPause)
 
 
-class ButtonPlayPause extends MusicButton {
+export class ButtonPlayPause extends MusicButton {
 
 
   static properties = {
@@ -100,7 +129,7 @@ class ButtonPlayPause extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Play / Pause" class="music-button music-button__play_pause">&#x23EF;</button>
+      <button alt="Music Play / Pause" class="music-button music-button__play_pause">&#x23EF;</button>
     `
   }
 }
@@ -119,7 +148,7 @@ class ButtonReverse extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Reverse" class="music-button music-button__reverse">&#x23F4;</button>
+      <button alt="Music Reverse" class="music-button music-button__reverse">&#x23F4;</button>
     `
   }
 }
@@ -195,7 +224,7 @@ class ButtonSkipBackward extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Skip Backward" class="music-button music-button__skip_backward">&#x23EE;</button>
+      <button alt="Music Skip Backward" class="music-button music-button__skip_backward">&#x23EE;</button>
     `
   }
 }
@@ -214,7 +243,7 @@ class ButtonSkipForward extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Skip Forward" class="music-button music-button__skip_forward">&#x23ED;</button>
+      <button alt="Music Skip Forward" class="music-button music-button__skip_forward">&#x23ED;</button>
     `
   }
 }
@@ -233,7 +262,7 @@ class ButtonRecord extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Record" class="music-button music-button__record">&#x23FA;</button>
+      <button alt="Music Record" class="music-button music-button__record">&#x23FA;</button>
     `
   }
 }
@@ -252,7 +281,7 @@ class ButtonEject extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Eject" class="music-button music-button__eject">&#x23CF;</button>
+      <button alt="Music Eject" class="music-button music-button__eject">&#x23CF;</button>
     `
   }
 }
@@ -271,7 +300,7 @@ class ButtonShuffle extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Shuffle" class="music-button music-button__shuffle">&#x1F500;</button>
+      <button alt="Music Shuffle" class="music-button music-button__shuffle">&#x1F500;</button>
     `
   }
 }
@@ -290,7 +319,7 @@ class ButtonRepeat extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Repeat" class="music-button music-button__repeat">&#x1F501;</button>
+      <button alt="Music Repeat" class="music-button music-button__repeat">&#x1F501;</button>
     `
   }
 }
@@ -309,7 +338,7 @@ class ButtonRepeatOnce extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Repeat Once" class="music-button music-button__repeat_once">&#x1F502;</button>
+      <button alt="Music Repeat Once" class="music-button music-button__repeat_once">&#x1F502;</button>
     `
   }
 }
@@ -328,7 +357,7 @@ class ButtonReload extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Reload" class="music-button music-button__reload">&#x1F503;</button>
+      <button alt="Music Reload" class="music-button music-button__reload">&#x1F503;</button>
     `
   }
 }
@@ -347,7 +376,7 @@ class ButtonRefresh extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Refresh" class="music-button music-button__refresh">&#x1F504;</button>
+      <button alt="Music Refresh" class="music-button music-button__refresh">&#x1F504;</button>
     `
   }
 }
@@ -366,7 +395,7 @@ class ButtonVolumeUp extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Volume Up" class="music-button music-button__volume_up">&#x1F50A;</button>
+      <button alt="Music Volume Up" class="music-button music-button__volume_up">&#x1F50A;</button>
     `
   }
 }
@@ -385,7 +414,7 @@ class ButtonVolume extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Volume" class="music-button music-button__volume">&#x1F509;</button>
+      <button alt="Music Volume" class="music-button music-button__volume">&#x1F509;</button>
     `
   }
 }
@@ -404,7 +433,7 @@ class ButtonVolumeDown extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Volume Down" class="music-button music-button__volume_down">&#x1F508;</button>
+      <button alt="Music Volume Down" class="music-button music-button__volume_down">&#x1F508;</button>
     `
   }
 }
@@ -423,7 +452,7 @@ class ButtonVolumeMute extends MusicButton {
 
   render() {
     return html`
-      <button alt="Audio Volume Mute" class="music-button music-button__volume_mute">&#x1F507;</button>
+      <button alt="Music Volume Mute" class="music-button music-button__volume_mute">&#x1F507;</button>
     `
   }
 }

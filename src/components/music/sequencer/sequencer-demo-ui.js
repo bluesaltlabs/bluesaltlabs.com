@@ -1,56 +1,30 @@
 import { LitElement, html, css } from 'lit';
-//import AudioService from '@/services/AudioService.js';
-import './timeline/timeline-row';
+// import AudioService from '@/services/AudioService';
+import { ButtonPlayPause, ButtonSequencerStep } from '@/components/music/controls/buttons'
 
+const num_sequencer_steps = 16;
+const num_sequencer_voices = 1;
 
 class SequencerDemoUi extends LitElement {
-  static styles = css`
-    :host {
-
-    }
-
-    .sequencer-demo-ui {
-      display: block;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .sequencer-timeline .sequencer-timeline_row {
-      width: 100%;
-    }
-
-    .sequencer-timeline .sequencer-timeline_row .indicator {
-      display: inline-block;
-      margin: 0 2px;
-    }
-
-    .indicator > span {
-      border-radius:50%;
-      background:red;
-      width:15px;
-      height:15px;
-      display: block;
-      border: 1px solid black;
-    }
-  `;
+  //static styles = css``
 
   static properties = {
-
-//    service: { type: AudioService },
-  };
+    sequences: { type: Array },
+  }
 
   constructor() {
     super();
-    //this.service = AudioService;
+    this.sequences = this.getNewSequence()
+
+    console.debug("sequence", this.sequences)
 
   }
 
-  play() {
-    // todo
-  }
-
-  stop() {
-    // todo
+  getNewSequence() {
+    return Array.from(
+      { length: num_sequencer_voices },
+      () => new Array(num_sequencer_steps).fill(0)
+    )
   }
 
   render() {
@@ -59,20 +33,29 @@ class SequencerDemoUi extends LitElement {
       <div class="sequencer-demo-ui">
 
         <div class="sequencer-header">
-          <!-- <button @click=${this.play()}>Play</button> -->
-          <!-- <button @click=${this.stop()}>Stop</button> -->
+          <div class="control-button-container">
+            <music-button-play-pause></music-button-play-pause>
+          </div>
+
+          <span>here is the sequencer header</span>
         </div>
 
         <hr />
 
         <div class="sequencer-body">
 
-          <div class="sequencer-timeline">
-            <timeline-row></timeline-row>
 
+          <!-- todo: need to add row containers and prevent wrapping.  -->
+          <div class="sequencer-timeline">
+            ${this.sequences.map((voiceSequence) => {
+              return voiceSequence.map((sequenceSteps) => (
+                html`
+                  <music-button-sequencer-step></music-button-sequencer-step>
+                `
+              ))
+            })}
 
           </div>
-
 
         </div>
       </div>

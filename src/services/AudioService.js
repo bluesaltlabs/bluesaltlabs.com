@@ -6,14 +6,14 @@ class AudioService {
     t: { type: Object },
     enums: { type: Object },
     isPlaying: { type: Boolean },
-  };
+  }
 
   constructor() {
     if (!AudioService.instance) {
       this.isPlaying = false;
       this.t = Tone;
       this.enums = MusicEnum;
-      AudioService.instance = this;
+      AudioService.instance = this
     }
 
     return AudioService.instance;
@@ -33,14 +33,14 @@ class AudioService {
   togglePlayback(callback = null) {
     this.t.start().then(() => {
       if( this.playing() ) {
-        this.t.getTransport().stop();
+        this.t.getTransport().stop()
       } else {
-        this.t.getTransport().start();
+        this.t.getTransport().start()
       }
       this.playing( !this.isPlaying )
       if(typeof callback === 'function') { callback(this.isPlaying) }
     }).catch((error) => {
-      console.error('Error starting Tone.js:', error);
+      console.error('Error starting Tone.js:', error)
     })
   }
 
@@ -60,4 +60,4 @@ class AudioService {
 const instance = new AudioService()
 //Object.freeze(instance) // todo: freeze only the t and enums, playing needs to be settable.
 
-export default instance;
+export default instance

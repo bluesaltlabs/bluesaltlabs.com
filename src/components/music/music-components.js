@@ -1,9 +1,10 @@
 import { LitElement, html, css } from 'lit';
+import { ButtonPlay } from './controls/buttons'
+
+
 
 class MusicComponents extends LitElement {
-  static styles = css`
 
-  `
 
   static properties = {
 
@@ -17,7 +18,11 @@ class MusicComponents extends LitElement {
   render() {
     return html`
       <div class="music-components">
-
+        <music-button-play></music-button-play>
+      </div>
+      <hr />
+      <div class="">
+        <span>this is here</span>
       </div>
     `
   }
