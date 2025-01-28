@@ -20,7 +20,7 @@ export default {
         games: 'games/index.html',
         tools: 'tools/index.html',
         resources: 'resources/index.html',
-
+        blog: 'blog/index.html',
       },
     },
   },
