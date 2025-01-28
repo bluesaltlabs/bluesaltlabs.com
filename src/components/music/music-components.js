@@ -15,10 +15,16 @@ class MusicComponents extends LitElement {
     super()
   }
 
+
+  // todo: create a demo component on this page that is just a play/pause button that initiates
+  // the AudioService and plays a random, hard-coded, sequence song.
+  // I may need to make notes on some music theory stuff in here somewhere for assistance.
+
   render() {
     return html`
       <div class="music-components">
         <music-button-play></music-button-play>
+
       </div>
       <hr />
       <div class="">

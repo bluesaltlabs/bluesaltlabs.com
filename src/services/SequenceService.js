@@ -10,8 +10,14 @@ class SequenceService {
   // }
 
   constructor() {
+    console.debug("called SequenceService constructor.")
 
-    this.sequences = []//this.getNewSequence()
+    this.voices_count = 1
+    this.steps_count = 16
+
+    this.resetSequences()
+
+
   }
 
   // async loadSequence(id) {
@@ -26,7 +32,17 @@ class SequenceService {
   // async getAllSequences() {
   //   return await sequencerDB.patterns.toArray();
   // }
+  //
+
+  resetSequences() {
+    this.sequences = Array.from(
+      { length: this.voices_count },
+      () => new Array(this.steps_count).fill(false)
+    )
+  }
 }
+
+
 
 const instance = new SequenceService()
 //Object.freeze(instance);
