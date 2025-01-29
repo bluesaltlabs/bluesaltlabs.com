@@ -1,6 +1,9 @@
 import { LitElement, html, css } from 'lit';
 //import { ButtonPlay } from './controls/buttons'
 
+// todo: look at these plugin files and figure out what I need to copy over to this project:
+//       https://github.com/hoch/WAAX/tree/ca933954877e307123893ecf8e6ec91402d2dd8c/src/plug_ins
+
 import {
   AudioControlPlayButton
 } from '@/components/audio/controls/buttons'
