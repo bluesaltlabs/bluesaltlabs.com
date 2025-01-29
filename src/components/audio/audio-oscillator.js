@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit'
+import AudioService from '@/services/AudioService'
 
 // temp
 const oscillatorTypes = ['sine', 'square', 'sawtooth', 'triangle']
@@ -46,20 +47,24 @@ export class AudioOscillator extends LitElement {
   // todo: add these attributes. Ideally they would be in the AudioService, but leave them here for now
   static properties = {
     frequency: { type: Number },
-    oscillator: { type: String },
+    oscillatorType: { type: String },
     detune: { type: Number },
+    volume: { type: Number },
     isPlaying: { type: Boolean },
     showOverlay: { type: Boolean } // todo: figure out how to make this reactive and internal
   }
 
   constructor() {
     super()
-    this.frequency = 0 // todo
-    this.detune = 0 // todo
+    this.frequency = 150
+    this.oscillatorType = "sine"
+    this.detune = 0
+    this.volume = -16
     this.isPlaying = false
-    this.showOverlay = true
-    this.oscillator = "sine"
+    this.showOverlay = false
+
     this.ctx = new (window.AudioContext || window.webkitAudioContext)() // todo: use _ctx?
+    this.osc = null // todo: set to new oscilator instance?
     this.analyser = this.ctx.createAnalyser() // todo: use _analyser?
 
     // todo: make this more robust. new function?
@@ -79,70 +84,64 @@ export class AudioOscillator extends LitElement {
     }
 
 
+    // todo: init a new tone.js oscillator.
+    // // todo:
+    this.updateOscillator()
+
   }
 
-  // todo: I don't know how this works, but it may be required for the canvas.
-  setRequestAnimFrame() {
-    // window.requestAnimFrame = (function(){
-    // return  window.requestAnimationFrame       ||
-    //   window.webkitRequestAnimationFrame ||
-    //   window.mozRequestAnimationFrame    ||
-    //   window.oRequestAnimationFrame      ||
-    //   window.msRequestAnimationFrame     ||
-    //   function( callback ){
-    //   window.setTimeout(callback, 1000 / 60);
-    // };
-    // })();
-  }
+  // Updates the oscillator instance with values. run on input changes.
+  // todo: needs to run on input changes.
+  updateOscillator() {
+    console.debug("updating oscillator", { frequency: this.frequency, type: this.oscillatorType, volume: this.volume })
 
-  // todo: refactor
-  playSound(buffer, time) {
-    //source.buffer = buffer;
-    //source.connect(context.destination);
-    //source[source.start ? 'start' : 'noteOn'](time);
-  }
+    if(this.osc) { this.osc?.stop() }
 
-  // todo: refactor
-  loadSounds(obj, soundMap, callback) {
-    // Array-ify
-    // var names = [];
-    // var paths = [];
-    // for (var name in soundMap) {
-    //   var path = soundMap[name];
-    //   names.push(name);
-    //   paths.push(path);
-    // }
-    // bufferLoader = new BufferLoader(context, paths, function(bufferList) {
-    //   for (var i = 0; i < bufferList.length; i++) {
-    //     var buffer = bufferList[i];
-    //     var name = names[i];
-    //     obj[name] = buffer;
-    //   }
-    //   if (callback) {
-    //     callback();
-    //   }
-    // });
-    // bufferLoader.load();
-  }
+    this.osc = new AudioService.t.Oscillator({
+      type: this.oscillatorType,
+      frequency: this.frequency,
+      detune: this.detune,
+      volume: this.volume,
+    }).toDestination()
 
+    if(this.isPlaying) { this.osc.start() } // todo: may want to check if it's already going.
+
+    console.debug("oscillator", { oscillator: this.osc })
+    //this.osc = new AudioService.t.Oscillator(this.frequency,this.oscillatorType).toDestination().start()
+  }
 
   handleFrequencyChange(event) {
     console.debug("frequency changed", { value: event?.target?.value ?? undefined })
     this.frequency = parseInt(event?.target?.value) ?? 0
+    this.updateOscillator()
   }
 
   handleDetuneChange(event) {
     console.debug("detune changed", { value: event?.target?.value ?? undefined })
     this.detune = parseInt(event?.target?.value) ?? 0
+    this.updateOscillator()
   }
 
+  handleVolumeChange(event) {
+      console.debug("volume changed", { value: event?.target?.value ?? undefined })
+      this.volume = parseInt(event?.target?.value) ?? -16
+      this.updateOscillator()
+    }
+
   handleOscillatorTypeChange(event) {
-    console.debug("oscillator type changed", { value: event?.target?.value ?? undefined,  oscillator: this.oscillator })
-    this.oscillator = event?.target?.value ?? null
+    console.debug("oscillator type changed", { value: event?.target?.value ?? undefined,  oscillatorType: this.oscillatorType })
+    this.oscillatorType = event?.target?.value ?? null
+    this.updateOscillator()
   }
 
   handlePlayButtonClick(event) {
     console.debug("clicked play button")
+
+    AudioService.togglePlayback((isPlaying) => {
+      this.isPlaying = !!isPlaying
+      this.isPlaying === true ? this.osc.start() : this.osc.stop()
+    })
+
   }
 
   render() {
@@ -164,6 +163,24 @@ export class AudioOscillator extends LitElement {
             height="240"
           ></canvas>
         </div>
+
+        <!-- todo: oscillator volume input -->
+        <div>
+          <label for="volume">
+            Volume:
+            <input
+              id="volume"
+              type="range"
+              min="-30"
+              max="1"
+              step="1"
+              .value="${this.volume}"
+              @input=${this.handleVolumeChange}
+            />
+          </label>
+        </div>
+
+
 
         <!-- todo: oscillator frequency input -->
         <div>
@@ -197,19 +214,10 @@ export class AudioOscillator extends LitElement {
           </label>
         </div>
 
-        <!-- todo: oscillator type radio buttons -->
-        <!-- clean this up. add label elements?  -->
-        <!-- <div>
-          <input type="radio" name="ir" value="0" class="effect" checked="" onclick="sample.changeType('sine')">Sine
-          <input type="radio" name="ir" value="1" class="effect" onclick="sample.changeType('square')">Square
-          <input type="radio" name="ir" value="2" class="effect" onclick="sample.changeType('sawtooth')">Sawtooth
-          <input type="radio" name="ir" value="3" class="effect" onclick="sample.changeType('triangle')">Triangle
-        </div> -->
-
-        <!-- todo: oscillator type radio buttons -->
-        <!-- todo: loop over an options array instead of hard-coding -->
+        <!-- todo: oscillatorType type radio buttons -->
+        <!-- todo: use enums -->
         <fieldset>
-          <legend>Oscillator</legend>
+          <legend>Oscillator Type</legend>
 
           ${oscillatorTypes.map((oscillatorType, typeKey) => (
             html`
@@ -220,20 +228,18 @@ export class AudioOscillator extends LitElement {
                   .key="${typeKey}"
                   .id="${oscillatorType}"
                   .value="${oscillatorType}"
-                  .checked="${this.oscillator === oscillatorType}"
+                  .checked="${this.oscillatorType === oscillatorType}"
                   @click=${this.handleOscillatorTypeChange}
                 />
                 ${oscillatorType}
               </label>
             `
           ))}
-
-
         </fieldset>
 
         <!-- todo: oscillator play/pause button -->
         <div>
-          <button @click=${this.handlePlayButtonClick}>Play/pause</button>
+          <button @click=${this.handlePlayButtonClick}>Play/Pause</button>
         </div>
 
       </div>
@@ -245,7 +251,7 @@ customElements.define('audio-oscillator', AudioOscillator)
 
 /* -------------------------------------------------------------------------- */
 
-const OscillatorSample = () => {
+const oscillatorSample = () => {
 
   function OscillatorSample() {
     this.isPlaying = false;

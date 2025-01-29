@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import AudioService from '@/services/AudioService';
+import { LitElement, html, css } from 'lit'
+import AudioService from '@/services/AudioService'
 
 const octives = AudioService.enums.OCTIVES;
 const oscillators = AudioService.enums.OSCILLATORS;
