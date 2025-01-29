@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit'
 import AudioService from '@/services/AudioService'
 
-class MusicButton extends LitElement {
+export class MusicButton extends LitElement {
   static styles = css`
     :root {
       width: 36px;
@@ -134,7 +134,7 @@ export class ButtonPlayPause extends MusicButton {
 customElements.define('music-button-play-pause', ButtonPlayPause)
 
 
-class ButtonReverse extends MusicButton {
+export class ButtonReverse extends MusicButton {
 
 
   static properties = {
@@ -153,7 +153,7 @@ class ButtonReverse extends MusicButton {
 customElements.define('music-button-reverse', ButtonReverse)
 
 
-class ButtonStop extends MusicButton {
+export class ButtonStop extends MusicButton {
 
 
   static properties = {
@@ -172,7 +172,7 @@ class ButtonStop extends MusicButton {
 customElements.define('music-button-stop', ButtonStop)
 
 
-class ButtonFastBackward extends MusicButton {
+export class ButtonFastBackward extends MusicButton {
 
 
   static properties = {
@@ -191,7 +191,7 @@ class ButtonFastBackward extends MusicButton {
 customElements.define('music-button-fast-backward', ButtonFastBackward)
 
 
-class ButtonFastForward extends MusicButton {
+export class ButtonFastForward extends MusicButton {
 
 
   static properties = {
@@ -210,7 +210,7 @@ class ButtonFastForward extends MusicButton {
 customElements.define('music-button-fast-forward', ButtonFastForward)
 
 
-class ButtonSkipBackward extends MusicButton {
+export class ButtonSkipBackward extends MusicButton {
 
 
   static properties = {
@@ -229,7 +229,7 @@ class ButtonSkipBackward extends MusicButton {
 customElements.define('music-button-skip-backward', ButtonSkipBackward)
 
 
-class ButtonSkipForward extends MusicButton {
+export class ButtonSkipForward extends MusicButton {
 
 
   static properties = {
@@ -248,7 +248,7 @@ class ButtonSkipForward extends MusicButton {
 customElements.define('music-button-skip-forward', ButtonSkipForward)
 
 
-class ButtonRecord extends MusicButton {
+export class ButtonRecord extends MusicButton {
 
 
   static properties = {
@@ -267,7 +267,7 @@ class ButtonRecord extends MusicButton {
 customElements.define('music-button-record', ButtonRecord)
 
 
-class ButtonEject extends MusicButton {
+export class ButtonEject extends MusicButton {
 
 
   static properties = {
@@ -286,7 +286,7 @@ class ButtonEject extends MusicButton {
 customElements.define('music-button-eject', ButtonEject)
 
 
-class ButtonShuffle extends MusicButton {
+export class ButtonShuffle extends MusicButton {
 
 
   static properties = {

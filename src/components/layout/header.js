@@ -1,11 +1,11 @@
 import { LitElement, html, css } from 'lit-element';
 
-class LayoutHeader extends LitElement {
+export class LayoutHeader extends LitElement {
   static styles = css`
     header {
       background-color: var(--color-blue);
       border-bottom: 1px solid var(--color-blue-alt);
-      padding: 8px 16px;
+      padding: 8px 16px; /* todo: duplicate this value in the footer by using variables */
       margin-bottom: 25px;
 
       button {

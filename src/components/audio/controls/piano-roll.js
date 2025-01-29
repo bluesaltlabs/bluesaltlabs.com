@@ -1,6 +1,10 @@
 import { LitElement, html, css } from 'lit';
 
-class AudioControlPianoRoll extends LitElement {
+
+// todo: see https://github.com/hoch/WAAX/blob/ca933954877e307123893ecf8e6ec91402d2dd8c/src/mui/mui-pianoroll/mui-pianoroll.html
+//       and https://github.com/hoch/WAAX/blob/ca933954877e307123893ecf8e6ec91402d2dd8c/examples/mui/ex-mui-pianoroll.html
+//       and https://github.com/hoch/WAAX/blob/ca933954877e307123893ecf8e6ec91402d2dd8c/examples/mui/ex-mui-pianoroll.html
+export class AudioControlPianoRoll extends LitElement {
   static styles = css`
     :host {
     }
@@ -11,4 +15,4 @@ class AudioControlPianoRoll extends LitElement {
   }
 }
 
-customElements.define('my-lit-element', MyLitElement);
+customElements.define('audio-control-piano-roll', AudioControlPianoRoll);

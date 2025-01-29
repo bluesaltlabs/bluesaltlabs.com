@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-class LayoutNavbar extends LitElement {
+export class LayoutNavbar extends LitElement {
   static properties = {
     // todo
   }

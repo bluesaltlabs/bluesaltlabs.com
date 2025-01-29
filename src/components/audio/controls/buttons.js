@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit'
 //import playArrow from '@/assets/icons/play-arrow.svg'
 
-
-class AudioControlButton extends LitElement {
+// todo: link to documentation file and just copy stuff so it works (then make changes I want to make).
+export class AudioControlButton extends LitElement {
 
 }
 

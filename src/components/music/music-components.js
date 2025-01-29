@@ -3,7 +3,9 @@ import { LitElement, html, css } from 'lit';
 
 import {
   AudioControlPlayButton
-} from '@/components/audio/controls/buttons.js'
+} from '@/components/audio/controls/buttons'
+
+import { AudioUiSpectrum } from '@/components/audio/ui/spectrum'
 
 
 // import AudioService from '@/services/AudioService'
@@ -34,6 +36,7 @@ class MusicComponents extends LitElement {
         <!-- <music-button-play></music-button-play> -->
 
         <audio-control-play-button></audio-control-play-button>
+        <audio-ui-spectrum></audio-ui-spectrum>
 
       </div>
       <hr />

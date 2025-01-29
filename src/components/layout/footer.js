@@ -7,8 +7,7 @@ export class LayoutFooter extends LitElement {
   static styles = css`
     footer {
       border-top: 1px solid var(--color-blue-alt);
-      padding-top: 25px;
-      padding-bottom: 40px;
+      padding: 25px 16px 40px 16px;
       margin: 30px 0 0 0;
       background-color: var(--color-blue);
     }

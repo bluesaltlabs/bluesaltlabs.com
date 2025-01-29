@@ -3,7 +3,7 @@ import './header.js';
 import './navbar.js';
 import './footer.js';
 
-class LayoutBase extends LitElement {
+export class LayoutBase extends LitElement {
   static styles = css`
     .max-w-screen { max-width: 100vw; } /*  */
   `
