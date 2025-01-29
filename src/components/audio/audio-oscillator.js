@@ -245,11 +245,10 @@ customElements.define('audio-oscillator', AudioOscillator)
 
 /* -------------------------------------------------------------------------- */
 
-
-const sampleCode = () => {
+const OscillatorSample = () => {
 
   function OscillatorSample() {
-
+    this.isPlaying = false;
     this.canvas = document.querySelector('canvas');
     this.WIDTH = 640;
     this.HEIGHT = 240;
@@ -309,43 +308,42 @@ const sampleCode = () => {
     }
     requestAnimFrame(this.visualize.bind(this));
   };
-
 }
+
+
 
 const sharedSampleCode = () => {
   // Start off by initializing a new context.
-  // context = new (window.AudioContext || window.webkitAudioContext)();
+  context = new (window.AudioContext || window.webkitAudioContext)();
 
-  // if (context.state === 'suspended') {
-  //   const overlay = document.getElementById('overlay');
-  //   overlay.className = 'visible';
-  //   document.addEventListener('click', () => {
-  //     context.resume().then(() => {
-  //       overlay.className = 'hidden';
-  //     });
-  //   }, {once: true});
-  // }
+  if (context.state === 'suspended') {
+    const overlay = document.getElementById('overlay');
+    overlay.className = 'visible';
+    document.addEventListener('click', () => {
+      context.resume().then(() => {
+        overlay.className = 'hidden';
+      });
+    }, {once: true});
+  }
 
-  // // what the heck is this? backward compatibility?
-  // if (!context.createGain)
-  //   context.createGain = context.createGainNode;
-  // if (!context.createDelay)
-  //   context.createDelay = context.createDelayNode;
-  // if (!context.createScriptProcessor)
-  //   context.createScriptProcessor = context.createJavaScriptNode;
+  if (!context.createGain)
+    context.createGain = context.createGainNode;
+  if (!context.createDelay)
+    context.createDelay = context.createDelayNode;
+  if (!context.createScriptProcessor)
+    context.createScriptProcessor = context.createJavaScriptNode;
 
-  // todo: is this needed?
-  // // shim layer with setTimeout fallback
-  // window.requestAnimFrame = (function(){
-  // return  window.requestAnimationFrame       ||
-  //   window.webkitRequestAnimationFrame ||
-  //   window.mozRequestAnimationFrame    ||
-  //   window.oRequestAnimationFrame      ||
-  //   window.msRequestAnimationFrame     ||
-  //   function( callback ){
-  //   window.setTimeout(callback, 1000 / 60);
-  // };
-  // })();
+  // shim layer with setTimeout fallback
+  window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame    ||
+    window.oRequestAnimationFrame      ||
+    window.msRequestAnimationFrame     ||
+    function( callback ){
+    window.setTimeout(callback, 1000 / 60);
+  };
+  })();
 
 
   function playSound(buffer, time) {

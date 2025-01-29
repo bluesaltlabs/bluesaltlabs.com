@@ -13,6 +13,7 @@
 
   <script type="module" src="/src/components/music/music-metronome.js"></script>
   <script type="module" src="/src/components/music/music-sequencer.js"></script>
+  <script type="module" src="/src/components/audio/audio-oscillator.js"></script>
 </head>
 <body>
   <layout-base>
@@ -25,24 +26,24 @@
 
       <div class="pure-u pure-u-lg w-100">
         <div style="max-width: 300px;" class="mx-auto">
+          <h3>Music Metronome</h3>
           <music-metronome></music-metronome>
         </div>
 
         <hr />
 
-
-        <music-sequencer>Test Music Demo Slot Content</music-sequencer>
-
-
+        <!-- <music-sequencer>Test Music Demo Slot Content</music-sequencer> -->
       </div>
+    </div>
 
-      <!--
-      <div class="pure-u pure-u-lg mx-auto">
+    <div class="pure-g">
 
-        <hr />
-      </div> -->
-
-
+      <div class="pure-u pure-u-lg w-100">
+        <div style="width: 640px;" class="max-w-screen mx-auto">
+          <h3>Audio Oscillator</h3>
+          <audio-oscillator>Test Music Demo Slot Content</audio-oscillator>
+        </div>
+      </div>
     </div>
 
   </layout-base>
