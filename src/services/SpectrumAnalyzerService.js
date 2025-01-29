@@ -39,6 +39,7 @@ class SpectrumAnalyzerService {
   }
 
 
+  // todo: refactor this function
   _initializeAnalyzer() {
       this._inlet = WX.Analyzer();
       var bc = this._inlet.frequencyBinCount;
@@ -52,6 +53,7 @@ class SpectrumAnalyzerService {
       this._settings.scaleY = 0.0;
     }
 
+    // todo: refactor this function
     _resize() {
       this._ctx.canvas.style.width = '100%';
       this._ctx.canvas.width = this.clientWidth;
@@ -61,14 +63,17 @@ class SpectrumAnalyzerService {
       this._settings.scaleY = this._ctx.canvas.height;
     }
 
+    // todo: refactor this function
     _clearCanvas() {
       this._ctx.fillStyle = '#222';
       this._ctx.fillRect(0, 0, this.clientWidth, this.clientHeight);
     }
 
     _drawForeground() {
+      // todo?
     }
 
+    // todo: refactor this function
     _drawBackground() {
       var c = this._ctx,
           s = this._settings,
@@ -96,6 +101,7 @@ class SpectrumAnalyzerService {
       c.stroke();
     }
 
+    // todo: refactor this function
     _drawSpectrum() {
       var c = this._ctx,
           s = this._settings;
@@ -121,6 +127,7 @@ class SpectrumAnalyzerService {
       c.stroke();
     }
 
+    // todo: refactor this function
     _draw() {
       // this._clearCanvas();
       //
@@ -129,6 +136,7 @@ class SpectrumAnalyzerService {
       ////this._drawForeground();
     }
 
+    // todo: refactor this function
     update() {
       if (!this._freeze) {
         this._draw();
@@ -136,6 +144,7 @@ class SpectrumAnalyzerService {
       // requestAnimationFrame(this.update.bind(this)); // todo: figure out how to replecate this
     }
 
+    // todo: refactor this function
     _listenKeyDown(event) {
       if (this._keys[event.keyCode]) return;
       this._keys[event.keyCode] = true;
@@ -146,11 +155,13 @@ class SpectrumAnalyzerService {
       }
     }
 
+    // todo: refactor this function
     _listenKeyUp(event) {
       if (!this._keys[event.keyCode]) return;
       this._keys[event.keyCode] = false;
     }
 
+    // todo: refactor this function
     ready() {
 
       // create 2d context

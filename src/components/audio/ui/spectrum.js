@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-
 import SpectrumAnalyzerService from '@/services/SpectrumAnalyzerService'
 
 // todo: see https://github.com/hoch/WAAX/blob/ca933954877e307123893ecf8e6ec91402d2dd8c/src/mui/mui-spectrum/mui-spectrum.html
