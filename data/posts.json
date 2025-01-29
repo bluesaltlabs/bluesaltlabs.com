@@ -1,19 +1,13 @@
-
-{
-  "blogPosts": [
-    {
-      "id": 1,
-      "title": "First Blog Post",
-      "content": "This is the content of the first blog post.",
-      "author": "John Doe",
-      "publishedDate": "2023-01-01"
-    },
-    {
-      "id": 2,
-      "title": "Second Blog Post",
-      "content": "This is the content of the second blog post.",
-      "author": "Jane Doe",
-      "publishedDate": "2023-01-02"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "title": "First Blog Post",
+    "content": null,
+    "content_path": "1.md",
+    "author": "Luke Sontrop",
+    "createdAt": "2025-01-28 00:00:00",
+    "categories": ["General"],
+    "updatedAt": "2025-01-28 00:00:00",
+    "publishedAt": null
+  }
+]
