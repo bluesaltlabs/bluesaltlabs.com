@@ -11,6 +11,19 @@ export class AudioOscillator extends LitElement {
     /* todo: could an overlay be added here instead? */
     /* .audio-oscillator__canvas-container::after {} */
 
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #0078d7;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:disabled {
+      background: #cccccc;
+    }
+
     .audio-oscillator__canvas {
       background: #fff;
       /* width: 640px; */
@@ -37,7 +50,7 @@ export class AudioOscillator extends LitElement {
 
     /* todo: figure this out */
     label > radio {
-      cursor: pointer
+      cursor: pointer;
     }
 
   `
@@ -64,8 +77,10 @@ export class AudioOscillator extends LitElement {
     this.showOverlay = false
 
     this.ctx = new (window.AudioContext || window.webkitAudioContext)() // todo: use _ctx?
-    this.osc = null // todo: set to new oscilator instance?
+    this.osc = null
+    this.analyser = null
     this.analyser = this.ctx.createAnalyser() // todo: use _analyser?
+
 
     // todo: make this more robust. new function?
     if (this.ctx.state === 'suspended') {
@@ -85,9 +100,37 @@ export class AudioOscillator extends LitElement {
 
 
     // todo: init a new tone.js oscillator.
-    // // todo:
-    this.updateOscillator()
+    this.initOscillator()
+  }
 
+
+  // todo: temp
+  getAnalyserFrameValue() {
+
+		return this.analyser.getValue()
+
+
+  }
+
+  initOscillator() {
+    console.debug("creating oscillator", { frequency: this.frequency, type: this.oscillatorType, volume: this.volume })
+
+    if(this.osc) { this.osc?.stop() }
+
+    // todo: I may not need to create this ieach time
+    this.osc = new AudioService.t.Oscillator({
+      type: this.oscillatorType,
+      frequency: this.frequency,
+      detune: this.detune,
+      volume: this.volume,
+    }).toDestination()
+
+    //this.osc.connect(this.analyser) // todo
+
+    if(this.isPlaying) { this.osc.start() } // todo: may want to check if it's already going.
+
+    console.debug("oscillator", { oscillator: this.osc })
+    //this.osc = new AudioService.t.Oscillator(this.frequency,this.oscillatorType).toDestination().start()
   }
 
   // Updates the oscillator instance with values. run on input changes.
@@ -97,12 +140,17 @@ export class AudioOscillator extends LitElement {
 
     if(this.osc) { this.osc?.stop() }
 
+
+
+    // todo: I may not need to create this ieach time
     this.osc = new AudioService.t.Oscillator({
       type: this.oscillatorType,
       frequency: this.frequency,
       detune: this.detune,
       volume: this.volume,
     }).toDestination()
+
+    //this.osc.connect(this.analyser)
 
     if(this.isPlaying) { this.osc.start() } // todo: may want to check if it's already going.
 
@@ -114,24 +162,28 @@ export class AudioOscillator extends LitElement {
     console.debug("frequency changed", { value: event?.target?.value ?? undefined })
     this.frequency = parseInt(event?.target?.value) ?? 0
     this.updateOscillator()
+    //this.osc.frequency = this.frequency
   }
 
   handleDetuneChange(event) {
     console.debug("detune changed", { value: event?.target?.value ?? undefined })
     this.detune = parseInt(event?.target?.value) ?? 0
     this.updateOscillator()
+    // this.osc.detune = this.detune
   }
 
   handleVolumeChange(event) {
       console.debug("volume changed", { value: event?.target?.value ?? undefined })
       this.volume = parseInt(event?.target?.value) ?? -16
       this.updateOscillator()
+      // this.osc.volume = this.volume
     }
 
   handleOscillatorTypeChange(event) {
     console.debug("oscillator type changed", { value: event?.target?.value ?? undefined,  oscillatorType: this.oscillatorType })
-    this.oscillatorType = event?.target?.value ?? null
+    this.oscillatorType = event?.target?.value ?? "sine" // todo: set default
     this.updateOscillator()
+    // this.osc.type = this.type
   }
 
   handlePlayButtonClick(event) {
@@ -239,7 +291,9 @@ export class AudioOscillator extends LitElement {
 
         <!-- todo: oscillator play/pause button -->
         <div>
-          <button @click=${this.handlePlayButtonClick}>Play/Pause</button>
+          <button @click=${this.handlePlayButtonClick}>
+            ${this.isPlaying ? 'Pause' : 'Play'}
+          </button>
         </div>
 
       </div>
