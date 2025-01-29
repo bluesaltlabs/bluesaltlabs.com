@@ -1,7 +1,15 @@
 import { LitElement, html, css } from 'lit';
-import { ButtonPlay } from './controls/buttons'
+//import { ButtonPlay } from './controls/buttons'
+
+import {
+  AudioControlPlayButton
+} from '@/components/audio/controls/buttons.js'
 
 
+// import AudioService from '@/services/AudioService'
+
+// todo: add this to the properties to possibly fix issues with them:
+//       active: { type: Boolean, reflect: true } // i.e. the `reflect` property
 
 class MusicComponents extends LitElement {
 
@@ -23,12 +31,18 @@ class MusicComponents extends LitElement {
   render() {
     return html`
       <div class="music-components">
-        <music-button-play></music-button-play>
+        <!-- <music-button-play></music-button-play> -->
+
+        <audio-control-play-button></audio-control-play-button>
 
       </div>
       <hr />
-      <div class="">
+      <div class="music-components">
         <span>this is here</span>
+        <!-- todo: make a basic song here with a play/pause button. -->
+        <!-- don't worry about the UI and all that, just make it work. -->
+
+
       </div>
     `
   }

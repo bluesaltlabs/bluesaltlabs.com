@@ -45,7 +45,6 @@ class AudioService {
     })
   }
 
-
   // MusicEnum helper methods
   getEnums() { return MusicEnum }
   getPitches() { return MusicEnum.PITCHES }
@@ -56,6 +55,7 @@ class AudioService {
   getOscillators() { return MusicEnum.OSCILLATORS }
 
   //
+
 }
 
 const instance = new AudioService()

@@ -43,6 +43,8 @@ class MusicSequencer extends LitElement {
         <hr />
 
         <div class="sequencer-body">
+          <div class="sequencer-indicators"></div> <!-- todo -->
+
           <div class="sequencer-timeline">
             ${(this._sequences?.length > 0) ?
                 // <!-- todo: need to add row containers and prevent wrapping.  -->
