@@ -1,25 +1,25 @@
 
-class MeternalyzerService {
+class MeterAnalyzerService {
   static properties = {
     //t: { type: Object },
   }
 
   constructor() {
-    console.debug("calling the MeternalyzerService constructor")
-    if (!MeternalyzerService.instance) {
+    console.debug("calling the MeterAnalyzerService constructor")
+    if (!MeterAnalyzerService.instance) {
       // this.isPlaying = false;
 
-      MeternalyzerService.instance = this
+      MeterAnalyzerService.instance = this
     }
 
-    return MeternalyzerService.instance
+    return MeterAnalyzerService.instance
   }
 
   //
 
 }
 
-const instance = new MeternalyzerService()
+const instance = new MeterAnalyzerService()
 // Object.freeze(instance)
 
 export default instance

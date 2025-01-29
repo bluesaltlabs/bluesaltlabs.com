@@ -9,6 +9,8 @@ import {
 } from '@/components/audio/controls/buttons'
 
 import { AudioUiSpectrum } from '@/components/audio/ui/spectrum'
+import { AudioControlPianoRoll } from '@/components/audio/controls/piano-roll'
+import { AudioControlVirtualKeys } from '@/components/audio/controls/virtual-keys'
 
 
 // import AudioService from '@/services/AudioService'
@@ -37,18 +39,10 @@ class MusicComponents extends LitElement {
     return html`
       <div class="music-components">
         <!-- <music-button-play></music-button-play> -->
-
-        <audio-control-play-button></audio-control-play-button>
         <audio-ui-spectrum></audio-ui-spectrum>
-
-      </div>
-      <hr />
-      <div class="music-components">
-        <span>this is here</span>
-        <!-- todo: make a basic song here with a play/pause button. -->
-        <!-- don't worry about the UI and all that, just make it work. -->
-
-
+        <audio-control-play-button></audio-control-play-button>
+        <audio-control-piano-roll></audio-control-piano-roll>
+        <audio-control-virtual-keys></audio-control-virtual-keys>
       </div>
     `
   }
