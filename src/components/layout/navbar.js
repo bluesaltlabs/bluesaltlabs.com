@@ -1,11 +1,19 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 
 class LayoutNavbar extends LitElement {
+  static properties = {
+    // todo
+  }
+
+  static styles = css`
+    nav {
+
+    }
+  `
   render() {
     return html`
       <nav>
-        <button onclick="window.location.href='/'">Home</button>
-        <hr />
+        <!-- todo -->
       </nav>
     `;
   }

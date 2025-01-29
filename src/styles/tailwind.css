@@ -1,1 +1,7 @@
 /* @import "tailwindcss"; */
+
+/*
+todo: apparently there are ways of importing tailwindcss styles directly in the
+lit components instead of importing it in this css file. Figure out how this
+works and implement this method.
+*/

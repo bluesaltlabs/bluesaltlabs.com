@@ -1,3 +1,10 @@
 @import 'purecss';
 @import 'utils/colors.css';
 @import 'utils/spacing.css';
+
+
+hr {
+  height: 2px;
+  border: none;
+  background-color: var(--color-blue-alt);
+}
