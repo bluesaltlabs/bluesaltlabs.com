@@ -2,14 +2,15 @@ import * as Tone from 'tone';
 import MusicEnum from '@/enums/MusicEnum.js'
 
 class AudioService {
-  static properties = {
-    t: { type: Object },
-    enums: { type: Object },
-    isPlaying: { type: Boolean },
-  }
+  // todo: I don't think I need to do this.
+  // static properties = {
+  //   t: { type: Object },
+  //   enums: { type: Object },
+  //   isPlaying: { type: Boolean },
+  // }
 
   constructor() {
-    //console.debug("calling the AudioService constructor")
+    console.debug("calling the AudioService constructor")
     if (!AudioService.instance) {
       this.isPlaying = false;
       this.t = Tone;
