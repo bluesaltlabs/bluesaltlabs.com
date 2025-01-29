@@ -1,11 +1,14 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from 'lit'
 import AudioService from '@/services/AudioService';
 import SequenceService from '@/services/SequenceService';
-import { ButtonPlayPause, ButtonSequencerStep } from '@/components/music/controls/buttons'
+import { AudioControlPlayButton } from '@/components/audio/controls/button'
 
 const num_sequencer_steps = 16;
 const num_sequencer_voices = 1;
 
+
+// example: https://googlechromelabs.github.io/web-audio-samples/demos/wavetable-synth/
+// another: https://googlechromelabs.github.io/web-audio-samples/demos/shiny-drum-machine/
 class MusicSequencer extends LitElement {
   //static styles = css``
 
@@ -34,7 +37,7 @@ class MusicSequencer extends LitElement {
 
         <div class="sequencer-header">
           <div class="control-button-container">
-            <music-button-play-pause></music-button-play-pause>
+            <audio-control-play-button></audio-control-play-button>
           </div>
 
           <span>here is the sequencer header</span>
@@ -52,7 +55,7 @@ class MusicSequencer extends LitElement {
               this._sequences.map((voiceSequence, voiceKey) => (
                 voiceSequence.map((sequenceSteps, sequenceKey) => (html`
                   <music-sequencer-voice-row.key=${voiceKey}>
-                  <music-button-sequencer-step .key=${sequenceKey} .steps=${sequenceSteps}></music-button-sequencer-step>
+                  <!-- <music-button-sequencer-step .key=${sequenceKey} .steps=${sequenceSteps}></music-button-sequencer-step> -->
                 </music-sequencer-voice-row>
                 `))
               ))
