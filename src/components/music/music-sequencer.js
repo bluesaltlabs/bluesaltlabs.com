@@ -9,7 +9,7 @@ const num_sequencer_voices = 1;
 
 // example: https://googlechromelabs.github.io/web-audio-samples/demos/wavetable-synth/
 // another: https://googlechromelabs.github.io/web-audio-samples/demos/shiny-drum-machine/
-class MusicSequencer extends LitElement {
+export class MusicSequencer extends LitElement {
   //static styles = css``
 
   static properties = {
