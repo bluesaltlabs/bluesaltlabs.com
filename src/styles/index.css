@@ -1,4 +1,5 @@
 @import 'purecss';
+@import 'purecss/build/grids-responsive';
 @import 'utils/colors.css';
 @import 'utils/spacing.css';
 

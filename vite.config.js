@@ -27,6 +27,7 @@ export default {
         pc_98: 'pc/98.html',
         resources: 'resources/index.html',
         tools: 'tools/index.html',
+        tools_dragndrop: 'tools/drag-drop.html',
       },
     },
   },
