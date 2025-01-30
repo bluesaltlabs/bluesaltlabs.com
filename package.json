@@ -13,8 +13,8 @@
     "dexie": "^4.0.11",
     "lit": "^3.2.1",
     "lit-element-router": "^2.0.3",
-    "plain-draggable": "^2.5.15",
     "purecss": "^3.0.0",
+    "sortablejs": "^1.15.6",
     "tailwindcss": "^4.0.0",
     "tone": "^15.0.4"
   },
