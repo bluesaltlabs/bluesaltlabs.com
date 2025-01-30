@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "98.css": "^0.1.20",
+    "ace-code": "^1.37.5",
     "dexie": "^4.0.11",
     "lit": "^3.2.1",
     "lit-element-router": "^2.0.3",
+    "plain-draggable": "^2.5.15",
     "purecss": "^3.0.0",
     "tailwindcss": "^4.0.0",
     "tone": "^15.0.4"
