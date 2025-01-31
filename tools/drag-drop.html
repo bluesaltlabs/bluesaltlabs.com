@@ -11,14 +11,17 @@
 
   <!-- Lit Components -->
   <script type="module" src="/src/components/layout/base.js"></script>
-  <script type="module" src="/src/components/drag-drop.js"></script>
+  <script type="module" src="/src/components/ui/drag-drop.js"></script>
 </head>
 <body>
   <layout-base>
     <h1>Drag & Drop Demo</h1>
     <hr />
 
-    <drag-drop></drag-drop>
+    <div style="width:1024px;height:768px;margin-left:auto;margin-right:auto;background:#80808080;outline:1px solid #00ff00;overflow:auto">
+      <drag-drop-app></drag-drop-app>
+    </div>
+
 
   </layout-base>
 </body>
