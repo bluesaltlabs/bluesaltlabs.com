@@ -19,7 +19,17 @@
 </head>
 <body>
   <div id="demo">demo here</div>
-  <button onclick="playNote()">Click me to play note!</button>
+  <button onclick="stopNotes()">STOP</button><br />
+  <button onclick="playExample01()">Example 01</button><span>Hello Tone</span><br />
+  <button onclick="playExample02()">Example 02</button>Tone.Synth<span></span><br />
+  <button onclick="playExample03()">Example 03</button><span>triggerAttackRelease</span><br />
+  <button onclick="playExample04()">Example 04</button><span>Scheduling</span><br />
+  <button onclick="playExample05()">Example 05</button><span>PolySynth</span><br />
+  <button onclick="playExample06()">Example 06</button><span>Sample</span><br />
+  <button onclick="playExample07()">Example 07</button><span>SamplePlayer</span><br />
+  <button onclick="playExample08()">Example 08</button><span>Effects</span><br />
+  <button onclick="playExample09()">Example 09</button><span>Effects 2</span><br />
+  <button onclick="playExample10()">Example 10</button><span>Signals</span><br />
 
   <!--
   <layout-base>
@@ -30,36 +40,121 @@
 
    -->
 
-   <script src="http://unpkg.com/tone"></script>
+  <script src="http://unpkg.com/tone"></script>
   <script>
-    const synth = new Tone.Synth().toDestination();
+    let synths = [];
+    //let loops = []
+    function playExample01() {
+      synths[0] = new Tone.Synth().toDestination();
+			synths[0].triggerAttackRelease("C4", "8n");
+    }
+    function playExample02() {
+      synths[1] = new Tone.Synth().toDestination();
+			const now = Tone.now();
+			synths[1].triggerAttack("C4", now);
+			synths[1].triggerRelease(now + 1);
+    }
+    function playExample03() {
+      synths[2] = new Tone.Synth().toDestination();
+			const now = Tone.now();
+			synths[2].triggerAttackRelease("C4", "8n", now);
+			synths[2].triggerAttackRelease("E4", "8n", now + 0.5);
+			synths[2].triggerAttackRelease("G4", "8n", now + 1);
+    }
+    function playExample04() {
+      // create two monophonic synths
+      synths[3] = new Tone.FMSynth().toDestination();
+      synths[4] = new Tone.AMSynth().toDestination();
+      //play a note every quarter-note
+      const loopA = new Tone.Loop((time) => {
+	synthA.triggerAttackRelease("C2", "8n", time);
+      }, "4n").start(0);
+      //play another note every off quarter-note, by starting it "8n"
+      const loopB = new Tone.Loop((time) => {
+	synthB.triggerAttackRelease("C4", "8n", time);
+      }, "4n").start("8n");
+      // all loops start when the Transport is started
+      Tone.getTransport().start();
+      // ramp up to 800 bpm over 10 seconds
+      Tone.getTransport().bpm.rampTo(800, 10);
+    }
+    function playExample05() {
+      const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+      const now = Tone.now();
+      synth.triggerAttack("D4", now);
+      synth.triggerAttack("F4", now + 0.5);
+      synth.triggerAttack("A4", now + 1);
+      synth.triggerAttack("C5", now + 1.5);
+      synth.triggerAttack("E5", now + 2);
+      synth.triggerRelease(["D4", "F4", "A4", "C5", "E5"], now + 4);
+    }
+    function playExample06() {
+      const player = new Tone.Player(
+	"https://tonejs.github.io/audio/berklee/gong_1.mp3"
+      ).toDestination();
+      Tone.loaded().then(() => {
+	player.start();
+      });
+    }
+    function playExample07() {
+      const sampler = new Tone.Sampler({
+	urls: {
+		C4: "C4.mp3",
+		"D#4": "Ds4.mp3",
+		"F#4": "Fs4.mp3",
+		A4: "A4.mp3",
+	},
+	release: 1,
+	baseUrl: "https://tonejs.github.io/audio/salamander/",
+      }).toDestination();
 
-    function playNote() {
-				// create a synth
-				const synth = new Tone.Synth().toDestination();
-				// play a note from that synth
-				synth.triggerAttackRelease("C4", "8n");
-			}
-  //create a synth and connect it to the main output (your speakers)
-  (() => {
+      Tone.loaded().then(() => {
+	sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 4);
+      });
+    }
+    function playExample08() {
+      const player = new Tone.Player({
+	url: "https://tonejs.github.io/audio/berklee/gurgling_theremin_1.mp3",
+	loop: true,
+	autostart: true,
+      });
+      //create a distortion effect
+      const distortion = new Tone.Distortion(0.4).toDestination();
+      //connect a player to the distortion
+      player.connect(distortion);
+    }
+    function playExample09() {
+      const player = new Tone.Player({
+	url: "https://tonejs.github.io/audio/drum-samples/loops/ominous.mp3",
+	autostart: true,
+      });
+      const filter = new Tone.Filter(400, "lowpass").toDestination();
+      const feedbackDelay = new Tone.FeedbackDelay(0.125, 0.5).toDestination();
 
+      // connect the player to the feedback delay and filter in parallel
+      player.connect(filter);
+      player.connect(feedbackDelay);
+    }
+    function playExample10() {
+      const osc = new Tone.Oscillator().toDestination();
+      // start at "C4"
+      osc.frequency.value = "C4";
+      // ramp to "C2" over 2 seconds
+      osc.frequency.rampTo("C2", 2);
+      // start the oscillator for 2 seconds
+      osc.start().stop("+3");
+    }
 
-    document.addEventListener("DOMContentLoaded", (event) => {
-      //console.debug("synth", { synth: synth })
-      //synth.triggerAttackRelease("C4", "8n");
+    // todo: fix this. Why isn't this functioning?
+    function stopNotes() {
+      synths.forEach((s) => s?.stop() ?? null)
+		}
 
-      playNote();
-    });
+    // (() => {
+    //   document.addEventListener("DOMContentLoaded", (event) => {
 
-
-
-
-
-    //play a middle 'C' for the duration of an 8th note
-
-  })()
-
-
+    //   })
+    // })()
   </script>
 
 </body>

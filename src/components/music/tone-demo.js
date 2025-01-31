@@ -1,4 +1,5 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from 'lit'
+import * as Tone from 'tone'
 
 class ToneDemo extends LitElement {
 
