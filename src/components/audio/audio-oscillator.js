@@ -87,7 +87,7 @@ export class AudioOscillator extends LitElement {
       this.showOverlay = true
       document.addEventListener('click', (event) => {
         try {
-          this.ctx?.resume() // todo: fix this
+          this.ctx?.start() // todo: fix this
           this.showOverlay = false
         } catch(e) {
           console.debug(e)
