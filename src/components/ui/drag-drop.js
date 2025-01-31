@@ -6,133 +6,106 @@ import { LitElement, html, css } from 'lit'
 // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#examples
 // https://www.horuskol.net/blog/2020-08-15/drag-and-drop-elements-on-touch-devices
 // https://stackoverflow.com/a/55996629/5121100
-//
+// // https://stackoverflow.com/questions/55986356/how-to-make-a-div-draggable-inside-a-shadow-dom
+// https://github.com/bevacqua/dragula
 //
 
+
+
+//  todo: in theory I could just access the slotted children directly and loop through them:
+//        see https://lit.dev/docs/components/shadow-dom/#accessing-slotted-children
+
+// temp:
+const vehicles = [
+  {
+    id: 0,
+    name: "fire truck",
+    src: "https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Ftruck-clip-art-fire-truck4.png?1519011787956",
+  },
+  {
+    id: 1,
+    name: "ambulance",
+    src: "https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fambulance5.png?1519011787610",
+  },
+  {
+    id: 2,
+    name: "car",
+    src: "https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fcar-20clip-20art-1311497037_Vector_Clipart.png?1519011788408",
+  },
+  {
+    id: 3,
+    name: "bicycle",
+    src: "https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fbicycle-20clip-20art-bicycle3.png?1519011787816",
+  }
+]
 
 class DragDropApp extends LitElement {
 
-  //createRenderRoot() { return this }
 
+  // todo: binds for external? find documentation on this
+  //static _debugEvent = (event) => {}
+
+  /* todo: figure out why some of these files aren't getting applied as expected. is this fixed now?  */
   static styles = css`
-
-    .drag-drop__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .drag-drop__container,
-    ::slotted(.drag-drop__container) {
-      /* width:300px; */
-      /* height: 300px; */
-      outline: 1px solid blue;
-      background-color: #ff441180;
-
-      padding: 1em;
-      height: 10em;
-      width: 50%;
-    }
-
-    .drag-drop__item,
-    ::slotted(.drag-drop__item) {
-      padding: 10px;
-      margin: 5px 0;
-      border:1px solid #ffff00;
-      background-color: #cc0011;
-      cursor: move;
+    :host {
       height: 100%;
-      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .drop-zone {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      background: #878787;
+      color: white;
+      box-shadow:
+        0 19px 38px rgba(0, 0, 0, 0.3),
+        0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+    .drop-zone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vehicles ul {
+      cursor: pointer;
     }
 
-
-    /*
-    .sortable-ghost,
-    ::slotted(.sortable-ghost) {
-      opacity: 0.4;
-      background-color: #00ff00;
+    .vehicles img {
+      visibility: visible;
+      opacity: 1;
+    }
+    .vehicles img.hide {
+      visibility: hidden;
+      opacity: 0;
     }
 
-    .sortable-drag,
-    ::slotted(.sortable-drag) {
-      background-color: #0000ff;
+    /* media queries */
+    @media screen and (max-width: 48em) {
+      :host {
+        flex-direction: column;
+      }
     }
-    */
   `
 
-
   static properties = {
+    vehicles: { type: NodeList },
     moving: { type: Boolean }
   }
 
   constructor() {
     super()
 
+    console.debug(document.styleSheets)
+    //this.vehicles = document.shadowRoot.querySelector(".vehicles")
+    //console.debug(this.vehicles)
 
     //this.addEventListener('click', (e) => console.debug("constructor event", { type: e.type, localName: e.target.localName }))
 
   }
 
-
-
-  //firstUpdated() {
-    //const container = this.shadowRoot.querySelector('.drag-drop__container');
-    //const container = this.querySelector('.drag-drop__container');
-
-   // console.debug("first updated", { container: container })
-   //}
-
-  _pickup(event) {
-    this._logDebugEvent(event)
-    this.moving = true
-
-
-    console.debug("before", {
-      height: event.target.style.height,
-      width: event.target.style.width,
-      position: event.target.style.position,
-    })
-
-    event.target.style.height = event.target.clientHeight
-    event.target.style.width = event.target.clientWidth
-    event.target.style.position = 'fixed'
-
-
-    console.debug("after", {
-      height: event.target.style.height,
-      width: event.target.style.width,
-      position: event.target.style.position,
-    })
-  }
-
-  _dragOver(event) {
-    event.preventDefault()
-  }
-
-  _move(event) {
-    //this._logDebugEvent(event) // todo: throttle this or something D:
-    // note: I intentionally did not abstract things into variables here for the sake of efficiency.
-    //       I don't know if that matters or not in JS? that would be an interesting performance test.
-
-    // track movement
-    if (this.moving) {
-      if(event.clientX) {
-        // mousemove
-        console.debug({ x: event.clientX, y: event.clientY })
-        event.target.style.left = event.clientX - event.target.clientWidth/2;
-        event.target.style.top = event.clientY - event.target.clientHeight/2;
-      } else {
-        // touchmove - assuming a single touchpoint
-        console.debug({ x: event.event.changedTouches[0].clientX, y: event.event.changedTouches[0].clientY })
-        event.target.style.left = event.changedTouches[0].clientX - event.target.clientWidth/2;
-        event.target.style.top = event.changedTouches[0].clientY - event.target.clientHeight/2;
-      }
-    }
-  }
-
-  _drop(event) {
-    this._logDebugEvent(event)
-    this.moving = false
-  }
 
   _logDebugEvent(event) {
     console.debug("|------------- DEBUG -------------|",
@@ -141,37 +114,174 @@ class DragDropApp extends LitElement {
   }
 
 
-  // todo: add a drag handle, or make it so dragging in certain places prevents drag.
+
+
+
+/*
+
+dropZone.addEventListener("drop", onDrop);
+dropZone.addEventListener("dragenter", onDragEnter);
+dropZone.addEventListener("dragleave", onDragLeave);
+dropZone.addEventListener("dragover", onDragOver);
+*/
+
+
+  // debug
+  connectedCallback() {
+    super.connectedCallback()
+    console.debug("Custom element added to page.");
+  }
+
+  // debug
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    console.debug("Custom element removed from page.");
+  }
 
   render() {
     return html`
-      <div class="drag-drop__wrapper">
 
-        <div class="drag-drop__container container-left">
-          <div
-            class="drag-drop__item"
-            @mousedown="${this._pickup}"
-            @touchstart="${this._pickup}"
-            @mousemove="${this._move}"
-            @touchmove="${this._move}"
-            @dragover="${this._dragOver}"
-            @mouseup="${this._drop}"
-            @touchend="${this._drop}"
-          >
-            Hi there
-          </div>
-          <!-- <div class="drag-drop__item">item 2</div> -->
-        </div>
+      <section
+        class="drop-zone"
 
-        <div class="drag-drop__container container-right"></div>
+      ></section>
 
+      <section class="drag-vehicle">
+        <ul class="vehicles">
+          ${vehicles.map(v => (html`
+            <li style="list-style-type:none;">
+              <!-- draggable objects must have draggable attribute -->
+              <img
+                style="cursor:pointer;"
+                draggable="true"
+                alt="${v.name}"
+                src="${v.src}"
+                drag
+              />
+            </li>
+          `))}
+        </ul>
+      </section>
 
-          <!-- <slot></slot> -->
-      </div>
     `
   }
 }
 
-
-
 customElements.define('drag-drop-app', DragDropApp)
+
+
+
+// -------------------------------------------------------------------------- //
+
+const OldCode = () => {
+  const parkingSimulation = (function () {
+
+    const parkingSimulation = {
+      dropZone: document.querySelector(".drop-zone"),
+      vehicleArray: [...document.querySelectorAll(".vehicles img")],
+      dragged: null,
+      areVehiclesFiltered: false,
+    };
+    return Object.seal(parkingSimulation);
+  })();
+
+  function addEventListeners() {
+    const filterButton = document.querySelector(
+      ".drag-vehicle .filter-vehicles",
+    );
+    const showButton = document.querySelector(".drag-vehicle .show-all");
+    const vehicles = document.querySelector(".vehicles");
+    const dropZone = parkingSimulation.dropZone;
+
+    vehicles.addEventListener("dragstart", onDragStart);
+    vehicles.addEventListener("dragend", onDragEnd);
+    dropZone.addEventListener("drop", onDrop);
+    dropZone.addEventListener("dragenter", onDragEnter);
+    dropZone.addEventListener("dragleave", onDragLeave);
+    dropZone.addEventListener("dragover", onDragOver);
+  }
+
+  function onDragStart(event) {
+    let target = event.target;
+    if (target && target.nodeName == "IMG") {
+      // Store a ref. on the dragged elem
+      const imgSrc = target.src;
+      parkingSimulation.dragged = target;
+      event.dropEffect = "linkMove";
+      event.dataTransfer.setData("text/uri-list", imgSrc);
+      event.dataTransfer.setData("text/plain", imgSrc);
+
+      // Make it half transparent
+      event.target.style.opacity = 0.5;
+    }
+  }
+
+  function onDragEnd(event) {
+    if (event.target && event.target.nodeName == "IMG") {
+      // Reset the transparency
+      event.target.style.opacity = "";
+    }
+  }
+
+  function contains(list, value) {
+    for (let i = 0; i < list.length; ++i) {
+      if (list[i] === value) return true;
+    }
+    return false;
+  }
+
+  function onDragOver(event) {
+    // Prevent default to allow drop
+    event.preventDefault();
+  }
+
+  function validateTarget(target) {
+    const dropZone = parkingSimulation.dropZone;
+    return target.parentNode === dropZone || target === dropZone
+      ? dropZone
+      : null;
+  }
+
+  function onDragLeave(event) {
+    const target = validateTarget(event.target);
+    target.style.background = "";
+  }
+
+  function onDragEnter(event) {
+    const target = validateTarget(event.target);
+    const dragged = parkingSimulation.dragged;
+    if (dragged && target) {
+      const isLink = contains(event.dataTransfer.types, "text/uri-list");
+      const vehicleType = dragged.alt;
+      if (isLink) {
+        event.preventDefault();
+        // Set the dropEffect to move
+        event.dataTransfer.dropEffect = "linkMove";
+        target.style.background = "#1f904e";
+      } else {
+        target.style.backgroundColor = "#d51c00";
+      }
+    }
+  }
+
+  function onDrop(event) {
+    const target = validateTarget(event.target);
+    const dragged = parkingSimulation.dragged;
+    if (dragged && target) {
+      const isLink = contains(event.dataTransfer.types, "text/uri-list");
+      const vehicleType = dragged.alt;
+      target.style.backgroundColor = "";
+      if (isLink) {
+        event.preventDefault();
+        // Get the id of the target and add the moved element to the target's DOM
+        dragged.parentNode.removeChild(dragged);
+        dragged.style.opacity = "";
+        target.appendChild(dragged);
+      }
+    }
+  }
+
+
+
+  //addEventListeners();
+}
