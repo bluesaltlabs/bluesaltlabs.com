@@ -1,28 +1,329 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Drag & Drop Demo | simple.bluesaltlabs.com</title>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/src/styles/index.css" />
+  <!-- <link rel="stylesheet" href="/src/styles/index.css" /> -->
 
+  <style>
+    body {
+      background-color: #e2e8f3;
+      font-size: 1em;
+      font-family: "Roboto", Arial, Helvetica, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+    }
+    ul li {
+      list-style-type: none;
+    }
+    img {
+      cursor: pointer;
+    }
+    a {
+      color: #538cff;
+      padding: 8px;
+    }
+
+    button {
+      font-size: 16px;
+      border-radius: 3px;
+      background-color: lightgrey;
+      border: 1px solid grey;
+      box-shadow: 2px 2px #538cff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ffd92c;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      margin: 16px;
+    }
+    .container {
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .parking-rules {
+      padding: 0;
+    }
+    .parking-rules > .parking-rule {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      background: #fdfefe;
+      padding: 16px;
+      margin: 12px;
+    }
+    .parking-rule:nth-child(n) {
+      border: 2px solid #538cff;
+    }
+    .parking-rule:nth-child(2n) {
+      border: 2px solid #d51c00;
+    }
+    .parking-rule:nth-child(3n) {
+      border: 2px solid #ffd92e;
+    }
+    .parking-rule ul {
+      padding: 0;
+    }
+    .parking-rule li:first-child {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .drop-zone {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      background: #878787;
+      color: white;
+      box-shadow:
+        0 19px 38px rgba(0, 0, 0, 0.3),
+        0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+    .drop-zone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .drop-zone .dashing {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+    .drop-zone .dashing:nth-of-type(1) {
+      transform: rotate(0deg);
+    }
+    .drop-zone .dashing:nth-of-type(2) {
+      transform: rotate(90deg);
+    }
+    .drop-zone .dashing:nth-of-type(3) {
+      transform: rotate(180deg);
+    }
+    .drop-zone .dashing:nth-of-type(4) {
+      transform: rotate(270deg);
+    }
+    .drop-zone .dashing i {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 200%;
+      border-bottom: 12px dashed;
+      animation: slideDash 5.5s infinite linear;
+    }
+    @keyframes slideDash {
+      from {
+        transform: translateX(-50%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+    .drag-vehicle h2::before {
+      content: "\2190";
+    }
+
+    .vehicles img {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .vehicles img.hide {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    /* media queries */
+    @media screen and (max-width: 48em) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
 
   <!-- Lit Components -->
-  <script type="module" src="/src/components/layout/base.js"></script>
-  <script type="module" src="/src/components/ui/drag-drop.js"></script>
+  <!-- <script type="module" src="/src/components/layout/base.js"></script> -->
+  <!-- <script type="module" src="/src/components/ui/drag-drop.js"></script> -->
 </head>
 <body>
-  <layout-base>
-    <h1>Drag & Drop Demo</h1>
-    <hr />
+  <div class="container">
 
-    <div style="width:1024px;height:768px;margin-left:auto;margin-right:auto;background:#80808080;outline:1px solid #00ff00;overflow:auto">
-      <drag-drop-app></drag-drop-app>
-    </div>
+    <section class="drop-zone">
+      <!-- the dashing stuff is just for the border animation -->
+      <span class="dashing"><i></i></span>
+      <span class="dashing"><i></i></span>
+      <span class="dashing"><i></i></span>
+      <span class="dashing"><i></i></span>
+    </section>
+
+    <section class="drag-vehicle">
+      <ul class="vehicles">
+        <li>
+          <!-- draggable objects must have draggable attribute -->
+          <img
+            draggable="true"
+            alt="fire truck"
+            src="https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Ftruck-clip-art-fire-truck4.png?1519011787956"
+          />
+        </li>
+        <li>
+          <img
+            draggable="true"
+            alt="ambulance"
+            src="https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fambulance5.png?1519011787610"
+          />
+        </li>
+        <li>
+          <img
+            draggable="true"
+            alt="car"
+            src="https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fcar-20clip-20art-1311497037_Vector_Clipart.png?1519011788408"
+          />
+        </li>
+        <li>
+          <img
+            draggable="true"
+            alt="bicycle"
+            src="https://cdn.glitch.com/20f985bd-431d-4807-857b-e966e015c91b%2Fbicycle-20clip-20art-bicycle3.png?1519011787816"
+          />
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Scripts -->
 
 
-  </layout-base>
+  <script defer>
+
+    const parkingSimulation = (function () {
+
+      const parkingSimulation = {
+        dropZone: document.querySelector(".drop-zone"),
+        vehicleArray: [...document.querySelectorAll(".vehicles img")],
+        dragged: null,
+        areVehiclesFiltered: false,
+      };
+      return Object.seal(parkingSimulation);
+    })();
+
+    function addEventListeners() {
+      const filterButton = document.querySelector(
+        ".drag-vehicle .filter-vehicles",
+      );
+      const showButton = document.querySelector(".drag-vehicle .show-all");
+      const vehicles = document.querySelector(".vehicles");
+      const dropZone = parkingSimulation.dropZone;
+
+      vehicles.addEventListener("dragstart", onDragStart);
+      vehicles.addEventListener("dragend", onDragEnd);
+      dropZone.addEventListener("drop", onDrop);
+      dropZone.addEventListener("dragenter", onDragEnter);
+      dropZone.addEventListener("dragleave", onDragLeave);
+      dropZone.addEventListener("dragover", onDragOver);
+    }
+
+    function createRange(start, end) {
+      if (start && end) {
+        return moment.range(start, end);
+      }
+    }
+
+    function onDragStart(event) {
+      let target = event.target;
+      if (target && target.nodeName == "IMG") {
+        // Store a ref. on the dragged elem
+        const imgSrc = target.src;
+        parkingSimulation.dragged = target;
+        event.dropEffect = "linkMove";
+        event.dataTransfer.setData("text/uri-list", imgSrc);
+        event.dataTransfer.setData("text/plain", imgSrc);
+
+        // Make it half transparent
+        event.target.style.opacity = 0.5;
+      }
+    }
+
+    function onDragEnd(event) {
+      if (event.target && event.target.nodeName == "IMG") {
+        // Reset the transparency
+        event.target.style.opacity = "";
+      }
+    }
+
+    function contains(list, value) {
+      for (let i = 0; i < list.length; ++i) {
+        if (list[i] === value) return true;
+      }
+      return false;
+    }
+
+    function onDragOver(event) {
+      // Prevent default to allow drop
+      event.preventDefault();
+    }
+
+    function validateTarget(target) {
+      const dropZone = parkingSimulation.dropZone;
+      return target.parentNode === dropZone || target === dropZone
+        ? dropZone
+        : null;
+    }
+
+    function onDragLeave(event) {
+      const target = validateTarget(event.target);
+      target.style.background = "";
+    }
+
+    function onDragEnter(event) {
+      const target = validateTarget(event.target);
+      const dragged = parkingSimulation.dragged;
+      if (dragged && target) {
+        const isLink = contains(event.dataTransfer.types, "text/uri-list");
+        const vehicleType = dragged.alt;
+        if (isLink) {
+          event.preventDefault();
+          // Set the dropEffect to move
+          event.dataTransfer.dropEffect = "linkMove";
+          target.style.background = "#1f904e";
+        } else {
+          target.style.backgroundColor = "#d51c00";
+        }
+      }
+    }
+
+    function onDrop(event) {
+      const target = validateTarget(event.target);
+      const dragged = parkingSimulation.dragged;
+      if (dragged && target) {
+        const isLink = contains(event.dataTransfer.types, "text/uri-list");
+        const vehicleType = dragged.alt;
+        target.style.backgroundColor = "";
+        if (isLink) {
+          event.preventDefault();
+          // Get the id of the target and add the moved element to the target's DOM
+          dragged.parentNode.removeChild(dragged);
+          dragged.style.opacity = "";
+          target.appendChild(dragged);
+        }
+      }
+    }
+
+    addEventListeners();
+
+  </script>
 </body>
 </html>
