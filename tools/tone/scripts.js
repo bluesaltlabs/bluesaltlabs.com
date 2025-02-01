@@ -1,5 +1,8 @@
 import * as Tone from "tone";
 // todo: this throws an error with audio context.  fix this. instanciate Tone within the app?
+//
+// todo: update this so examples use .loops and .synths
+//       the idea is to set it up so all sounds can be killed with one button by looping through these arrays.
 
 let toneApp = (() => {
   // Initiate app variables and methods
@@ -34,7 +37,7 @@ let toneApp = (() => {
     buttons[7].addEventListener('click', examples.sample07)
     buttons[8].addEventListener('click', examples.sample08)
     buttons[9].addEventListener('click', examples.sample09)
-    buttons[10].addEventListener('click', examples.playTextAreaCode)
+    buttons[10].addEventListener('click', examples.playTextareaCode)
 
     // enable buttons
     buttons.forEach((b) => { b.disabled = false });
@@ -173,11 +176,11 @@ const examples = {
   // sample010: () => { },
 
 
-  playTextAreaCode: () => {
+  playTextareaCode: () => {
     const ta = document.getElementById('ta01')
     const codeVal = ta.value
 
-    console.debug("playTextAreaCode", { value: codeVal })
+    console.debug("playTextareaCode", { value: codeVal })
 
     // todo: make this safer. i.e., only allow it to execute tone.js code. somehow.
     eval(codeVal)

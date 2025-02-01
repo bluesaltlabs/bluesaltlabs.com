@@ -30,6 +30,7 @@ export default {
         tools_drag_drop: 'tools/drag-drop.html',
         tools_drag_drop_vanilla: 'tools/drag-drop-vanilla.html',
         tools_tone: 'tools/tone/index.html',
+        tools_tone_examples: 'tools/tone/examples.html',
       },
     },
   },

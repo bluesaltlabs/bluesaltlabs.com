@@ -10,11 +10,13 @@
   <!-- Styles -->
   <link rel="stylesheet" href="./styles.css" />
 
-
-  <!-- Lit Components -->
+  <!-- Scripts -->
   <!-- <script type="module" src="/src/components/music/tone-demo.js"></script> -->
+  <script type="module" src="/src/components/layout/base.js"></script>
+  <script type="module" src="./scripts.js"></script>
 </head>
 <body>
+  <layout-base>
   <section class="test-section">
     <button class="start-button" id="btn_start">START AUDIO</button><br />
   </section>
@@ -42,8 +44,6 @@
     <label for="ta01">Sample 10</label><br />
     <textarea id="ta01" name="ta01" rows="4" cols="50"></textarea>
   </section>
-
-  <!-- Scripts -->
-  <script type="module" src="./scripts.js"></script>
+  </layout-base>
 </body>
 </html>
