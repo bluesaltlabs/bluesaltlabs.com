@@ -1,11 +1,7 @@
-// note: this throws an error with audio context. not sure why
 import * as Tone from "tone";
-
-//window.Tone;
+// todo: this throws an error with audio context.  fix this. instanciate Tone within the app?
 
 let toneApp = (() => {
-//  let _t; // Tone.js // todo?
-
   // Initiate app variables and methods
   let app = {};
 
@@ -17,15 +13,8 @@ let toneApp = (() => {
   }
 
   app.initAudio = (e) => {
-    // todo: figure out how to make this work.
-    // Don't load Tone.js until the button is clicked. Prevents Chrome issues.
-    //import('tone').then(module => {
-      //window.Tone = module.default
-      //console.debug(window.Tone)
-      //_t = module.default // todo
-    //})
-    //_t.start()
-    //window.Tone.start() // todo: why doesn't this work?
+    // init Tone.js
+    Tone.start()
 
     // Get Sample Buttons
     const buttons = document.querySelectorAll(".sample-button")
@@ -41,6 +30,7 @@ let toneApp = (() => {
     buttons[7].addEventListener('click', playExample07)
     buttons[8].addEventListener('click', playExample08)
     buttons[9].addEventListener('click', playExample09)
+    buttons[10].addEventListener('click', playTextAreaCode)
 
     // enable buttons
     buttons.forEach((b) => { b.disabled = false });
@@ -174,6 +164,7 @@ const playExample08 = () => {
 }
 
 const playExample09 = () => {
+  console.debug("example 9 start.")
   const osc = new Tone.Oscillator().toDestination();
   // start at "C4"
   osc.frequency.value = "C4";
@@ -181,4 +172,13 @@ const playExample09 = () => {
   osc.frequency.rampTo("C2", 2);
   // start the oscillator for 2 seconds
   osc.start().stop("+3");
+  console.debug("example 9 done.")
+}
+
+
+const playTextAreaCode = () => {
+  const ta = document.getElementById('ta01')
+  const codeVal = ta.value
+
+  console.debug("playTextAreaCode", { value: codeVal })
 }
