@@ -52,23 +52,22 @@ export class AudioOscillator extends LitElement {
     label > radio {
       cursor: pointer;
     }
-
   `
 
-  // todo: I'm fairly certain these are only required for
-  //       [reactive](https://lit.dev/docs/components/properties/) properties.
-  // todo: add these attributes. Ideally they would be in the AudioService, but leave them here for now
   static properties = {
     frequency: { type: Number },
     oscillatorType: { type: String },
     detune: { type: Number },
     volume: { type: Number },
     isPlaying: { type: Boolean },
-    showOverlay: { type: Boolean } // todo: figure out how to make this reactive and internal
+    showOverlay: { type: Boolean, reflect: true }
   }
 
   constructor() {
     super()
+
+    this.checkAudioContext()
+
     this.frequency = 150
     this.oscillatorType = "sine"
     this.detune = 0
@@ -76,7 +75,7 @@ export class AudioOscillator extends LitElement {
     this.isPlaying = false
     this.showOverlay = false
 
-    this.ctx = new (window.AudioContext || window.webkitAudioContext)() // todo: use _ctx?
+    this.ctx = new window.AudioContext() // todo: use _ctx?
     this.osc = null
     this.analyser = null
     this.analyser = this.ctx.createAnalyser() // todo: use _analyser?
@@ -88,9 +87,10 @@ export class AudioOscillator extends LitElement {
       document.addEventListener('click', (event) => {
         try {
           this.ctx?.start() // todo: fix this
-          this.showOverlay = false
         } catch(e) {
           console.debug(e)
+        } finally {
+          this.showOverlay = false
         }
       }, { once: true })
     }
@@ -103,13 +103,32 @@ export class AudioOscillator extends LitElement {
     this.initOscillator()
   }
 
+  checkAudioContext() {
+    // Check for AudioContext.
+    const hasAudioContext = window.hasOwnProperty('AudioContext');
+    const hasWebKitAudioContext = window.hasOwnProperty('webkitAudioContext');
+
+    // The browser does not have either prefixed or unprefixed version of
+    // AudioContext. Quit immediately.
+    // This is for the old version of IE. (before Edge)
+    if (!hasWebKitAudioContext && !hasAudioContext) {
+      console.log('[Spiral] This browser does not support Web Audio API. Bye.');
+      return;
+    }
+
+    // The browser only has the prefixed version of AudioContext. Apply patch.
+    // This is for Safari.
+    if (hasWebKitAudioContext && !hasAudioContext) {
+      window.AudioContext = window.webkitAudioContext;
+      console.log('[Spiral] This browser still has webkitAudioContext. Patch applied.');
+    }
+
+  }
+
 
   // todo: temp
   getAnalyserFrameValue() {
-
 		return this.analyser.getValue()
-
-
   }
 
   initOscillator() {
@@ -302,187 +321,3 @@ export class AudioOscillator extends LitElement {
 }
 
 customElements.define('audio-oscillator', AudioOscillator)
-
-/* -------------------------------------------------------------------------- */
-
-const oscillatorSample = () => {
-
-  function OscillatorSample() {
-    this.isPlaying = false;
-    this.canvas = document.querySelector('canvas');
-    this.WIDTH = 640;
-    this.HEIGHT = 240;
-  }
-
-  OscillatorSample.prototype.play = function() {
-    // Create some sweet sweet nodes.
-    this.oscillator = context.createOscillator();
-    this.analyser = context.createAnalyser();
-
-    // Setup the graph.
-    this.oscillator.connect(this.analyser);
-    this.analyser.connect(context.destination);
-
-    this.oscillator[this.oscillator.start ? 'start' : 'noteOn'](0);
-
-    requestAnimFrame(this.visualize.bind(this));
-  };
-
-  OscillatorSample.prototype.stop = function() {
-    this.oscillator.stop(0);
-  };
-
-  OscillatorSample.prototype.toggle = function() {
-    (this.isPlaying ? this.stop() : this.play());
-    this.isPlaying = !this.isPlaying;
-
-  };
-
-  OscillatorSample.prototype.changeFrequency = function(val) {
-    this.oscillator.frequency.value = val;
-  };
-
-  OscillatorSample.prototype.changeDetune = function(val) {
-    this.oscillator.detune.value = val;
-  };
-
-  OscillatorSample.prototype.changeType = function(type) {
-    this.oscillator.type = type;
-  };
-
-  OscillatorSample.prototype.visualize = function() {
-    this.canvas.width = this.WIDTH;
-    this.canvas.height = this.HEIGHT;
-    var drawContext = this.canvas.getContext('2d');
-
-    var times = new Uint8Array(this.analyser.frequencyBinCount);
-    this.analyser.getByteTimeDomainData(times);
-    for (var i = 0; i < times.length; i++) {
-      var value = times[i];
-      var percent = value / 256;
-      var height = this.HEIGHT * percent;
-      var offset = this.HEIGHT - height - 1;
-      var barWidth = this.WIDTH/times.length;
-      drawContext.fillStyle = 'black';
-      drawContext.fillRect(i * barWidth, offset, 1, 1);
-    }
-    requestAnimFrame(this.visualize.bind(this));
-  };
-}
-
-
-
-const sharedSampleCode = () => {
-  // Start off by initializing a new context.
-  context = new (window.AudioContext || window.webkitAudioContext)();
-
-  if (context.state === 'suspended') {
-    const overlay = document.getElementById('overlay');
-    overlay.className = 'visible';
-    document.addEventListener('click', () => {
-      context.resume().then(() => {
-        overlay.className = 'hidden';
-      });
-    }, {once: true});
-  }
-
-  if (!context.createGain)
-    context.createGain = context.createGainNode;
-  if (!context.createDelay)
-    context.createDelay = context.createDelayNode;
-  if (!context.createScriptProcessor)
-    context.createScriptProcessor = context.createJavaScriptNode;
-
-  // shim layer with setTimeout fallback
-  window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame    ||
-    window.oRequestAnimationFrame      ||
-    window.msRequestAnimationFrame     ||
-    function( callback ){
-    window.setTimeout(callback, 1000 / 60);
-  };
-  })();
-
-
-  function playSound(buffer, time) {
-    var source = context.createBufferSource();
-    source.buffer = buffer;
-    source.connect(context.destination);
-    source[source.start ? 'start' : 'noteOn'](time);
-  }
-
-  function loadSounds(obj, soundMap, callback) {
-    // Array-ify
-    var names = [];
-    var paths = [];
-    for (var name in soundMap) {
-      var path = soundMap[name];
-      names.push(name);
-      paths.push(path);
-    }
-    bufferLoader = new BufferLoader(context, paths, function(bufferList) {
-      for (var i = 0; i < bufferList.length; i++) {
-        var buffer = bufferList[i];
-        var name = names[i];
-        obj[name] = buffer;
-      }
-      if (callback) {
-        callback();
-      }
-    });
-    bufferLoader.load();
-  }
-
-
-
-
-  function BufferLoader(context, urlList, callback) {
-    this.context = context;
-    this.urlList = urlList;
-    this.onload = callback;
-    this.bufferList = new Array();
-    this.loadCount = 0;
-  }
-
-  BufferLoader.prototype.loadBuffer = function(url, index) {
-    // Load buffer asynchronously
-    var request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.responseType = "arraybuffer";
-
-    var loader = this;
-
-    request.onload = function() {
-      // Asynchronously decode the audio file data in request.response
-      loader.context.decodeAudioData(
-        request.response,
-        function(buffer) {
-          if (!buffer) {
-            alert('error decoding file data: ' + url);
-            return;
-          }
-          loader.bufferList[index] = buffer;
-          if (++loader.loadCount == loader.urlList.length)
-            loader.onload(loader.bufferList);
-        },
-        function(error) {
-          console.error('decodeAudioData error', error);
-        }
-      );
-    }
-
-    request.onerror = function() {
-      alert('BufferLoader: XHR error');
-    }
-
-    request.send();
-  };
-
-  BufferLoader.prototype.load = function() {
-    for (var i = 0; i < this.urlList.length; ++i)
-    this.loadBuffer(this.urlList[i], i);
-  };
-
-}
