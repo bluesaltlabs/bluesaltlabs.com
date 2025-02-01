@@ -12,12 +12,16 @@ let toneApp = (() => {
     console.debug("handling event", event)
   }
 
+  app.getSampleButtons = () => {
+    return document.querySelectorAll(".sample-button")
+  }
+
   app.initAudio = (e) => {
     // init Tone.js
     Tone.start()
 
     // Get Sample Buttons
-    const buttons = document.querySelectorAll(".sample-button")
+    const buttons = app.getSampleButtons()
 
     // bind events to buttons
     buttons[0].addEventListener('click', playExample00)
@@ -49,9 +53,13 @@ let toneApp = (() => {
   // Disable sample buttons. adding the `disabled` property in the HTML isn't working for some reason.
   // todo: this shouldn't be necessary. Not sure what's going on here.
   document.addEventListener("DOMContentLoaded", (event) => {
-    // todo Refactor so buttons aren't retrieved twice
-    const buttons = document.querySelectorAll(".sample-button")
+    const buttons = toneApp.getSampleButtons()
     buttons.forEach((b) => { b.disabled = true });
+
+    // temp: update textarea content
+    const sampleCode = `const synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease('C4', '8n');`;
+    const ta01 = document.getElementById('ta01')
+    ta01.value = sampleCode;
   });
 
   // Add start button event listener
@@ -164,7 +172,6 @@ const playExample08 = () => {
 }
 
 const playExample09 = () => {
-  console.debug("example 9 start.")
   const osc = new Tone.Oscillator().toDestination();
   // start at "C4"
   osc.frequency.value = "C4";
@@ -172,13 +179,20 @@ const playExample09 = () => {
   osc.frequency.rampTo("C2", 2);
   // start the oscillator for 2 seconds
   osc.start().stop("+3");
-  console.debug("example 9 done.")
 }
 
+
+const stopTextAreaCode = () => {
+  const ta = document.getElementById('ta01')
+  const codeVal = ta.value
+}
 
 const playTextAreaCode = () => {
   const ta = document.getElementById('ta01')
   const codeVal = ta.value
 
   console.debug("playTextAreaCode", { value: codeVal })
+
+  // todo: make this safer. i.e., only allow it to execute tone.js code. somehow.
+  eval(codeVal)
 }
