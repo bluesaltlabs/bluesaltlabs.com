@@ -36,10 +36,10 @@ export class LayoutBase extends LitElement {
         <main class="max-w-screen">
           ${!this.title ? null : html`
             <div class="pure-g">
-              <div class="pure-u pure-u-lg w-100 mx-auto">
+              <div class="pure-u pure-u-lg w-100 mx-auto" style="padding:2px 8px;">
                 <h1>${this.title}</h1>
-                <hr />
               </div>
+              <hr />
             </div>
           `}
           <slot></slot>
