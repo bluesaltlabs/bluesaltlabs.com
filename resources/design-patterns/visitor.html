@@ -37,6 +37,37 @@
     <!-- todo: add this script and explination to the page content. -->
     <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=8 -->
     <script>
+      function Employee(name, salary) {
+        this.name = name;
+        this.salary = salary;
+
+        this.getSalary = () => {
+          return this.salary
+        }
+
+        this.setSalary = (newSalary) => {
+          this.salary = newSalary
+        }
+
+        this.accept = (vistorFn) => {
+          vistorFn(this)
+        }
+      }
+
+      const me = new Employee("me", 10000)
+      console.debug(me.getSalary())
+
+      // This is the Vistor class
+      function ExtraSalary(employee) {
+        employee.setSalary(employee.getSalary() * 2)
+      }
+
+      // Accept the vistor
+      me.accept(ExtraSalary)
+
+      // and now the salary has doubled.
+      console.debug( me.getSalary() )
+
     </script>
 
   </layout-base>
