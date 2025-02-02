@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Observer / Subscriber - Design Patterns | simple.bluesaltlabs.com</title>
+  <title>Observer Pattern - Design Patterns | simple.bluesaltlabs.com</title>
   <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
 
   <!-- Styles -->
@@ -18,7 +18,7 @@
     <div style="padding:0 8px;">
       <a href="/../index.html">Resources</a> |
       <a href="index.html">Design Patterns</a> |
-      <span>Observer</span>
+      <span>Observer Pattern</span>
     </div>
     <hr />
 
@@ -26,8 +26,9 @@
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
 
       <div class="pure-u pure-u-lg-3-5">
-        <span>Observer / Subscriber Pattern</span>
-        todo
+        <h2>Observer Pattern</h2>
+        <span>See Code and log output</span>
+
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
@@ -36,8 +37,57 @@
     <!-- todo: add this script and explination to the page content. -->
     <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=5 -->
     <script>
-    </script>
+      function Subject() {
+        this.observers = [] // an array of observer functions
 
+        // Subscribes an observer to this subject
+        // i.e. adds a function to the observers array
+        this.subscribe = ((fn) => {
+          this.observers.push(fn)
+          // todo: should probably check that a subscriber isn't added twice ///
+        })
+
+        // Unsubscribes an observer to this subject
+        // i.e. removes a function to the observers array
+        this.unsubscribe = ((fnToRemove) => {
+          this.observers = this.observers.filter((fn) => {
+            if(fn !== fnToRemove) { return fn }
+          })
+        })
+
+        // Notify the observers of this subject.
+        this.notify = () => {
+          this.observers.forEach((fn) => {
+            fn.call()
+          })
+        }
+      }
+
+      // Create the subject
+      const subject = new Subject()
+
+      // Create some observers
+      function observer1() { console.debug("observer 1 firing!") }
+      function observer2() { console.debug("observer 2 firing!") }
+      function observer3() { console.debug("observer 3 firing!") }
+
+      // Subscribe the observers to the subject.
+      subject.subscribe(observer1);
+      subject.subscribe(observer2);
+      subject.subscribe(observer3);
+
+      // and notify the subscribers from the Subject
+      subject.notify();
+      console.debug("------------");
+
+      // Unsubscribe an observer
+      subject.unsubscribe(observer2);
+
+      // and notify the subscribers from the Subject again
+      subject.notify();
+
+      // note that observer2 is missing from this notification
+    </script>
 
   </layout-base>
 </body>
