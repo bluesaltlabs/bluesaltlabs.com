@@ -36,6 +36,77 @@
     <!-- todo: add this script and explination to the page content. -->
     <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=3 -->
     <script>
+      function Fedex() {
+        this.name = "Fedex"
+        this.calculate = (package) => {
+          // ...stuff and things happen
+          return 2.45
+        }
+      }
+
+      function UPS() {
+        this.name = "UPS"
+        this.calculate = (package) => {
+          // ...stuff and things happen
+          return 1.56
+        }
+      }
+
+      function USPS() {
+        this.name = "USPS"
+        this.calculate = (package) => {
+          // ...stuff and things happen
+          return 4.5
+        }
+      }
+
+      function Shipping() {
+        this.company = ""
+
+        this.setStrategy = (company) => {
+          this.company = company
+        }
+
+        this.calculate = (package) => {
+          return this.company.calculate(package)
+        }
+
+        this.logStrategy = (package) => {
+          console.debug(this.company.name + ": " + this.calculate(package))
+        }
+      }
+
+      // create the shipping Strategy class instances.
+      const fedex = new Fedex()
+      const ups   = new UPS()
+      const usps  = new USPS()
+
+      // create a dummy package object
+      const package = { from: 'Alabama', to: 'Georga', weight: 1.56 };
+
+      // Don't do this!
+      //fedex.calculate(package)
+      //ups.calculate(package)
+      //usps.calculate(package)
+
+      // instead create a Shipping class and specify the shipping Strategy
+      const shipping = new Shipping()
+
+      // set the strategy to Fedex, log price.
+      shipping.setStrategy(fedex)
+      shipping.logStrategy(package)
+      console.debug("------------")
+
+      // set the strategy to UPS, log price.
+      shipping.setStrategy(ups)
+      shipping.logStrategy(package)
+      console.debug("------------")
+
+      // set the strategy to USPS, log price.
+      shipping.setStrategy(usps)
+      shipping.logStrategy(package)
+      console.debug("------------")
+
     </script>
 
   </layout-base>
