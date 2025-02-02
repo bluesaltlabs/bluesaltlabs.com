@@ -27,7 +27,7 @@
 
       <div class="pure-u pure-u-lg-3-5">
         <h2>Strategy Pattern</h2>
-        todo
+        <span>See Code and log output</span>
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
@@ -63,6 +63,7 @@
       function Shipping() {
         this.company = ""
 
+        // Store a reference to the shipping Strategy (i.e. company)
         this.setStrategy = (company) => {
           this.company = company
         }
