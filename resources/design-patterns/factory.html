@@ -28,11 +28,12 @@
       <div class="pure-u pure-u-lg-3-5">
         <!-- Creational Category Pattern -->
         <h2>Factory Method</h2>
+        <span>See Code and log output</span>
         <hr />
 
         <div id="output"></div>
 
-        <!-- todo: use the facotry method when creating my sound block instances. -->
+        <!-- todo: use the factory method when creating my sound block instances. -->
         <div>
 
         </div>
@@ -42,7 +43,7 @@
     </div>
 
     <!-- todo: add this script and explination to the page content. -->
-    <!-- source: https://www.youtube.com/watch?v=kuirGzhGhyw&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s -->
+    <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=1 -->
     <script>
       function Developer(name) {
         this.name = name;
@@ -73,10 +74,12 @@
           employees.push(employeeFactory.create("Patrick", 1));
           employees.push(employeeFactory.create("Jim", 2));
 
+          // Log the employees to the console
+          console.debug("employees", employees.map((e) => `${e.name} (${e.type})`))
+          console.debug("employees", employees)
 
           // bind the created employees to the DOM
           const outputDiv = document.getElementById('output');
-
           employees.map((e) => {
             outputDiv.innerHTML += `<div>${e.name} | ${e.type}</div>`;
           });
