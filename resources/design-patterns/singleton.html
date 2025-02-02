@@ -17,7 +17,8 @@
     <!-- Navbar -->
     <div style="padding:0 8px;">
       <a href="/../index.html">Resources</a> |
-      <a href="index.html">Design Patterns</a>
+      <a href="index.html">Design Patterns</a> |
+      <span>Singleton</span>
     </div>
     <hr />
 
@@ -25,8 +26,8 @@
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
 
       <div class="pure-u pure-u-lg-3-5">
-        <span>Singleton</span>
-        See Code and log output
+        <h2>Singleton</h2>
+        <span>See Code and log output</span>
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
@@ -68,12 +69,17 @@
     (() => {
       document.addEventListener("DOMContentLoaded", () => {
 
-      const processManager = Singleton.getProcessManager();
-      const processManager2 = Singleton.getProcessManager();
+        // Attempting to create the processManager more than once\
+        // returns the same instance each time.
+        const processManager = Singleton.getProcessManager();
+        const processManager2 = Singleton.getProcessManager();
 
-      // Note the console logs. "creating..." only appears once
+        // Note the console logs. "creating..." only appears once
 
+        // Mysteriously, this doesn't work like the tutorial says it should
+        console.debug(processManager === processManager2)
 
+        // but in any case, the singleton is only instanciated once.
       });
     })();
     </script>
