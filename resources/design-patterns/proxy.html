@@ -26,8 +26,9 @@
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
 
       <div class="pure-u pure-u-lg-3-5">
-        <span>Proxy</span>
-        todo
+        <h2>Proxy</h2>
+        <span>See Code and log output</span>
+
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
@@ -36,8 +37,60 @@
     <!-- todo: add this script and explination to the page content. -->
     <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=6 -->
     <script>
-    </script>
+      // Simulated External API Service
+      function LegoAPI() {
+        this.getValue = (set) => {
+          console.debug("Calling External API...")
+          switch(set) {
+            case "30691": return "$4.99"; break;
+            case "31160": return "$14.99"; break;
+            case "31165": return "$39.99"; break;
+          }
+        }
+      }
 
+      // Create the API service instance...
+      /*
+      const api = new LegoAPI()
+      */
+
+      // ...and call the API a bunch of times
+      /*
+      Array.apply(null, Array(5)).map(() => {
+        console.debug( api.getValue("30691") )
+        console.debug( api.getValue("31160") )
+        console.debug( api.getValue("31165") )
+      })
+      */
+
+      // But this is very inefficient. For example, we could cache values
+
+      // So we will create a Proxy class
+      function LegoProxy() {
+        this.api = new LegoAPI()
+        this.cache = {}
+
+        // Create the same interface as the proxied api
+        this.getValue = (set) => {
+          if(this.cache[set] === undefined) {
+            this.cache[set] = this.api.getValue(set)
+          } else {
+            console.debug("retrieving value from cache... ")
+          }
+
+          return this.cache[set]
+        }
+      }
+
+      const legoProxy = new LegoProxy()
+
+      Array.apply(null, Array(5)).map(() => {
+        console.debug( legoProxy.getValue("30691") )
+        console.debug( legoProxy.getValue("31160") )
+        console.debug( legoProxy.getValue("31165") )
+      })
+
+    </script>
 
   </layout-base>
 </body>
