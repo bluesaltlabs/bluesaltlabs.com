@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit'
-
 // https://github.com/SortableJS/Sortable
 //import Sortable from 'sortablejs'
 
