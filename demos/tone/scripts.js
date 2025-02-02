@@ -175,7 +175,6 @@ const examples = {
   },
   // sample010: () => { },
 
-
   playTextareaCode: () => {
     const ta = document.getElementById('ta01')
     const codeVal = ta.value
