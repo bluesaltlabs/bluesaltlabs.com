@@ -26,6 +26,7 @@ export default {
         //pc: 'pc/index.html',
         pc_98: 'pc/98.html',
         resources: 'resources/index.html',
+        resources_design_patterns: 'resources/design-patterns/index.html',
         demos: 'demos/index.html',
         demos_drag_drop: 'demos/drag-drop/index.html',
         demos_drag_drop_old: 'demos/drag-drop/old.html',
