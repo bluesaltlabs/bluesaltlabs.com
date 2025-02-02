@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>simple.bluesaltlabs.com | Music</title>
+  <title>Music | simple.bluesaltlabs.com</title>
 
   <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/styles.css" />
@@ -16,18 +16,18 @@
   <script type="module" src="/src/components/audio/audio-oscillator.js"></script>
 </head>
 <body>
-  <layout-base title="BlueSaltLabs | Music">
-
-    <!-- todo: make this an array parameter in layout-base -->
-    <div class="links-container" style="padding:2px 8px;">
-      <a href="about.html">About</a> |
-      <a href="components.html">Components</a> |
+  <layout-base title="Music | BlueSaltLabs">
+    <!-- navbar -->
+    <slot name="navbar">
+      <a href="about.html">About</a>
+      <a href="components.html">Components</a>
       <a href="sequencer.html">Sequencer</a>
-    </div>
+      <hr />
+    </slot>
 
-    <hr />
 
-    <div class="pure-g">
+    <!-- Content -->
+    <section class="pure-g">
 
       <div class="pure-u pure-u-lg w-100">
         <div style="max-width: 300px;" class="mx-auto">
@@ -39,17 +39,17 @@
 
         <!-- <music-sequencer>Test Music Demo Slot Content</music-sequencer> -->
       </div>
-    </div>
+    </section>
 
-    <div class="pure-g">
-
+    <section class="pure-g">
       <div class="pure-u pure-u-lg w-100">
         <div style="width: 640px;" class="max-w-screen mx-auto">
           <h3>Audio Oscillator</h3>
           <audio-oscillator>Test Music Demo Slot Content</audio-oscillator>
         </div>
       </div>
-    </div>
+    </section>
+    <!-- End Content -->
 
   </layout-base>
 </body>

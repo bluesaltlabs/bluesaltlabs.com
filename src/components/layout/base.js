@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
 import './header.js';
-import './navbar.js';
 import './footer.js';
 
 export class LayoutBase extends LitElement {
@@ -15,13 +14,11 @@ export class LayoutBase extends LitElement {
   `
 
   static properties = {
-    title: { type: String, reflect: true }
+    title: { type: String, reflect: true },
   }
 
   constructor(title) {
     super();
-    this.title = title
-
     //
   }
 
@@ -29,24 +26,25 @@ export class LayoutBase extends LitElement {
 
   render() {
     return html`
-      <div>
-        <!-- todo: expand upon this layout -->
-        <layout-header></layout-header>
-        <layout-navbar></layout-navbar>
-        <main class="max-w-screen">
-          ${!this.title ? null : html`
-            <div class="pure-g">
-              <div class="pure-u pure-u-lg w-100 mx-auto" style="padding:2px 8px;">
-                <h1>${this.title}</h1>
-              </div>
-              <hr />
+      <layout-header><slot name="navbar"></slot></layout-header>
+
+      <main class="max-w-screen">
+        ${!this.title ? null : html`
+          <div class="pure-g">
+            <!-- todo: don't use style property here -->
+            <div class="pure-u pure-u-lg w-100 mx-auto" style="padding:2px 8px;">
+              <h1>${this.title}</h1>
             </div>
-          `}
-          <slot></slot>
-        </main>
-        <layout-footer></layout-footer>
-      </div>
-      `;
+            <hr />
+          </div>
+        `}
+
+        <!-- Content -->
+        <slot></slot>
+
+      </main>
+      <layout-footer></layout-footer>
+    `;
   }
 }
 
