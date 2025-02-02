@@ -28,7 +28,6 @@
       <div class="pure-u pure-u-lg-3-5">
         <h2>Iterator Method</h2>
         <span>See Code and log output</span>
-        todo
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
@@ -37,6 +36,41 @@
     <!-- todo: add this script and explination to the page content. -->
     <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=4 -->
     <script>
+      const items = [1, "foobar", false, 1.42];
+
+      function Iterator(items) {
+        this.items = items;
+        this.index = 0;
+
+        this.hasNext = () => {
+          // returns false if the index >= the number of items
+          return this.index < this.items.length;
+        }
+
+        this.next = () => {
+          // retrieves the next item in the array and increments the index value
+          return this.items[this.index++];
+        }
+      }
+
+      const iter = new Iterator(items)
+
+      // One could manually iterate
+      // console.debug("next(): " + iter.next())       // 1
+      // console.debug("hasNext(): " + iter.hasNext()) // true
+      // console.debug("next(): " + iter.next())       // "foobar"
+      // console.debug("hasNext(): " + iter.hasNext()) // true
+      // console.debug("next(): " + iter.next())       // false
+      // console.debug("hasNext(): " + iter.hasNext()) // true
+      // console.debug("next(): " + iter.next())       // 1.42
+      // console.debug("hasNext(): " + iter.hasNext()) // false
+      // console.debug("hasNext(): " + iter.next()) // this is outside the array, so it outputs 'undefined'
+
+      // Alternatively, one could iterate over these values instead
+      while(iter.hasNext()) {
+        console.debug("next(): " + iter.next())
+      }
+
     </script>
 
   </layout-base>
