@@ -30,13 +30,11 @@ export class LayoutBase extends LitElement {
 
       <main class="max-w-screen">
         ${!this.title ? null : html`
-          <div class="pure-g">
-            <!-- todo: don't use style property here -->
-            <div class="pure-u pure-u-lg w-100 mx-auto" style="padding:2px 8px;">
-              <h1>${this.title}</h1>
-            </div>
-            <hr />
+          <!-- todo: don't use style property here -->
+          <div style="padding:2px 16px;max-width:1600px;margin:auto;">
+            <h1>${this.title}</h1>
           </div>
+          <hr />
         `}
 
         <!-- Content -->
