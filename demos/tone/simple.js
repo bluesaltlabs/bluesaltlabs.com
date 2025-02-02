@@ -1,6 +1,6 @@
 import * as Tone from "tone";
 
-let toneApp = (() => {
+let simpleToneApp = (() => {
   // Initiate app variables and methods
   let self = {};
 
@@ -37,7 +37,7 @@ let toneApp = (() => {
   }
 
   // return self.
-    console.debug("toneApp initiated", self);
+    console.debug("simpleToneApp initiated", self);
     return self;
 })(); // note: semicolon is required here!
 
@@ -54,7 +54,7 @@ let toneApp = (() => {
 
     // Add start button event listener
     const startBtn = document.getElementById('btn_start')
-    startBtn.addEventListener('click', toneApp.initAudio)
+    startBtn.addEventListener('click', simpleToneApp.initAudio)
 
     // temp: update textarea content
     const sampleCode = `const synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease('C4', '8n');`;
