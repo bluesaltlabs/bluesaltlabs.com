@@ -33,6 +33,7 @@ export default {
         demos_spa: 'demos/spa/index.html',
         demos_tone: 'demos/tone/index.html',
         demos_tone_examples: 'demos/tone/examples.html',
+        demos_tone_simple: 'demos/tone/simple.html',
       },
     },
   },
