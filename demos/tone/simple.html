@@ -11,9 +11,7 @@
   <link rel="stylesheet" href="./styles.css" />
 
   <!-- Scripts -->
-  <!-- <script type="module" src="/src/components/music/tone-demo.js"></script> -->
   <script type="module" src="/src/components/layout/base.js"></script>
-  <script type="module" src="./simple.js"></script>
 </head>
 <body>
   <layout-base title="Tone.js | BlueSaltLabs">
@@ -36,7 +34,10 @@
       <label for="ta01">Sample 10</label><br />
       <textarea id="ta01" name="ta01" rows="4" cols="50"></textarea>
     </section>
-
   </layout-base>
+
+  <!-- Scripts -->
+  <script src="/node_modules/tone/build/Tone.js"></script>
+  <script type="module" src="./simple.js"></script>
 </body>
 </html>

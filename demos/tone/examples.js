@@ -1,4 +1,4 @@
-import * as Tone from "tone";
+//import * as Tone from "tone";
 // todo: this throws an error with audio context.  fix this. instanciate Tone within the app?
 //
 // todo: update this so examples use .loops and .synths

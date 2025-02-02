@@ -8,22 +8,21 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/styles.css" />
+
   <link rel="stylesheet" href="./styles.css" />
 
   <!-- Scripts -->
-  <!-- <script type="module" src="/src/components/music/tone-demo.js"></script> -->
   <script type="module" src="/src/components/layout/base.js"></script>
-  <script type="module" src="./examples.js"></script>
 </head>
 <body>
   <layout-base title="Examples - Tone.js | BlueSaltLabs">
 
 
     <!-- Navbar -->
-        <div style="padding:0 8px;">
-          <a href="../index.html">Demos</a>
-        </div>
-        <hr />
+    <div style="padding:0 8px;">
+      <a href="../index.html">Demos</a>
+    </div>
+    <hr />
 
     <section class="test-section">
       <button class="start-button" id="btn_start">START AUDIO</button><br />
@@ -53,5 +52,9 @@
       <textarea id="ta01" name="ta01" rows="4" cols="50"></textarea>
     </section>
   </layout-base>
+
+  <!-- Scripts -->
+  <script src="/node_modules/tone/build/Tone.js"></script>
+  <script type="module" src="./examples.js"></script>
 </body>
 </html>

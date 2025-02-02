@@ -1,4 +1,4 @@
-import * as Tone from "tone";
+//import * as Tone from "tone";
 
 let simpleToneApp = (() => {
   // Initiate app variables and methods
@@ -43,16 +43,16 @@ let simpleToneApp = (() => {
 
 
 // Load Page
-(() => {
 
-  document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {
 
-    // Disable sample buttons. adding the `disabled` property in the HTML isn't working for some reason.
-    // todo: this shouldn't be necessary. Not sure what's going on here.
-    const sampleBtns = document.querySelectorAll('sample-button')
-    sampleBtns.forEach((b) => { b.disabled = true });
+  // Disable sample buttons. adding the `disabled` property in the HTML isn't working for some reason.
+  // todo: this shouldn't be necessary. Not sure what's going on here.
+  const sampleBtns = document.querySelectorAll('.sample-button')
+  console.debug("sampleBtns",sampleBtns)
+  sampleBtns.forEach((b) => { b.disabled = true });
 
-    // Add start button event listener
+  // Add start button event listener
     const startBtn = document.getElementById('btn_start')
     startBtn.addEventListener('click', simpleToneApp.initAudio)
 
@@ -61,5 +61,4 @@ let simpleToneApp = (() => {
     const ta01 = document.getElementById('ta01')
     ta01.value = sampleCode;
 
-  });
-})();
+});
