@@ -26,12 +26,57 @@
 
       <div class="pure-u pure-u-lg-3-5">
         <span>Singleton</span>
-        todo
+        See Code and log output
       </div>
 
       <div class="pure-u pure-u-lg-1-5">&nbsp;</div>
     </div>
 
+    <!-- todo: add this script and explination to the page content. -->
+    <!-- source: https://www.youtube.com/watch?v=JKNjfDCNPa4&list=PLFKDYTlP3abzwWleHq1WHcKyi8nCPY74s&index=2 -->
+    <script>
+    function Process(state) {
+      this.state = state;
+    }
+
+    const Singleton = (() => {
+      function ProcessManager() {
+        this.numProcess = 0
+      }
+      // Create the internal ProcessManager instance
+      let instance;
+
+      function createProcessManager() {
+        console.debug("creating a new ProcessManager instance...");
+        instance = new ProcessManager();
+        return instance;
+      }
+
+      return {
+        getProcessManager: () => {
+          if(!instance) {
+            console.debug("creating ProcessManager instance for the first time.");
+            instance = createProcessManager();
+            return instance;
+          } else {
+            console.debug("using the existing ProcessManager instance.")
+          }
+        }
+      }
+    })();
+
+    (() => {
+      document.addEventListener("DOMContentLoaded", () => {
+
+      const processManager = Singleton.getProcessManager();
+      const processManager2 = Singleton.getProcessManager();
+
+      // Note the console logs. "creating..." only appears once
+
+
+      });
+    })();
+    </script>
   </layout-base>
 </body>
 </html>
