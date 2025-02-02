@@ -3,7 +3,7 @@
     "id": 1,
     "title": "First Blog Post",
     "content": null,
-    "content_path": "1.md",
+    "content_path": "/data/1.md",
     "author": "Luke Sontrop",
     "createdAt": "2025-01-28 00:00:00",
     "categories": ["General"],
