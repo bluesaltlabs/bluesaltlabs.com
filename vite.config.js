@@ -29,8 +29,10 @@ export default {
         demos: 'demos/index.html',
         demos_drag_drop: 'demos/drag-drop.html',
         demos_drag_drop_vanilla: 'demos/drag-drop-vanilla.html',
+        demos_spa: 'demos/spa/index.html',
         demos_tone: 'demos/tone/index.html',
         demos_tone_examples: 'demos/tone/examples.html',
+
       },
     },
   },
