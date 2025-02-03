@@ -11,6 +11,11 @@ export class LayoutBase extends LitElement {
       border: none;
       background-color: var(--color-blue-alt);
     }
+    .title-container {
+      padding:2px 16px;
+      max-width: 1200px; /* todo: this should probably be a variable */
+      margin:auto;
+    }
   `
 
   static properties = {
@@ -19,7 +24,7 @@ export class LayoutBase extends LitElement {
 
   constructor(title) {
     super();
-    //
+    this.title = title;
   }
 
   //createRenderRoot() { return this }
@@ -30,8 +35,7 @@ export class LayoutBase extends LitElement {
 
       <main class="max-w-screen">
         ${!this.title ? null : html`
-          <!-- todo: don't use style property here -->
-          <div style="padding:2px 16px;max-width:1600px;margin:auto;">
+          <div class="title-container">
             <h1>${this.title}</h1>
           </div>
           <hr />

@@ -54,10 +54,9 @@ export class LayoutHeader extends LitElement {
       .header-right {
         margin: 0 3px;
         padding: 0px 3px;
-        border-left: 1px solid var(--color-blue-alt);
+        /* border-left: 1px solid var(--color-blue-alt); */
       }
   `
-
 
   render() {
     return html`
