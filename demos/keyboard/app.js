@@ -4,56 +4,25 @@
 class KeyboardDemoApp {
   #foobar = "thing"
   constructor() {
-    this.app = {};
-    //
+    // public properties go here with
+    // this.foo = "bar" // syntax
   }
-
-  #privateMethod() {
-    console.debug("This is a private method")
-  }
-
 
   handleEvent(event) {
     console.debug("KeyboardDemoApp is handling event", event)
 
   }
-  publicMethod() {
-      this.#privateMethod()
-  }
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
-      this.handleEvent(new Event(null))
+      // todo: on page load
     });
   }
 }
 
 
-/*
-let keyboardApp = (() => {
-  // Initiate app variables and methods
-  let app = {};
-
-  // app.foo = "bar"; // todo
-  //
-
-  app.
-
-
-  return app;
-})();
- */
-
-
 // Load Page App
- let kbApp = new KeyboardDemoApp();
- kbApp.init()
- kbApp.publicMethod()
- kbApp.handleEvent( new Event("outside event") )
-
- // this throws an error.
- //kbApp.#privateMethod()
-
-//kbApp.handleEvent(new Event("foo event"));
+let kbApp = new KeyboardDemoApp();
+kbApp.init()
 
 // -------------------------------------------------------------------------- //
