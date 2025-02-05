@@ -1,7 +1,35 @@
+// todo: convert this to a clas instead.
 
-/* Page App */
-// todo: figure out how to make this a class instead of creating keyboardApp this way.
-// note: This is called an IIFE (Immediately Invoked Function Expression)
+/* Keyboard App */
+class KeyboardDemoApp {
+  #foobar = "thing"
+  constructor() {
+    this.app = {};
+    //
+  }
+
+  #privateMethod() {
+    console.debug("This is a private method")
+  }
+
+
+  handleEvent(event) {
+    console.debug("KeyboardDemoApp is handling event", event)
+
+  }
+  publicMethod() {
+      this.#privateMethod()
+  }
+
+  init() {
+    document.addEventListener("DOMContentLoaded", (event) => {
+      this.handleEvent(new Event(null))
+    });
+  }
+}
+
+
+/*
 let keyboardApp = (() => {
   // Initiate app variables and methods
   let app = {};
@@ -9,20 +37,23 @@ let keyboardApp = (() => {
   // app.foo = "bar"; // todo
   //
 
-  app.handleEvent = (event) => {
-    console.debug("keyboardApp is handling an event", event)
-  }
+  app.
 
-  app.init = () => {
-    app.handleEvent(new Event(null))
-  }
 
   return app;
 })();
+ */
 
-// Load Page
-(() => {
-  document.addEventListener("DOMContentLoaded", (event) => {
-    keyboardApp.init()
-  })
-})();
+
+// Load Page App
+ let kbApp = new KeyboardDemoApp();
+ kbApp.init()
+ kbApp.publicMethod()
+ kbApp.handleEvent( new Event("outside event") )
+
+ // this throws an error.
+ //kbApp.#privateMethod()
+
+//kbApp.handleEvent(new Event("foo event"));
+
+// -------------------------------------------------------------------------- //
