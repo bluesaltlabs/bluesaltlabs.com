@@ -53,6 +53,7 @@ class KeyboardDemo extends LitElement {
       height: 30em;
     }
     .piano-container {
+      user-select: none;
       display: flex;
       position: absolute;
       transform: translate(-50%, -50%);
@@ -64,6 +65,7 @@ class KeyboardDemo extends LitElement {
       box-shadow: 0 2em 4em rgba(7, 0, 53, 0.25);
     }
     .white-key {
+      user-select: none;
       width: 4.37em;
       height: 17.5em;
       background-color: #ffffff;
@@ -76,6 +78,7 @@ class KeyboardDemo extends LitElement {
       background-color: #ebebeb;
     }
     .black-key {
+      user-select: none;
       width: 2.5em;
       height: 10em;
       border-radius: 0 0 0.3em 0.3em;
@@ -154,7 +157,6 @@ class KeyboardDemo extends LitElement {
   static properties = {
     keys: { type: Object },
     octive: { type: Number },
-    synth: { type: Object },
     mouseDown: { type: Boolean },
   };
 
@@ -164,12 +166,7 @@ class KeyboardDemo extends LitElement {
     this.octive = 2;
     this.mouseDown = false;
 
-    this.initSynth(); // todo: wait to do this until audio context starts.
     this.buildKeys();
-  }
-
-  initSynth() {
-    this.synth = new Tone.Synth(synthConfig).toDestination();
   }
 
   buildKeys() {
@@ -179,6 +176,7 @@ class KeyboardDemo extends LitElement {
         index,
         class: index <= 10 ? "black-key" : "white-key",
         note: keyNotes[index],
+        synth: new Tone.Synth(synthConfig).toDestination(),
       };
 
       // console.debug("adding key", { index: index, key: this.keys[index] });
@@ -196,6 +194,9 @@ class KeyboardDemo extends LitElement {
     }
   }
 
+  setMouseDown() { this.mouseDown = true; console.debug("fired setMouseDown") }
+  setMouseUp() { this.mouseDown = false; console.debug("fired setMouseUp")}
+
   handleTouchStartKey(index) {
     console.debug("fired handleTouchStartKey", { index })
     this.handleNoteTrigger(index)
@@ -203,53 +204,71 @@ class KeyboardDemo extends LitElement {
 
   handleTouchEndKey(index) {
     console.debug("fired handleTouchStartKey", { index })
-    this.handleNoteRelease()
+    this.handleNoteRelease(index)
   }
 
   handleMouseEnterKey(index) {
     if(this.mouseDown) {
-      console.debug("fired handleMouseEnterKey", { index })
+      //console.debug("fired handleMouseEnterKey", { index })
       this.handleNoteTrigger(index)
     }
   }
 
   handleMouseLeaveKey(index) {
-    setTimeout(function() {
-      this.mouseDown = false;
-      //console.debug(`mouseDown? ${this.mouseDown ? "TRUE" : "FALSE"}`)
-    }, 200);
-
-    //console.debug("fired handleMouseLeaveKey", { index })
     this.handleNoteRelease(index)
+
+    setTimeout(() => { this.setMouseUp() }, 300);
   }
 
   handleMouseDownKey(index) {
-    console.debug("fired handleMouseDownKey", { index })
-    this.mouseDown = true; // todo: do we need this?
+    //console.debug("fired handleMouseDownKey", { index })
+    this.setMouseDown()
+    this.handleNoteTrigger(index)
   }
 
-  handleMouseDownContainer() { this.mouseDown = true; }
-  handleMouseUpContainer() { this.mouseDown = false; }
+  handleMouseDownContainer() { this.setMouseDown(); }
+  handleMouseUpContainer() { this.setMouseUp(); }
   handleMouseLeaveContainer() {
-    this.mouseDown = false;
-    this.handleNoteRelease()
+    this.setMouseUp();
+    this.handleNoteRelease();
   }
 
   handleMouseUpKey(index) {
-    this.mouseDown = false;
+    this.setMouseUp();
     this.handleNoteRelease(index)
   }
 
   // function to trigger the note - triggered by click, touch, or keyboard.
   handleNoteTrigger(index) {
-    this.synth.triggerRelease(); // todo :temp
-    this.synth.triggerAttack( this.getNoteString(index) );
+    // Check if index is valid
+    if (index && typeof keyNotes[index] !== 'undefined') { // todo: this should check keys and not keyNotes
+      const synth = this.keys[index].synth;
+      const note = this.getNoteString(index);
+      console.debug(`playing note: ${note}`);
+      //synth.triggerAttack( note );
+    }
   }
 
   // function to release the note -
   // todo: when index is null, release all notes.
   handleNoteRelease(index = null) {
-    this.synth.triggerRelease();
+    console.debug(`releasing note: ${index}`)
+    if (index && typeof keyNotes[index] !== 'undefined') { // todo: this should check keys and not keyNotes
+      const synth = this.keys[index].synth;
+      //synth.triggerRelease(); // todo: temp
+    } else {
+      // release all
+      for(let key in this.keys) {
+        //console.debug(key)
+        //try {
+          //key.synth.triggerRelease(); // todo: temp
+          //} catch(e) {}
+      }
+    }
+  }
+
+  startAudio() {
+    Tone.start();
   }
 
   // handleKeyClick(index, noteString) {
@@ -261,6 +280,7 @@ class KeyboardDemo extends LitElement {
   render() {
     return html`
       <div class="keyboard-container__wrapper">
+        <button @click=${this.startAudio}>Start Audio</button>
         <div
           class="piano-container"
           @mouseup=${this.handleMouseUpContainer}
