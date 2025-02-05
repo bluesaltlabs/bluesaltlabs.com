@@ -36,9 +36,9 @@ const synthConfig = {
   },
   envelope: {
     attackCurve: "exponential",
-    attack: 0.05,
-    decay: 0.2,
-    sustain: 0.2,
+    attack: 0.15,
+    decay: 0.5,
+    sustain: 0.25,
     release: 1.5,
   },
   portamento: 0.05,
@@ -155,38 +155,53 @@ class KeyboardDemo extends LitElement {
   `;
 
   static properties = {
-    keys: { type: Object },
-    octive: { type: Number },
-    mouseDown: { type: Boolean },
+    keys: { type: Array, reflect: true },
+    octive: { type: Number, reflect: true },
+    mouseDown: { type: Boolean, reflect: true },
+    audioStarted: { type: Boolean, reflect: true },
+    synths: { type: Array }
   };
 
   constructor() {
     super();
     this.keys = [];
+    this.synths = [];
     this.octive = 2;
     this.mouseDown = false;
+    this.audioStarted = false;
 
     this.buildKeys();
   }
 
   buildKeys() {
     for (let index in keyNotes) {
-      // Add the key to this element's 'keys' property
       this.keys[index] = {
         index,
         class: index <= 10 ? "black-key" : "white-key",
         note: keyNotes[index],
-        synth: new Tone.Synth(synthConfig).toDestination(),
       };
-
-      // console.debug("adding key", { index: index, key: this.keys[index] });
     }
+  }
+
+  buildSynths() {
+    for (let index in keyNotes) {
+      this.synths[index] = new Tone.Synth(synthConfig).toDestination();
+    }
+  }
+
+  getOctiveForIndex(index) {
+    const i = parseInt(index);
+    let secondOctive = 0;
+
+    if( (i > 5 && i < 11) || (i > 17) ) { secondOctive = 1; }
+
+    return (this.octive + secondOctive);
+
   }
 
   getNoteString(index) {
     try {
-      const noteString = `${keyNotes[index]}${this.octive}`;
-      // console.debug(`noteString: ${noteString}`)
+      const noteString = `${keyNotes[index]}${this.getOctiveForIndex(index)}`;
       return noteString;
     } catch (e) {
       console.warn(`Couldn't getNoteString for index: ${index}`, e)
@@ -194,23 +209,23 @@ class KeyboardDemo extends LitElement {
     }
   }
 
-  setMouseDown() { this.mouseDown = true; console.debug("fired setMouseDown") }
-  setMouseUp() { this.mouseDown = false; console.debug("fired setMouseUp")}
+  setMouseDown() { this.mouseDown = true; }// console.debug("fired setMouseDown")}
+  setMouseUp() { this.mouseDown = false; } //console.debug("fired setMouseUp")}
 
   handleTouchStartKey(index) {
-    console.debug("fired handleTouchStartKey", { index })
+    // console.debug("fired handleTouchStartKey", { index })
     this.handleNoteTrigger(index)
   }
 
   handleTouchEndKey(index) {
-    console.debug("fired handleTouchStartKey", { index })
+    // console.debug("fired handleTouchStartKey", { index })
     this.handleNoteRelease(index)
   }
 
   handleMouseEnterKey(index) {
     if(this.mouseDown) {
       //console.debug("fired handleMouseEnterKey", { index })
-      this.handleNoteTrigger(index)
+      //this.handleNoteTrigger(index)
     }
   }
 
@@ -241,41 +256,36 @@ class KeyboardDemo extends LitElement {
   // function to trigger the note - triggered by click, touch, or keyboard.
   handleNoteTrigger(index) {
     // Check if index is valid
-    if (index && typeof keyNotes[index] !== 'undefined') { // todo: this should check keys and not keyNotes
-      const synth = this.keys[index].synth;
+    if (index && typeof this.synths[index] !== 'undefined') { // todo: this should check keys and not keyNotes
       const note = this.getNoteString(index);
       console.debug(`playing note: ${note}`);
-      //synth.triggerAttack( note );
+      this.synths[index].triggerAttack( note );
     }
   }
 
   // function to release the note -
   // todo: when index is null, release all notes.
   handleNoteRelease(index = null) {
-    console.debug(`releasing note: ${index}`)
-    if (index && typeof keyNotes[index] !== 'undefined') { // todo: this should check keys and not keyNotes
-      const synth = this.keys[index].synth;
-      //synth.triggerRelease(); // todo: temp
+    //console.debug(`releasing note: ${index}`)
+    if (index && typeof this.synths[index] !== 'undefined') { // todo: this should check keys and not keyNotes
+      this.synths[index].triggerRelease();
     } else {
       // release all
-      for(let key in this.keys) {
+      for(let synthIndex in this.synths) {
         //console.debug(key)
-        //try {
-          //key.synth.triggerRelease(); // todo: temp
-          //} catch(e) {}
+        try {
+          this.synths[synthIndex].triggerRelease();
+        } catch(e) {}
       }
     }
   }
 
   startAudio() {
-    Tone.start();
+    if(!this.audioStarted) {
+      Tone.start();
+      this.buildSynths();
+    }
   }
-
-  // handleKeyClick(index, noteString) {
-  //   console.debug(
-  //     `Hello from key ${index <= 10 ? "black-key" : "white-key"} ${index}: ${noteString}${this.octive}!`,
-  //   );
-  // }
 
   render() {
     return html`
