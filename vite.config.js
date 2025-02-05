@@ -36,6 +36,7 @@ export default {
         resources_design_patterns_strategy: 'resources/design-patterns/strategy.html',
         resources_design_patterns_visitor: 'resources/design-patterns/visitor.html',
         demos: 'demos/index.html',
+        demos_keyboard: 'demos/keyboard/index.html',
         demos_drag_drop: 'demos/drag-drop/index.html',
         demos_drag_drop_old: 'demos/drag-drop/old.html',
         demos_drag_drop_vanilla: 'demos/drag-drop/vanilla.html',
