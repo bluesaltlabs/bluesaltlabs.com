@@ -134,7 +134,9 @@ function draw() {
   // whiteKey03();
   // blackKey01();
 
+  showMousePos(); // debug
+
   drawKeys(2);
 
-  // showMousePos(); // debug
+
 }
