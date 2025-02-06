@@ -57,8 +57,8 @@ function blackKey01() {
   fill("#000000"); // black fill
   beginShape(TESS);
   vertex(0, 0, 0); // 1
-  vertex( (w2*2), 0, 0); // 2
-  vertex( (w2*2), h1, 0); // 3
+  vertex( (w2+w2), 0, 0); // 2
+  vertex( (w2+w2), h1, 0); // 3
   vertex(0, h1, 0); // 4
   // todo: make 3 and 4 biezer vertexes
   endShape(CLOSE);
