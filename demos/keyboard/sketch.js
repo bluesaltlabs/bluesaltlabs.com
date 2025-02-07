@@ -69,7 +69,7 @@ function blackKey01(keyID = 0) { // (w2+w2)
   endShape(CLOSE);
   translate(0, (keyGap/2));
     // todo: update this description. include note it will play, state?
-  describe('A piano key shape drawn in white.');
+  describe('A piano key shape drawn in black.');
 }
 
 
@@ -163,6 +163,14 @@ function updateKeyState() {
   keyState = {
     // todo
   };
+}
+
+function mousePressed() {
+  // todo
+}
+
+function keyPressed() {
+  // todo
 }
 
 function setup() {
