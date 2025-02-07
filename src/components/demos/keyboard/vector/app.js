@@ -2,7 +2,7 @@ import settings from './settings.js'
 const svgNS = "http://www.w3.org/2000/svg";
 
 /* Keyboard App */
-class KeyboardAreaApp {
+class KeyboardVectorApp {
   constructor() {
     this.updateConfigValues(); // this.c
     this.buildKeyState();      // this.s
@@ -226,33 +226,45 @@ class KeyboardAreaApp {
   }
 
   buildKeyVectors() {
-    //const keyboardContainer = document.getElementById("keyboard-container");
-    const kbVector = document.getElementById("keyboard-vector");
+    const keyboardContainer = document.getElementById("keyboard-container");
+
+    // Create the keyboard vector
+    const kbVector = document.createElementNS(svgNS, 'svg');
+
+    // Add a background element
+    const kbBg = document.createElementNS(svgNS, 'rect');
+    kbBg.setAttribute('fill', this.c.bg.c);
+    kbBg.setAttribute('width', "100%");
+    kbBg.setAttribute('height', "100%");
+    kbVector.appendChild(kbBg);
+
+    const kbVectorW = this.getVectorWidth();
+    const kbVectorH = this.getVectorHeight();
+    kbVector.setAttribute('id', 'keyboard-vector');
+    kbVector.setAttribute('width', kbVectorW);
+    kbVector.setAttribute('height', kbVectorH);
+    kbVector.setAttribute('style', 'max-width:100%;');
+    kbVector.setAttribute('viewBox', `0 0 ${kbVectorW} ${kbVectorH}`);
+
 
     for(let key in this.s.k) {
       const k = parseInt(key);
       // console.debug("key:", { k, val: this.s.k[k], name: this.getKeyTypeName(k) });
 
       kbVector.appendChild( this.getKeyVector(k) );
-
-      const kbVectorW = this.getVectorWidth();
-      const kbVectorH = this.getVectorHeight();
-      kbVector.setAttribute('width', kbVectorW);
-      kbVector.setAttribute('height', kbVectorH);
-      kbVector.setAttribute('viewBox', `0 0 ${kbVectorW} ${kbVectorH}`);
     }
+
+    keyboardContainer.appendChild(kbVector);
   }
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
       this.buildKeyVectors();
-
-      // todo:
       this.handleEvent( new Event("app_load") );
     });
   }
 }
 
 // Load Page App
-let kbArea = new KeyboardAreaApp();
- kbArea.init()
+let kbVector = new KeyboardVectorApp();
+ kbVector.init()
