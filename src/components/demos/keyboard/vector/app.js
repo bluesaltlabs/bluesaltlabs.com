@@ -1,18 +1,78 @@
 import settings from './settings.js'
 const svgNS = "http://www.w3.org/2000/svg";
 
+const EVENT_TYPE_LOAD         = 'keyboard_app__load';
+const EVENT_TYPE_INIT         = 'keyboard_app__init';
+const EVENT_TYPE_KEY_PRESS    = 'keyboard_key__pressed';
+const EVENT_TYPE_KEY_RELEASE  = 'keyboard_key__released';
+
+
+// todo: keyboard state needs to be abstracted out of this.
+// todo: state needs to have listeners and set that up on its own.
+// todo: svg needs to be generated as its onw thing.
+// todo: there needs to be a base key class that each of the 4 key types extend from.
+// todo: learn about using drop shadows: https://css-tricks.com/breaking-css-box-shadow-vs-drop-shadow/
+
 /* Keyboard App */
-class KeyboardVectorApp {
+class KeyboardVectorApp extends EventTarget {
   constructor() {
+    super();
     this.updateConfigValues(); // this.c
     this.buildKeyState();      // this.s
     // pitches: this.c.p
+    this.addEvents();
 
-    this.updateDebug()
+    this.updateDebug();
 
-    this.handleEvent(
-      new Event("init"), { c: this.c, s: this.s }
-    );
+    this.dispatchEvent(this.e.load);
+
+    // todo:?
+    // window.addEventListener(EVENT_TYPE_KEY_PRESS, this.handleKeyPressedEvent);
+    // window.addEventListener(EVENT_TYPE_KEY_RELEASE, this.handleKeyReleasedEvent);
+
+    // todo:?
+    // window.removeEventListener(EVENT_TYPE_KEY_PRESS)
+    // window.removeEventListener(EVENT_TYPE_KEY_RELEASE)
+  }
+
+  addEvents() {
+
+    // const event = new Event("build");
+    // todo: should I set these keys somewhere instead of hard-coding them?
+    this.e = {
+      load: new Event(EVENT_TYPE_LOAD),
+      init: new Event(EVENT_TYPE_INIT),
+      key_press: new Event(EVENT_TYPE_KEY_PRESS),
+      key_release: new Event(EVENT_TYPE_KEY_RELEASE),
+    };
+
+    // todo: fix these
+    this.addEventListener(EVENT_TYPE_LOAD, (e) => {
+      console.debug("KeyboardAreaApp handling load event :", { e: e ?? null });
+    });
+
+    this.addEventListener(EVENT_TYPE_INIT, (e) => {
+      console.debug("KeyboardAreaApp handling init event :", { e: e ?? null });
+    });
+
+    this.addEventListener(EVENT_TYPE_KEY_PRESS, (e) => {
+      console.debug("KeyboardAreaApp handling key press event :", { e: e ?? null });
+    });
+
+    this.addEventListener(EVENT_TYPE_KEY_RELEASE, (e) => {
+      console.debug("KeyboardAreaApp handling key release event :", { e: e ?? null });
+    });
+
+    //this.addEventListener(EVENT_TYPE_LOAD, this.handleEvent);
+    //this.addEventListener(EVENT_TYPE_INIT, this.handleEvent);
+    //this.addEventListener(EVENT_TYPE_KEY_PRESS, this.handleKeyPressedEvent);
+    //this.addEventListener(EVENT_TYPE_KEY_RELEASE, this.handleKeyReleasedEvent);
+
+    for(let e in this.e) {
+      console.debug("what is e?", { e: e, event: this.e[e] })
+
+
+    }
   }
 
   handleEvent(event, value) {
@@ -23,24 +83,59 @@ class KeyboardVectorApp {
     for (let i = 0; i < this.s.k.length; i++) {
       try {
         const ta = document.getElementById(`debug_values_${i}`);
-        console.debug("updateDebug", { ta });
+        //console.debug("updateDebug", { ta });
         ta.value = JSON.stringify(this.s.k[i], null, 2);
       } catch (e) {
         this.handleEvent(e);
       }
-
     }
   }
 
-  updateKeyState() {
+  // handleKeyPressedEvent(e) {
+  //   console.debug("fired handleKeyPressedEvent", { e: e ?? null, this: this })
+  // }
 
+  // handleKeyReleasedEvent(e) {
+  //   console.debug("fired handleKeyReleasedEvent", { e: e ?? null, this: this })
+  // }
+
+  handlePointerEvent(e) {
+    switch(e.type) {
+      case "pointerover":
+        //console.debug("handle pointerover event for target", { e })
+        // make key active
+        e.target.classList.add('active');
+        break;
+      case "pointerdown":
+        //console.debug("handle pointerdown event for target", { e })
+        // make key pressed
+        e.target.classList.add('pressed');
+        // fire keyPressed event
+        //this.dispatchEvent(this.e.key_press);
+        break;
+      case "pointerup":
+        //console.debug("handle pointerup event for target", { e })
+        // make key unpressed
+        e.target.classList.remove('pressed');
+        // fire keyRelease event
+        //this.dispatchEvent(this.e.key_release);
+        break;
+      case "pointerout":
+        //console.debug("handle pointerout event for target", { e })
+        // make key inactive
+        e.target.classList.remove('active');
+        // make key unpressed
+        e.target.classList.remove('pressed')
+        // fire keyRelease event
+        //this.dispatchEvent(this.e.key_release);
+        break;
+
+      default: handleEvent(e);
+    }
   }
 
-  handleKeyDownEvent(e) {
-    // todo
-    this.updateKeyState();
-    this.updateDebug();
-  }
+  // todo: handleKeyPressEvent(e) {}
+  // todo: handleKeyReleaseEvent(e) {}
 
   updateConfigValues() {
     const h1 = settings?.height_1 ?? 90;
@@ -226,7 +321,6 @@ class KeyboardVectorApp {
     };
   }
 
-
   getKeyVector(keyIndex) {
     const keyName = this.getKeyTypeName(keyIndex);
     // console.debug("keyName", { keyIndex ,keyName });
@@ -247,9 +341,14 @@ class KeyboardVectorApp {
     newPoly.setAttributeNS(null, "width", "100%");
     newPoly.setAttributeNS(null, "height", "100%");
     newPoly.setAttributeNS(null, "points", points);
-
     newPoly.setAttributeNS(null, "fill", kc.f.c);
     newPoly.setAttributeNS(null, "stroke", kc.f.s);
+
+    // Add event listeners
+    newPoly.addEventListener('pointerover', this.handlePointerEvent);
+    newPoly.addEventListener('pointerout', this.handlePointerEvent);
+    newPoly.addEventListener('pointerdown', this.handlePointerEvent);
+    newPoly.addEventListener('pointerup', this.handlePointerEvent);
 
     return newPoly;
   }
@@ -272,7 +371,7 @@ class KeyboardVectorApp {
     kbVector.setAttribute('id', 'keyboard-vector');
     kbVector.setAttribute('width', kbVectorW);
     kbVector.setAttribute('height', kbVectorH);
-    kbVector.setAttribute('style', 'max-width:100%;');
+    kbVector.setAttribute('style', 'max-width:100%;margin:0 auto;display:block;');
     kbVector.setAttribute('viewBox', `0 0 ${kbVectorW} ${kbVectorH}`);
 
 
@@ -289,7 +388,7 @@ class KeyboardVectorApp {
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
       this.buildKeyVectors();
-      this.handleEvent( new Event("app_load") );
+      this.dispatchEvent(this.e.init);
     });
   }
 }

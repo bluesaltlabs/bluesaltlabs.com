@@ -48,6 +48,7 @@ export default defineConfig({
         demos_drag_drop: resolve(__dirname, 'demos/drag-drop/index.html'),
         demos_drag_drop_old: resolve(__dirname, 'demos/drag-drop/old.html'),
         demos_drag_drop_vanilla: resolve(__dirname, 'demos/drag-drop/vanilla.html'),
+        demos_schedule: resolve(__dirname, 'demos/schedule/index.html'),
         demos_spa: resolve(__dirname, 'demos/spa/index.html'),
         demos_tone: resolve(__dirname, 'demos/tone/index.html'),
         demos_tone_examples: resolve(__dirname, 'demos/tone/examples.html'),
