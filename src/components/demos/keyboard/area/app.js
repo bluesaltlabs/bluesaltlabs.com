@@ -4,23 +4,24 @@ const svgNS = "http://www.w3.org/2000/svg";
 /* Keyboard App */
 class KeyboardAreaApp {
   constructor() {
-    this.updateSettings();
+    this.updateConfigValues();
+    this.buildKeyState();
 
-    console.debug("KeyboardAreaApp settings: ", this.s)
+    console.debug("KeyboardAreaApp config: ", this.c)
   }
 
   handleEvent(event) {
     console.debug("KeyboardAreaApp event handler:", event)
   }
 
-  updateSettings() {
+  updateConfigValues() {
     const h1 = settings?.height_1 ?? 90;
     const h2 = settings?.height_2 ?? 60;
     const w1 = settings?.width_1 ?? 24;
     const w2 = (w1 / 2); // width 02, half of width 1
     const kg = settings?.keyGap ?? 2; // Key gap
     const kw = w1 + w2; // key width
-    this.s = {
+    this.c = {
       octives: settings?.octives ?? 2,
       firstOctive: settings?.firstOctive ?? 2,
       h1,h2,w1,w2,kg,kw,
@@ -93,23 +94,26 @@ class KeyboardAreaApp {
     };
   }
 
-
-  getKeySettings(keyName) {
+  getKeyConfig(keyName) {
     switch(keyName) {
-      case "bk1": return this.s.k.bk1; break;
-      case "wk1": return this.s.k.wk1; break;
-      case "wk2": return this.s.k.wk2; break;
-      case "wk3": return this.s.k.wk3; break;
+      case "bk1": return this.c.k.bk1; break;
+      case "wk1": return this.c.k.wk1; break;
+      case "wk2": return this.c.k.wk2; break;
+      case "wk3": return this.c.k.wk3; break;
     }
   }
 
+  buildKeyState() {
+
+  }
+
   getKeyVector(keyName, shiftX = 0, shiftY = 0) {
-    const ks = this.getKeySettings(keyName);
+    const kc = this.getKeyConfig(keyName);
 
     let points = '';
-    for(let p in ks.v) {
+    for(let p in kc.v) {
       //console.debug({ v: v[p] })
-      points = `${points} ${ks.v[p].x + shiftX},${ks.v[p].y + shiftY}`;
+      points = `${points} ${kc.v[p].x + shiftX},${kc.v[p].y + shiftY}`;
     }
 
     const newPoly = document.createElementNS(svgNS, 'polygon');
@@ -119,8 +123,8 @@ class KeyboardAreaApp {
     newPoly.setAttributeNS(null, "height", "100%");
     newPoly.setAttributeNS(null, "points", points);
 
-    newPoly.setAttributeNS(null, "fill", ks.f.c); // todo
-    newPoly.setAttributeNS(null, "stroke", ks.f.s); // todo
+    newPoly.setAttributeNS(null, "fill", kc.f.c); // todo
+    newPoly.setAttributeNS(null, "stroke", kc.f.s); // todo
 
     return newPoly;
   }
@@ -131,9 +135,9 @@ class KeyboardAreaApp {
       const testVector = document.getElementById("test-vector");
 
       // value shortcuts
-      const w1 = this.s.w1; // width 1
-      const w2 = this.s.w2; // width 2
-      const kg = this.s.kg; // key gap width
+      const w1 = this.c.w1; // width 1
+      const w2 = this.c.w2; // width 2
+      const kg = this.c.kg; // key gap width
       const hkg = (kg/2);   // Half key gap width
 
       // key width value shortcuts
