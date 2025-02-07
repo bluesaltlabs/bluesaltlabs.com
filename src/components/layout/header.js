@@ -50,11 +50,19 @@ export class LayoutHeader extends LitElement {
       .header-left {
         margin: 0 3px;
       }
+      .header-title {
+        padding-left: 6px;
+      }
 
       .header-right {
         margin: 0 3px;
         padding: 0px 3px;
         /* border-left: 1px solid var(--color-blue-alt); */
+      }
+      @media screen and (max-width: 350px) {
+        .header-title {
+          display: none;
+        }
       }
   `
 
@@ -63,6 +71,7 @@ export class LayoutHeader extends LitElement {
       <header>
         <div class="header-left">
           <button onclick="window.location.href='/'" alt="Home">Home</button>
+          <span class='header-title'><code>| simple.bluesaltlabs.com</code></span>
         </div>
         <div class="header-right">
           <slot></slot>
