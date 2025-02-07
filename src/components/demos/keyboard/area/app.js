@@ -8,24 +8,28 @@ class KeyboardAreaApp {
     this.buildKeyState();      // this.s
     // pitches: this.c.p
 
-    console.debug("KeyboardAreaApp init: ", { c: this.c, s: this.s });
+    this.handleEvent(
+      new Event("init"), { c: this.c, s: this.s }
+    );
   }
 
-  handleEvent(event) {
-    console.debug("KeyboardAreaApp event handler:", event)
+  handleEvent(event, value) {
+    console.debug("KeyboardAreaApp event handler:", event, value)
   }
 
   updateConfigValues() {
     const h1 = settings?.height_1 ?? 90;
     const h2 = settings?.height_2 ?? 60;
     const w1 = settings?.width_1 ?? 24;
-    const w2 = (w1 / 2); // width 02, half of width 1
+    const w2 = (w1 / 2);  // width 02, half of width 1
+    const wk2w = (w2+w1); // white key 2 width
     const kg = settings?.keyGap ?? 2; // Key gap
-    const kw = w1 + w2; // key width
+    const hkg = (kg/2); // Half key gap
+    const kw = w1 + w2;  // key width
     this.c = {
       octives: settings?.octives ?? 2,
       firstOctive: settings?.firstOctive ?? 2,
-      h1,h2,w1,w2,kg,kw,
+      h1,h2,w1,w2,kg,kw,hkg,wk2w,
       bg: {
         c: settings?.background?.color ?? "#339c1a",
         d: settings?.background?.describe ?? ".a green background.",
@@ -105,6 +109,73 @@ class KeyboardAreaApp {
     }
   }
 
+  getKeyTypeName(keyIndex) {
+    switch(keyIndex % 12) {
+      case 0: return "wk1"; break;
+      case 1: return "bk1"; break;
+      case 2: return "wk3"; break;
+      case 3: return "bk1"; break;
+      case 4: return "wk2"; break;
+      case 5: return "wk1"; break;
+      case 6: return "bk1"; break;
+      case 7: return "wk3"; break;
+      case 8: return "bk1"; break;
+      case 9: return "wk3"; break;
+      case 10: return "bk1"; break;
+      case 11: return "wk2"; break;
+    }
+  }
+
+  getVectorWidth() {
+    const numKeys = this.s.k.length;
+    return this.getKeyOffsetX(numKeys);
+  }
+
+  getVectorHeight() {
+    return (this.c.kg + this.c.h1 + this.c.h2 + this.c.kg);
+  }
+
+   getIndexOffsetX(i) {
+     // console.debug("i", { i })
+     if (i === 0) { return this.c.kg; }
+     switch(i % 12) {
+       case 0:  return (this.c.w1+this.c.w2+this.c.kg);
+       case 1: return (this.c.w1+this.c.hkg);
+       case 2: return (this.c.w2+this.c.hkg);
+       case 3: return (this.c.w1+this.c.hkg);
+       case 4: return (this.c.w2+this.c.hkg);
+       case 5: return (this.c.wk2w+this.c.kg);
+       case 6: return (this.c.w1+this.c.hkg);
+       case 7: return (this.c.w2+this.c.hkg);
+       case 8: return (this.c.w1+this.c.hkg);
+       case 9: return (this.c.w2+this.c.hkg);
+       case 10: return (this.c.w1+this.c.hkg);
+       case 11: return (this.c.w2+this.c.hkg);
+     }
+     return 0;
+   }
+
+  getKeyOffsetX(keyIndex) {
+    const ki = parseInt(keyIndex);
+    let offset = 0;
+
+    for (let i = ki; i >= 0; i--) {
+      offset += this.getIndexOffsetX(i);
+    }
+
+    return offset;
+  }
+
+  getKeyOffsetY(keyIndex) {
+    const ki = parseInt(keyIndex) % 12;
+    // this.c.hkg for black keys
+    if(ki === 1 || ki === 3 || ki === 6 || ki === 8 || ki === 10) {
+      return this.c.hkg;
+    } else {
+      return this.c.kg;
+    }
+  }
+
   buildKeyState() {
     let i = 0;
     let keys = [];
@@ -112,6 +183,7 @@ class KeyboardAreaApp {
     for (let o = 0; o < this.c.octives; o++) {
       const octive = this.c.firstOctive + o;
 
+      // todo: this shouldn't be here - there should just be 12 pitches
       for(let p in this.c.p) {
         keys.push({ index: i++, p: `${p}${octive}` });
         if(p !== "B" && p !== "E") {
@@ -120,95 +192,56 @@ class KeyboardAreaApp {
       }
     }
 
-
     // state
     this.s = {
       k: keys, // keys (state)
     };
   }
 
-  getKeyVector(keyName, shiftX = 0, shiftY = 0) {
+  getKeyVector(keyIndex) {
+    const keyName = this.getKeyTypeName(keyIndex);
+    // console.debug("keyName", { keyIndex ,keyName });
+    const shiftX = this.getKeyOffsetX(keyIndex);
+    // console.debug("shiftX", { keyIndex, shiftX })
+    const shiftY = this.getKeyOffsetY(keyIndex);
     const kc = this.getKeyConfig(keyName);
 
     let points = '';
     for(let p in kc.v) {
-      //console.debug({ v: v[p] })
+      // console.debug({ v: v[p] })
       points = `${points} ${kc.v[p].x + shiftX},${kc.v[p].y + shiftY}`;
     }
 
     const newPoly = document.createElementNS(svgNS, 'polygon');
 
-    newPoly.setAttributeNS(null, "id", "new-poly");
+    newPoly.setAttributeNS(null, "id", `key-${keyName}-${keyIndex}`);
     newPoly.setAttributeNS(null, "width", "100%");
     newPoly.setAttributeNS(null, "height", "100%");
     newPoly.setAttributeNS(null, "points", points);
 
-    newPoly.setAttributeNS(null, "fill", kc.f.c); // todo
-    newPoly.setAttributeNS(null, "stroke", kc.f.s); // todo
+    newPoly.setAttributeNS(null, "fill", kc.f.c);
+    newPoly.setAttributeNS(null, "stroke", kc.f.s);
 
     return newPoly;
   }
 
   buildKeyVectors() {
-    const testVector = document.getElementById("test-vector");
     //const keyboardContainer = document.getElementById("keyboard-container");
+    const kbVector = document.getElementById("keyboard-vector");
 
+    for(let key in this.s.k) {
+      const k = parseInt(key);
+      // console.debug("key:", { k, val: this.s.k[k], name: this.getKeyTypeName(k) });
 
+      kbVector.appendChild( this.getKeyVector(k) );
 
-
-    // value shortcuts
-    const w1 = this.c.w1; // width 1
-    const w2 = this.c.w2; // width 2
-    const kg = this.c.kg; // key gap width
-    const hkg = (kg/2);   // Half key gap width
-
-    // key width value shortcuts
-    const bk1w = (w2+w2);    // black key 1 width
-    const wk1w = (w1+w2);    // white key 1 width
-    const wk2w = (w2+w1);    // white key 2 width
-    const wk3w = (w2+w2+w2); // white key 3 width
-
-    // testVector.appendChild(this.getKeyVector("bk1"));
-    // testVector.appendChild(this.getKeyVector("wk1"));
-    // testVector.appendChild(this.getKeyVector("wk2"));
-    // testVector.appendChild(this.getKeyVector("wk3"));
-
-    // todo: should I save this offset value in the key?
-    let offsetX = 0;
-
-    console.debug("got here")
-
-
-    testVector.appendChild(this.getKeyVector("wk1", offsetX, kg));  // key 01
-    offsetX += w1+hkg;
-    testVector.appendChild(this.getKeyVector("bk1", offsetX, hkg)); // key 02
-    offsetX += w2+hkg;
-    testVector.appendChild(this.getKeyVector("wk3", offsetX, kg));  // key 03
-    offsetX += w1+hkg;
-    testVector.appendChild(this.getKeyVector("bk1", offsetX, hkg)); // key 04
-    offsetX += w2+hkg;
-    testVector.appendChild(this.getKeyVector("wk2", offsetX, kg));  // key 05
-    offsetX += wk2w+kg;
-    testVector.appendChild(this.getKeyVector("wk1", offsetX, kg));  // key 06
-    offsetX += w1+hkg;
-    testVector.appendChild(this.getKeyVector("bk1", offsetX, hkg)); // key 07
-    offsetX += w2+hkg;
-    testVector.appendChild(this.getKeyVector("wk3", offsetX, kg));  // key 08
-    offsetX += w1+hkg;
-    testVector.appendChild(this.getKeyVector("bk1", offsetX, hkg)); // key 09
-    offsetX += w2+hkg;
-    testVector.appendChild(this.getKeyVector("wk3", offsetX, kg));  // key 10
-    offsetX += w1+hkg;
-    testVector.appendChild(this.getKeyVector("bk1", offsetX, hkg)); // key 11
-    offsetX += w2+hkg;
-    testVector.appendChild(this.getKeyVector("wk2", offsetX, kg));  // key 12
-
-
-    // todo
-    // if(octive > 1) { offsetX += kg };
-
+      const kbVectorW = this.getVectorWidth();
+      const kbVectorH = this.getVectorHeight();
+      kbVector.setAttribute('width', kbVectorW);
+      kbVector.setAttribute('height', kbVectorH);
+      kbVector.setAttribute('viewBox', `0 0 ${kbVectorW} ${kbVectorH}`);
+    }
   }
-
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
