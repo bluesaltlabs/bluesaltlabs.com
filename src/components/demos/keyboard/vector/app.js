@@ -8,6 +8,8 @@ class KeyboardVectorApp {
     this.buildKeyState();      // this.s
     // pitches: this.c.p
 
+    this.updateDebug()
+
     this.handleEvent(
       new Event("init"), { c: this.c, s: this.s }
     );
@@ -15,6 +17,29 @@ class KeyboardVectorApp {
 
   handleEvent(event, value) {
     console.debug("KeyboardAreaApp event handler:", event, value)
+  }
+
+  updateDebug() {
+    for (let i = 0; i < this.s.k.length; i++) {
+      try {
+        const ta = document.getElementById(`debug_values_${i}`);
+        console.debug("updateDebug", { ta });
+        ta.value = JSON.stringify(this.s.k[i], null, 2);
+      } catch (e) {
+        this.handleEvent(e);
+      }
+
+    }
+  }
+
+  updateKeyState() {
+
+  }
+
+  handleKeyDownEvent(e) {
+    // todo
+    this.updateKeyState();
+    this.updateDebug();
   }
 
   updateConfigValues() {
@@ -185,10 +210,13 @@ class KeyboardVectorApp {
 
       // todo: this shouldn't be here - there should just be 12 pitches
       for(let p in this.c.p) {
-        keys.push({ index: i++, p: `${p}${octive}` });
-        if(p !== "B" && p !== "E") {
-          keys.push({ index: i++, p: `${p}#${octive}` });
-        }
+        console.debug()
+        keys.push({
+          index: i++,
+          pressed: false,
+          active: false,
+          pitch: `${this.c.p[p]}${octive}`
+        });
       }
     }
 
@@ -197,6 +225,7 @@ class KeyboardVectorApp {
       k: keys, // keys (state)
     };
   }
+
 
   getKeyVector(keyIndex) {
     const keyName = this.getKeyTypeName(keyIndex);

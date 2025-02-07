@@ -1,5 +1,16 @@
 import MusicEnum from '@/enums/MusicEnum.js'
 
+const pitches = (() => {
+  let keys = [];
+
+  for (let p in MusicEnum.PITCHES) {
+    keys.push(`${p}`);
+    if (p !== "B" && p !== "E") {
+      keys.push(`${p}#`);
+    }
+  }
+  return keys;
+})();
 // Configurable Settings
 // note: Canvas does not work with decimal values -
 //       ensure values are whole when divided by 2
@@ -44,5 +55,5 @@ export default {
       },
     },
   },
-  pitches: MusicEnum.PITCHES,
+  pitches,
 };
