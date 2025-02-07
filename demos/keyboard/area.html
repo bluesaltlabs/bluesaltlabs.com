@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Keyboard Demo | simple.bluesaltlabs.com</title>
+  <title>Keyboard Map Demo</title>
   <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
 
   <!-- Styles -->
@@ -11,12 +11,11 @@
 
   <!-- Lit Components -->
   <script type="module" src="/src/components/layout/base.js"></script>
-  <script type="module" src="/src/components/demos/keyboard-demo.js"></script>
-  <script type="module" src="/src/components/demos/keyboard/app.js"></script>
+
+  <script type="module" src="/src/components/demos/keyboard/area.js"></script>
 
 </head>
 <body>
-
   <layout-base title="Keyboard Demo">
 
     <!-- Navbar -->
@@ -29,11 +28,13 @@
       <div class="pure-u pure-u-lg-1-12">&nbsp;</div>
 
       <div class="pure-u pure-u-lg-10-12 mx-auto">
-        <keyboard-demo></keyboard-demo>
+        <div id="piano-container"></div>
       </div>
 
       <div class="pure-u pure-u-lg-1-12">&nbsp;</div>
     </div>
   </layout-base>
+
+
 </body>
 </html>
