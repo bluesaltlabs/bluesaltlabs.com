@@ -1,81 +1,177 @@
-let keyState = {};
-const octives = 2;
+
+// init key state (todo)
+let keyState = {
+  1: {},
+  2: {},
+  3: {},
+  4: {},
+  5: {},
+  6: {},
+  7: {},
+  8: {},
+  9: {},
+  10: {},
+  11: {},
+  12: {},
+};
+
+const octives = 2; // default: 2 - can be modified
 
 // note: Canvas does not work with decimal values - ensure / 2 is an even number
-const h1 = 90;
-const h2 = 60;
+const h1 = 90; // default: 90 - can be modified, caution
+const h2 = 60; // default: 60 - can be modified, caution
 
-const w1 = 24;
-const w2 = (w1 / 2);
-const keyGap = 2;
+const w1 = 24; // default: 24 - can me modified, caution
+const w2 = (w1 / 2); // do not modify
+const keyGap = 2; // default: 2 - can be modified, caution, even number!
+
+// App Configuration
+const c_app = {
+  background: {
+    color: "#339c1a",
+    describe: ".a green background.",
+  },
+};
+
+// Black Key 01 Configuration
+const c_bk1 = {
+  fill: {
+    color: "#000000",
+    describe: "A piano key shape drawn in black.",
+  },
+  v: [
+    { x: 0, y: 0, z: 0 }, // 1
+    { x: (w2+w2), y: 0, z: 0 }, // 2
+    { x: (w2+w2), y: h1, z: 0 }, // 3
+    { x: 0, y: h1, z: 0 }, // 4
+  ],
+};
+
+// White Key 01 Configuration
+const c_wk1 = {
+  fill: {
+    color: "#FFFFFF",
+    describe: ".a piano key shape drawn in white.",
+  },
+  v: [
+    { x: 0, y: 0, z: 0 }, // 1
+    { x: w1, y: 0, z: 0 }, // 2
+    { x: w1, y: h1, z: 0 }, // 3
+    { x: (w1+w2), y: h1, z: 0 }, // 4
+    { x: (w1+w2), y: (h1+h2), z: 0 }, // 5
+    { x: 0, y: (h1+h2), z: 0 }, // 6
+  ],
+};
+
+// White Key 02 Configuration
+const c_wk2 = {
+  fill: {
+    color: "#FFFFFF",
+    describe: ".a piano key shape drawn in white.",
+  },
+  v: [
+    { x: w2, y: 0, z: 0 }, // 1
+    { x: (w2+w1), y: 0, z: 0 }, // 2
+    { x: (w2+w1), y: (h1+h2), z: 0 }, // 3
+    { x: 0, y: (h1+h2), z: 0 }, // 4
+    { x: 0, y: h1, z: 0 }, // 5
+    { x: w2, y: h1, z: 0 }, // 6
+  ],
+};
+
+// White Key 03 Configuration
+const c_wk3 = {
+  fill: {
+    color: "#FFFFFF",
+    describe: ".a piano key shape drawn in white.",
+  },
+  v: [
+    { x: w2, y: 0, z: 0 }, // 1
+    { x: (w2+w2), y: 0, z: 0 }, // 2
+    { x: (w2+w2), y: h1, z: 0 }, // 3
+    { x: (w2+w2+w2), y: h1, z: 0 }, // 4
+    { x: (w2+w2+w2), y: (h1+h2), z: 0 }, // 5
+    { x: 0, y: (h1+h2), z: 0 }, // 6
+    { x: 0, y: h1, z: 0 }, // 7
+    { x: w2, y: h1, z: 0 }, // 8
+  ],
+};
+
+function blackKey01(keyID = 0) { // (w2+w2)
+  fill(c_bk1.fill.color); // black fill
+
+  translate(0, -(keyGap/2)); // Translate up
+  beginShape(TESS);
+  vertex(c_bk1.v[0].x, c_bk1.v[0].y, c_bk1.v[0].z); // 1
+  vertex(c_bk1.v[1].x, c_bk1.v[1].y, c_bk1.v[1].z); // 2
+  vertex(c_bk1.v[2].x, c_bk1.v[2].y, c_bk1.v[2].z); // 3
+  vertex(c_bk1.v[3].x, c_bk1.v[3].y, c_bk1.v[3].z); // 4
+  // todo: make 3 and 4 biezer vertexes
+  endShape(CLOSE);
+
+  translate(0, (keyGap/2)); // translate back down
+
+    // todo: update this description. include note it will play, state?
+  describe(c_bk1.fill.describe);
+}
+
 
 function whiteKey01(keyID = 0) { // (w1+w2)
-  fill("#FFFFFF"); // white fill
+  fill(c_wk1.fill.color); // white fill
+
   beginShape(TESS);
-  vertex(0, 0, 0); // 1
-  vertex(w1, 0, 0);  // 2
-  vertex(w1, h1, 0);   // 3
-  vertex( (w1+w2), h1, 0);  // 4
-  vertex( (w1+w2), (h1+h2), 0);  // 5
-  vertex(0, (h1+h2), 0);  // 6
+  vertex(c_wk1.v[0].x, c_wk1.v[0].y, c_wk1.v[0].z); // 1
+  vertex(c_wk1.v[1].x, c_wk1.v[1].y, c_wk1.v[1].z); // 2
+  vertex(c_wk1.v[2].x, c_wk1.v[2].y, c_wk1.v[2].z); // 3
+  vertex(c_wk1.v[3].x, c_wk1.v[3].y, c_wk1.v[3].z); // 4
+  vertex(c_wk1.v[4].x, c_wk1.v[4].y, c_wk1.v[4].z); // 5
+  vertex(c_wk1.v[5].x, c_wk1.v[5].y, c_wk1.v[5].z); // 6
   // todo: make 1, 5 and 6 biezer vertexes.
   endShape(CLOSE);
 
   // todo: update this description. include note it will play, state?
-  describe('A piano key shape drawn in white.');
+ describe(c_wk1.fill.describe);
 }
 
 function whiteKey02(keyID = 0) { // (w2+w1)
-  fill("#FFFFFF"); // white fill
+  fill(c_wk2.fill.color); // white fill
+
   beginShape(TESS);
-  vertex(w2, 0, 0); // 1
-  vertex( (w2+w1), 0, 0); // 2
-  vertex( (w2+w1), (h1+h2), 0); // 3
-  vertex(0, (h1+h2), 0); // 4
-  vertex(0, h1, 0); // 5
-  vertex(w2, h1, 0); // 6
+  vertex(c_wk2.v[0].x, c_wk2.v[0].y, c_wk2.v[0].z); // 1
+  vertex(c_wk2.v[1].x, c_wk2.v[1].y, c_wk2.v[1].z); // 2
+  vertex(c_wk2.v[2].x, c_wk2.v[2].y, c_wk2.v[2].z); // 3
+  vertex(c_wk2.v[3].x, c_wk2.v[3].y, c_wk2.v[3].z); // 4
+  vertex(c_wk2.v[4].x, c_wk2.v[4].y, c_wk2.v[4].z); // 5
+  vertex(c_wk2.v[5].x, c_wk2.v[5].y, c_wk2.v[5].z); // 6
   // todo: make 2, 3 and 4 biezer vertexes.
   endShape(CLOSE);
     // todo: update this description. include note it will play, state?
-  describe('A piano key shape drawn in white.');
+  describe(c_wk2.fill.describe);
 }
 
 function whiteKey03(keyID = 0) { // (w2+w2+w2)
-  fill("#FFFFFF"); // white fill
+  fill(c_wk3.fill.color); // white fill
+
   beginShape(TESS);
-  vertex(w2, 0, 0); // 1
-  vertex( (w2+w2), 0, 0); // 2
-  vertex( (w2+w2), h1, 0); // 3
-  vertex( (w2+w2+w2), h1, 0); // 4
-  vertex( (w2+w2+w2), (h1+h2), 0); // 5
-  vertex(0, (h1+h2), 0); // 6
-  vertex(0, h1, 0); // 7
-  vertex(w2, h1, 0); // 8
+  vertex(c_wk3.v[0].x, c_wk3.v[0].y, c_wk3.v[0].z); // 1
+  vertex(c_wk3.v[1].x, c_wk3.v[1].y, c_wk3.v[1].z); // 2
+  vertex(c_wk3.v[2].x, c_wk3.v[2].y, c_wk3.v[2].z); // 3
+  vertex(c_wk3.v[3].x, c_wk3.v[3].y, c_wk3.v[3].z); // 4
+  vertex(c_wk3.v[4].x, c_wk3.v[4].y, c_wk3.v[4].z); // 5
+  vertex(c_wk3.v[5].x, c_wk3.v[5].y, c_wk3.v[5].z); // 6
+  vertex(c_wk3.v[6].x, c_wk3.v[6].y, c_wk3.v[6].z); // 7
+  vertex(c_wk3.v[7].x, c_wk3.v[7].y, c_wk3.v[7].z); // 8
+
   // todo: make 3, 5, 6, and 8 biezer vertexes
   endShape(CLOSE);
     // todo: update this description. include note it will play, state?
-  describe('A piano key shape drawn in white.');
-}
-
-function blackKey01(keyID = 0) { // (w2+w2)
-  fill("#000000"); // black fill
-  translate(0, -(keyGap/2));
-  beginShape(TESS);
-  vertex(0, 0, 0); // 1
-  vertex( (w2+w2), 0, 0); // 2
-  vertex( (w2+w2), h1, 0); // 3
-  vertex(0, h1, 0); // 4
-  // todo: make 3 and 4 biezer vertexes
-  endShape(CLOSE);
-  translate(0, (keyGap/2));
-    // todo: update this description. include note it will play, state?
-  describe('A piano key shape drawn in black.');
+  describe(c_wk3.fill.describe);
 }
 
 
 function bgFill() {
-  background("#339c1a");
-  describe('.a green background.')
+  background(c_app.background.color);
+  describe(c_app.background.describe);
 }
 
 function showMousePos() {
@@ -159,18 +255,48 @@ function drawKeys() {
   }
 }
 
+function drawKeysNew() {
+
+}
+
 function updateKeyState() {
   keyState = {
-    // todo
+    1: {},
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+    6: {},
+    7: {},
+    8: {},
+    9: {},
+    10: {},
+    11: {},
+    12: {},
   };
 }
 
-function mousePressed() {
+//https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+function mousePressed(e) {
+  // if(e.button === 0) {} // left button
   // todo
+  console.log("mousePressed", {
+    button: e.button,
+    mouseX,
+    mouseY,
+    offsetX: e.offsetX,
+    offsetY: e.offsetY,
+    //webkitForce: e.webkitForce,
+    relatedTarget: e.relatedTarget,
+  });
 }
 
-function keyPressed() {
+function keyPressed(e) {
   // todo
+  console.log("keyPressed", {
+    key: key,
+    keyCode: keyCode,
+  });
 }
 
 function setup() {
@@ -182,12 +308,12 @@ function draw() {
   bgFill();
 
   // Keys (debug)
-  // whiteKey01();
+   //whiteKey01();
   // whiteKey02();
   // whiteKey03();
   // blackKey01();
 
-  showMousePos(); // debug
+  //showMousePos(); // debug
 
   drawKeys();
 }
