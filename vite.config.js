@@ -52,6 +52,7 @@ export default defineConfig({
         demos_tone: resolve(__dirname, 'demos/tone/index.html'),
         demos_tone_examples: resolve(__dirname, 'demos/tone/examples.html'),
         demos_tone_simple: resolve(__dirname, 'demos/tone/simple.html'),
+        tools: resolve(__dirname, 'tools/index.html'),
       },
     },
   },
