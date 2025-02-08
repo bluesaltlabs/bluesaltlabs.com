@@ -9,6 +9,61 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/styles.css" />
 
+  <style>
+  /* todo: fix this. also these should probably be in the js too / alternatively */
+    #keyboard-container svg {
+     /* perspective: 1000px;*/ /* todo: this won't work with each key belonging to one vector. Split up the vectors and this will work.*/
+    }
+    #keyboard-container svg polygon {
+      /*transition: drop-shadow 300ms cubic-bezier(0.3, 0.8, 0.3, 2.3);*/
+      transition: * 300ms ease-in-out;
+
+    }
+
+    #keyboard-container svg polygon.bk1 {
+      fill: #222222fe;
+      &.active {
+        fill: #000000ee;
+      }
+      &.pressed {
+        fill: #000000dc;
+      }
+    }
+    #keyboard-container svg polygon.wk1,
+    #keyboard-container svg polygon.wk2,
+    #keyboard-container svg polygon.wk3 {
+      fill: #eeeeeefe;
+      &.active {
+        fill: #ffffffee;
+      }
+      &.pressed {
+        fill: #ffffffdc;
+      }
+    }
+
+    /* keys */
+    #keyboard-container svg polygon.bk1,
+    #keyboard-container svg polygon.wk1,
+    #keyboard-container svg polygon.wk2,
+    #keyboard-container svg polygon.wk3 {
+      /* Figure out why this transistion isn't working. */
+      transition: fill 100ms ease-in-out, filter 100ms ease-in-out, transform 100ms ease-in-out;
+
+      filter: drop-shadow(0 6px 6px #00000000);
+      &.active {
+        filter: drop-shadow(0 6px 12px #333333ff);
+
+        /* transform: rotatex(4deg); */
+
+      }
+      &.pressed {
+        filter: drop-shadow(0 -2px 2px #000000ee);
+
+      }
+    }
+  </style>
+
+
   <!-- Lit Components -->
   <script type="module" src="/src/components/layout/base.js"></script>
 
@@ -29,6 +84,7 @@
 
       <div class="pure-u-22-24 pure-u-md-20-24">
         <div id="keyboard-container"></div>
+        <!--
         <hr />
 
         <div style="width:100%;margin:0 auto;display:flex;justify-content:space-between;">
@@ -71,6 +127,7 @@
           <textarea id="debug_values_21" name="debug_values_21" cols="30" rows="10" style="width:100%;"></textarea>
           <textarea id="debug_values_23" name="debug_values_23" cols="30" rows="10" style="width:100%;"></textarea>
         </div>
+        -->
       </div>
 
       <div class="pure-u-1-24 pure-u-lg-2-24">&nbsp;</div>

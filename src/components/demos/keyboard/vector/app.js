@@ -1,10 +1,14 @@
 import settings from './settings.js'
+
+const debug = true;
 const svgNS = "http://www.w3.org/2000/svg";
 
 const EVENT_TYPE_LOAD         = 'keyboard_app__load';
 const EVENT_TYPE_INIT         = 'keyboard_app__init';
-const EVENT_TYPE_KEY_PRESS    = 'keyboard_key__pressed';
-const EVENT_TYPE_KEY_RELEASE  = 'keyboard_key__released';
+const EVENT_TYPE_KEY_ENTER    = 'keyboard_key__enter';
+const EVENT_TYPE_KEY_LEAVE    = 'keyboard_key__leave';
+const EVENT_TYPE_KEY_PRESS    = 'keyboard_key__press';
+const EVENT_TYPE_KEY_RELEASE  = 'keyboard_key__release';
 
 
 // todo: keyboard state needs to be abstracted out of this.
@@ -42,6 +46,8 @@ class KeyboardVectorApp extends EventTarget {
     this.e = {
       load: new Event(EVENT_TYPE_LOAD),
       init: new Event(EVENT_TYPE_INIT),
+      key_enter: new Event(EVENT_TYPE_KEY_ENTER),
+      key_enter: new Event(EVENT_TYPE_KEY_LEAVE),
       key_press: new Event(EVENT_TYPE_KEY_PRESS),
       key_release: new Event(EVENT_TYPE_KEY_RELEASE),
     };
@@ -63,15 +69,10 @@ class KeyboardVectorApp extends EventTarget {
       console.debug("KeyboardAreaApp handling key release event :", { e: e ?? null });
     });
 
-    //this.addEventListener(EVENT_TYPE_LOAD, this.handleEvent);
-    //this.addEventListener(EVENT_TYPE_INIT, this.handleEvent);
-    //this.addEventListener(EVENT_TYPE_KEY_PRESS, this.handleKeyPressedEvent);
-    //this.addEventListener(EVENT_TYPE_KEY_RELEASE, this.handleKeyReleasedEvent);
-
-    for(let e in this.e) {
-      console.debug("what is e?", { e: e, event: this.e[e] })
-
-
+    if(debug) {
+      for(let e in this.e) {
+        console.debug("what is e?", { e: e, event: this.e[e] })
+      }
     }
   }
 
@@ -86,7 +87,7 @@ class KeyboardVectorApp extends EventTarget {
         //console.debug("updateDebug", { ta });
         ta.value = JSON.stringify(this.s.k[i], null, 2);
       } catch (e) {
-        this.handleEvent(e);
+        //this.handleEvent(e);
       }
     }
   }
@@ -100,37 +101,53 @@ class KeyboardVectorApp extends EventTarget {
   // }
 
   handlePointerEvent(e) {
+    //console.debug("handlePointerEvent", {
+    //  e: e ?? undefined,
+    //  this: this,
+    //})
+
     switch(e.type) {
-      case "pointerover":
+      case "mouseenter":
+      //case "mouseover":
+      //case "focusin":
+      //case "pointerover":
         //console.debug("handle pointerover event for target", { e })
         // make key active
-        e.target.classList.add('active');
+        e.target.classList.add('active'); // todo: this needs to update the key data, not the DOM
         break;
-      case "pointerdown":
+      case "mouseleave":
+        //case "mouseout":
+        //case "focusout":
+        //case "pointerout":
+          //console.debug("handle pointerout event for target", { e })
+          // make key inactive
+          e.target.classList.remove('active'); // todo: this needs to update the key data, not the DOM
+          // make key unpressed
+          e.target.classList.remove('pressed'); // todo: this needs to update the key data, not the DOM
+          // fire keyRelease event
+          this.dispatchEvent(this.e.key_release);
+          break;
+      case "mousedown":
+      case "touchstart":
+      //case "pointerdown":
         //console.debug("handle pointerdown event for target", { e })
         // make key pressed
-        e.target.classList.add('pressed');
+        e.target.classList.add('pressed'); // todo: this needs to update the key data, not the DOM
         // fire keyPressed event
-        //this.dispatchEvent(this.e.key_press);
+        this.dispatchEvent(this.e.key_press);
         break;
-      case "pointerup":
+      case "mouseup":
+      case "touchend":
+      //case "pointerup":
         //console.debug("handle pointerup event for target", { e })
         // make key unpressed
-        e.target.classList.remove('pressed');
+        e.target.classList.remove('pressed'); // todo: this needs to update the key data, not the DOM
         // fire keyRelease event
-        //this.dispatchEvent(this.e.key_release);
-        break;
-      case "pointerout":
-        //console.debug("handle pointerout event for target", { e })
-        // make key inactive
-        e.target.classList.remove('active');
-        // make key unpressed
-        e.target.classList.remove('pressed')
-        // fire keyRelease event
-        //this.dispatchEvent(this.e.key_release);
+        this.dispatchEvent(this.e.key_release);
         break;
 
-      default: handleEvent(e);
+
+      //default: this.handleEvent(e);
     }
   }
 
@@ -343,12 +360,16 @@ class KeyboardVectorApp extends EventTarget {
     newPoly.setAttributeNS(null, "points", points);
     newPoly.setAttributeNS(null, "fill", kc.f.c);
     newPoly.setAttributeNS(null, "stroke", kc.f.s);
+    newPoly.classList.add(keyName);
+    //(null, "class", kc.f.s);
 
     // Add event listeners
-    newPoly.addEventListener('pointerover', this.handlePointerEvent);
-    newPoly.addEventListener('pointerout', this.handlePointerEvent);
-    newPoly.addEventListener('pointerdown', this.handlePointerEvent);
-    newPoly.addEventListener('pointerup', this.handlePointerEvent);
+    newPoly.addEventListener('mouseenter', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('mouseleave', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('mousedown', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('mouseup', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('touchstart', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('touchend', (e) => { this.handlePointerEvent(e); });
 
     return newPoly;
   }
