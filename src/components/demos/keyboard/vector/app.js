@@ -23,6 +23,7 @@ class KeyboardVectorApp extends EventTarget {
   constructor() {
     super();
     this.audioStarted = false;
+    this.octives = settings?.octives ?? 2;
     this.checkAudioContext();
     this.updateConfigValues(); // this.c
     this.buildKeyState();      // this.s.keys
@@ -229,7 +230,7 @@ class KeyboardVectorApp extends EventTarget {
     const hkg = (kg/2); // Half key gap
     const kw = w1 + w2;  // key width
     this.c = { // config
-      octives: settings?.octives ?? 2,
+      //octives: settings?.octives ?? 2,
       first_octive: settings?.first_octive ?? 2,
       h1,h2,w1,w2,kg,kw,hkg,wk2w,
       bg: {
@@ -391,7 +392,7 @@ class KeyboardVectorApp extends EventTarget {
 					attackCurve: "exponential",
 					attack: 0.05,
 					decay: 0.2,
-					sustain: 0.2,
+					sustain: 0.5,
 					release: 1.5,
 				},
 				portamento: 0.05,
@@ -405,13 +406,20 @@ class KeyboardVectorApp extends EventTarget {
     }
   }
 
+  // todo: add functionality to make this work.
+  handleOctivesChange(e) {
+
+    this.buildKeyState();
+  }
+
   buildKeyState() {
     // Build keys
     let keyID = 0;
     let keys = [];
 
     // For each octive, add a key for each pitch.
-    for (let o = 0; o < this.c.octives; o++) {
+    //for (let o = 0; o < this.c.octives; o++) {
+    for (let o = 0; o < this.octives; o++) {
       const octive = this.c.first_octive + o;
 
       // For each pitch, add a key.
