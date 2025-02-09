@@ -16,7 +16,7 @@ const pitches = (() => {
 //       ensure values are whole when divided by 2
 export default {
   octives: 2,     // Number of octives to display. (default: 2)
-  firstOctive: 2, // The first octive's pitch.     (default: 2)
+  first_octive: 2, // The first octive's pitch.     (default: 2)
   height_1: 180,   // Pixel height value 1.         (default: 90)
   height_2: 120,   // Pixel height value 2.         (default: 60)
   width_1: 48,    // Pixel width value 1.          (default: 24)

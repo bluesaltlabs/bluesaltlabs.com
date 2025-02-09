@@ -1,3 +1,4 @@
+import AudioService from '@/services/AudioService'
 import settings from './settings.js'
 
 const debug = true;
@@ -21,8 +22,10 @@ const EVENT_TYPE_KEY_RELEASE  = 'keyboard_key__release';
 class KeyboardVectorApp extends EventTarget {
   constructor() {
     super();
+    this.audioStarted = false;
+    this.checkAudioContext();
     this.updateConfigValues(); // this.c
-    this.buildKeyState();      // this.s
+    this.buildKeyState();      // this.s.keys
     // pitches: this.c.p
     this.addEvents();
 
@@ -39,6 +42,28 @@ class KeyboardVectorApp extends EventTarget {
     // window.removeEventListener(EVENT_TYPE_KEY_RELEASE)
   }
 
+  checkAudioContext() {
+    // Check for AudioContext.
+    const hasAudioContext = window.hasOwnProperty('AudioContext');
+    const hasWebKitAudioContext = window.hasOwnProperty('webkitAudioContext');
+
+    // The browser does not have either prefixed or unprefixed version of
+    // AudioContext. Quit immediately.
+    // This is for the old version of IE. (before Edge)
+    if (!hasWebKitAudioContext && !hasAudioContext) {
+      console.log('This browser does not support Web Audio API. Bye.');
+      return;
+    }
+
+    // The browser only has the prefixed version of AudioContext. Apply patch.
+    // This is for Safari.
+    if (hasWebKitAudioContext && !hasAudioContext) {
+      window.AudioContext = window.webkitAudioContext;
+      console.log('This browser still has webkitAudioContext. Patch applied.');
+    }
+
+  }
+
   addEvents() {
 
     // const event = new Event("build");
@@ -46,10 +71,6 @@ class KeyboardVectorApp extends EventTarget {
     this.e = {
       load: new Event(EVENT_TYPE_LOAD),
       init: new Event(EVENT_TYPE_INIT),
-      key_enter: new Event(EVENT_TYPE_KEY_ENTER),
-      key_enter: new Event(EVENT_TYPE_KEY_LEAVE),
-      key_press: new Event(EVENT_TYPE_KEY_PRESS),
-      key_release: new Event(EVENT_TYPE_KEY_RELEASE),
     };
 
     // todo: fix these
@@ -63,17 +84,13 @@ class KeyboardVectorApp extends EventTarget {
 
     this.addEventListener(EVENT_TYPE_KEY_PRESS, (e) => {
       console.debug("KeyboardAreaApp handling key press event :", { e: e ?? null });
+      this.updateDebug();
     });
 
     this.addEventListener(EVENT_TYPE_KEY_RELEASE, (e) => {
       console.debug("KeyboardAreaApp handling key release event :", { e: e ?? null });
+      this.updateDebug();
     });
-
-    if(debug) {
-      for(let e in this.e) {
-        console.debug("what is e?", { e: e, event: this.e[e] })
-      }
-    }
   }
 
   handleEvent(event, value) {
@@ -81,11 +98,11 @@ class KeyboardVectorApp extends EventTarget {
   }
 
   updateDebug() {
-    for (let i = 0; i < this.s.k.length; i++) {
+    for (let i = 0; i < this.s.keys.length; i++) {
       try {
         const ta = document.getElementById(`debug_values_${i}`);
         //console.debug("updateDebug", { ta });
-        ta.value = JSON.stringify(this.s.k[i], null, 2);
+        ta.value = JSON.stringify(this.s.keys[i], null, 2);
       } catch (e) {
         //this.handleEvent(e);
       }
@@ -100,59 +117,107 @@ class KeyboardVectorApp extends EventTarget {
   //   console.debug("fired handleKeyReleasedEvent", { e: e ?? null, this: this })
   // }
 
-  handlePointerEvent(e) {
+  // todo: this function needs a lot of work ...
+  handlePointerEvent(e, keyIndex) {
     //console.debug("handlePointerEvent", {
     //  e: e ?? undefined,
     //  this: this,
     //})
 
+    const detail = {
+      id: e.target.id,
+      keyIndex: keyIndex,
+      key: this.s.keys[keyIndex],
+    };
+
+    // null | activate | deactivate | press | depress
+    let eventAction = null;
+
+    // Determine the event action to take based on the event type
     switch(e.type) {
       case "mouseenter":
-      //case "mouseover":
-      //case "focusin":
-      //case "pointerover":
-        //console.debug("handle pointerover event for target", { e })
-        // make key active
-        e.target.classList.add('active'); // todo: this needs to update the key data, not the DOM
+      // case "mouseover":
+      // case "focusin":
+      // case "pointerover":
+        eventAction = 'activate';
         break;
       case "mouseleave":
-        //case "mouseout":
-        //case "focusout":
-        //case "pointerout":
-          //console.debug("handle pointerout event for target", { e })
-          // make key inactive
-          e.target.classList.remove('active'); // todo: this needs to update the key data, not the DOM
-          // make key unpressed
-          e.target.classList.remove('pressed'); // todo: this needs to update the key data, not the DOM
-          // fire keyRelease event
-          this.dispatchEvent(this.e.key_release);
-          break;
+      // case "mouseout":
+      // case "focusout":
+      // case "pointerout":
+        eventAction = 'deactivate';
+        break;
       case "mousedown":
       case "touchstart":
       //case "pointerdown":
-        //console.debug("handle pointerdown event for target", { e })
         // make key pressed
-        e.target.classList.add('pressed'); // todo: this needs to update the key data, not the DOM
-        // fire keyPressed event
-        this.dispatchEvent(this.e.key_press);
+        eventAction = 'press';
         break;
       case "mouseup":
       case "touchend":
       //case "pointerup":
         //console.debug("handle pointerup event for target", { e })
         // make key unpressed
-        e.target.classList.remove('pressed'); // todo: this needs to update the key data, not the DOM
-        // fire keyRelease event
-        this.dispatchEvent(this.e.key_release);
+        eventAction = 'depress';
         break;
-
-
       //default: this.handleEvent(e);
+    }
+
+
+    // first, trigger key stuff, because responsiveness
+    if(!this.audioStarted) {
+      console.warn("Please start audio first!");
+    } else {
+      if(eventAction === 'press') {
+        // Trigger synth key press
+        console.debug("triggering synth attack:", { pitch: this.s.keys[keyIndex].pitch });
+
+        this.s.synth.triggerAttack(this.s.keys[keyIndex].pitch);
+      }
+
+
+      if( eventAction === 'depress' || eventAction === 'deactivate' ) {
+        // Trigger key release
+        this.s.synth.triggerRelease();
+      }
+    }
+
+    // then, update DOM and fire events
+    // todo: should this be somewhere else?
+    if(eventAction === 'activate') {
+      // make key active
+      this.s.keys[keyIndex].active = true;
+      e.target.classList.add('active');
+    }
+
+    // todo: should this be somewhere else?
+    if(eventAction  === 'deactivate') {
+      // make key inactive
+      this.s.keys[keyIndex].active = false;
+      e.target.classList.remove('active');
+    }
+
+    // todo: should this be somewhere else?
+    if(eventAction === 'press') {
+      // make key pressed
+      this.s.keys[keyIndex].pressed = true;
+      e.target.classList.add('pressed');
+      this.dispatchEvent(new CustomEvent(EVENT_TYPE_KEY_PRESS, { detail }));
+    }
+
+    // todo: should this be somewhere else?
+    if(eventAction === 'depress') {
+
+      // make key depressed
+      this.s.keys[keyIndex].pressed = false;
+      e.target.classList.remove('pressed');
+      // Trigger key release
+      this.dispatchEvent(new CustomEvent(EVENT_TYPE_KEY_RELEASE, { detail }));
     }
   }
 
-  // todo: handleKeyPressEvent(e) {}
-  // todo: handleKeyReleaseEvent(e) {}
+  // todo?: handleKeyPressEvent(e) {}
+  // todo?: handleKeyReleaseEvent(e) {}
 
   updateConfigValues() {
     const h1 = settings?.height_1 ?? 90;
@@ -163,9 +228,9 @@ class KeyboardVectorApp extends EventTarget {
     const kg = settings?.keyGap ?? 2; // Key gap
     const hkg = (kg/2); // Half key gap
     const kw = w1 + w2;  // key width
-    this.c = {
+    this.c = { // config
       octives: settings?.octives ?? 2,
-      firstOctive: settings?.firstOctive ?? 2,
+      first_octive: settings?.first_octive ?? 2,
       h1,h2,w1,w2,kg,kw,hkg,wk2w,
       bg: {
         c: settings?.background?.color ?? "#339c1a",
@@ -264,7 +329,7 @@ class KeyboardVectorApp extends EventTarget {
   }
 
   getVectorWidth() {
-    const numKeys = this.s.k.length;
+    const numKeys = this.s.keys.length;
     return this.getKeyOffsetX(numKeys);
   }
 
@@ -272,25 +337,25 @@ class KeyboardVectorApp extends EventTarget {
     return (this.c.kg + this.c.h1 + this.c.h2 + this.c.kg);
   }
 
-   getIndexOffsetX(i) {
-     // console.debug("i", { i })
-     if (i === 0) { return this.c.kg; }
-     switch(i % 12) {
-       case 0:  return (this.c.w1+this.c.w2+this.c.kg);
-       case 1: return (this.c.w1+this.c.hkg);
-       case 2: return (this.c.w2+this.c.hkg);
-       case 3: return (this.c.w1+this.c.hkg);
-       case 4: return (this.c.w2+this.c.hkg);
-       case 5: return (this.c.wk2w+this.c.kg);
-       case 6: return (this.c.w1+this.c.hkg);
-       case 7: return (this.c.w2+this.c.hkg);
-       case 8: return (this.c.w1+this.c.hkg);
-       case 9: return (this.c.w2+this.c.hkg);
-       case 10: return (this.c.w1+this.c.hkg);
-       case 11: return (this.c.w2+this.c.hkg);
-     }
-     return 0;
-   }
+  getIndexOffsetX(i) {
+    // console.debug("i", { i })
+    if (i === 0) { return this.c.kg; }
+    switch(i % 12) {
+      case 0: return (this.c.w1+this.c.w2+this.c.kg);
+      case 1: return (this.c.w1+this.c.hkg);
+      case 2: return (this.c.w2+this.c.hkg);
+      case 3: return (this.c.w1+this.c.hkg);
+      case 4: return (this.c.w2+this.c.hkg);
+      case 5: return (this.c.wk2w+this.c.kg);
+      case 6: return (this.c.w1+this.c.hkg);
+      case 7: return (this.c.w2+this.c.hkg);
+      case 8: return (this.c.w1+this.c.hkg);
+      case 9: return (this.c.w2+this.c.hkg);
+      case 10: return (this.c.w1+this.c.hkg);
+      case 11: return (this.c.w2+this.c.hkg);
+    }
+    return 0;
+  }
 
   getKeyOffsetX(keyIndex) {
     const ki = parseInt(keyIndex);
@@ -313,29 +378,59 @@ class KeyboardVectorApp extends EventTarget {
     }
   }
 
+  buildSynthState() {
+    // Build tone synth
+    const synth = new AudioService.t.Synth({
+      // todo: update these settings, or make them editable
+      oscillator: {
+					type: "amtriangle",
+					harmonicity: 0.5,
+					modulationType: "sine",
+				},
+				envelope: {
+					attackCurve: "exponential",
+					attack: 0.05,
+					decay: 0.2,
+					sustain: 0.2,
+					release: 1.5,
+				},
+				portamento: 0.05,
+    }).toDestination();
+
+    // Build state values
+    this.s = { ...(this.s ?? {}), synth };
+
+    if(debug) {
+      console.debug("synth state built: ", { ...this.s });
+    }
+  }
+
   buildKeyState() {
-    let i = 0;
+    // Build keys
+    let keyID = 0;
     let keys = [];
 
+    // For each octive, add a key for each pitch.
     for (let o = 0; o < this.c.octives; o++) {
-      const octive = this.c.firstOctive + o;
+      const octive = this.c.first_octive + o;
 
-      // todo: this shouldn't be here - there should just be 12 pitches
+      // For each pitch, add a key.
       for(let p in this.c.p) {
-        console.debug()
         keys.push({
-          index: i++,
+          index: keyID++,
           pressed: false,
           active: false,
-          pitch: `${this.c.p[p]}${octive}`
+          pitch: `${this.c.p[p]}${octive}`,
         });
       }
     }
 
-    // state
-    this.s = {
-      k: keys, // keys (state)
-    };
+    // Build state values
+    this.s = { ...(this.s ?? {}), keys };
+
+    if(debug) {
+      console.debug("key state built: ", { ...this.s });
+    }
   }
 
   getKeyVector(keyIndex) {
@@ -361,15 +456,16 @@ class KeyboardVectorApp extends EventTarget {
     newPoly.setAttributeNS(null, "fill", kc.f.c);
     newPoly.setAttributeNS(null, "stroke", kc.f.s);
     newPoly.classList.add(keyName);
+    newPoly.classList.add('disabled');
     //(null, "class", kc.f.s);
 
     // Add event listeners
-    newPoly.addEventListener('mouseenter', (e) => { this.handlePointerEvent(e); });
-    newPoly.addEventListener('mouseleave', (e) => { this.handlePointerEvent(e); });
-    newPoly.addEventListener('mousedown', (e) => { this.handlePointerEvent(e); });
-    newPoly.addEventListener('mouseup', (e) => { this.handlePointerEvent(e); });
-    newPoly.addEventListener('touchstart', (e) => { this.handlePointerEvent(e); });
-    newPoly.addEventListener('touchend', (e) => { this.handlePointerEvent(e); });
+    newPoly.addEventListener('mouseenter', (e) => { this.handlePointerEvent(e, keyIndex); });
+    newPoly.addEventListener('mouseleave', (e) => { this.handlePointerEvent(e, keyIndex); });
+    newPoly.addEventListener('mousedown', (e) => { this.handlePointerEvent(e, keyIndex); });
+    newPoly.addEventListener('mouseup', (e) => { this.handlePointerEvent(e, keyIndex); });
+    newPoly.addEventListener('touchstart', (e) => { this.handlePointerEvent(e, keyIndex); });
+    newPoly.addEventListener('touchend', (e) => { this.handlePointerEvent(e, keyIndex); });
 
     return newPoly;
   }
@@ -396,9 +492,9 @@ class KeyboardVectorApp extends EventTarget {
     kbVector.setAttribute('viewBox', `0 0 ${kbVectorW} ${kbVectorH}`);
 
 
-    for(let key in this.s.k) {
+    for(let key in this.s.keys) {
       const k = parseInt(key);
-      // console.debug("key:", { k, val: this.s.k[k], name: this.getKeyTypeName(k) });
+      // console.debug("key:", { k, val: this.s.keys[k], name: this.getKeyTypeName(k) });
 
       kbVector.appendChild( this.getKeyVector(k) );
     }
@@ -406,10 +502,24 @@ class KeyboardVectorApp extends EventTarget {
     keyboardContainer.appendChild(kbVector);
   }
 
+  startAudio(e) {
+    if( !this.audioStarted ) {
+      AudioService.t.start();
+      this.buildSynthState();    // this.s.synth
+      // todo: fire start audio??
+    }
+    e.target.disabled = true;
+    this.audioStarted = true;
+  }
+
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
       this.buildKeyVectors();
       this.dispatchEvent(this.e.init);
+
+      // todo: clean this up
+      const startAudioButton = document.getElementById("btn-start-audio");
+      startAudioButton.addEventListener('click', (e) => this.startAudio(e) );
     });
   }
 }
