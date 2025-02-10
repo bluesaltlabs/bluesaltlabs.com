@@ -34,21 +34,26 @@ export class BlogApp {
     // super();
     this.debug = true;
     this.app = {};
-
-    document.dispatchEvent( new Event(EVENT_TYPE_LOAD) );
   }
 
   loadAppState(mountPointID) {
-    if (this.debug) { console.debug("---- Loading app state: Start --------"); }
+    this.sendDebugMsg("---- Loading app state: Start ----");
     this.app = {
       mountPointID: mountPointID,
       path: window.location.pathname,
     };
-    if (this.debug) { console.debug("---- Loading app state: End ----------"); }
+    this.sendDebugMsg("---- Loading app state: End ------");
   }
 
   handleEvent(event) {
-    console.log("blog app is handling an event:", { event: event ?? undefined })
+    console.log("blog app is handling an event:", { event: event ?? undefined });
+  }
+
+  sendDebugMsg(message = "DEBUG MESSAGE", data = undefined) {
+    if(this.debug === true) {
+      if(!data) { console.debug(message); }
+      else { console.debug(message, data); }
+    }
   }
 
   init() {
@@ -67,10 +72,7 @@ export class BlogApp {
       );
     }
 
-
-    // todo;
-
-    document.dispatchEvent( new Event(EVENT_TYPE_INIT) );
+    document.dispatchEvent( new Event(EVENT_TYPE_INIT) ); // todo: nothing is listening to this.
   }
 
   load(mountPointID) {
@@ -80,6 +82,7 @@ export class BlogApp {
 
     // Mount elements to the page once the DOM Content has been loaded.
     document.addEventListener("DOMContentLoaded", (e) => { this.init(); }, { once: true });
+    document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
   }
 }
 
