@@ -22,6 +22,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        //blog: resolve(__dirname, 'apps/blog/index.html'), // todo: figure out this apps prefix. clean things up.
         blog: resolve(__dirname, 'blog/index.html'),
         games: resolve(__dirname, 'games/index.html'),
         music: resolve(__dirname, 'music/index.html'),
