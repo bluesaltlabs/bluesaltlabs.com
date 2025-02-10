@@ -57,10 +57,16 @@ export class BlogApp {
       <div>Foobar this is JavaScript!</div>
     `
 
-    const mountPoint = document.getElementById(this.app.mountPointID);
-    console.debug(this.app.mountPointID);
-    mountPoint.innerHTML = ``;
-    mountPoint.appendChild(template);
+    try {
+      const mountPoint = document.getElementById(this.app.mountPointID);
+      mountPoint.innerHTML = ``; // clear the mount point content.
+      mountPoint.appendChild(template);
+    } catch (e) {
+      console.error(
+        `Could not mount blog app - '${e?.message ?? 'Unknown Error'}'.\nPlease check that the specified mountPointID exists.`
+      );
+    }
+
 
     // todo;
 
@@ -72,7 +78,8 @@ export class BlogApp {
 
     // todo: any other tasks to complete before mounting DOM.
 
-    document.addEventListener("DOMContentLoaded", (e) => { this.init(); });
+    // Mount elements to the page once the DOM Content has been loaded.
+    document.addEventListener("DOMContentLoaded", (e) => { this.init(); }, { once: true });
   }
 }
 
