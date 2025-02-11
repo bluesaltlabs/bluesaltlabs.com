@@ -7,13 +7,20 @@ body, html {
   color: #eeeeee;
   font-family: Verdana, sans-serif;
 }
+
 a {
   color: #ededed;
   text-decoration: none;
+  background: #eeeeee22;
+  transform: scale(1);
+  transition: transform 50ms ease-in-out;
+  display: inline-block;
 
   &:active,
   &:hover {
     color: #ffffff;
+    transform: scale(1.1);
+    background: #eeeeee44;
     text-decoration: underline;
   }
 }
