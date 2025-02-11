@@ -1,0 +1,26 @@
+{
+  "name": "bluesaltlabs.com",
+  "version": "0.0.1",
+  "description": "The BlueSalt Labs website.",
+  "homepage": "https://github.com/bluesaltlabs/bluesaltlabs.com#readme",
+  "bugs": {
+    "url": "https://github.com/bluesaltlabs/bluesaltlabs.com/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluesaltlabs/bluesaltlabs.com.git"
+  },
+  "license": "MIT",
+  "author": "Luke Sontrop <lukerz8@gmail.com>",
+  "type": "commonjs",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}
