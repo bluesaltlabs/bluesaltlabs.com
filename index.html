@@ -5,18 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | bluesaltlabs.com</title>
 
+  <!-- Styles -->
+  <!-- todo: create and add a stylesheet -->
+  <style>
+    :root {
+      /*  */
+    }
+
+    body, html {
+      background: #222222;
+      color: #eeeeee;
+      font-family: Verdana, sans-serif;
+    }
+    a {
+      color: #ededed;
+      text-decoration: none;
+
+      &:active,
+      &:hover {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+    }
+
+    nav a {
+      border: 1px solid #fff;
+      padding: 2px 4px;
+      display: inline-block;
+      margin: 0 4px;
+      border-radius: 3px;
+      background: #ededed44;
+
+      &:hover,
+      &:active {
+        background: #ededed11;
+      }
+    }
+
+  </style>
+
 </head>
 <body>
   <main id="main">
+    <nav>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+      <a href="#todo">todo</a>
+    </nav>
+
     <section id="home">
       <h1>BlueSalt Labs</h1>
       <p>Hello.</p>
+
     </section>
+
     <section id="about">
       <p>
-        <!-- todo -->
+        <!-- todo: Fill out the about section -->
       </p>
     </section>
+
+    <section id="portfolio">
+      <p>
+        <!-- todo: Fill out the portfolio section -->
+      </p>
+    </section>
+
+    <section id="contact">
+      <p>
+        <!-- todo: Fill out the contact section -->
+      </p>
+    </section>
+
+    <section id="todo">
+      <p>
+        <!-- todo: add more sections  -->
+      </p>
+    </section>
+
   </main>
 </body>
 </html>
