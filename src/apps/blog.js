@@ -1,4 +1,4 @@
-
+import { marked } from 'marked';
 
 /******************************************************************************/
 /* Blog App                                                                   */
@@ -81,7 +81,7 @@ export class BlogApp {
 
     await fetch(`/data/posts/${cleanID}.md`)
       .then(response => response.text() )
-      .then(text => postContent = text )
+      .then(text => postContent = marked.parse(text) )
 
     return postContent;
   }
@@ -113,13 +113,6 @@ export class BlogApp {
 
       template.appendChild(postContentArticle)
     })
-
-
-    // Create the element to mount
-
-    //template.innerHTML = `
-    //  <pre><code>${JSON.stringify(this.posts, null, 2)}</pre></code>
-    //`
 
     try {
       const mountPoint = document.getElementById(this.app.mountPointID);
