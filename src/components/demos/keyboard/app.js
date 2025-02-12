@@ -19,7 +19,7 @@ const EVENT_TYPE_KEY_RELEASE  = 'keyboard_key__release';
 // todo: learn about using drop shadows: https://css-tricks.com/breaking-css-box-shadow-vs-drop-shadow/
 
 /* Keyboard App */
-class KeyboardVectorApp extends EventTarget {
+class KeyboardApp extends EventTarget {
   constructor() {
     super();
     this.audioStarted = false;
@@ -533,5 +533,5 @@ class KeyboardVectorApp extends EventTarget {
 }
 
 // Load Page App
-let kbVector = new KeyboardVectorApp();
- kbVector.init()
+let keyboardApp = new KeyboardApp();
+ keyboardApp.init()
