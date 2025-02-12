@@ -100,7 +100,7 @@ export class BlogApp {
 
       postContentArticle.innerHTML = `
         <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-        <div><code><pre>${postContent}</pre></code></div>
+        <div id="post-content_${post.id}>${postContent}</div>
         <hr />
       `;
 
