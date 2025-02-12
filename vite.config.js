@@ -23,7 +23,6 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         blog: resolve(__dirname, 'blog/index.html'),
-        games: resolve(__dirname, 'games/index.html'),
         music: resolve(__dirname, 'music/index.html'),
         music_about: resolve(__dirname, 'music/about.html'),
         music_metronome: resolve(__dirname, 'music/metronome.html'),
