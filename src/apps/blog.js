@@ -1,5 +1,11 @@
 import posts from '@/data/posts.json';
+
+
+import post1 from '@/data/posts/1.md?raw';
+import post2 from '@/data/posts/2.md?raw';
+
 import { marked } from 'marked';
+
 
 /******************************************************************************/
 /* Blog App                                                                   */
@@ -69,10 +75,6 @@ export class BlogApp {
     let postContent = undefined;
     const cleanID = parseInt(`${postID}`);
 
-    await fetch(`/src/data/posts/${cleanID}.md`)
-      .then(response => response.text() )
-      .then(text => postContent = marked.parse(text) )
-
     return postContent;
   }
 
@@ -90,15 +92,20 @@ export class BlogApp {
 
       const postContentArticle = document.createElement('article');
 
-      this.fetchPostContent(post.id)
-        .then(content => {
-          postContentArticle.innerHTML = `
-            <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-            <div><code><pre>${content}</pre></code></div>
-            <hr />
-          `;
-        })
-      ;
+      const postContent = marked.parse((() => {
+
+        // todo: this is hacky, but it works for now;
+        switch(post.id) {
+          case 1: return post1; break;
+          case 2: return post2; break;
+        }
+      })());
+
+      postContentArticle.innerHTML = `
+        <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+        <div><code><pre>${postContent}</pre></code></div>
+        <hr />
+      `;
 
       template.appendChild(postContentArticle)
     })

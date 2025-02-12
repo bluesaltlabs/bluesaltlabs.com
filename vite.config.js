@@ -8,7 +8,10 @@ export default defineConfig({
   base: "/",
   publicDir: '/public',
   plugins: [
+
   ],
+  //assetsInclude: ['**/*.md', '**/*.json'],
+  assetsInclude: ['**/*.md'],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
