@@ -13,8 +13,6 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
       '@assets': resolve(__dirname, './assets'),
-      '@data': resolve(__dirname, './data'),
-      '@db': resolve(__dirname, './db'),
     },
   },
   build: {

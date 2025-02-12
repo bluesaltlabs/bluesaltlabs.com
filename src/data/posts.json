@@ -1,0 +1,26 @@
+{
+  "posts": [
+      {
+      "id": 1,
+      "title": "First Blog Post",
+      "content": null,
+      "content_path": "/data/posts/1.md",
+      "author": "Luke Sontrop",
+      "createdAt": "2025-01-28 00:00:00",
+      "categories": ["General"],
+      "updatedAt": "2025-01-28 00:00:00",
+      "publishedAt": null
+    },
+    {
+      "id": 2,
+      "title": "GitHub Pages Deployment",
+      "content": null,
+      "content_path": "/data/posts/2.md",
+      "author": "Luke Sontrop",
+      "createdAt": "2025-02-11 18:00:00",
+      "categories": ["General", "DevOps"],
+      "updatedAt": "2025-02-11 18:35:00",
+      "publishedAt": "2025-02-11 18:35:00"
+    }
+  ]
+}
