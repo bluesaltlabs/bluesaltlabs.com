@@ -64,16 +64,13 @@ export class BlogApp {
   // todo: move this to a repository service class instead of hard-coding it here.
   async fetchPosts() {
     this.sendDebugMsg("---- Fetching Posts: Start ----");
-
     this.posts = posts.posts;
-    console.debug('from here I did ths', { posts: this.posts } )
     this.sendDebugMsg("---- Fetching Posts: Done. ----");
   }
 
   // todo: this is not a good way to do this - fix it.
   async fetchPostContent(postID = null) {
     let postContent = undefined;
-    const cleanID = parseInt(`${postID}`);
 
     return postContent;
   }
