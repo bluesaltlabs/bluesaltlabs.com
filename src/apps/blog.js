@@ -34,6 +34,7 @@ export class BlogApp {
     // super();
     this.debug = true;
     this.app = {};
+    this.posts = [];
   }
 
   loadAppState(mountPointID) {
@@ -45,8 +46,12 @@ export class BlogApp {
     this.sendDebugMsg("---- Loading app state: End ------");
   }
 
-  handleEvent(event) {
+  handleEvent(event = undefined) {
     console.log("blog app is handling an event:", { event: event ?? undefined });
+  }
+
+  handleError(message = "DEBUG MESSAGE", data = undefined) {
+    console.error("blog app is handling an event:", { event: event ?? undefined });
   }
 
   sendDebugMsg(message = "DEBUG MESSAGE", data = undefined) {
@@ -56,10 +61,38 @@ export class BlogApp {
     }
   }
 
-  init() {
+  // todo: move this to a repository service class instead of hard-coding it here.
+  async fetchPosts() {
+    let posts = undefined;
+
+    posts = await fetch('/data/posts.json')
+        .then((response) => ( response.json() ))
+        .then((json) => ( posts = json ))
+    ;
+
+    this.posts = posts;
+    console.debug("Got here!!!", { posts: this.posts })
+    //return response?.json() ?? undefined;
+  }
+
+  // todo: this is not a good way to do this - fix it.
+  fetchPostContent(postID = null) {
+    //this.sendDebugMsg(`---- Fetching Post Content ${postID} ... -----------`);
+    const cleanID = parseInt(`${postID}`);
+    return fetch(`/data/posts/${cleanID}.md`)
+  }
+
+/* ************************************************************************** */
+  async __init() {
+
+    // Fetch posts
+   await this.fetchPosts();
+
+
+    // Create the element to mount
     const template = document.createElement('div');
     template.innerHTML = `
-      <div>Foobar this is JavaScript!</div>
+      <pre><code>${JSON.stringify(this.posts, null, 2)}</pre></code>
     `
 
     try {
@@ -81,7 +114,7 @@ export class BlogApp {
     // todo: any other tasks to complete before mounting DOM.
 
     // Mount elements to the page once the DOM Content has been loaded.
-    document.addEventListener("DOMContentLoaded", (e) => { this.init(); }, { once: true });
+    document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
     document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
   }
 }
