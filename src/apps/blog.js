@@ -1,11 +1,18 @@
+import { marked } from 'marked';
+
+
 import posts from '@/data/posts.json';
-
-
 import post1 from '@/data/posts/1.md?raw';
 import post2 from '@/data/posts/2.md?raw';
 
-import { marked } from 'marked';
+const getPostContentByID = (postID) => {
 
+  // todo: this is hacky, but it works for now;
+  switch (postID) {
+    case 1: return post1; break;
+    case 2: return post2; break;
+  }
+};
 
 /******************************************************************************/
 /* Blog App                                                                   */
@@ -85,31 +92,23 @@ export class BlogApp {
     // todo: get post content for each post
     // todo: error checking if no posts are retrieved.
     this.posts.sort((a, b) => (b.id - a.id))
-    .map(post => {
+      .filter((p) => (!!p.publishedAt))
+      .map((post, postKey, posts) => {
+        const postContentArticle = document.createElement('article');
+        const postContent = marked.parse(getPostContentByID(post.id));
 
-      const postContentArticle = document.createElement('article');
+        postContentArticle.innerHTML = `
+          <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+          <div id="post-content_${post.id}>${postContent}</div>
+          ${postKey < posts.length - 1 ? '<hr />' : '' }
+        `;
 
-      const postContent = marked.parse((() => {
-
-        // todo: this is hacky, but it works for now;
-        switch(post.id) {
-          case 1: return post1; break;
-          case 2: return post2; break;
-        }
-      })());
-
-      postContentArticle.innerHTML = `
-        <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-        <div id="post-content_${post.id}>${postContent}</div>
-        <hr />
-      `;
-
-      template.appendChild(postContentArticle)
-    })
+        template.appendChild(postContentArticle)
+      });
 
     try {
       const mountPoint = document.getElementById(this.app.mountPointID);
-      mountPoint.innerHTML = ``; // clear the mount point content.
+      mountPoint.innerHTML = ``; // clear the mount point content. todo: don't do this, assign in one go instead.
       mountPoint.appendChild(template);
     } catch (e) {
       console.error(
