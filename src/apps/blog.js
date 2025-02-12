@@ -63,37 +63,63 @@ export class BlogApp {
 
   // todo: move this to a repository service class instead of hard-coding it here.
   async fetchPosts() {
+    this.sendDebugMsg("---- Fetching Posts: Start ----");
     let posts = undefined;
 
-    posts = await fetch('/data/posts.json')
-        .then((response) => ( response.json() ))
-        .then((json) => ( posts = json ))
+    await fetch('/data/posts.json')
+      .then(response => response.json() )
+      .then(json => posts = json )
     ;
-
     this.posts = posts;
-    console.debug("Got here!!!", { posts: this.posts })
-    //return response?.json() ?? undefined;
+    this.sendDebugMsg("---- Fetching Posts: Done. ----");
   }
 
   // todo: this is not a good way to do this - fix it.
-  fetchPostContent(postID = null) {
-    //this.sendDebugMsg(`---- Fetching Post Content ${postID} ... -----------`);
+  async fetchPostContent(postID = null) {
+    let postContent = undefined;
     const cleanID = parseInt(`${postID}`);
-    return fetch(`/data/posts/${cleanID}.md`)
+
+    await fetch(`/data/posts/${cleanID}.md`)
+      .then(response => response.text() )
+      .then(text => postContent = text )
+
+    return postContent;
   }
 
 /* ************************************************************************** */
   async __init() {
-
     // Fetch posts
-   await this.fetchPosts();
+    await this.fetchPosts();
+
+    const template = document.createElement('div');
+
+
+    // todo: get post content for each post
+    // todo: error checking if no posts are retrieved.
+    this.posts.sort((a, b) => (b.id - a.id))
+    .map(post => {
+
+      const postContentArticle = document.createElement('article');
+
+      this.fetchPostContent(post.id)
+        .then(content => {
+          postContentArticle.innerHTML = `
+            <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+            <div><code><pre>${content}</pre></code></div>
+            <hr />
+          `;
+        })
+      ;
+
+      template.appendChild(postContentArticle)
+    })
 
 
     // Create the element to mount
-    const template = document.createElement('div');
-    template.innerHTML = `
-      <pre><code>${JSON.stringify(this.posts, null, 2)}</pre></code>
-    `
+
+    //template.innerHTML = `
+    //  <pre><code>${JSON.stringify(this.posts, null, 2)}</pre></code>
+    //`
 
     try {
       const mountPoint = document.getElementById(this.app.mountPointID);
