@@ -55,7 +55,7 @@ export class BlogApp {
 
     const y = pub.getFullYear();
     const m = `${pub.getMonth() + 1}`.padStart(2, '0');
-    const d =`${pub.getDay()}`.padStart(2, '0');
+    const d =`${pub.getDate()}`.padStart(2, '0');
 
     return `${y}.${m}.${d}`;
   }
