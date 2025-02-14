@@ -1,0 +1,12 @@
+.post-title {
+  margin-top: 1em;
+  margin-bottom: 2px;
+}
+.post-subtitle {
+  font-size: 0.85em;
+  font-weight: normal;
+  padding: 3px 6px;
+  margin: 3px 0 1em;
+  color: #808080ed;
+  border-bottom: 1px solid #80808044;
+}

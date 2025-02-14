@@ -20,19 +20,20 @@ import PostRepository from '@/repositories/PostRepository';
 const POST_URL = 'https://bluesaltlabs.github.io/api/posts.json';
 const POST_CONTENT_BASE_URL = 'https://bluesaltlabs.github.io/data/posts/';
 
-const EVENT_TYPE_LOAD = 'blog_app__load';
-const EVENT_TYPE_INIT = 'blog_app__init';
-const EVENT_TYPE_CONTENT_LOADED = 'blog_app__content_loaded';
+const EVENT_TYPE_LOAD = 'blog_post_app__load';
+const EVENT_TYPE_INIT = 'blog_post_app__init';
+const EVENT_TYPE_CONTENT_LOADED = 'blog_post_app__content_loaded';
 
-export class BlogApp {
+export class BlogPostApp {
   constructor(mountPointID) {
     // super();
+    this.post_id = 0;
     this.debug = true;
     this.postRepository = new PostRepository(POST_URL, POST_CONTENT_BASE_URL);
     this.app = {
       mountPointID: mountPointID,
     };
-    this.posts = [];
+    this.post = [];
   }
 
   sendDebugMsg(message = "DEBUG MESSAGE", data = undefined) {
@@ -42,12 +43,12 @@ export class BlogApp {
     }
   }
 
-  async fetchPosts() {
-    this.sendDebugMsg("---- Fetching Posts: Start ----------------");
-    this.posts = await this.postRepository.getPublished();
-    this.sendDebugMsg("---- Fetching Posts: Done. Sorting ... ----");
-    this.posts = this.posts.sort((a, b) => (b.id - a.id));
-    this.sendDebugMsg("---- Done sorting fetched posts. ---------");
+  async fetchPost() {
+    this.sendDebugMsg("---- Fetching Post: Start ----------------");
+    const post = await this.postRepository.getById(this.post_id);
+    this.post = post;
+    this.sendDebugMsg("---- Fetching Post: Done -----------------");
+    return post;
   }
 
   // todo: move this to a helper file.
@@ -61,57 +62,54 @@ export class BlogApp {
     return `${y}.${m}.${d}`;
   }
 
+  // todo: figure out a better name for this function.
+  fetchPostID() {
+    const path = window.location.pathname;
+    const pathArray = window.location.pathname.split('/');
+
+    console.debug("fetchPostID", { path, pathArray });
+
+    // this should be /blog/posts/:id
+    if (pathArray.length >= 3 && pathArray[0] === 'blog' && pathArray[1].includes('posts')) {
+      this.post_id = pathArray[2];
+    } else {
+      this.post_id = null;
+      // todo: error checking
+    }
+  }
+
 /* ************************************************************************** */
 
   async __init() {
-    // Fetch posts
-    await this.fetchPosts();
+    // Fetch post
+    await this.fetchPost();
 
-    const template = document.createElement('div');
-
-    // todo: implement error checking if no posts are retrieved.
-    this.posts.map(async (post, postKey, posts) => {
-      const postContentArticle = document.createElement('article');
-      const publishedAtString = this.getFormattedDateString(post.publishedAt);
-      postContentArticle.innerHTML = `
-        <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-        <h3 class="post-subtitle" id="${publishedAtString}">
-          <span>Posted - <code>${publishedAtString}</code></span> |
-          <a href="/blog/posts.html/${post.id}/">test1</a> |
-          <a href="/blog/posts/${post.id}/">test2</a>
-        </h3>
-        <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
-        ${postKey < (posts.length - 1) ? '<hr />' : '' }
-      `;
-
-      template.appendChild(postContentArticle);
-    });
+    const postContentArticle = document.createElement('article');
+    const publishedAtString = this.getFormattedDateString(this.post.publishedAt);
+    const content = marked.parse(
+      await this.postRepository.getContentById(this.post.id) ?? ''
+    ) ?? "!!";
+    postContentArticle.innerHTML = `
+      <h2 class="post-title" id="post-title_${this.post.id}">${this.post.title}</h2>
+      <h3 class="post-subtitle" id="${publishedAtString}">Posted - <code>${publishedAtString}</code></h3>
+      <div id="post-content_${this.post.id}">${content}</div>
+    `;
 
     const mountPoint = document.getElementById(this.app.mountPointID);
-    mountPoint.innerHTML = template.innerHTML;
+    mountPoint.innerHTML = `<article>${postContentArticle.innerHTML}</article>`;
 
     document.dispatchEvent( new Event(EVENT_TYPE_INIT) ); // todo: nothing is listening to this.
-
-    // Now loop over the posts again and retrieve their content.
-    // todo: Figure out how to do this asyncronously.
-    //       Ideally each post would be an element that loaded its own content.
-    this.posts.map(async (post) => {
-      const contentContainer = document.getElementById(`post-content_${post.id}`);
-
-      contentContainer.innerHTML = marked.parse(
-        await this.postRepository.getContentById(post.id) ?? ''
-      ) ?? "!!";
-    });
-
-    document.dispatchEvent( new Event(EVENT_TYPE_CONTENT_LOADED) ); // todo: nothing is listening to this.
   }
 
   load() {
+    this.fetchPostID();
+    this.post_id = 1; // todo: fetch post id from url
+
     // Mount elements to the page once the DOM Content has been loaded.
     document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
     document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
   }
 }
 
-let app = new BlogApp("blog-app");
+let app = new BlogPostApp("blog-post-app");
 app.load();

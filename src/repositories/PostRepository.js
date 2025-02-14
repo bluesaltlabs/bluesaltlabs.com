@@ -28,8 +28,8 @@ class PostRepository {
   }
 
   async getById(id) {
-    if(!this.posts[id]) {
-      this.getAll();
+    if(!this.posts || this.posts.length === 0 || !this.posts[id]) {
+      await this.getAll();
     }
 
     return this.posts[id] ?? null;

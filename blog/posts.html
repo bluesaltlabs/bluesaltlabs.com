@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog | simple.bluesaltlabs.com</title>
+  <title>Blog | simple.bluesaltlabs.com</title><!-- todo: add title from post -->
   <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
 
   <!-- Styles -->
@@ -15,29 +15,18 @@
   <script type="module" src="/src/components/loading-grid.js"></script>
 
   <!-- JavaScript Modules -->
-   <script type="module" src="/src/apps/blog.js"></script>
+   <script type="module" src="/src/apps/blog-post.js"></script>
 
-   <style>
-    .post-title {
-      margin-top: 1em;
-      margin-bottom: 2px;
-    }
-    .post-subtitle {
-      font-size: 0.85em;
-      font-weight: normal;
-      padding: 3px 6px;
-      margin: 3px 0 1em;
-      color: #808080ed;
-      border-bottom: 1px solid #80808044;
-    }
-  </style>
 </head>
 <body>
+  <!-- <layout-base title="Blog | [POST TITLE]"> -->
   <layout-base title="Blog">
+
     <!-- Navbar -->
     <div style="padding:0 4%;max-width:1920px;margin:auto;">
-      <a href="/">Home</a> |
-      <span>Blog</span>
+      <a href="/index.html">Home</a> |
+      <a href="/blog/index.html">Blog</a> |
+      <span>[]</span><!-- todo: add title from post -->
     </div>
     <hr />
 
@@ -46,7 +35,7 @@
       <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
 
       <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
-        <div id="blog-app">
+        <div id="blog-post-app">
           <loading-grid class="mx-auto"></loading-grid>
         </div>
       </div>
