@@ -3,14 +3,8 @@
   font-size: 2em;
   margin-top: 1em;
   margin-bottom: 2px;
-
-  a {
-    /* */
-    &:active, &:hover {
-      text-decoration: underline;
-    }
-  }
 }
+
 .post-subtitle {
   font-size: 0.85em;
   font-weight: normal;
@@ -41,18 +35,27 @@
       max-width: 100%;
     }
   }
+
+  pre {
+    font-size: 0.85em;
+    background-color: #eeeeee;
+    padding: 1em;
+    border-radius: 4px;
+    border: 1px inset var(--color-blue);
+    margin: 1em auto;
+    overflow-x: auto;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   .post-title {
     color: var(--color-blue-alt);
+  }
 
-
-    a {
-      &:active, &:hover {
-        color: var(--color-green);
-      }
-
+  .post-content {
+    pre {
+      border-color: var(--color-blue-alt);
+      background-color: var(--color-gray-500);
     }
   }
 }
