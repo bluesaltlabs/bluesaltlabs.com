@@ -1,6 +1,19 @@
 .post-title {
+  color: var(--color-green);
+
+  font-size: 1.75em;
   margin-top: 1em;
   margin-bottom: 2px;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:active,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
 }
 .post-subtitle {
   font-size: 0.85em;
@@ -9,4 +22,9 @@
   margin: 3px 0 1em;
   color: #808080ed;
   border-bottom: 1px solid #80808044;
+}
+
+
+@media (prefers-color-scheme: dark) {
+
 }

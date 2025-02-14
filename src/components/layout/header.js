@@ -3,48 +3,47 @@ import { LitElement, html, css } from 'lit-element';
 export class LayoutHeader extends LitElement {
   static styles = css`
     header {
-      background-color: var(--color-blue);
+      color: #fff;
+      background-color: var(--color-gray-400);
       border-bottom: 1px solid var(--color-blue-alt);
-      padding: 8px 16px; /* todo: duplicate this value in the footer by using variables */
+      padding: 8px 16px;
       margin-bottom: 25px;
       display: flex;
-    }
 
-    button {
-      background: transparent;
-      background-image: none;
-      border: 1px solid var(--color-blue-alt);
-    }
-
-
-    a, button,
-    ::slotted(a) {
-      color: var(--color-blue-alt);
-
-      /* todo:transitions & stuff */
-
-      &:active,
-      &:hover {
-        /* background: var(--color-blue); */
-        cursor: pointer;
-        background: var(--color-blue-alt);
-        color: #fff;
-        border-color: #fff;
-      }
-    }
-
-      /* todo: figure out why these styles aren't working correctly, clean them up.  */
-      a,
-      ::slotted(a) {
+      a, button,
+      ::slotted(a), ::slotted(button) {
+        color: #fefefe;
         text-decoration: none;
-        padding: 0 3px;
+        transition:
+          box-shadow 100ms ease-in-out,
+          color 100ms ease-in-out,
+          background-color 100ms ease-in-out,
+          border-color 100ms ease-in-out
+        ;
+
+        &:active,
+        &:hover {
+          box-shadow: 0 0 8px 0 var(--color-blue-alt);
+          background: var(--color-blue-alt);
+          cursor: pointer;
+          color: #fff;
+          border-color: #fefefe;
+        }
       }
-      a:active,
-      a:hover,
-      ::slotted(a):active,
-      ::slotted(a):hover {
-        text-decoration: underline;
-        color: #fff;
+
+      button, ::slotted(button) {
+        background: transparent;
+        background-image: none;
+        border: 1px solid #fff;
+      }
+
+      a, ::slotted(a) {
+        padding: 0 3px;
+
+        &:active,
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       .header-left {
@@ -59,11 +58,40 @@ export class LayoutHeader extends LitElement {
         padding: 0px 3px;
         /* border-left: 1px solid var(--color-blue-alt); */
       }
-      @media screen and (max-width: 350px) {
+    }
+
+    @media screen and (max-width: 350px) {
+      header {
         .header-title {
           display: none;
         }
       }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background-color: var(--color-blue);
+        border-color: var(--color-blue-alt);
+        color: var(--color-blue-alt);
+
+        a, button,
+        ::slotted(a), ::slotted(button) {
+          color: var(--color-blue-alt);
+
+          &:active,
+          &:hover {
+            box-shadow: 0 0 8px 0 var(--color-blue);
+            cursor: pointer;
+            color: #fff;
+            border-color: #fff;
+          }
+        }
+
+        button {
+          border-color: var(--color-blue-alt);
+        }
+      }
+    }
   `
 
   render() {

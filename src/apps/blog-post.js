@@ -22,7 +22,6 @@ const POST_CONTENT_BASE_URL = 'https://bluesaltlabs.github.io/data/posts/';
 
 const EVENT_TYPE_LOAD = 'blog_post_app__load';
 const EVENT_TYPE_INIT = 'blog_post_app__init';
-const EVENT_TYPE_CONTENT_LOADED = 'blog_post_app__content_loaded';
 
 export class BlogPostApp {
   constructor(mountPointID) {
@@ -46,6 +45,7 @@ export class BlogPostApp {
   async fetchPost() {
     this.sendDebugMsg("---- Fetching Post: Start ----------------");
     const post = await this.postRepository.getById(this.post_id);
+    // todo: error checking if post doesn't exist
     this.post = post;
     this.sendDebugMsg("---- Fetching Post: Done -----------------");
     return post;
@@ -73,9 +73,11 @@ export class BlogPostApp {
     if (pathArray.length >= 3 && pathArray[0] === 'blog' && pathArray[1].includes('posts')) {
       this.post_id = pathArray[2];
     } else {
-      this.post_id = null;
-      // todo: error checking
+      // attempt to retrieve from query params instead
+      this.post_id = new URLSearchParams(window.location.search).get('id');
     }
+
+      // todo: error checking
   }
 
 /* ************************************************************************** */
@@ -103,7 +105,6 @@ export class BlogPostApp {
 
   load() {
     this.fetchPostID();
-    this.post_id = 1; // todo: fetch post id from url
 
     // Mount elements to the page once the DOM Content has been loaded.
     document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });

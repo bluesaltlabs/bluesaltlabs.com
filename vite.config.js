@@ -21,9 +21,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         blog: resolve(__dirname, 'blog/index.html'),
-        'blog/posts/:id': resolve(__dirname, 'blog/posts.html'), // todo: test
         blog_posts_id: resolve(__dirname, 'blog/posts/*'), // todo: test
-        blog_posts_id2: resolve(__dirname, 'blog/posts.html/*'), // todo: test
         demos: resolve(__dirname, 'demos/index.html'),
         demos_keyboard: resolve(__dirname, 'demos/keyboard/index.html'),
         demos_music: resolve(__dirname, 'demos/music/index.html'),

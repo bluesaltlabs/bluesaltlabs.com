@@ -29,10 +29,10 @@ class PostRepository {
 
   async getById(id) {
     if(!this.posts || this.posts.length === 0 || !this.posts[id]) {
-      await this.getAll();
+      this.posts = await this.getAll();
     }
 
-    return this.posts[id] ?? null;
+    return this.posts.filter((p) => (p.id === parseInt(id)))[0] ?? undefined;
   }
 
   // todo: update this function and the data so it retrieves the URL from the post data and not here manually.

@@ -74,11 +74,11 @@ export class BlogApp {
       const postContentArticle = document.createElement('article');
       const publishedAtString = this.getFormattedDateString(post.publishedAt);
       postContentArticle.innerHTML = `
-        <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+        <h2 class="post-title" id="post-title_${post.id}">
+          <a href="/blog/posts.html?id=${post.id}">${post.title}</a>
+        </h2>
         <h3 class="post-subtitle" id="${publishedAtString}">
-          <span>Posted - <code>${publishedAtString}</code></span> |
-          <a href="/blog/posts.html/${post.id}/">test1</a> |
-          <a href="/blog/posts/${post.id}/">test2</a>
+          <span>Posted - <code>${publishedAtString}</code></span><br />
         </h3>
         <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
