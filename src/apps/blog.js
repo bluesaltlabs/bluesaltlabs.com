@@ -50,6 +50,16 @@ export class BlogApp {
     this.sendDebugMsg("---- Done sorting fetched posts. ---------");
   }
 
+  getFormattedDateString(dateValue) {
+    const pub = new Date(dateValue);
+
+    const y = pub.getFullYear();
+    const m = `${pub.getMonth() + 1}`.padStart(2, '0');
+    const d =`${pub.getDay()}`.padStart(2, '0');
+
+    return `${y}.${m}.${d}`;
+  }
+
 /* ************************************************************************** */
 
   async __init() {
@@ -58,12 +68,14 @@ export class BlogApp {
 
     const template = document.createElement('div');
 
-    // todo: get post content for each post
     // todo: implement error checking if no posts are retrieved.
     this.posts.map(async (post, postKey, posts) => {
       const postContentArticle = document.createElement('article');
+      const publishedAtString = this.getFormattedDateString(post.publishedAt);
       postContentArticle.innerHTML = `
         <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+        <h3 class="post-subtitle" id="${publishedAtString}">Posted - <code>${publishedAtString}</code></h3>
+
         <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
       `;
