@@ -73,6 +73,7 @@ export class BlogApp {
     this.posts.map(async (post, postKey, posts) => {
       const postContentArticle = document.createElement('article');
       const publishedAtString = this.getFormattedDateString(post.publishedAt);
+      // todo: load this from a template instead of hard-coding it in 2 places
       postContentArticle.innerHTML = `
         <h2 class="post-title" id="post-title_${post.id}">
           <a href="/blog/posts.html?id=${post.id}">${post.title}</a>
@@ -80,7 +81,7 @@ export class BlogApp {
         <h3 class="post-subtitle" id="${publishedAtString}">
           <span>Posted - <code>${publishedAtString}</code></span><br />
         </h3>
-        <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
+        <div class="post-content" id="post-content_${post.id}"><loading-grid></loading-grid></div>
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
       `;
 

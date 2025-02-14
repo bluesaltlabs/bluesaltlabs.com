@@ -1,16 +1,15 @@
 
 .post-title {
-  font-size: 1.75em;
+  font-size: 2em;
   margin-top: 1em;
   margin-bottom: 2px;
 
   a {
-
+    /* */
     &:active, &:hover {
       text-decoration: underline;
     }
   }
-
 }
 .post-subtitle {
   font-size: 0.85em;
@@ -21,6 +20,17 @@
   border-bottom: 1px solid #80808044;
 }
 
+.post-content {
+  font-size: 1.2em;
+  line-height: 1.5em;
+  max-width: 960px;
+  margin: 2em auto 3em;
+
+  p {
+    line-height: 2em;
+    padding: 18px 6px;
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   .post-title {
