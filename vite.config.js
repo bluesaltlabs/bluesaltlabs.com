@@ -37,7 +37,6 @@ export default defineConfig({
         demos_design_patterns_singleton: resolve(__dirname, 'demos/design-patterns/singleton.html'),
         demos_design_patterns_strategy: resolve(__dirname, 'demos/design-patterns/strategy.html'),
         demos_design_patterns_visitor: resolve(__dirname, 'demos/design-patterns/visitor.html'),
-        tools: resolve(__dirname, 'tools/index.html'),
       },
     },
   },
