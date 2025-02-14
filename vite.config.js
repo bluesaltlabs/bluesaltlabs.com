@@ -11,7 +11,7 @@ export default defineConfig({
 
   ],
   //assetsInclude: ['**/*.md', '**/*.json'],
-  assetsInclude: ['**/*.md', '/data/*'],
+  assetsInclude: ['**/*.md', '/data/**'],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
