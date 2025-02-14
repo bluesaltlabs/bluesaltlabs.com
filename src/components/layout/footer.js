@@ -8,7 +8,7 @@ export class LayoutFooter extends LitElement {
     footer {
       color: #fff;
       background-color: var(--color-gray-400);
-      border-top: 1px solid var(--color-blue-alt);
+      border-top: 1px solid var(--color-blue);
       padding: 25px 16px 40px 16px;
       margin: 30px 0 0 0;
     }
@@ -16,7 +16,7 @@ export class LayoutFooter extends LitElement {
     @media (prefers-color-scheme: dark) {
       footer {
         background-color: var(--color-blue);
-        border-color: var(--color-blue);
+        border-color: var(--color-blue-alt);
         color: var(--color-blue-alt);
       }
     }

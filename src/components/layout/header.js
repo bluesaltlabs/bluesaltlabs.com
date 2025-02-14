@@ -5,7 +5,7 @@ export class LayoutHeader extends LitElement {
     header {
       color: #fff;
       background-color: var(--color-gray-400);
-      border-bottom: 1px solid var(--color-blue-alt);
+      border-bottom: 1px solid var(--color-blue);
       padding: 8px 16px;
       margin-bottom: 25px;
       display: flex;
