@@ -35,8 +35,6 @@ export class BlogApp {
     this.posts = [];
   }
 
-
-
   sendDebugMsg(message = "DEBUG MESSAGE", data = undefined) {
     if(this.debug === true) {
       if(!data) { console.debug(message); }
@@ -92,11 +90,11 @@ export class BlogApp {
     document.dispatchEvent( new Event(EVENT_TYPE_CONTENT_LOADED) ); // todo: nothing is listening to this.
   }
 
-load() {
-  // Mount elements to the page once the DOM Content has been loaded.
-  document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
-  document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
-}
+  load() {
+    // Mount elements to the page once the DOM Content has been loaded.
+    document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
+    document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
+  }
 }
 
 let app = new BlogApp("blog-app");

@@ -12,9 +12,9 @@ export class LayoutBase extends LitElement {
       background-color: var(--color-blue-alt);
     }
     .title-container {
-      padding:2px 16px;
-      max-width: 1200px; /* todo: this should probably be a variable */
-      margin:auto;
+      padding: 2px 4%;
+      max-width: 1920px;
+      margin: auto;
     }
   `
 

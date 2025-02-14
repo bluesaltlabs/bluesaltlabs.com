@@ -17,30 +17,40 @@
 </head>
 <body>
   <layout-base title="Music">
-    <section class="pure-g">
 
-      <div class="pure-u pure-u-lg w-100">
-        <div style="max-width: 300px;" class="mx-auto">
-          <h3>Music Metronome</h3>
-          <music-metronome></music-metronome>
-        </div>
+    <!-- Navbar -->
+    <div style="padding:0 8px;max-width:1920px;margin:auto;">
+      <a href="/">Home</a> |
+      <a href="/demos/index.html">Demos</a> |
+      <span>Music</span>
+    </div>
+    <hr />
+
+    <!-- Content -->
+    <div class="pure-g">
+      <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+
+      <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+        <article>
+          <div style="max-width: 300px;" class="mx-auto">
+            <h3>Music Metronome</h3>
+            <music-metronome></music-metronome>
+          </div>
+        </article>
 
         <hr />
 
-        <!-- <music-sequencer>Test Music Demo Slot Content</music-sequencer> -->
-      </div>
-    </section>
+        <article>
+          <div style="width: 640px;" class="max-w-screen mx-auto">
+            <h3>Audio Oscillator</h3>
+            <audio-oscillator>Test Music Demo Slot Content</audio-oscillator>
+          </div>
+        </article>
 
-    <section class="pure-g">
-      <div class="pure-u pure-u-lg w-100">
-        <div style="width: 640px;" class="max-w-screen mx-auto">
-          <h3>Audio Oscillator</h3>
-          <audio-oscillator>Test Music Demo Slot Content</audio-oscillator>
-        </div>
       </div>
-    </section>
-    <!-- End Content -->
 
+      <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+    </div>
   </layout-base>
 </body>
 </html>
