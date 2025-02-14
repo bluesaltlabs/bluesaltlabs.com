@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import PostRepository from '../repositories/PostRepository';
+import PostRepository from '@/repositories/PostRepository';
 
 /******************************************************************************/
 /* Blog App                                                                   */
@@ -51,9 +51,12 @@ export class BlogApp {
 
   // todo: move this to a repository service class instead of hard-coding it here.
   async fetchPosts() {
-    this.sendDebugMsg("---- Fetching Posts: Start ----");
-    this.posts = await this.postRepository.getAll();
-    this.sendDebugMsg("---- Fetching Posts: Done. ----");
+    this.sendDebugMsg("---- Fetching Posts: Start ----------------");
+    //this.posts = await this.postRepository.getAll();
+    this.posts = await this.postRepository.getPublished();
+    this.sendDebugMsg("---- Fetching Posts: Done. Sorting ... ----");
+    this.posts = this.posts.sort((a, b) => (b.id - a.id));
+    this.sendDebugMsg("---- Done sorting fetched posts. ---------");
   }
 
   // todo: this is not a good way to do this - fix it.
@@ -65,36 +68,34 @@ export class BlogApp {
 
 /* ************************************************************************** */
 
-async __init() {
-  // Fetch posts
-  await this.fetchPosts();
+  async __init() {
+    // Fetch posts
+    await this.fetchPosts();
 
-  const template = document.createElement('div');
+    const template = document.createElement('div');
 
-  // todo: get post content for each post
-  // todo: implement error checking if no posts are retrieved.
-  this.posts.sort((a, b) => (b.id - a.id))
-    .filter((p) => (!!p.publishedAt))
-    .map(async (post, postKey, posts) => {
+    // todo: get post content for each post
+    // todo: implement error checking if no posts are retrieved.
+    this.posts.map(async (post, postKey, posts) => {
       const postContentArticle = document.createElement('article');
       // todo: do this as a separate process so retrieving post content doesn't block the page from loading.
       //const postContent = await this.postRepository.getContentById(post.id);
       //const parsedPostContent = marked.parse(postContent);
-      const parsedPostContent = marked.parse( await this.postRepository.getContentById(post.id) ?? '' );
-
-      //postContentArticle.innerHTML = `
-      //  <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-      //  <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
-      //  ${postKey < (posts.length - 1) ? '<hr />' : '' }
-      //`;
+      //const parsedPostContent = marked.parse( await this.postRepository.getContentById(post.id) ?? '' );
 
       postContentArticle.innerHTML = `
         <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
-        <div id="post-content_${post.id}">${parsedPostContent}</div>
+        <div id="post-content_${post.id}"><loading-grid></loading-grid></div>
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
       `;
 
-      template.appendChild(postContentArticle)
+      // postContentArticle.innerHTML = `
+      //  <h2 class="post-title" id="post-title_${post.id}">${post.title}</h2>
+      //  <div id="post-content_${post.id}">${parsedPostContent}</div>
+      //  ${postKey < (posts.length - 1) ? '<hr />' : '' }
+      // `;
+
+      template.appendChild(postContentArticle);
     });
 
     try {
@@ -108,15 +109,17 @@ async __init() {
     }
 
     document.dispatchEvent( new Event(EVENT_TYPE_INIT) ); // todo: nothing is listening to this.
+
+
   }
 
-  load(mountPointID) {
-    this.loadAppState(mountPointID);
+load(mountPointID) {
+  this.loadAppState(mountPointID);
 
-    // Mount elements to the page once the DOM Content has been loaded.
-    document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
-    document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
-  }
+  // Mount elements to the page once the DOM Content has been loaded.
+  document.addEventListener("DOMContentLoaded", (e) => { this.__init(); }, { once: true });
+  document.dispatchEvent( new Event(EVENT_TYPE_LOAD) ); // todo: nothing is listening to this.
+}
 }
 
 let app = new BlogApp();

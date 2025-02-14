@@ -19,6 +19,14 @@ class PostRepository {
       .catch(error => console.error("Error Fetching Posts: ", { error }))
   }
 
+  async getPublished() {
+    if(!this.posts || this.posts.length === 0) {
+      this.posts = await this.getAll();
+    }
+
+    return this.posts.filter((p) => (!!p.publishedAt));
+  }
+
   async getById(id) {
     if(!this.posts[id]) {
       this.getAll();
@@ -43,8 +51,6 @@ class PostRepository {
 
     return this.postContent[id];
   }
-
-
 }
 
 export default PostRepository;
