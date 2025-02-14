@@ -9,13 +9,20 @@ export class LayoutBase extends LitElement {
     hr {
       height: 2px;
       border: none;
-      background-color: var(--color-blue-alt);
+      background-color: var(--color-blue);
     }
     .title-container {
       padding: 2px 4%;
       max-width: 1920px;
       margin: auto;
     }
+
+    @media (prefers-color-scheme: dark) {
+      hr {
+        background-color: var(--color-blue-alt);
+      }
+    }
+
   `
 
   static properties = {

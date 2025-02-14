@@ -3,8 +3,52 @@
 @import 'utils/colors.css';
 @import 'utils/spacing.css';
 
+
 hr {
   height: 2px;
   border: none;
-  background-color: var(--color-blue-alt);
+  background-color: var(--color-blue);
+}
+
+html, body {
+  background: #ffffff;
+  color: #000000;
+}
+
+hr {
+  background-color: var(--color-blue);
+}
+
+a {
+  color: var(--color-blue-alt);
+  text-decoration: none;
+  transition: color 100ms ease-in-out;
+
+  &:active,
+  &:hover {
+    color: var(--color-green); /* todo: change this to something else */
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: var(--color-gray-400);
+    color: #fff;
+  }
+
+  hr {
+    background-color: var(--color-blue-alt);
+  }
+
+  a {
+    color: var(--color-blue-alt);
+
+
+    &:active,
+    &:hover {
+      color: var(--color-green);
+      text-decoration: underline;
+    }
+  }
 }

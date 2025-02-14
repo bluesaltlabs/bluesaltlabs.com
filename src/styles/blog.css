@@ -1,15 +1,12 @@
-.post-title {
-  color: var(--color-green);
 
+.post-title {
   font-size: 1.75em;
   margin-top: 1em;
   margin-bottom: 2px;
 
   a {
-    color: inherit;
-    text-decoration: none;
-    &:active,
-    &:hover {
+
+    &:active, &:hover {
       text-decoration: underline;
     }
   }
@@ -26,5 +23,15 @@
 
 
 @media (prefers-color-scheme: dark) {
+  .post-title {
+    color: var(--color-blue-alt);
 
+
+    a {
+      &:active, &:hover {
+        color: var(--color-green);
+      }
+
+    }
+  }
 }
