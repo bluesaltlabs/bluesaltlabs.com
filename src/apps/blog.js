@@ -81,7 +81,10 @@ export class BlogApp {
         <h3 class="post-subtitle" id="${publishedAtString}">
           <span>Posted - <code>${publishedAtString}</code></span><br />
         </h3>
-        <div class="post-content" id="post-content_${post.id}"><loading-grid></loading-grid></div>
+        <div class="post-excerpt" id="post-excerpt_${post.id}">${post.excerpt ?? post.description}</div>
+        ${postKey === 0 ?
+        `<div class="post-content" id="post-content_${post.id}"><loading-grid></loading-grid></div>`
+        : ''}
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
       `;
 
@@ -93,16 +96,14 @@ export class BlogApp {
 
     document.dispatchEvent( new Event(EVENT_TYPE_INIT) ); // todo: nothing is listening to this.
 
-    // Now loop over the posts again and retrieve their content.
-    // todo: Figure out how to do this asyncronously.
-    //       Ideally each post would be an element that loaded its own content.
-    this.posts.map(async (post) => {
-      const contentContainer = document.getElementById(`post-content_${post.id}`);
+    // Retrieve the content for the most recent post.
+    if( this.posts.length > 0) {
+      const contentContainer = document.getElementById(`post-content_${this.posts[0].id}`);
 
       contentContainer.innerHTML = marked.parse(
-        await this.postRepository.getContentById(post.id) ?? ''
-      ) ?? "!!";
-    });
+        await this.postRepository.getContentById(this.posts[0].id) ?? ''
+      ) ?? "";
+    }
 
     document.dispatchEvent( new Event(EVENT_TYPE_CONTENT_LOADED) ); // todo: nothing is listening to this.
   }
