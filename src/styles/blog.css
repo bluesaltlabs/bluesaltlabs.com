@@ -53,6 +53,14 @@
   }
 }
 
+.note-box {
+  border: 1px solid #80808080;
+  background-color: #80808022;
+  padding: 16px;
+  margin: 8px;
+  border-radius: 5px;
+}
+
 @media (prefers-color-scheme: dark) {
   .post-title {
     color: var(--color-blue-alt);
