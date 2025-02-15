@@ -24,7 +24,12 @@ class PostRepository {
       this.posts = await this.getAll();
     }
 
-    return this.posts.filter((p) => (!!p.publishedAt));
+    return this.posts.filter((p) => {
+      if(!p.publishedAt) { return false; }
+      const today = new Date();
+      const published = new Date(p.publishedAt);
+      return (published <= today);
+    });
   }
 
   async getById(id) {
