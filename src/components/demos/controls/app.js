@@ -12,6 +12,11 @@ class ControlsApp extends HTMLElement {
 
   // todo: save state of the volume slider control here, update state of debug and volume slider control on change
 
+  connectedCallback() {
+
+  }
+
+  disconnect
 
   render() {
     const wrapper = document.createElement('div');
