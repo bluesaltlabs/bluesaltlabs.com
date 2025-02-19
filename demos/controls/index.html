@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demos | simple.bluesaltlabs.com</title>
+  <title>Controls Demo</title>
   <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/styles.css" />
 
+  <!-- JavaScript  components -->
+  <script type="module" src="/src/components/demos/controls-app.js"></script>
+
   <!-- Lit Components -->
   <script type="module" src="/src/components/layout/base.js"></script>
+
 </head>
 <body>
-  <layout-base title="Demos">
+  <layout-base title="Controls Demo">
 
     <!-- Navbar -->
     <div style="padding:0 4%;max-width:1920px;margin:auto;">
       <a href="/">Home</a> |
-      <span>Demos</span>
+      <a href="/demos/index.html">Demos</a> |
+      <span>Controls</span>
     </div>
     <hr />
 
@@ -27,23 +32,15 @@
       <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
 
       <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
-        <p>Demos page.</p>
-
-        <h2>Links</h2>
-        <ul>
-          <li><a href="./design-patterns/index.html">Design Patterns</a></li>
-          <li><a href="./music/index.html">Music Examples</a></li>
-          <li><a href="./tone/index.html">Tone.js Demos</a></li>
-          <li><a href="./schedule/index.html">Schedule Demo</a></li>
-          <li><a href="./keyboard/index.html">Keyboard</a></li>
-          <li><a href="./controls/index.html">Controls</a></li>
-        </ul>
+        <div style="text-align: center;">
+          <button style="height:50px;min-width:200px;" id="btn-start-audio">Start Audio</button>
+        </div>
+        <hr />
+        <controls-app></controls-app>
       </div>
 
       <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
     </div>
-    <!-- End Content -->
-
   </layout-base>
 </body>
 </html>
