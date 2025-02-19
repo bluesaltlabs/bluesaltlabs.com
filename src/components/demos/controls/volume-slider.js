@@ -1,5 +1,4 @@
 
-
 const css = `
   <style>
     /* todo */
@@ -70,46 +69,6 @@ class VolumeSliderControl extends HTMLElement {
     }
   }
 
-
-
-  // onchange
-  //change(event) {
-  //  this.showDebugMessage('change', event)
-  //  this.value = event.target.value;
-  //  //this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value } }));
-  //}
-
-  renderInputElement() {
-    // if(!this.input) {
-    //   // todo: check for existing input element within the parent element.
-    //   this.input = this.querySelector('input');
-
-    //   // if input element is not found, create a new one
-    //   if(!this.input) {
-    //     this.input = document.createElement('input');
-    //     this.input.type = this.type;
-    //     this.input.min = this.min;
-    //     this.input.max = this.max;
-    //     this.input.value = this.value;
-    //     this.input.addEventListener('change', (e) => this.attributeChangedCallback(e))
-    //     this.shadowRoot.appendChild(this.input);
-    //   }
-
-    //   // todo: what else needs to be done? event listeners? etc?
-    // }
-
-    // // todo: what needs to happen after the element is created?
-    // is it rendered yet? or has that happened if this.input is true?
-
-  }
-
-
-
-  render() {
-    //this.renderInputElement(); // todo
-//this.inputNode.value = 0; // temp debug
-
-  }
 }
 
 // build the template;
