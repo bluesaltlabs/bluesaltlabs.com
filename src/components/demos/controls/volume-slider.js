@@ -12,7 +12,7 @@ const css = `
   }
 
   input[type=range]:focus {
-    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+    /* outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
   }
 
   input[type=range]::-ms-track {
@@ -25,7 +25,6 @@ const css = `
     color: transparent;
   }
 
-
   /* Special styling for WebKit/Blink */
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -33,7 +32,7 @@ const css = `
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #ffffff;
+    background: var(--color-blue-alt);
     cursor: pointer;
     margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
@@ -46,7 +45,7 @@ const css = `
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #ffffff;
+    background: var(--color-blue-alt);
     cursor: pointer;
   }
 
@@ -57,7 +56,7 @@ const css = `
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #ffffff;
+    background: var(--color-blue-alt);
     cursor: pointer;
   }
   input[type=range]::-webkit-slider-runnable-track {
@@ -79,7 +78,7 @@ const css = `
     height: 8.4px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #3071a9;
+    background: var(--color-blue);
     border-radius: 1.3px;
     border: 0.2px solid #010101;
   }
@@ -100,7 +99,7 @@ const css = `
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   }
   input[type=range]:focus::-ms-fill-lower {
-    background: #3071a9;
+    background: var(--color-blue);
   }
   input[type=range]::-ms-fill-upper {
     background: #3071a9;

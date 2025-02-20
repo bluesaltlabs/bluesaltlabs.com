@@ -1,7 +1,8 @@
 
 // import VolumeSliderControl from './volume-slider.js';
 import './debug-control-value.js'
-import './volume-slider.js';
+import './input-knob.js';
+import './input.js';
 
 class ControlsApp extends HTMLElement {
   constructor() {
@@ -16,7 +17,9 @@ class ControlsApp extends HTMLElement {
 
   }
 
-  disconnect
+  disconnectedCallback() {
+
+  }
 
   render() {
     const wrapper = document.createElement('div');
@@ -28,9 +31,8 @@ class ControlsApp extends HTMLElement {
         }
       </style>
       <div>
-        <p>This is a demo of the controls app!!</p>
-        <volume-slider-control value="50"></volume-slider-control>
-        <debug-control-value value="10"></debug-control-value>
+        <slot></slot>
+
       </div>
     `;
   }
