@@ -1,4 +1,4 @@
-
+// https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
 const css = `
   <style>
   input[type=range] {

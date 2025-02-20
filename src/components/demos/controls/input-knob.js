@@ -9,7 +9,9 @@ import InputControl from './input';
 class InputKnobControl extends InputControl {
   constructor() {
     super();
-    this.value = 25;
+    this.inputNode.type = 'number';
+    this.inputNode.value = 0; // set initial value to 0
+
   }
 
   //

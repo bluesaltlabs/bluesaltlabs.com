@@ -29,7 +29,7 @@ class InputControl extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.inputNode = this.shadowRoot.querySelector('input');
-    this.inputNode.value = 0; // todo: set initial value
+
 
     // Add all properties on input to element
     for (let i = 0; i < this.attributes.length; i++) {
@@ -39,7 +39,7 @@ class InputControl extends HTMLElement {
       )
     }
 
-    // this.value  = this.inputNode.value;
+    this.value  = this.inputNode.value;
 
     this.throttlingDelay = 200;
     this.throttlingValue = false;
