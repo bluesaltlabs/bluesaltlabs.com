@@ -90,12 +90,21 @@ export class BlogPostApp {
     const postContentArticle = document.createElement('article');
     const publishedAtString = this.getFormattedDateString(this.post.publishedAt);
     const updatedAtString = this.getFormattedDateString(this.post.updatedAt);
+    const githubUrl = `https://github.com/bluesaltlabs/bluesaltlabs.github.io/blob/main/data/posts/${this.post.id}.md`
     const content = marked.parse(
       await this.postRepository.getContentById(this.post.id) ?? ''
     ) ?? "!!";
     // todo: load this from a template instead of hard-coding it in 2 places
     postContentArticle.innerHTML = `
-      <h2 class="post-title" id="post-title_${this.post.id}">${this.post.title}</h2>
+      <h2 class="post-title" id="post-title_${this.post.id}">
+      <div style="display:flex;justify-content:space-between">
+      <span>${this.post.title}</span>
+        <span>
+          <a href="${githubUrl}" target="_blank">
+            <img src="https://bluesaltlabs.github.io/resources/github-mark.svg" alt="GitHub Logo" style="max-height:24px;background-color:#ffffff80;padding:5px;border-radius:6px;" />
+          </a>
+        </span>
+      </h2>
       <h3 class="post-subtitle" id="${publishedAtString ?? updatedAtString}">
         ${!publishedAtString  ? '' : `<span>Posted | <code>${publishedAtString}</code></span>` }
         ${!updatedAtString || updatedAtString === publishedAtString ? '' :
