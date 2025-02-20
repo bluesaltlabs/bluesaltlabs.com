@@ -47,11 +47,12 @@ export class BlogApp {
     this.posts = await this.postRepository.getPublished();
     this.sendDebugMsg("---- Fetching Posts: Done. Sorting ... ----");
     this.posts = this.posts.sort((a, b) => (b.id - a.id));
-    this.sendDebugMsg("---- Done sorting fetched posts. ---------");
+    this.sendDebugMsg("---- Done sorting fetched posts. ----------");
   }
 
   // todo: move this to a helper file.
   getFormattedDateString(dateValue) {
+    if(dateValue === null) { return null }
     const pub = new Date(dateValue);
 
     const y = pub.getFullYear();
@@ -60,6 +61,7 @@ export class BlogApp {
 
     return `${y}.${m}.${d}`;
   }
+
 
 /* ************************************************************************** */
 
@@ -73,13 +75,18 @@ export class BlogApp {
     this.posts.map(async (post, postKey, posts) => {
       const postContentArticle = document.createElement('article');
       const publishedAtString = this.getFormattedDateString(post.publishedAt);
+      const updatedAtString = this.getFormattedDateString(post.updatedAt);
       // todo: load this from a template instead of hard-coding it in 2 places
       postContentArticle.innerHTML = `
         <h2 class="post-title" id="post-title_${post.id}">
           <a href="/blog/posts.html?id=${post.id}">${post.title}</a>
         </h2>
-        <h3 class="post-subtitle" id="${publishedAtString}">
-          <span>Posted - <code>${publishedAtString}</code></span><br />
+        <!-- todo: move this to a shared template, clean up styling -->
+        <h3 class="post-subtitle" id="${publishedAtString ?? updatedAtString}">
+          ${!publishedAtString  ? '' : `<span>Posted | <code>${publishedAtString}</code></span>` }
+          ${!updatedAtString || updatedAtString === publishedAtString ? '' :
+            `<br /<span>Updated | <code>${updatedAtString}</code></span>`
+          }
         </h3>
         <div class="post-excerpt" id="post-excerpt_${post.id}">${post.excerpt ?? post.description}</div>
         ${postKey < (posts.length - 1) ? '<hr />' : '' }
@@ -96,6 +103,9 @@ export class BlogApp {
     // Retrieve the content for the most recent post.
     if( this.posts.length > 0) {
       const contentContainer = document.getElementById(`post-content_${this.posts[0].id}`);
+
+      // if contentContainer is null, just skip it.
+      if(contentContainer === null) { return }
 
       contentContainer.innerHTML = marked.parse(
         await this.postRepository.getContentById(this.posts[0].id) ?? ''

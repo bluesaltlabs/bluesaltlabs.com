@@ -53,6 +53,7 @@ export class BlogPostApp {
 
   // todo: move this to a helper file.
   getFormattedDateString(dateValue) {
+    if(dateValue === null) { return null }
     const pub = new Date(dateValue);
 
     const y = pub.getFullYear();
@@ -88,13 +89,19 @@ export class BlogPostApp {
 
     const postContentArticle = document.createElement('article');
     const publishedAtString = this.getFormattedDateString(this.post.publishedAt);
+    const updatedAtString = this.getFormattedDateString(this.post.updatedAt);
     const content = marked.parse(
       await this.postRepository.getContentById(this.post.id) ?? ''
     ) ?? "!!";
     // todo: load this from a template instead of hard-coding it in 2 places
     postContentArticle.innerHTML = `
       <h2 class="post-title" id="post-title_${this.post.id}">${this.post.title}</h2>
-      <h3 class="post-subtitle" id="${publishedAtString}">Posted - <code>${publishedAtString}</code></h3>
+      <h3 class="post-subtitle" id="${publishedAtString ?? updatedAtString}">
+        ${!publishedAtString  ? '' : `<span>Posted | <code>${publishedAtString}</code></span>` }
+        ${!updatedAtString || updatedAtString === publishedAtString ? '' :
+          `<br /<span>Updated | <code>${updatedAtString}</code></span>`
+        }
+      </h3>
       <div class="post-content" id="post-content_${this.post.id}">${content}</div>
     `;
 
