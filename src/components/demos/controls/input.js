@@ -44,7 +44,6 @@ class InputControl extends HTMLElement {
     this.throttlingDelay = 200;
     this.throttlingValue = false;
     this.throttlingTimer = null;
-
   }
 
   showDebugMessage(message, value) {
@@ -52,7 +51,6 @@ class InputControl extends HTMLElement {
       console.debug(`InputControl: ${message}`, { ...(value ?? {}) });
     }
   }
-
 
   setThrottledValue(event) {
     if(this.throttlingValue === false) {

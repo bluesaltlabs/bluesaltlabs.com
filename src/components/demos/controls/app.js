@@ -1,5 +1,5 @@
 
-// import VolumeSliderControl from './volume-slider.js';
+import './volume-slider.js';
 import './debug-control-value.js'
 import './input-knob.js';
 import './input.js';
@@ -12,13 +12,34 @@ class ControlsApp extends HTMLElement {
   }
 
   // todo: save state of the volume slider control here, update state of debug and volume slider control on change
+  handleInputChange(event) {
+    console.debug("handling input change", { event });
+  }
 
-  connectedCallback() {
+
+  handleSlotChange() {
+    console.debug("handling slot change");
+
+
+    // // querySelectorAll the input elements slotted in this component
+    const inputElements = this.querySelectorAll('input');
+    console.debug("inputElements", {inputElements})
+    inputElements.forEach(input => {
+      console.debug("attaching to input element", { element: input })
+      input.addEventListener('change', this.handleInputChange);
+    });
 
   }
 
-  disconnectedCallback() {
+  // todo: for some reason this isn't attaching the event listener to the input elements. figure out why.
+  connectedCallback() {
+    const slot = this.shadowRoot.querySelector('slot');
+    slot.addEventListener('slotchange', this.handleSlotChange);
+  }
 
+  disconnectedCallback() {
+    const slot = this.shadowRoot.querySelector('slot');
+    slot.removeEventListener('slotchange', this.handleSlotChange);
   }
 
   render() {
@@ -32,7 +53,6 @@ class ControlsApp extends HTMLElement {
       </style>
       <div>
         <slot></slot>
-
       </div>
     `;
   }
