@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <filter id="shadow1">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.7">
+        <animate
+          attributeName="stdDeviation"
+          values="3;18;3;9;3;"
+          dur="6s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="flood-color"
+          values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
+          dur="12s"
+          repeatCount="indefinite"
+        />
+      </feDropShadow>
+    </filter>
+  </defs>
+
+  <rect
+    x="100"
+    y="100"
+    width="600"
+    height="250"
+    rx="25"
+    ry="25"
+    fill="black"
+    fill-opacity="0.5"
+    filter="url(#shadow1)"
+  >
+  </rect>
+
+  <rect
+    x="100"
+    y="100"
+    width="600"
+    height="250"
+    rx="25"
+    ry="25"
+    fill="none"
+    stroke="black"
+    stroke-width="5"
+    filter="url(#shadow1)"
+  >
+
+    <animate
+      attributeName="stroke"
+      values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
+      dur="12s"
+      repeatCount="indefinite"
+    />
+
+    <!-- 600;580;600 -->
+    <animate
+      attributeName="width"
+      values="600;580;600;300;600;"
+      dur="3s"
+      repeatCount="indefinite"
+    />
+
+    <!-- 100;110;100 -->
+    <animate
+      attributeName="x"
+      values="100;110;100;250;100"
+      dur="3s"
+      repeatCount="indefinite"
+    />
+
+    <!-- 250;230;250 -->
+    <animate
+      attributeName="height"
+      values="250;230;250;150;250;"
+      dur="3s"
+      repeatCount="indefinite"
+    />
+
+    <!-- 100;110;100 -->
+    <animate
+      attributeName="y"
+      values="100;110;100;150;100"
+      dur="3s"
+      repeatCount="indefinite"
+    />
+  </rect>
+</svg>
