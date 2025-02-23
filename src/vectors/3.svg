@@ -1,17 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+<style>
+  .number {
+  font-family: Arial;
+  font-size: 36px;
+  fill: white;
+  }
+</style>
   <defs>
     <filter id="shadow1">
       <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.7">
         <animate
           attributeName="stdDeviation"
           values="3;18;3;9;3;"
-          dur="6s"
+          dur="12s"
           repeatCount="indefinite"
         />
         <animate
           attributeName="flood-color"
           values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
-          dur="12s"
+          dur="24s"
           repeatCount="indefinite"
         />
       </feDropShadow>
@@ -43,44 +50,81 @@
     stroke-width="5"
     filter="url(#shadow1)"
   >
-
     <animate
       attributeName="stroke"
       values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
+      dur="24s"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="width"
+      values="600;580;600;580;600;580;600;400;600;"
       dur="12s"
       repeatCount="indefinite"
     />
-
-    <!-- 600;580;600 -->
-    <animate
-      attributeName="width"
-      values="600;580;600;300;600;"
-      dur="3s"
-      repeatCount="indefinite"
-    />
-
-    <!-- 100;110;100 -->
     <animate
       attributeName="x"
-      values="100;110;100;250;100"
-      dur="3s"
+      values="100;110;100;110;100;110;100;200;100"
+      dur="12s"
       repeatCount="indefinite"
     />
-
-    <!-- 250;230;250 -->
     <animate
       attributeName="height"
-      values="250;230;250;150;250;"
-      dur="3s"
+      values="250;230;250;230;250;230;250;200;250;"
+      dur="12s"
       repeatCount="indefinite"
     />
-
-    <!-- 100;110;100 -->
     <animate
       attributeName="y"
-      values="100;110;100;150;100"
-      dur="3s"
+      values="100;110;100;110;100;110;100;125;100"
+      dur="12s"
       repeatCount="indefinite"
     />
   </rect>
+
+  <!-- 1 -->
+  <text class="number" x="370" y="225" opacity="0">1
+  <animate
+    attributeName="opacity"
+    values="1;0.1;0;0;"
+    begin="0s"
+    dur="12s"
+    repeatCount="indefinite"
+  />
+  </text>
+
+
+  <!-- 2 -->
+  <text class="number" x="400" y="225" opacity="0">2
+  <animate
+    attributeName="opacity"
+    values="1;0.1;0;0;"
+    begin="3s"
+    dur="12s"
+    repeatCount="indefinite"
+  />
+  </text>
+
+  <!-- 3 -->
+  <text class="number" x="430" y="225" opacity="0">3
+  <animate
+    attributeName="opacity"
+    values="1;0.1;0;0;"
+    begin="6s"
+    dur="12s"
+    repeatCount="indefinite"
+  />
+  </text>
+
+  <!-- 4 -->
+  <text class="number" x="460" y="225" opacity="0">4
+  <animate
+    attributeName="opacity"
+    values="1;0.1;0;0;"
+    begin="9s"
+    dur="12s"
+    repeatCount="indefinite"
+  />
+  </text>
+
 </svg>

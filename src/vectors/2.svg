@@ -16,19 +16,19 @@
         <animate
           attributeName="dx"
           values="0;16;0"
-          dur="2s"
+          dur="6s"
           repeatCount="indefinite"
         />
         <animate
           attributeName="dy"
           values="0;12;0"
-          dur="2s"
+          dur="6s"
           repeatCount="indefinite"
         />
         <animate
           attributeName="stdDeviation"
           values="1;10;1"
-          dur="2s"
+          dur="6s"
           repeatCount="indefinite"
         />
       </feDropShadow>
@@ -46,7 +46,7 @@
     <animate
       attributeName="r"
       values="180;200;180"
-      dur="2s"
+      dur="6s"
       repeatCount="indefinite"
     />
 
@@ -54,7 +54,7 @@
     <animate
       attributeName="fill"
       values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
-      dur="12s"
+      dur="24s"
       repeatCount="indefinite"
     />
   </circle>
