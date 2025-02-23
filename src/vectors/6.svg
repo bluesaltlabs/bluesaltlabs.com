@@ -2,11 +2,13 @@
   <style>
     .led__left, .led__right {
       opacity: 0.33;
-      transition: opacity 0.2s ease-in-out;
+      transition: opacity 1s ease-in-out;
 
     }
-    .led__left.active, .led__right.active {
+    .led__left.active, .led__right.active,
+    .led__left:hover, .led__right:hover {
       opacity: 1;
+      transition: opacity 0.1s ease-in-out;
     }
 
     .led__left {
