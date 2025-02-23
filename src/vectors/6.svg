@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 100 50">
+  <style>
+    .led__left, .led__right {
+      opacity: 0.33;
+      transition: opacity 0.2s ease-in-out;
+
+    }
+    .led__left.active, .led__right.active {
+      opacity: 1;
+    }
+
+    .led__left {
+      fill: #06ad06dd;
+      stroke: #0d440daa;
+    }
+
+    .led__right {
+      fill: #ef1c1cdd;
+      stroke: #5e0808aa;
+    }
+  </style>
+  <defs>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="0" stdDeviation="0.5 0.25" flood-opacity="0.5" />
+    </filter>
+
+    <!-- LED -->
+    <rect
+      id="ledRect"
+      x="0"
+      y="0"
+      rx="0.5"
+      ry="0.5"
+      width="10"
+      height="23.5"
+      stroke-width="0.25"
+      filter="url(#shadow)"
+    >
+    </rect>
+  </defs>
+
+  <!-- Background -->
+  <rect
+    x="0"
+    y="0"
+    fill="#80808080"
+    width="100"
+    height="50"
+  >
+  </rect>
+
+  <!-- a horizontal LED track (Left Channel) -->
+  <use href="#ledRect" class="led__left active" x="1" y="1" />
+  <use href="#ledRect" class="led__left" x="12" y="1" />
+  <use href="#ledRect" class="led__left" x="23" y="1" />
+  <use href="#ledRect" class="led__left" x="34" y="1" />
+  <use href="#ledRect" class="led__left" x="45" y="1" />
+  <use href="#ledRect" class="led__left" x="56" y="1" />
+  <use href="#ledRect" class="led__left" x="67" y="1" />
+  <use href="#ledRect" class="led__left" x="78" y="1" />
+  <use href="#ledRect" class="led__left" x="89" y="1" />
+
+  <!-- a horizontal LED track (Right Channel) -->
+  <use href="#ledRect" class="led__right active" x="1" y="25.5" />
+  <use href="#ledRect" class="led__right active" x="12" y="25.5" />
+  <use href="#ledRect" class="led__right" x="23" y="25.5" />
+  <use href="#ledRect" class="led__right" x="34" y="25.5" />
+  <use href="#ledRect" class="led__right" x="45" y="25.5" />
+  <use href="#ledRect" class="led__right" x="56" y="25.5" />
+  <use href="#ledRect" class="led__right" x="67" y="25.5" />
+  <use href="#ledRect" class="led__right" x="78" y="25.5" />
+  <use href="#ledRect" class="led__right" x="89" y="25.5" />
+</svg>

@@ -1,139 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectors Demo</title>
-  <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vectors Demo</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/bluesaltlabs-logo.svg"
+    />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/src/styles/styles.css" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/styles.css" />
 
-  <!-- Lit Components -->
-  <script type="module" src="/src/components/layout/base.js"></script>
+    <!-- Lit Components -->
+    <script type="module" src="/src/components/layout/base.js"></script>
 
-  <!-- Styling (should probably move this to its own stylesheet) -->
-  <style>
-    .vector-example-section {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      padding: 1em;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid #80808080;
-      }
-
-      .vector-container,
-      .vector-description {
-        border: 1px solid #80808080;
-        border-radius: 4px;
-        padding: 2em;
-        margin: 0.25em;
-        box-shadow: 0 0 16px 0 rgba(0,0,0,0.75);
-        -webkit-box-shadow: 0 0 16px 0 rgba(0,0,0,0.75);
-        -moz-box-shadow: 0 0 16px 0 rgba(0,0,0,0.75);
-        background-color: #80808020;
-      }
-      .vector-container {
-        flex-grow: 1;
-        object, svg {
-          width: 100%;
-          height: auto;
-        }
-      }
-
-      .vector-description {
-        max-width: 25%;
+    <!-- Styling (should probably move this to its own stylesheet) -->
+    <style>
+      .vector-example-section {
         display: flex;
         justify-content: center;
-        align-items: center;
-      }
-    }
+        flex-direction: row;
+        padding: 1em;
 
-    @media (max-width: 768px) {
-      .vector-example-section {
-        display: block;
+        &:not(:last-child) {
+          border-bottom: 1px solid #80808080;
+        }
+
+        .vector-container,
+        .vector-description {
+          border: 1px solid #80808080;
+          border-radius: 4px;
+          padding: 2em;
+          margin: 0.25em;
+          box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+          -webkit-box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+          background-color: #80808020;
+        }
+        .vector-container {
+          flex-grow: 1;
+          object,
+          svg {
+            width: 100%;
+            height: auto;
+          }
+        }
 
         .vector-description {
-          max-width: 100%;
+          max-width: 25%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
-    }
-  </style>
 
-</head>
-<body>
-  <layout-base title="Vector Demos">
+      @media (max-width: 768px) {
+        .vector-example-section {
+          display: block;
 
-    <!-- Navbar -->
-    <div style="padding:0 4%;max-width:1920px;margin:auto;">
-      <a href="/">Home</a> |
-      <a href="/demos/index.html">Demos</a> |
-      <span>Vectors</span>
-    </div>
-    <hr />
+          .vector-description {
+            max-width: 100%;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <layout-base title="Vector Demos">
+      <!-- Navbar -->
+      <div style="padding: 0 4%; max-width: 1920px; margin: auto">
+        <a href="/">Home</a> | <a href="/demos/index.html">Demos</a> |
+        <span>Vectors</span>
+      </div>
+      <hr />
 
-    <!-- Content -->
-    <div class="pure-g">
-      <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+      <!-- Content -->
+      <div class="pure-g">
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
 
-      <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+        <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
 
+          <!-- /src/vectors/6.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
 
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/6.svg"
+                alt="next"
+              ></object>
 
-        <!-- /src/vectors/4.svg -->
-        <section class="vector-example-section">
-          <div class="vector-container">
-            <object type="image/svg+xml" data="/src/vectors/4.svg" alt=""></object>
-          </div>
-          <div class="vector-description">
-            Testing out some patterns and masks.
-          </div>
-        </section>
+            </div>
+            <div class="vector-description">
+              Some level volume indicators
+            </div>
+          </section>
 
-        <!-- /src/vectors/3.svg -->
-        <section class="vector-example-section">
-          <div class="vector-container">
-            <object type="image/svg+xml" data="/src/vectors/3.svg" alt="A rectangle with an animated background and drop shadow. Also includes animated inner rectangle."></object>
-          </div>
-          <div class="vector-description">
-            <p>A rectangle with an animated background and drop shadow. Also includes animated inner rectangle.</p>
-          </div>
-        </section>
+          <!-- /src/vectors/5.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/5.svg"
+                alt="A box with a rounded corner, experimenting with bezier curves."
+              ></object>
+            </div>
+            <div class="vector-description">
+              A box with a rounded corner, experimenting with bezier curves.
+            </div>
+          </section>
 
+          <!-- /src/vectors/4.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/4.svg"
+                alt="Testing out some patterns and masks."
+              ></object>
+            </div>
+            <div class="vector-description">
+              Testing out some patterns and masks.
+            </div>
+          </section>
 
-        <!-- /src/vectors/2.svg -->
-        <section class="vector-example-section">
-          <div class="vector-container">
-            <object type="image/svg+xml" data="/src/vectors/2.svg" alt=""></object>
-          </div>
-          <div class="vector-description">
-            <p>An SVG circle with a rainbow fill color animation and an animated shadow effect.</p>
-          </div>
-        </section>
+          <!-- /src/vectors/3.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/3.svg"
+                alt="A rectangle with an animated background and drop shadow. Also includes animated inner rectangle."
+              ></object>
+            </div>
+            <div class="vector-description">
+              <p>
+                A rectangle with an animated background and drop shadow. Also
+                includes animated inner rectangle.
+              </p>
+            </div>
+          </section>
 
-        <!-- /src/vectors/1.svg -->
-        <section class="vector-example-section">
-          <div class="vector-container">
-            <object type="image/svg+xml" data="/src/vectors/1.svg" alt="A red circle with a segmented `dasharray` border and a yellow, flashing border."></object>
-          </div>
-          <div class="vector-description">
-            <p>A red circle with a segmented `dasharray` border and a yellow, flashing border.</p>
-          </div>
-        </section>
+          <!-- /src/vectors/2.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/2.svg"
+                alt=""
+              ></object>
+            </div>
+            <div class="vector-description">
+              <p>
+                An SVG circle with a rainbow fill color animation and an
+                animated shadow effect.
+              </p>
+            </div>
+          </section>
 
-        <!--
+          <!-- /src/vectors/1.svg -->
+          <section class="vector-example-section">
+            <div class="vector-container">
+              <object
+                type="image/svg+xml"
+                data="/src/vectors/1.svg"
+                alt="A red circle with a segmented `dasharray` border and a yellow, flashing border."
+              ></object>
+            </div>
+            <div class="vector-description">
+              <p>
+                A red circle with a segmented `dasharray` border and a yellow,
+                flashing border.
+              </p>
+            </div>
+          </section>
+
+          <!--
         <section class="vector-example-section">
           <div class="vector-container"></div>
           <div class="vector-description"></div>
         </section>
-        -->
+        --></div>
 
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
       </div>
-
-      <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
-    </div>
-  </layout-base>
-</body>
+    </layout-base>
+  </body>
 </html>
