@@ -41,10 +41,11 @@
         }
         .vector-container {
           flex-grow: 1;
-          object,
-          svg {
+
+          object, svg, img {
             width: 100%;
             height: auto;
+            display: block;
           }
         }
 
@@ -62,6 +63,16 @@
 
           .vector-description {
             max-width: 100%;
+            margin-top: 1em;
+          }
+        }
+      }
+
+      @media (min-width: 768px) {
+        .vector-example-section {
+
+          .vector-description {
+            margin-left: 1em;
           }
         }
       }
@@ -86,26 +97,24 @@
           <section class="vector-example-section">
             <div class="vector-container">
 
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/6.svg"
-                alt="next"
-              ></object>
+              <img
+                src="/src/vectors/6.svg"
+                alt="Some level indicators"
+              ></img>
 
             </div>
             <div class="vector-description">
-              Some level volume indicators
+              Some level indicators.
             </div>
           </section>
 
           <!-- /src/vectors/5.svg -->
           <section class="vector-example-section">
             <div class="vector-container">
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/5.svg"
+              <img
+                src="/src/vectors/5.svg"
                 alt="A box with a rounded corner, experimenting with bezier curves."
-              ></object>
+              ></img>
             </div>
             <div class="vector-description">
               A box with a rounded corner, experimenting with bezier curves.
@@ -115,11 +124,10 @@
           <!-- /src/vectors/4.svg -->
           <section class="vector-example-section">
             <div class="vector-container">
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/4.svg"
+              <img
+                src="/src/vectors/4.svg"
                 alt="Testing out some patterns and masks."
-              ></object>
+              ></img>
             </div>
             <div class="vector-description">
               Testing out some patterns and masks.
@@ -129,11 +137,10 @@
           <!-- /src/vectors/3.svg -->
           <section class="vector-example-section">
             <div class="vector-container">
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/3.svg"
+              <img
+                src="/src/vectors/3.svg"
                 alt="A rectangle with an animated background and drop shadow. Also includes animated inner rectangle."
-              ></object>
+              ></img>
             </div>
             <div class="vector-description">
               <p>
@@ -146,16 +153,14 @@
           <!-- /src/vectors/2.svg -->
           <section class="vector-example-section">
             <div class="vector-container">
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/2.svg"
-                alt=""
-              ></object>
+              <img
+                src="/src/vectors/2.svg"
+                alt="An SVG circle with a rainbow fill color animation and an animated shadow effect."
+              ></img>
             </div>
             <div class="vector-description">
               <p>
-                An SVG circle with a rainbow fill color animation and an
-                animated shadow effect.
+                An SVG circle with a rainbow fill color animation and an animated shadow effect.
               </p>
             </div>
           </section>
@@ -163,11 +168,10 @@
           <!-- /src/vectors/1.svg -->
           <section class="vector-example-section">
             <div class="vector-container">
-              <object
-                type="image/svg+xml"
-                data="/src/vectors/1.svg"
+              <img
+                src="/src/vectors/1.svg"
                 alt="A red circle with a segmented `dasharray` border and a yellow, flashing border."
-              ></object>
+              ></img>
             </div>
             <div class="vector-description">
               <p>

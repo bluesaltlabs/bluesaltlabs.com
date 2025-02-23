@@ -52,7 +52,7 @@
 
   <!-- a horizontal LED track (Left Channel) -->
   <use href="#ledRect" class="led__left active" x="1" y="1" />
-  <use href="#ledRect" class="led__left" x="12" y="1" />
+  <use href="#ledRect" class="led__left active" x="12" y="1" />
   <use href="#ledRect" class="led__left" x="23" y="1" />
   <use href="#ledRect" class="led__left" x="34" y="1" />
   <use href="#ledRect" class="led__left" x="45" y="1" />
@@ -64,7 +64,7 @@
   <!-- a horizontal LED track (Right Channel) -->
   <use href="#ledRect" class="led__right active" x="1" y="25.5" />
   <use href="#ledRect" class="led__right active" x="12" y="25.5" />
-  <use href="#ledRect" class="led__right" x="23" y="25.5" />
+  <use href="#ledRect" class="led__right active" x="23" y="25.5" />
   <use href="#ledRect" class="led__right" x="34" y="25.5" />
   <use href="#ledRect" class="led__right" x="45" y="25.5" />
   <use href="#ledRect" class="led__right" x="56" y="25.5" />
