@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260">
+  <defs>
+    <filter id="baseShadow">
+      <feDropShadow
+        dx="0"
+        dy="0"
+        stdDeviation="6"
+        flood-color="#1122cc;"
+        flood-opacity="0.7"
+      ></feDropShadow>
+    </filter>
+
+    <filter id="glowShadow">
+      <feDropShadow
+        dx="0"
+        dy="0"
+        stdDeviation="2"
+        flood-color="#1122cc;"
+        flood-opacity="0.7"
+      >
+        <animate
+          start="click"
+          attributeName="stdDeviation"
+          values="2;8;2"
+          dur="1000ms"
+          repeatCount="indefinite"
+        />
+        <animate
+          start="click"
+          attributeName="flood-opacity"
+          values="0.7;0.9;0.7"
+          dur="1000ms"
+          repeatCount="indefinite"
+        />
+      </feDropShadow>
+    </filter>
+
+    <filter id="rainbowShadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="1">
+        <animate
+          attributeName="flood-color"
+          values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
+          dur="12000ms"
+          repeatCount="indefinite"
+        />
+      </feDropShadow>
+    </filter>
+
+    <rect
+      id="base-button"
+      width="100"
+      height="100"
+      stroke-width="2"
+      rx="3"
+      ry="3"
+    ></rect>
+  </defs>
+
+  <g id="button-default">
+    <use href="#base-button"
+      x="20"
+      y="20"
+      fill="#dfdddf"
+      stroke="#222222"
+      filter="url(#baseShadow)"
+    >
+    </use>
+  </g>
+
+
+  <g id="button-active">
+    <use href="#base-button"
+      x="140"
+      y="20"
+      fill="#ffffff"
+      stroke="#dfdddf"
+      filter="url(#glowShadow)"
+    >
+
+    </use>
+  </g>
+
+  <g id="button-disabled">
+    <use href="#base-button"
+      x="20"
+      y="140"
+      fill="#888888"
+      stroke="#666666"
+    >
+
+    </use>
+  </g>
+
+  <g id="button-ping">
+    <use href="#base-button"
+      x="140"
+      y="140"
+      fill="#ffffff"
+      stroke="#dfdddf"
+    >
+    </use>
+    <rect
+      x="140"
+      y="140"
+      rx="6"
+      ry="6"
+      width="100"
+      height="100"
+      fill="none"
+      stroke="#dfdddf"
+      stroke-width="1"
+      opacity="0.75"
+      filter="url(#glowShadow)"
+    >
+      <animate
+        attributeName="stroke-width"
+        values="1;2;5;2;1"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="opacity"
+        values="0.1;0.75;0.2;0.33;0.1"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="x"
+        values="140;125;140;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="rx"
+        values="3;5;3;5;3;5;3;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="width"
+        values="100;130;100;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        values="140;125;140;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="ry"
+        values="3;5;3;5;3;5;3;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="height"
+        values="100;130;100;"
+        dur="1000ms"
+        repeatCount="indefinite"
+      />
+    </rect>
+
+    <rect
+      x="140"
+      y="140"
+      rx="6"
+      ry="6"
+      width="100"
+      height="100"
+      fill="none"
+      stroke="#dfdddf"
+      stroke-width="2"
+      opacity="0.75"
+      filter="url(#rainbowShadow)"
+    >
+      <animate
+        attributeName="stroke"
+        values="red;orange;yellow;green;blue;indigo;violet;indigo;blue;green;yellow;orange;red;"
+        dur="12000ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="stroke-width"
+        values="1;5;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="opacity"
+        values="1;0;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+
+      <animate
+        attributeName="x"
+        values="140;125;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="rx"
+        values="3;5;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="width"
+        values="100;130;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        values="140;125;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="ry"
+        values="3;5;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="height"
+        values="100;130;"
+        dur="500ms"
+        repeatCount="indefinite"
+      />
+    </rect>
+  </g>
+</svg>
