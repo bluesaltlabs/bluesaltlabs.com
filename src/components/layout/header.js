@@ -97,16 +97,6 @@ export class LayoutHeader extends LitElement {
   render() {
     return html`
       <header>
-        <!-- todo: this is not the greatest place for this, but it's fine for now.  -->
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-Z40QHPMZ3Y');
-        </script>
         <div class="header-left">
           <button onclick="window.location.href='/'" alt="Home">Home</button>
           <span class='header-title'><code>| simple.bluesaltlabs.com</code></span>
