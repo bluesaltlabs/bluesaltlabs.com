@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+
+  <defs>
+    <rect
+      id="gridSquare"
+      class="gridSquare"
+      x="0"
+      y="0"
+      width="80"
+      height="80"
+      fill="#0044cc"
+      opacity="0.5"
+      stroke="#808080"
+      stroke-width="1"
+    >
+      <!-- <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="scale"
+        begin="click"
+        values="1 1;1.5 1.5;1 1"
+        dur="300ms"
+        repeatCount="once"
+      /> -->
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="scale"
+        begin="click"
+        values="1 1;1.5 1.5;1 1"
+        dur="300ms"
+        repeatCount="once"
+      />
+
+    </rect>
+
+    <g id="gridSquareRow">
+      <use href="#gridSquare" x="0" y="0" />
+      <use href="#gridSquare" x="80" y="0" />
+      <use href="#gridSquare" x="160" y="0" />
+      <use href="#gridSquare" x="240" y="0" />
+      <use href="#gridSquare" x="320" y="0" />
+      <use href="#gridSquare" x="400" y="0" />
+      <use href="#gridSquare" x="480" y="0" />
+      <use href="#gridSquare" x="560" y="0" />
+      <use href="#gridSquare" x="640" y="0" />
+      <use href="#gridSquare" x="720" y="0" />
+    </g>
+
+  </defs>
+
+  <use href="#gridSquareRow" x="0" y="0" />
+  <use href="#gridSquareRow" x="0" y="80" />
+  <use href="#gridSquareRow" x="0" y="160" />
+  <use href="#gridSquareRow" x="0" y="240" />
+  <use href="#gridSquareRow" x="0" y="320" />
+  <use href="#gridSquareRow" x="0" y="400" />
+  <use href="#gridSquareRow" x="0" y="480" />
+  <use href="#gridSquareRow" x="0" y="560" />
+  <use href="#gridSquareRow" x="0" y="640" />
+  <use href="#gridSquareRow" x="0" y="720" />
+</svg>

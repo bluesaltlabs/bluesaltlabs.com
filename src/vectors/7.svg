@@ -1,16 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <style>
+    .pad {
+      opacity: 0.25;
+      transition: opacity 1000ms ease-in-out;
+    }
+    .pad:hover {
+      opacity: 1;
+      transition: opacity 200ms ease-in-out;
+    }
+  </style>
   <defs>
     <!-- Pad -->
     <rect
       id="pad1"
+      class="pad1"
       x="0"
       y="0"
       rx="0.5"
       ry="0.5"
       width="8"
       height="8"
-      fill="#00a0c020"
-      stroke="#00008080"
+      fill="#00a0c0"
+      stroke="#000080"
       stroke-width="0.25"
     />
 
@@ -18,32 +29,33 @@
     <g id="padColumn">
       <!-- Column Background -->
       <rect
+        class="padColumnBackground"
         x="0"
         y="0"
         rx="1"
         ry="1"
         width="10"
         height="98"
+        fill="#000080"
         opacity="0.1"
-        fill="#00008080"
       >
         <animate
           attributeName="opacity"
           dur="3s"
           repeatCount="indefinite"
-          values="0.1;0.2;0.5;0.1"
+          values="0.1;0.2;0.3;0.3;0.1"
         />
       </rect>
 
-      <use href="#pad1" x="1" y="1" />
-      <use href="#pad1" x="1" y="12" />
-      <use href="#pad1" x="1" y="23" />
-      <use href="#pad1" x="1" y="34" />
-      <use href="#pad1" x="1" y="45" />
-      <use href="#pad1" x="1" y="56" />
-      <use href="#pad1" x="1" y="67" />
-      <use href="#pad1" x="1" y="78" />
-      <use href="#pad1" x="1" y="89" />
+      <use href="#pad1" class="pad" x="1" y="1" />
+      <use href="#pad1" class="pad" x="1" y="12" />
+      <use href="#pad1" class="pad" x="1" y="23" />
+      <use href="#pad1" class="pad" x="1" y="34" />
+      <use href="#pad1" class="pad" x="1" y="45" />
+      <use href="#pad1" class="pad" x="1" y="56" />
+      <use href="#pad1" class="pad" x="1" y="67" />
+      <use href="#pad1" class="pad" x="1" y="78" />
+      <use href="#pad1" class="pad" x="1" y="89" />
     </g>
   </defs>
 
@@ -62,5 +74,4 @@
   <use href="#padColumn" x="67" y="1" />
   <use href="#padColumn" x="78" y="1" />
   <use href="#padColumn" x="89" y="1" />
-
 </svg>
