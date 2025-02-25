@@ -39,6 +39,7 @@ export default defineConfig({
         demos_design_patterns_strategy: resolve(__dirname, 'demos/design-patterns/strategy.html'),
         demos_design_patterns_visitor: resolve(__dirname, 'demos/design-patterns/visitor.html'),
         portfolio: resolve(__dirname, 'portfolio/index.html'),
+        todo: resolve(__dirname, 'todo/index.html'),
       },
     },
   },

@@ -16,8 +16,8 @@ export class LayoutFooter extends LitElement {
     @media (prefers-color-scheme: dark) {
       footer {
         background-color: var(--color-blue);
-        border-color: var(--color-blue-alt);
-        color: var(--color-blue-alt);
+        border-color: var(--color-blue-light);
+        color: var(--color-blue-light);
       }
     }
   `

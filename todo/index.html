@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do | simple.bluesaltlabs.com</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/bluesaltlabs-logo.svg"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/styles.css" />
+
+    <!-- Lit Components -->
+    <script type="module" src="/src/components/layout/base.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-Z40QHPMZ3Y");
+    </script>
+  </head>
+  <body>
+    <layout-base title="To Do">
+
+      <!-- Navbar -->
+      <div style="padding: 0 4%; max-width: 1920px; margin: auto">
+        <a href="/">Home</a> |
+        <span>To Do</span>
+      </div>
+      <hr />
+
+      <!-- Content -->
+      <div class="pure-g">
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+
+        <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+          <h1>To Do</h1>
+
+          <p>
+            Current projects in progress related to this and associated websites.
+          </p>
+
+          <hr />
+
+          <!-- simple.bluesaltlabs.com features -->
+          <h2 id="simple-bluesaltlabs-com"><code>simple.bluesaltlabs.com</code></h2>
+          <ul>
+            <li>
+              <span>Update Home Page (<code>index.html</code>)</span>
+              <ul>
+                <li>Use blocks with vector icons instead of boring, plain links</li>
+              </ul>
+            </li>
+            <li>
+              <span>Update <code>bluesaltlabs.github.io</code> site and description</span>
+              <ul>
+                <li>..</li>
+              </ul>
+            </li>
+            <li>
+              <span>Write out </span>
+              <ul>
+                <li>..</li>
+              </ul>
+            </li>
+            <li></li>
+          </ul>
+
+          <!-- Blog / Journal -->
+          <h2 id="blog-journal"><a href="/blog/">Blog</a> / Journal</h2>
+          <ul>
+            <li>
+              <span>Set up journal entries page</span>
+              <ul>
+                <li>update journal entries pages to have single document for each month</li>
+                <li>Continue writing journal entries each day</li>
+              </ul>
+            </li>
+            <li>continue writing blog posts, clean up existing.</li>
+          </ul>
+
+          <!-- Portfolio / Contact -->
+          <h2 id="portfolio-contact"><a href="/portfolio/index.html">Portfolio</a> / Contact</h2>
+          <ul>
+            <li>Timeline Functionality? (describe this better)</li>
+            <li>Create a contact page and add content.</li>
+          </ul>
+
+          <!-- Music -->
+          <h2 id="music">Music</h2>
+          <ul>
+            <li>Continue working on music project</li>
+            <li>Add more detail to this list (specific goals and tasks related to this project)</li>
+          </ul>
+
+          <!-- Vectors -->
+          <h2 id="vectors"><a href="/demos/vectors/index.html">Vectors</a></h2>
+          <ul>
+            <li>Control buttons (play, pause, stop, etc)</li>
+            <li>Volume Slider(s)</li>
+            <li>
+              <s><a href="/demos/vectors/index.html#10.svg">Volume Knob</a></s>
+              <ul>
+                <li>(make another)</li>
+              </ul>
+            </li>
+            <li>
+              <s><a href="/demos/keyboard/index.html">Vector Keyboard</a></s>
+              <ul>
+                <li>(make another)</li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Tools -->
+          <h2 id="tools">Tools</h2>
+          <ul>
+            <li>Color Picker Page (See <a href="https://codepen.io/bluesaltlabs/pen/KKGNGNP" target="_blank">old CodePen Demo</a>)</li>
+            <li>Password Generator Tool (<a href="https://passwordsgenerator.net" target="_blank">example</a>)</li>
+            <li>
+              <span>Page Template Showcase</span>
+              <ul>
+                <li>Page / Tool for showcasing page templates (see notes).</li>
+              </ul>
+            </li>
+            <li>Create a command pallet (like the <a href="https://zed.dev/" target="_blank">Zed Editor website</a> <code>ctrl + k</code> command)</li>
+          </ul>
+
+
+          <!-- Electronics / 3D Printing -->
+          <h2 id="electronics-3d-printing">Electronics / 3D Printing</h2>
+          <ul>
+            <li>Finish 3D printer main board replacement, update firmware, and calibrate the BLTouch sensor.</li>
+            <li>Write out SOP steps for 3D printing with FDM printer. Write this out for my own reference, add pictures, etc.</li>
+            <li>Write SOP for 3D printing with resin printer. Write this out for my own reference, add pictures, etc.</li>
+            <li>Draw out basic schematic for working with WS2812B LEDs, describe Arduino libraries and setup.</li>
+          </ul>
+
+        </div>
+
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+      </div>
+      <!-- End Content -->
+    </layout-base>
+  </body>
+</html>

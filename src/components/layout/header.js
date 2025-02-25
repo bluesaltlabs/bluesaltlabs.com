@@ -71,12 +71,12 @@ export class LayoutHeader extends LitElement {
     @media (prefers-color-scheme: dark) {
       header {
         background-color: var(--color-blue);
-        border-color: var(--color-blue-alt);
-        color: var(--color-blue-alt);
+        border-color: var(--color-blue-light);
+        color: var(--color-blue-light);
 
         a, button,
         ::slotted(a), ::slotted(button) {
-          color: var(--color-blue-alt);
+          color: var(--color-blue-light);
 
           &:active,
           &:hover {
@@ -88,7 +88,7 @@ export class LayoutHeader extends LitElement {
         }
 
         button {
-          border-color: var(--color-blue-alt);
+          border-color: var(--color-blue-light);
         }
       }
     }
