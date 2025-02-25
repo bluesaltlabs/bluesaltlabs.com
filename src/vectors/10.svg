@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+
+  <defs>
+    <radialGradient
+      id="knobBackGradient"
+    >
+      <stop offset="90%" stop-color="#121213" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#020204" stop-opacity="1"/>
+    </radialGradient>
+
+    <filter id="knobShadowFilter">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-opacity="0.7"/>
+    </filter>
+
+    <filter id="knobHandleFilter">
+      <feOffset in="SourceAlpha" dx="6" dy="24" />
+      <feGaussianBlur stdDeviation="2" />
+      <feBlend in="SourceGraphic" in2="blurOut" />
+    </filter>
+
+    <g id="knob">
+      <!-- Knob Outer Decoration -->
+      <circle
+        id="outer-decorator"
+        cx="500"
+        cy="500"
+        r="455"
+        fill="none"
+        stroke="#222234"
+        stroke-width="2"
+      />
+
+      <g id="knob-container">
+        <!-- Knob Background -->
+        <circle
+          cx="500"
+          cy="500"
+          r="450"
+          stroke="none"
+          fill="url(#knobBackGradient)"
+          filter="url(#knobShadowFilter)"
+        />
+
+        <!-- Knob Handle -->
+        <g id="knob-handle">
+          <!-- Knob Inner -->
+          <ellipse
+            cx="500"
+            cy="500"
+            rx="398"
+            ry="402"
+            fill="#222222"
+            stroke="#111121"
+            stroke-width="3"
+            filter="url(#knobHandleFilter)"
+          />
+
+          <!-- Inner Knob Face  -->
+          <ellipse
+            class="inner-knob-face"
+            cx="500"
+            cy="500"
+            rx="378"
+            ry="382"
+            fill="#292929"
+            stroke="#303030"
+            stroke-width="3"
+          />
+
+          <!-- Knob Decrative inner circle -->
+          <ellipse
+            cx="500"
+            cy="500"
+            rx="394"
+            ry="398"
+            fill="none"
+            stroke="#00001c"
+            stroke-width="3"
+          />
+
+          <!-- Knob marker -->
+          <rect
+            x="490"
+            y="100"
+            rx="4"
+            ry="4"
+            width="20"
+            height="400"
+            fill="#f3f3fe"
+            stroke="black"
+            stroke-width="1"
+          />
+        </g>
+      </g>
+
+      <!-- Rotation Animation -->
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        values="-145 500 500;145 500 500;-145 500 500"
+        dur="12000ms"
+        repeatCount="indefinite"
+      />
+    </g>
+  </defs>
+
+  <!-- Outer Flash -->
+  <circle
+    cx="500"
+    cy="500"
+    r="456"
+    fill="none"
+    stroke="#aaaaaf"
+    stroke-width="1"
+  >
+    <animate
+      attributeName="stroke-width"
+      values="1;3;7;3;1"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="opacity"
+      values="0.1;0.75;0.2;0.33;0.1"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+  <use href="#knob" />
+
+  <!-- Inner Flash -->
+  <ellipse
+    cx="500"
+    cy="500"
+    rx="394"
+    ry="398"
+    fill="none"
+    stroke="#aaaaaf"
+    stroke-width="1"
+    opacity="0"
+  >
+    <animate
+      attributeName="rx"
+      values="394;488"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="ry"
+      values="398;492"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="stroke-width"
+      values="1;8"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="opacity"
+      values="0.1;0.5;0.1;0.5;0.1"
+      dur="1000ms"
+      repeatCount="indefinite"
+    />
+  </ellipse>
+
+</svg>
