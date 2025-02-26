@@ -34,6 +34,10 @@ export default class SequencerApp extends EventTarget {
 
   // part of init
   buildVectors() {
+    // todo: shouldn't the vectors constructor call all this instead?
+    //       to do this, the constructor would need to accept event listener parameters,
+    //       or the class itself would need to build them.
+
     // Build the Sequencer Vector
     const sv = this.vectors.getSequencerContainerVector();
 
@@ -46,6 +50,10 @@ export default class SequencerApp extends EventTarget {
       // append key to sequencer container vector
       sv.appendChild(sqKey);
     }
+
+    // todo: more buttons, etc.
+    this.vectors.tempGetDemoIconBanner();
+
 
     // Mount the sequencer vector to the app mount point.
     const mountPoint = document.getElementById('sequencer-app');
