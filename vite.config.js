@@ -24,6 +24,7 @@ export default defineConfig({
         blog_posts: resolve(__dirname, 'blog/posts.html'),
         demos: resolve(__dirname, 'demos/index.html'),
         demos_keyboard: resolve(__dirname, 'demos/keyboard/index.html'),
+        demos_sequencer: resolve(__dirname, 'demos/sequencer/index.html'),
         demos_controls: resolve(__dirname, 'demos/controls/index.html'),
         demos_vectors: resolve(__dirname, 'demos/vectors/index.html'),
         demos_vectors_notes: resolve(__dirname, 'demos/vectors/notes.html'),

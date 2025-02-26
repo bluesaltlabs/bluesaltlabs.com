@@ -534,4 +534,4 @@ class KeyboardApp extends EventTarget {
 
 // Load Page App
 let keyboardApp = new KeyboardApp();
- keyboardApp.init()
+keyboardApp.init()
