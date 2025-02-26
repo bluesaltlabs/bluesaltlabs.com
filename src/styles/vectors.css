@@ -1,0 +1,58 @@
+.vector-example-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 1em;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #80808080;
+  }
+
+  .vector-container,
+  .vector-description {
+    border: 1px solid #80808080;
+    border-radius: 4px;
+    padding: 2em;
+    margin: 0.25em;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
+    background-color: #80808020;
+  }
+  .vector-container {
+    flex-grow: 1;
+
+    object, svg, img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  .vector-description {
+    max-width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .vector-example-section {
+    display: block;
+
+    .vector-description {
+      max-width: 100%;
+      margin-top: 1em;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .vector-example-section {
+
+    .vector-description {
+      margin-left: 1em;
+    }
+  }
+}
