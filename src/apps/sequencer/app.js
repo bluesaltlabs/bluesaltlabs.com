@@ -1,13 +1,14 @@
-import AudioService from '@/services/AudioService';
+// import AudioService from '@/services/AudioService';
+import SequencerVectors from './SequencerVectors';
 //import background from './background.svg'
 
-
 /* Sequencer App */
-class SequencerApp extends EventTarget {
+export default class SequencerApp extends EventTarget {
   constructor() {
     super();
     this.audioStarted = false;
     this.synth = null;
+    this.vectors = new SequencerVectors();
 
     //
 
@@ -29,83 +30,40 @@ class SequencerApp extends EventTarget {
     this.audioStarted = true;
   }
 
-  // part of init-buildVectors
-  getBaseSequencerKeyVector() {
-    // Create the base vector container
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', '75');
-    svg.setAttribute('height', '120');
-    svg.setAttribute('viewBox', '0 0 75 120');
-    const keyBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    keyBg.setAttribute('width', '75');
-    keyBg.setAttribute('height', '120');
-    // keyBg.setAttribute('x', '250');
-    // keyBg.setAttribute('y', '10');
-    keyBg.setAttribute('rx', '8');
-    keyBg.setAttribute('ry', '8');
-    keyBg.setAttribute('fill', 'var(--color-blue, #0000ff)');
 
-    // append the key background to the svg container
-    svg.appendChild(keyBg);
-    return svg;
-  }
 
   // part of init
   buildVectors() {
-
     // Build the Sequencer Vector
-    const sv = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    sv.type = 'image/svg+xml';
-    sv.setAttribute('id', 'sequencer-vector');
-    sv.setAttribute('width', '1920');
-    sv.setAttribute('height', '1080');
-    sv.setAttribute('style', 'max-width:100%;height:auto;margin:0auto;display:block;');
-    sv.setAttribute('viewBox', `0 0 1920 1080`);
+    const sv = this.vectors.getSequencerContainerVector();
 
-
-    // Create a background
-    const sBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    sBg.setAttribute('width', '1920');
-    sBg.setAttribute('height', '1080');
-    sBg.setAttribute('rx', '5');
-    sBg.setAttribute('ry', '5');
-    sBg.setAttribute('fill', 'var(--color-gray-500, #000000)');
-    sv.appendChild(sBg);
-
-    // Add sequencer keys
+    // Add sequencer pad keys
     for (let i = 0; i < 16; i++) {
-      const sqKey = this.getBaseSequencerKeyVector();
-      sqKey.setAttribute('y', 850);
+      const sqKey = this.vectors.getBaseSequencerPadKeyVector(i);
 
-      sqKey.setAttribute('x', 250 + (i * 100));
-      sqKey.setAttribute('fill', 'var(--color-blue, #0000ff)');
+      // todo: add event listeners to key. may need to pass them in?
+
+      // append key to sequencer container vector
       sv.appendChild(sqKey);
     }
 
-
-
-
-
-
+    // Mount the sequencer vector to the app mount point.
     const mountPoint = document.getElementById('sequencer-app');
     mountPoint.appendChild(sv);
-
-
-
-
-
   }
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
       // ???
 
-      // temp: mount the background images
+
+      // Build the sequencer vectors
       this.buildVectors();
 
       // ...
 
-      // ...
+      // Set up audio start button
+      // todo: move this to a button on the sequencer vector instead.
       const startAudioButton = document.getElementById("btn-start-audio");
       startAudioButton.addEventListener('click', (e) => this.startAudio(e), { once: true });
     });
