@@ -63,6 +63,12 @@
     /* outline: 1px dashed red; */
     flex-grow: 1;
     padding: 15px;
+    max-width: 50%;
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
   }
 
   .vector-wrapper {

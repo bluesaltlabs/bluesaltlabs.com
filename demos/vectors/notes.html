@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vector Graphics - Notes</title>
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/assets/bluesaltlabs-logo.svg"
-    />
+    <link rel="icon" type="image/svg+xml" href="/assets/bluesaltlabs-logo.svg" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="/src/styles/styles.css" />
@@ -68,7 +64,21 @@
               <li><a href="#shapes__line">Line (<code>line</code>)</a></li>
               <li><a href="#shapes__polyline">Polyline (<code>polyline</code>)</a></li>
               <li><a href="#shapes__polygon">Polygon (<code>polygon</code>)</a></li>
-              <li><a href="#shapes__path">Path (<code>path</code>)</a></li>
+              <li>
+                <a href="#shapes__path">Path (<code>path</code>)</a>
+                <ul>
+                  <li><code><a href="#shapes__path_m">M / m</a></code> = moveto (move from one point to another point)</li>
+                  <li><code><a href="#shapes__path_l">L / l</a></code> = lineto (create a line)</li>
+                  <li><code><a href="#shapes__path_h">H / h</a></code> = horizontal lineto (create a horizontal line)</li>
+                  <li><code><a href="#shapes__path_v">V / v</a></code> = vertical lineto (create a vertical line)</li>
+                  <li><code><a href="#shapes__path_c">C / c</a></code> = curveto (create a curve)</li>
+                  <li><code><a href="#shapes__path_s">S / s</a></code> = smooth curveto (create a smooth curve)</li>
+                  <li><code><a href="#shapes__path_q">Q / q</a></code> = quadratic Bézier curve (create a quadratic Bézier curve)</li>
+                  <li><code><a href="#shapes__path_t">T / t</a></code> = smooth quadratic Bézier curveto (create a smooth quadratic Bézier curve)</li>
+                  <li><code><a href="#shapes__path_a">A / a</a></code> = elliptical Arc (create a elliptical arc)</li>
+                  <li><code><a href="#shapes__path_z">Z / z</a></code> = closepath (close the path)</li>
+                </ul>
+              </li>
               <li><a href="#shapes__text">Text (<code>text</code>)</a></li>
             </ul>
 
@@ -321,7 +331,278 @@
 
               <p>
                 todo: Describe this shape and its attributes.
+                <br />
+                <br />
+
+                A path is defined using the <code>d</code> attribute.
+                The <a href="https://www.w3schools.com/graphics/svg_path.asp" target="_blank">following commands</a>
+                are available for path data:
               </p>
+
+
+              <h3 id="shapes__path_m">
+                Path <code>d</code>ata:
+                <code>M / m</code><br />
+                <small>moveto (move from one point to another point)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                    <path d="M 50 50 L 51 51 Z" stroke="var(--color-blue-alt, blue)" stroke-width="3" fill="none" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    The moveto command moves from one point to another point.<br />
+                    <code>M</code> is absolute, <code>m</code> is relative.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataMovetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic">
+                    Start a new sub-path at the given (x,y) coordinates. <strong>M</strong> (uppercase) indicates that
+                    absolute coordinates will follow; <strong>m</strong> (lowercase) indicates that relative coordinates
+                    will follow. If a moveto is followed by multiple pairs of coordinates, the subsequent pairs are
+                    treated as implicit lineto commands. Hence, implicit lineto commands will be relative if the moveto
+                    is relative, and absolute if the moveto is absolute. If a relative moveto (<strong>m</strong>)
+                    appears as the first element of the path, then it is treated as a pair of absolute coordinates. In
+                    this case, subsequent pairs of coordinates are treated as relative even though the initial moveto is
+                    interpreted as an absolute moveto.
+                  </p>
+
+                </div>
+              </div>
+
+              <h3 id="shapes__path_l">
+                Path <code>d</code>ata:
+                <code>L / l</code><br />
+                <small>lineto (create a line)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                    <path d="M 10 10 L 90 90Z" stroke="var(--color-blue-alt, blue)" stroke-width="3" fill="none" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>todo: describe this and show an example visual. params: x, y</p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataLinetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draw a line from the current point to the given (x,y) coordinate which becomes the new current point.
+                    <strong>L</strong> (uppercase) indicates that absolute coordinates will follow; <strong>l</strong>
+                    (lowercase) indicates that relative coordinates will follow. A number of coordinates pairs may be
+                    specified to draw a polyline. At the end of the command, the new current point is set to the final
+                    set of coordinates provided.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_h">
+                Path <code>d</code>ata:
+                <code>H / h</code><br />
+                <small>horizontal lineto (create a horizontal line)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                    <path d="M 10 49 H 80Z" stroke="var(--color-blue-alt, blue)" stroke-width="3" fill="none" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>todo: describe this and show an example visual. params: x</p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataLinetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draws a horizontal line from the current point. <strong>H</strong> (uppercase) indicates that
+                    absolute coordinates will follow; <strong>h</strong> (lowercase) indicates that relative coordinates
+                    will follow. Multiple x values can be provided (although usually this doesn't make sense). An
+                    <strong>H</strong> or <strong>h</strong> command is equivalent to an <strong>L</strong> or
+                    <strong>l</strong> command with 0 specified for the y coordinate. At the end of the command, the
+                    new current point is taken from the final coordinate value.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_v">
+                Path <code>d</code>ata:
+                <code>V / v</code><br />
+                <small>vertical lineto (create a vertical line)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                    <path d="M 49 10 V 80Z" stroke="var(--color-blue-alt, blue)" stroke-width="3" fill="none" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>todo: describe this and show an example visual. params: y</p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataLinetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draws a vertical line from the current point. <strong>V</strong> (uppercase) indicates that
+                    absolute coordinates will follow; <strong>v</strong> (lowercase) indicates that relative
+                    coordinates will follow. Multiple y values can be provided (although usually this doesn't make
+                    sense). A <strong>V</strong> or <strong>v</strong> command is equivalent to an <strong>L</strong>
+                    or <strong>l</strong> command with 0 specified for the x coordinate. At the end of the command,
+                    the new current point is taken from the final coordinate value.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_c">
+                Path <code>d</code>ata:
+                <code>C / c</code><br />
+                <small>curveto (create a curve)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    todo: describe this and show an example visual.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataLinetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic">
+                    Draws a cubic Bézier curve from the current point to (x,y) using (x1,y1) as the control point at
+                    the beginning of the curve and (x2,y2) as the control point at the end of the curve.
+                    <strong>C</strong> (uppercase) indicates that absolute coordinates will follow; <strong>c</strong>
+                    (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be
+                    specified to draw a polybézier. At the end of the command, the new current point becomes the final
+                    (x,y) coordinate pair used in the polybézier.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_s">
+                Path <code>d</code>ata:
+                <code>S / s</code><br />
+                <small>smooth curveto (create a smooth curve)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    todo: describe this and show an example visual.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataLinetoCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic">
+                    Draws a cubic Bézier curve from the current point to (x,y). The first control point is assumed to be
+                    the reflection of the second control point on the previous command relative to the current point.
+                    (If there is no previous command or if the previous command was not an C, c, S or s, assume the
+                    first control point is coincident with the current point.) (x2,y2) is the second control point
+                    (i.e., the control point at the end of the curve). <strong>S</strong> (uppercase) indicates that
+                    absolute coordinates will follow; <strong>s</strong> (lowercase) indicates that relative coordinates
+                    will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the
+                    command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_q">
+                Path <code>d</code>ata:
+                <code>Q / q</code><br />
+                <small>quadratic Bézier curve (create a quadratic Bézier curve)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    todo: describe this and show an example visual.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataQuadraticBezierCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draws a quadratic Bézier curve from the current point to (x,y) using (x1,y1) as the control point.
+                    <strong>Q</strong> (uppercase) indicates that absolute coordinates will follow; <strong>q</strong>
+                    (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be
+                    specified to draw a polybézier. At the end of the command, the new current point becomes the final
+                    (x,y) coordinate pair used in the polybézier.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_t">
+                Path <code>d</code>ata:
+                <code>T / t</code><br />
+                <small>smooth quadratic Bézier curveto (create a smooth quadratic Bézier curve)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    todo: describe this and show an example visual.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataQuadraticBezierCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draws a quadratic Bézier curve from the current point to (x,y). The control point is assumed to be
+                    the reflection of the control point on the previous command relative to the current point. (If
+                    there is no previous command or if the previous command was not a Q, q, T or t, assume the control
+                    point is coincident with the current point.) <strong>T</strong> (uppercase) indicates that absolute
+                    coordinates will follow; <strong>t</strong> (lowercase) indicates that relative coordinates will
+                    follow. At the end of the command, the new current point becomes the final (x,y) coordinate pair
+                    used in the polybézier.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_a">
+                Path <code>d</code>ata:
+                <code>A / a</code><br />
+                <small>elliptical Arc (create a elliptical arc)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    todo: describe this and show an example visual.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataEllipticalArcCommands" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic;">
+                    Draws an elliptical arc from the current point to (x, y). The size and orientation of the ellipse
+                    are defined by two radii (rx, ry) and an x-axis-rotation, which indicates how the ellipse as a
+                    whole is rotated, in degrees, relative to the current coordinate system. The center (cx, cy) of the
+                    ellipse is calculated automatically to satisfy the constraints imposed by the other parameters.
+                    large-arc-flag and sweep-flag contribute to the automatic calculations and help determine how the
+                    arc is drawn.
+                  </p>
+                </div>
+              </div>
+
+              <h3 id="shapes__path_z">
+                Path <code>d</code>ata:
+                <code>Z / z</code><br />
+                <small>closepath (close the path)</small>
+              </h3>
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="100" height="100">
+                    <path d="M10 10 L80 10 L80 80 L10 80 Z" fill="var(--color-blue-alt, blue)" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <p>
+                    Close the path by connecting it back to the initial point.
+                  </p>
+                  <h4><a href="https://www.w3.org/TR/SVG2/paths.html#PathDataClosePathCommand" target="_blank">Description</a>:</h4>
+                  <p style="font-style:italic">
+                    Close the current subpath by connecting it back to the current subpath's initial point (see prose above).
+                    Since the <strong>Z</strong> and <strong>z</strong> commands take no parameters, they have an identical effect.
+                  </p>
+                </div>
+              </div>
+              <p>
+                todo: describe this and show an example visual.
+              </p>
+
             </div>
 
             <hr />
