@@ -8,7 +8,15 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/src/styles/styles.css" />
-    <!-- <link rel="stylesheet" href="/src/styles/sequencer.css" /> -->
+
+    <style>
+      .sequencer-app { max-width: 100%; }
+      .sequencer-app img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      </style>
 
     <!-- Lit Components -->
     <script type="module" src="/src/components/layout/base.js"></script>
@@ -38,13 +46,17 @@
 
       <!-- Content -->
       <div class="pure-g">
-        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+        <div class="pure-u pure-u-1-24">&nbsp;</div>
 
-        <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
-
+        <div class="pure-u pure-u-22-24">
+          <div style="text-align: center;">
+          <button style="height:50px;min-width:200px;" id="btn-start-audio">Start Audio</button>
+          </div>
+          <hr />
+          <div id="sequencer-app"></div>
         </div>
 
-        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+        <div class="pure-u pure-u-1-24">&nbsp;</div>
       </div>
     </layout-base>
   </body>
