@@ -29,6 +29,7 @@ export default defineConfig({
         demos_schedule: resolve(__dirname, 'demos/schedule/index.html'),
         demos_tone: resolve(__dirname, 'demos/tone/index.html'),
         demos_vectors: resolve(__dirname, 'demos/vectors/index.html'),
+        demos_vectors_notes: resolve(__dirname, 'demos/vectors/notes.html'),
         demos_design_patterns: resolve(__dirname, 'demos/design-patterns/index.html'),
         demos_design_patterns_factory: resolve(__dirname, 'demos/design-patterns/factory.html'),
         demos_design_patterns_iterator: resolve(__dirname, 'demos/design-patterns/iterator.html'),

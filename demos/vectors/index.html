@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vectors Demo</title>
+    <title>SVGs Demo</title>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -17,11 +17,6 @@
     <!-- Lit Components -->
     <script type="module" src="/src/components/layout/base.js"></script>
 
-    <!-- Styling (should probably move this to its own stylesheet) -->
-    <style>
-
-    </style>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
     <script>
@@ -34,11 +29,11 @@
 
   </head>
   <body>
-    <layout-base title="Vector Demos">
+    <layout-base title="Vector Graphic Demos">
       <!-- Navbar -->
       <div style="padding: 0 4%; max-width: 1920px; margin: auto">
         <a href="/">Home</a> | <a href="/demos/index.html">Demos</a> |
-        <span>Vectors</span>
+        <span>Vector Graphics</span>
       </div>
       <hr />
 
@@ -47,6 +42,11 @@
         <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
 
         <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+
+          <!-- Notes page link -->
+          <p style="padding: 1rem;border:1px solid var(--color-blue-alt);border-left:none;border-right:none;">
+            <a href="/demos/vectors/notes.html">Notes</a>
+          </p>
 
           <!-- /src/vectors/20.svg -->
           <!--
@@ -216,7 +216,7 @@
             <a class="vector-container" href="/src/vectors/11.svg">
 
               <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="black" stroke-width="5" />
+                <circle cx="50" cy="50" r="40" fill="none" stroke="black" stroke-width="2" />
               </svg>
 
               <!--
@@ -231,7 +231,7 @@
 
             </a>
             <div class="vector-description">
-              To Do. (11)
+              To Do: Create single octave virtual keyboard. Set keys to change color when hovered.
             </div>
           </section>
 

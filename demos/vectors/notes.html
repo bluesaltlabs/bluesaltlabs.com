@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Graphics - Notes</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/bluesaltlabs-logo.svg"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/styles.css" />
+    <link rel="stylesheet" href="/src/styles/vectors.css" />
+
+    <!-- Lit Components -->
+    <script type="module" src="/src/components/layout/base.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z40QHPMZ3Y');
+    </script>
+
+  </head>
+  <body>
+    <layout-base title="Vector Graphics - Notes">
+      <!-- Navbar -->
+      <div style="padding: 0 4%; max-width: 1920px; margin: auto">
+        <a href="/">Home</a> | <a href="/demos/index.html">Demos</a> |
+        <a href="/demos/vectors/index.html">Vector Graphics</a> |
+        <span>Notes</span>
+      </div>
+      <hr />
+
+      <!-- Content -->
+      <div class="pure-g">
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+
+        <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+          <h1>Creating Scalable Vector Graphics</h1>
+          <p>
+            The full Scalable Vector Graphics (SVG) 2 language specification is available at
+            <a href="https://www.w3.org/TR/SVG2/Overview.html" target="_blank">w3.org/TR/SVG2/Overview.html</a>, but it's long and overwhelming.
+            Below are notes taken for my reference while learning to build SVGs from a programmer's perspective.
+          </p>
+
+          https://www.w3.org/TR/SVG2/shapes.html
+
+          <section id="reference">
+            <h2>Reference Information</h2>
+            <p>
+              Reference information for SVG element shapes.
+              <!-- encode HTML with this tool: https://www.w3docs.com/tools/html-encoder -->
+            </p>
+
+            <h2>Basic Shapes</h2>
+            <ul>
+              <li><a href="#shapes__rect">Rectangle (<code>rect</code>)</a></li>
+              <li><a href="#shapes__circle">Circle (<code>circle</code>)</a></li>
+              <li><a href="#shapes__ellipse">Ellipse (<code>ellipse</code>)</a></li>
+              <li><a href="#shapes__line">Line (<code>line</code>)</a></li>
+              <li><a href="#shapes__polyline">Polyline (<code>polyline</code>)</a></li>
+              <li><a href="#shapes__polygon">Polygon (<code>polygon</code>)</a></li>
+              <li><a href="#shapes__path">Path (<code>path</code>)</a></li>
+              <li><a href="#shapes__text">Text (<code>text</code>)</a></li>
+            </ul>
+
+            <hr />
+
+            <!-- Basic Shapes: Rectangle -->
+            <div class="reference-section">
+              <h3 id="shapes__rect">
+                <span>Rectangle (<code>rect</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#RectElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <rect x="25" y="50" width="150" height="100" fill="var(--color-blue-alt, blue)" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;rect
+    x="25"
+    y="50"
+    width="150"
+    height="100"
+    fill="var(--color-blue-alt, blue)"
+    /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Circle -->
+            <div class="reference-section">
+              <h3 id="shapes__circle">
+                <span>Circle (<code>circle</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#CircleElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <circle cx="100" cy="100" r="75" fill="var(--color-blue-alt, blue)" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;circle
+    cx="100"
+    cy="100"
+    r="75"
+    fill="blue"
+    /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Ellipse -->
+            <div class="reference-section">
+              <h3 id="shapes__ellipse">
+                <span>Ellipse (<code>ellipse</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#EllipseElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <ellipse cx="100" cy="100" rx="75" ry="50" fill="var(--color-blue-alt, blue)" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;ellipse
+    cx="100"
+    cy="100"
+    rx="75"
+    ry="50"
+    fill="blue"
+  /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Line -->
+            <div class="reference-section">
+              <h3 id="shapes__line">
+                <span>Line (<code>line</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#LineElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <line x1="50" y1="50" x2="150" y2="150" stroke="var(--color-blue-alt, blue)" stroke-width="3" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;line
+   x1="50"
+   y1="50"
+   x2="150"
+   y2="150"
+   stroke="blue"
+   stroke-width="3"
+   /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Polyline -->
+            <div class="reference-section">
+              <h3 id="shapes__polyline">
+                <span>Polyline (<code>polyline</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#PolylineElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <polyline points="50,50 150,150,175,10,195,150" stroke="var(--color-blue-alt, blue)" stroke-width="3" fill="none" />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;polyline
+   points="50,50 150,150,175,10,195,150"
+   stroke="blue"
+   stroke-width="3"
+   fill="none" /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Polygon -->
+            <div class="reference-section">
+              <h3 id="shapes__polygon">
+                <span>Polygon (<code>polygon</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#PolygonElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <polygon
+                      points="50,50 150,150,175,10,195,150"
+                      fill="var(--color-blue-alt, blue)"
+                      stroke="var(--color-blue, aqua)"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;polygon
+    points="50,50 150,150,175,10,195,150"
+    fill="blue"
+    stroke="aqua"
+    stroke-width="2"
+  /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Path -->
+            <div class="reference-section">
+              <h3 id="shapes__path">
+                <span>Path (<code>path</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/shapes.html#PathElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <path
+                      d="M50,50 L120,120 L175,10 L195,150 Z"
+                      stroke="var(--color-blue-alt, blue)"
+                      stroke-width="3"
+                      fill="none"
+                    />
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;path
+    d="M50,50 L120,120 L175,10 L195,150 Z"
+    stroke="var(--color-blue-alt, blue)"
+    stroke-width="3"
+    fill="none"
+  /&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+            <hr />
+
+            <!-- Basic Shapes: Text -->
+            <div class="reference-section">
+              <h3 id="shapes__text">
+                <span>Text (<code>text</code>)</span>
+                <small>[<a href="https://www.w3.org/TR/SVG2/text.html#TextElement" target="_blank">docs</a>]</small>
+              </h3>
+
+              <div class="vector-and-code-wrapper">
+                <div class="vector-wrapper">
+                  <svg width="200" height="200">
+                    <text x="50" y="50" font-size="16" fill="var(--color-blue-alt)">Hello, World!</text>
+                  </svg>
+                </div>
+                <div class="code-wrapper">
+                  <code><pre>
+&#60;svg width="200" height="200"&#62;
+  &#60;text
+    x="50"
+    y="50"
+    font-size="16"
+    fill="blue"
+  &#62;
+    Hello, World!
+  &#60;/text&#62;
+&#60;/svg&#62;
+                  </pre></code>
+                </div>
+              </div>
+
+              <p>
+                todo: Describe this shape and its attributes.
+              </p>
+            </div>
+
+          </section>
+
+        </div>
+
+        <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
+      </div>
+    </layout-base>
+  </body>
+</html>
