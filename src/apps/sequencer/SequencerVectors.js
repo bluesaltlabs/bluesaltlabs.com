@@ -2,7 +2,7 @@ import { SVG_NAMESPACE, sample_keys, sample_names, sample_urls } from './constan
 
 
 
-export default class SequencerVectors {
+class SequencerVectors {
 
   // The base sequencer background container.
   getSequencerContainerVector() {
@@ -206,3 +206,8 @@ export default class SequencerVectors {
   }
 
 }
+
+const instance = new SequencerVectors()
+//Object.freeze(instance) // todo: freeze only the t and enums, playing needs to be settable.
+
+export default instance

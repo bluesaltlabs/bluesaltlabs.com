@@ -1,4 +1,4 @@
-// import AudioService from '@/services/AudioService';
+import AudioService from '@/services/AudioService';
 import SequencerVectors from './SequencerVectors';
 //import background from './background.svg'
 
@@ -7,32 +7,41 @@ export default class SequencerApp extends EventTarget {
   constructor() {
     super();
     this.audioStarted = false;
-    this.synth = null;
-    this.vectors = new SequencerVectors();
+    this.samplers = [];
 
     //
 
     this.init();
   }
 
-  buildSynthState() {
+  getPadSampler(filepath) {
     // Build tone synth
-    // const synth = new AudioService.t.Synth({});
-
+    return new AudioService.t.Sampler({
+      baseUrl: filepath
+    });
   }
 
   startAudio(e) {
     if( !this.audioStarted ) {
-      //AudioService.t.start();
-      //this.buildSynthState();    // this.s.synth
+      AudioService.t.start();
+      this.buildSamplePadListeners();    // this.s.synth
     }
     e.target.disabled = true;
     this.audioStarted = true;
   }
 
+  buildSamplePadListeners() {
+
+  }
+
+  // todo: attach event listeners and samples to these buttons.
   getKeyEventListener(sqKey, col) {
+    let eventListener = () => console.debug(`clicked ${sqKey.id} for ${col}`);
+    //this.samplers[col] = this.getPadSampler();
+    //this.getPadSampler()
     switch(col) {
       case 0: // SAMPLE_808_ACCENT
+        eventListener = () => this.getPadSampler().play('808_accent');
         return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_ACCENT`);
       case 1: // SAMPLE_808_BASS_DRUM
         return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_BASS_DRUM`);
@@ -76,11 +85,11 @@ export default class SequencerApp extends EventTarget {
     //       or the class itself would need to build them.
 
     // Build the Sequencer Vector
-    const sv = this.vectors.getSequencerContainerVector();
+    const sv = SequencerVectors.getSequencerContainerVector();
 
     // Add sequencer pad keys
     for (let col = 0; col < 16; col++) {
-      const sqKey = this.vectors.getBaseSequencerPadKeyVector(6, col);
+      const sqKey = SequencerVectors.getBaseSequencerPadKeyVector(6, col);
       const keyEventListener = this.getKeyEventListener(sqKey, col);
 
       // Adds event listener to the key
@@ -91,7 +100,7 @@ export default class SequencerApp extends EventTarget {
     }
 
     // todo: more buttons, etc.
-    this.vectors.tempGetDemoIconBanner();
+    SequencerVectors.tempGetDemoIconBanner();
 
 
     // Mount the sequencer vector to the app mount point.
