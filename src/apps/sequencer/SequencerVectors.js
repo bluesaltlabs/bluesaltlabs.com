@@ -1,6 +1,5 @@
 import { SVG_NAMESPACE, sample_keys, sample_names, sample_urls } from './constants';
-
-
+import VectorService from '@/services/VectorService';
 
 class SequencerVectors {
 
@@ -9,14 +8,14 @@ class SequencerVectors {
     const width = 1920;
     const height = 1080;
 
-    const svg = this.getBaseSVG({
+    const svg = VectorService.getBaseSVG({
       width, height,
       id: 'sequencer-vector',
       style: 'max-width:100%;height:auto;margin:0 auto;display:block;'
     });
 
     // Create a background rectangle
-    const sBg = this.getBasicRect({
+    const sBg = VectorService.getBasicRect({
       width, height,
       rx: 5,
       ry: 5,
@@ -37,28 +36,28 @@ class SequencerVectors {
     const id = `sequencer-pad-${row}-${column}`;
 
     // Create the base vector container
-    const svg = this.getBaseSVG({ width, height, id });
+    const svg = VectorService.getBaseSVG({ width, height, id });
     svg.setAttribute('x', 250 + (column * 100));
     svg.setAttribute('y', 50 + (row * 145));
 
     // Create the key background rectangle
-    const keyBg = this.getBasicRect({
+    const keyBg = VectorService.getBasicRect({
       width, height, rx, ry, fill
     });
 
     // Create the key face rectangles
-    const keyFaceBack = this.getBasicPath({
+    const keyFaceBack = VectorService.getBasicPath({
       d: 'M 5 55 c 0 -10 10 -10 10 -10 h 45 c 0 0 10 0 10 10 v 50 c 0 10 0 10 -10 10 h -45 c -10 0 -10 0 -10 -10 Z',
       fill: 'var(--color-green, #55ff55)'
     });
 
-    const keyFaceFront = this.getBasicPath({
+    const keyFaceFront = VectorService.getBasicPath({
       d: 'M 6 55 c 0 -7 7 -7 7 -7 h 47 c 0 0 9 0 9 7 v 52 c 0 7 0 7 -7 7 h -49 c -7 0 -7 0 -7 -7 Z',
       fill: 'var(--color-blue, #5555ff)'
     });
 
     // create the key light
-    const keyLight = this.getBasicCircle({
+    const keyLight = VectorService.getBasicCircle({
       cx: width / 2,
       cy: height / 5,
       r: height / 10,
@@ -88,12 +87,12 @@ class SequencerVectors {
     const text = "Hello there!!"; // todo: temp;
 
     //
-    const svg = this.getBaseSVG({
+    const svg = VectorService.getBaseSVG({
       width, height,
       x, y
     });
 
-    const textElement = this.getBasicText({
+    const textElement = VectorService.getBasicText({
       text,
       x: 0, y: (height / 2),
       fill: '#fff',
@@ -110,10 +109,10 @@ class SequencerVectors {
   getInstrumentNamePlate(sampleName) {
     const width = 120;
     const height = 50;
-    const svg = this.getBaseSVG({ width, height });
+    const svg = VectorService.getBaseSVG({ width, height });
 
     // create name plate background
-    const bg = this.getBasicRect({
+    const bg = VectorService.getBasicRect({
       x: 0,
       y: 0,
       width,
@@ -122,7 +121,7 @@ class SequencerVectors {
     });
 
     // create name plate text
-    const text = this.getBasicText({
+    const text = VectorService.getBasicText({
       x: 0,
       y: 0,
       width, height, // todo: temp
@@ -150,64 +149,10 @@ class SequencerVectors {
   // todo: these methods should move to their own class designed specifically for building SVGs //
 
   // todo: double-check that this functions as expected
-  getBasicText(attributes) {
-    const { x, y, fontSize, text, ...rest } = attributes;
-    const textElement = this.getBasicShape('text', { x, y, 'font-size': fontSize, ...rest });
-    textElement.textContent = text;
-    return textElement;
-  }
-
-  getBasicPath(attributes) {
-    const { d, ...rest } = attributes;
-    return this.getBasicShape('path', { d, ...rest });
-  }
-
-  getBasicCircle(attributes) {
-    const { cx, cy, r, ...rest } = attributes;
-    return this.getBasicShape('circle', { cx, cy, r, ...rest });
-  }
-
-  getBasicRect(attributes) {
-    const { width, height, ...rest } = attributes;
-    return this.getBasicShape('rect', { width, height, ...rest });
-  }
-
-  getBasicShape(type, attributes) {
-    const shape = document.createElementNS(SVG_NAMESPACE, type);
-    const { x, y, ...rest } = attributes;
-
-    // Set the shape's required attributes
-    shape.setAttribute('x', x ?? 0);
-    shape.setAttribute('y', y ?? 0);
-
-    // Set the shape's remaining attributes
-    for(let key in rest) {
-      shape.setAttribute(key, rest[key]);
-    }
-
-    return shape;
-  }
-
-  getBaseSVG(attributes) {
-    const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
-    const { width, height, ...rest } = attributes;
-
-    // Set the shape's required attributes
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-
-    // Set the shape's remaining attributes
-    for(let key in rest) {
-      svg.setAttribute(key, rest[key]);
-    }
-
-    return svg;
-  }
 
 }
 
-const instance = new SequencerVectors()
-//Object.freeze(instance) // todo: freeze only the t and enums, playing needs to be settable.
+const instance = new SequencerVectors();
+// Object.freeze(instance)
 
 export default instance
