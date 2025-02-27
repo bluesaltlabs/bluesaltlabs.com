@@ -1,5 +1,6 @@
 @import "purecss";
 @import "purecss/build/grids-responsive";
+@import "utils/variables.css";
 @import "utils/colors.css";
 @import "utils/spacing.css";
 
@@ -44,7 +45,7 @@ a {
     width: 200px;
     height: 200px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: var(--border-radius, 5px);
     font-size: 1.5rem;
     color: #ffffff;
     border: 1px solid var(--color-gray-100);

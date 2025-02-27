@@ -13,7 +13,7 @@
   .vector-container,
   .vector-description {
     border: 1px solid #80808080;
-    border-radius: 4px;
+    border-radius: var(--border-radius, 5px);
     padding: 2em;
     margin: 0.25em;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.75);
@@ -46,8 +46,9 @@
   p {
     padding: 1em;
     background-color: var(--color-gray-300);
+    color: #ffffff;
     display: block;
-    border-radius: 5px;
+    border-radius: var(--border-radius, 5px);
   }
 }
 

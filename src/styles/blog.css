@@ -46,7 +46,7 @@
     font-size: 0.85em;
     background-color: #eeeeee;
     padding: 1em;
-    border-radius: 4px;
+    border-radius: var(--border-radius, 5px);
     border: 1px inset var(--color-blue);
     margin: 1em auto;
     overflow-x: auto;
@@ -58,7 +58,7 @@
   background-color: #80808022;
   padding: 16px;
   margin: 8px;
-  border-radius: 5px;
+  border-radius: var(--border-radius, 5px);
 }
 
 @media (prefers-color-scheme: dark) {

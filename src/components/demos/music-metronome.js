@@ -22,7 +22,7 @@ class MusicMetronome extends LitElement {
       color: white;
       font-size: 1rem;
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: var(--border-radius, 5px);
     }
     button:disabled {
       background: #cccccc;
