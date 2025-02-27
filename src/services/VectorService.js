@@ -8,6 +8,7 @@ class VectorService {
     return textElement;
   }
 
+  // todo: create a version of this that can accept an array of values to build path data (`d` attribute)
   getPath(attributes) {
     const { d, ...rest } = attributes;
     return this.getShape('path', { d, ...rest });

@@ -70,89 +70,11 @@ class SequencerVectors {
     svg.appendChild(keyFaceFront);
     svg.appendChild(keyLight);
 
-    // add test event listener
-    // svg.addEventListener('click', () => {
-    //   console.log(`Key ${id} clicked!`);
-    // });
-
     return svg;
   }
-
-  // todo: this needs more work.
-  getSequencerPadRowNameplate(row) {
-    const width = 175;
-    const height = 75; // temp
-    const x = 0 ; // temp
-    const y = 0 + (row * height); // temp
-    const text = "Hello there!!"; // todo: temp;
-
-    //
-    const svg = VectorService.getBaseSVG({
-      width, height,
-      x, y
-    });
-
-    const textElement = VectorService.getBasicText({
-      text,
-      x: 0, y: (height / 2),
-      fill: '#fff',
-      fontSize: 30
-    });
-
-    svg.appendChild(textElement);
-
-    return svg;
-  }
-
-
-  // todo: return a vector with a nameplate to place next to the patch sequencer pad buttons.
-  getInstrumentNamePlate(sampleName) {
-    const width = 120;
-    const height = 50;
-    const svg = VectorService.getBaseSVG({ width, height });
-
-    // create name plate background
-    const bg = VectorService.getBasicRect({
-      x: 0,
-      y: 0,
-      width,
-      height,
-      fill: '#ffff1180', // temp
-    });
-
-    // create name plate text
-    const text = VectorService.getBasicText({
-      x: 0,
-      y: 0,
-      width, height, // todo: temp
-      fill: '#fff' // todo: temp
-    });
-
-    text.textContent = sampleName;
-
-    // Glue the nameplate pieces together.
-    svg.appendChild(bg);
-    svg.appendChild(text);
-
-    return svg;
-  }
-
-
-
-  // todo: temp
-  tempGetDemoIconBanner() {
-
-  }
-
-
-
-  // todo: these methods should move to their own class designed specifically for building SVGs //
-
-  // todo: double-check that this functions as expected
 
 }
 
 const instance = new SequencerVectors();
-// Object.freeze(instance)
 
 export default instance

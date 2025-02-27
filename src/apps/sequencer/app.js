@@ -1,6 +1,6 @@
 import AudioService from '@/services/AudioService';
 import SequencerVectors from './SequencerVectors';
-//import background from './background.svg'
+
 
 /* Sequencer App */
 export default class SequencerApp extends EventTarget {
@@ -14,9 +14,9 @@ export default class SequencerApp extends EventTarget {
     this.init();
   }
 
-  getPadSampler(filepath) {
+  getPadSamplePlayer(filepath) {
     // Build tone synth
-    return new AudioService.t.Sampler({
+    return new AudioService.t.Player({
       baseUrl: filepath
     });
   }
@@ -37,11 +37,11 @@ export default class SequencerApp extends EventTarget {
   // todo: attach event listeners and samples to these buttons.
   getKeyEventListener(sqKey, col) {
     let eventListener = () => console.debug(`clicked ${sqKey.id} for ${col}`);
-    //this.samplers[col] = this.getPadSampler();
-    //this.getPadSampler()
+    //this.samplers[col] = this.getPadSamplePlayer();
+    //this.getPadSamplePlayer()
     switch(col) {
       case 0: // SAMPLE_808_ACCENT
-        eventListener = () => this.getPadSampler().play('808_accent');
+        //return () => this.getPadSamplePlayer(sample_urls['808_accent']);
         return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_ACCENT`);
       case 1: // SAMPLE_808_BASS_DRUM
         return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_BASS_DRUM`);
@@ -100,7 +100,7 @@ export default class SequencerApp extends EventTarget {
     }
 
     // todo: more buttons, etc.
-    SequencerVectors.tempGetDemoIconBanner();
+    // SequencerVectors.tempGetDemoIconBanner();
 
 
     // Mount the sequencer vector to the app mount point.
