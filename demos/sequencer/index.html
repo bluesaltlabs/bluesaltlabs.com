@@ -15,6 +15,13 @@
         border: 1px solid var(--color-blue-alt, #000000);
         border-radius: var(--border-radius, 5px);
       }
+      .sequencer-pad.active circle {
+        fill: var(--color-red, #ff0);
+      }
+
+      .sequencer-pad.inactive circle {
+        fill: #882222ee80;
+      }
     </style>
 
     <!-- Lit Components -->
@@ -63,7 +70,7 @@
             </button>
             |
             <label for="accent_loop">
-              <input type="checkbox" id="accent_loop" data-sample-key="accent">
+              <input type="checkbox" id="accent_loop" data-sample-key="accent" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -89,7 +96,7 @@
             </button>
             |
             <label for="bass_drum_loop">
-              <input type="checkbox" id="bass_drum_loop" data-sample-key="bass_drum">
+              <input type="checkbox" id="bass_drum_loop" data-sample-key="bass_drum" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -101,7 +108,7 @@
             </button>
             |
             <label for="snare_drum_loop">
-              <input type="checkbox" id="snare_drum_loop" data-sample-key="snare_drum">
+              <input type="checkbox" id="snare_drum_loop" data-sample-key="snare_drum" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -113,7 +120,7 @@
             </button>
             |
             <label for="low_tom_loop">
-              <input type="checkbox" id="low_tom_loop" data-sample-key="low_tom">
+              <input type="checkbox" id="low_tom_loop" data-sample-key="low_tom" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -125,7 +132,7 @@
             </button>
             |
             <label for="mid_tom_loop">
-              <input type="checkbox" id="mid_tom_loop" data-sample-key="mid_tom">
+              <input type="checkbox" id="mid_tom_loop" data-sample-key="mid_tom" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -137,7 +144,7 @@
             </button>
             |
             <label for="high_tom_loop">
-              <input type="checkbox" id="high_tom_loop" data-sample-key="high_tom">
+              <input type="checkbox" id="high_tom_loop" data-sample-key="high_tom" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -149,7 +156,7 @@
             </button>
             |
             <label for="rim_shot_loop">
-              <input type="checkbox" id="rim_shot_loop" data-sample-key="rim_shot">
+              <input type="checkbox" id="rim_shot_loop" data-sample-key="rim_shot" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -161,7 +168,7 @@
             </button>
             |
             <label for="hand_clap_loop">
-              <input type="checkbox" id="hand_clap_loop" data-sample-key="hand_clap">
+              <input type="checkbox" id="hand_clap_loop" data-sample-key="hand_clap" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -173,7 +180,7 @@
             </button>
             |
             <label for="low_conga_loop">
-              <input type="checkbox" id="low_conga_loop" data-sample-key="low_conga">
+              <input type="checkbox" id="low_conga_loop" data-sample-key="low_conga" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -185,7 +192,7 @@
             </button>
             |
             <label for="mid_conga_loop">
-              <input type="checkbox" id="mid_conga_loop" data-sample-key="mid_conga">
+              <input type="checkbox" id="mid_conga_loop" data-sample-key="mid_conga" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -197,7 +204,7 @@
             </button>
             |
             <label for="high_conga_loop">
-              <input type="checkbox" id="high_conga_loop" data-sample-key="high_conga">
+              <input type="checkbox" id="high_conga_loop" data-sample-key="high_conga" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -209,7 +216,7 @@
             </button>
             |
             <label for="claves_loop">
-              <input type="checkbox" id="claves_loop" data-sample-key="claves">
+              <input type="checkbox" id="claves_loop" data-sample-key="claves" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -221,7 +228,7 @@
             </button>
             |
             <label for="maracas_loop">
-              <input type="checkbox" id="maracas_loop" data-sample-key="maracas">
+              <input type="checkbox" id="maracas_loop" data-sample-key="maracas" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -233,7 +240,7 @@
             </button>
             |
             <label for="cowbell_loop">
-              <input type="checkbox" id="cowbell_loop" data-sample-key="cowbell">
+              <input type="checkbox" id="cowbell_loop" data-sample-key="cowbell" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -245,7 +252,7 @@
             </button>
             |
             <label for="cymbal_loop">
-              <input type="checkbox" id="cymbal_loop" data-sample-key="cymbal">
+              <input type="checkbox" id="cymbal_loop" data-sample-key="cymbal" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -257,7 +264,7 @@
             </button>
             |
             <label for="open_hat_loop">
-              <input type="checkbox" id="open_hat_loop" data-sample-key="open_hat">
+              <input type="checkbox" id="open_hat_loop" data-sample-key="open_hat" disabled>
               <span>Loop?</span>
             </label>
             |
@@ -269,7 +276,7 @@
             </button>
             |
             <label for="closed_hat_loop">
-              <input type="checkbox" id="closed_hat_loop" data-sample-key="closed_hat">
+              <input type="checkbox" id="closed_hat_loop" data-sample-key="closed_hat" disabled>
               <span>Loop?</span>
             </label>
             |

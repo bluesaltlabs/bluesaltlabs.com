@@ -23,20 +23,31 @@ export default class SequencerApp extends EventTarget {
     this.audioStarted = true;
   }
 
-  // update this so the SVGs make the noise, too.
-  // make a commit that works by clicking the SVGs (do NOT waste time on animations right now)
-  // then go back to the button interface, and build a form. add each of the "player" attributes, set the form to be reactive.
+  // Initialize a sample player instance for the specified sample key. Creates document event listener.
   initSamplePlayer(sampleKey) {
-    // create the tone player in this.samplePlayers[]
-    // todo: initialize the sample player for the specified key and assign it to this.samplePlayers[sampleKey];
     console.debug(`triggered initSamplePlayer for ${sampleKey}`)
+
+    document.addEventListener(`sample_${sampleKey}_play`, (e) => {
+      console.debug(
+        `triggered sample_${sampleKey}_play event`,
+        { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail }
+      );
+      this.triggerSample(sampleKey);
+    });
 
     // get the url of the sample
     // todo: obviously this shouldn't be hard-coded.
     const sampleUrl = `https://bluesaltlabs.github.io/resources/samples/808/${sampleKey}.wav`;
 
     this.samplePlayers[sampleKey] = new AudioService.t.Player({
-      url: sampleUrl
+      url: sampleUrl,
+      onload: () => {
+        document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('active');
+        document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('inactive');
+      },
+      onended: () => {
+        document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('active');
+      }
     }).toDestination();
   }
 
@@ -44,6 +55,13 @@ export default class SequencerApp extends EventTarget {
     // todo: trigger the sample player for the specified key.
     try {
       this.samplePlayers[sampleKey].start();
+      // trigger sequencer pad light.
+
+
+      //this.samplePlayers[sampleKey].onended(() => {
+        //document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('active');
+        //});
+
     } catch(e) {
       console.error(e);
     }
@@ -62,22 +80,10 @@ export default class SequencerApp extends EventTarget {
     // Add sequencer pad keys
     for (let col = 0; col < 16; col++) {
       const sqKey = SequencerVectors.getBaseSequencerPadKeyVector(0, col);
-      //const keyEventListener = this.getKeyEventListener(sqKey, col);
-
-      // Adds event listener to the key
-      sqKey.addEventListener('click', (e) => {
-        console.debug(`clicked vector ${e.target.dataset.sampleKey}`, { e: e, target: e.target });
-        this.triggerSample(e.target.dataset.sampleKey);
-      });
-      //sqKey.addEventListener('click', keyEventListener);
 
       // append key to sequencer container vector
       sv.appendChild(sqKey);
     }
-
-    // todo: more buttons, etc.
-    // SequencerVectors.tempGetDemoIconBanner();
-
 
     // Mount the sequencer vector to the app mount point.
     const mountPoint = document.getElementById('sequencer-app');
@@ -100,8 +106,10 @@ export default class SequencerApp extends EventTarget {
       // Attatch the audio player event.
       btn.addEventListener('click', (e) => {
         const sampleKey = e.target.id.split('btn_')[1];
+        // Fire a new custom event
+        document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } }));
          //console.debug(`clicked button ${btn.id} '${sampleKey}' | ${e.target.dataset.sampleKey}`);
-        this.triggerSample(sampleKey);
+
       });
 
       btn.disabled = false;

@@ -35,11 +35,16 @@ class SequencerVectors {
     const height = 120;
     const rx = 8, ry = 8;
     const fill = 'var(--color-blue-alt, #5555ff)';
-    const id = `sequencer-pad-${row}-${column}`;
+    //const id = `sequencer-pad-${row}-${column}`;
     const sampleKey = this.getSampleKey(column);
+    const id = `sequencer-pad-${sampleKey}`;
 
     // Create the base vector container
-    const svg = VectorService.getSVG({ width, height, id, 'data-sample-key': sampleKey });
+    const svg = VectorService.getSVG({
+      width, height, id,
+      class: 'sequencer-pad inactive',
+      'data-sample-key': sampleKey
+    });
     svg.setAttribute('x', 250 + (column * 100));
     svg.setAttribute('y', 50 + (row * 145));
 
@@ -64,7 +69,7 @@ class SequencerVectors {
       cx: width / 2,
       cy: height / 5,
       r: height / 10,
-      fill: 'var(--color-red, #ff2222ee)'
+      fill: '#882222ee'
     });
 
     // Glue the key pieces together.
@@ -72,6 +77,12 @@ class SequencerVectors {
     svg.appendChild(keyFaceBack);
     svg.appendChild(keyFaceFront);
     svg.appendChild(keyLight);
+
+    // add a test event listener to the SVG
+    svg.addEventListener('click', (e) => {
+      console.debug(`SVG ${sampleKey} click triggered!!`, { e });
+      document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } }));
+    });
 
     return svg;
   }
