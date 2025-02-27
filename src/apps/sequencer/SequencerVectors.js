@@ -8,14 +8,14 @@ class SequencerVectors {
     const width = 1920;
     const height = 1080;
 
-    const svg = VectorService.getBaseSVG({
+    const svg = VectorService.getSVG({
       width, height,
       id: 'sequencer-vector',
       style: 'max-width:100%;height:auto;margin:0 auto;display:block;'
     });
 
     // Create a background rectangle
-    const sBg = VectorService.getBasicRect({
+    const sBg = VectorService.getRect({
       width, height,
       rx: 5,
       ry: 5,
@@ -36,28 +36,28 @@ class SequencerVectors {
     const id = `sequencer-pad-${row}-${column}`;
 
     // Create the base vector container
-    const svg = VectorService.getBaseSVG({ width, height, id });
+    const svg = VectorService.getSVG({ width, height, id });
     svg.setAttribute('x', 250 + (column * 100));
     svg.setAttribute('y', 50 + (row * 145));
 
     // Create the key background rectangle
-    const keyBg = VectorService.getBasicRect({
+    const keyBg = VectorService.getRect({
       width, height, rx, ry, fill
     });
 
     // Create the key face rectangles
-    const keyFaceBack = VectorService.getBasicPath({
+    const keyFaceBack = VectorService.getPath({
       d: 'M 5 55 c 0 -10 10 -10 10 -10 h 45 c 0 0 10 0 10 10 v 50 c 0 10 0 10 -10 10 h -45 c -10 0 -10 0 -10 -10 Z',
       fill: 'var(--color-green, #55ff55)'
     });
 
-    const keyFaceFront = VectorService.getBasicPath({
+    const keyFaceFront = VectorService.getPath({
       d: 'M 6 55 c 0 -7 7 -7 7 -7 h 47 c 0 0 9 0 9 7 v 52 c 0 7 0 7 -7 7 h -49 c -7 0 -7 0 -7 -7 Z',
       fill: 'var(--color-blue, #5555ff)'
     });
 
     // create the key light
-    const keyLight = VectorService.getBasicCircle({
+    const keyLight = VectorService.getCircle({
       cx: width / 2,
       cy: height / 5,
       r: height / 10,

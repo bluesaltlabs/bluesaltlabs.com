@@ -1,29 +1,29 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 class VectorService {
-  getBasicText(attributes) {
+  getText(attributes) {
     const { x, y, fontSize, text, ...rest } = attributes;
-    const textElement = this.getBasicShape('text', { x, y, 'font-size': fontSize, ...rest });
+    const textElement = this.getShape('text', { x, y, 'font-size': fontSize, ...rest });
     textElement.textContent = text;
     return textElement;
   }
 
-  getBasicPath(attributes) {
+  getPath(attributes) {
     const { d, ...rest } = attributes;
-    return this.getBasicShape('path', { d, ...rest });
+    return this.getShape('path', { d, ...rest });
   }
 
-  getBasicCircle(attributes) {
+  getCircle(attributes) {
     const { cx, cy, r, ...rest } = attributes;
-    return this.getBasicShape('circle', { cx, cy, r, ...rest });
+    return this.getShape('circle', { cx, cy, r, ...rest });
   }
 
-  getBasicRect(attributes) {
+  getRect(attributes) {
     const { width, height, ...rest } = attributes;
-    return this.getBasicShape('rect', { width, height, ...rest });
+    return this.getShape('rect', { width, height, ...rest });
   }
 
-  getBasicShape(type, attributes) {
+  getShape(type, attributes) {
     const shape = document.createElementNS(SVG_NAMESPACE, type);
     const { x, y, ...rest } = attributes;
 
@@ -37,7 +37,7 @@ class VectorService {
     return shape;
   }
 
-  getBaseSVG(attributes) {
+  getSVG(attributes) {
     const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
     const { width, height, ...rest } = attributes;
 
