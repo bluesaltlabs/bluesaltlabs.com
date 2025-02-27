@@ -7,18 +7,11 @@ export default class SequencerApp extends EventTarget {
   constructor() {
     super();
     this.audioStarted = false;
-    this.samplers = [];
+    this.samplePlayers = [];
 
     //
 
     this.init();
-  }
-
-  getPadSamplePlayer(filepath) {
-    // Build tone synth
-    return new AudioService.t.Player({
-      baseUrl: filepath
-    });
   }
 
   startAudio(e) {
@@ -30,33 +23,29 @@ export default class SequencerApp extends EventTarget {
     this.audioStarted = true;
   }
 
+  initSamplePlayer(sampleKey) {
+    // create the tone player in this.samplePlayers[]
+    // todo: initialize the sample player for the specified key and assign it to this.samplePlayers[sampleKey];
+    console.debug(`triggered initSamplePlayer for ${sampleKey}`)
 
+    // get the url of the sample
+    const sampleUrl = `https://bluesaltlabs.github.io/resources/samples/808/${sampleKey}.wav`; // todo: obviously this shouldn't be hard-coded.
+    console.debug("got sampleUrl:", sampleUrl)
 
-  // todo: attach event listeners and samples to these buttons.
-  getKeyEventListener(sqKey, col) {
-    //let eventListener = () => console.debug(`clicked ${sqKey.id} for ${col}`);
-    //this.samplers[col] = this.getPadSamplePlayer();
-    //this.getPadSamplePlayer()
-    switch(col) {
-      case 0: // SAMPLE_808_ACCENT
-      case 1: // SAMPLE_808_BASS_DRUM
-      case 2: // SAMPLE_808_SNARE_DRUM
-      case 3: // SAMPLE_808_LOW_TOM
-      case 4: // SAMPLE_808_MID_TOM
-      case 5: // SAMPLE_808_HIGH_TOM
-      case 6: // SAMPLE_808_RIM_SHOT
-      case 7: // SAMPLE_808_HAND_CLAP
-      case 8: // SAMPLE_808_LOW_CONGA
-      case 9: // SAMPLE_808_MID_CONGA
-      case 10: // SAMPLE_808_HIGH_CONGA
-      case 11: // SAMPLE_808_CLAVES
-      case 12: // SAMPLE_808_MARACAS
-      case 13: // SAMPLE_808_COWBELL
-      case 14: // SAMPLE_808_CYMBAL
-      case 15: // SAMPLE_808_OPEN_HAT
-      case 16: // SAMPLE_808_CLOSED_HAT
+    this.samplePlayers[sampleKey] = new AudioService.t.Player({
+      url: sampleUrl
+    }).toDestination();
+  }
+
+  triggerSample(sampleKey) {
+    // todo: trigger the sample player for the specified key.
+    try {
+      this.samplePlayers[sampleKey].start();
+    } catch(e) {
+      console.error(e);
     }
   }
+
 
   // part of init
   buildVectors() {
@@ -94,11 +83,18 @@ export default class SequencerApp extends EventTarget {
 
     for (let i = 0; i < testButtons.length; i++) {
       const btn = testButtons[i];
+      const sampleKey = btn.id.split('btn_')[1];
 
+      // Initialize the sample player fo this sampleKey
+      this.initSamplePlayer(sampleKey);
 
+      // Attatch the audio player event.
+      btn.addEventListener('click', (e) => {
+        const sampleKey = e.target.id.split('btn_')[1];
+        // console.debug(`clicked button ${btn.id} '${sampleKey}'`);
+        this.triggerSample(sampleKey);
+      });
 
-      // todo: attach an audio player event listener here instead.
-      btn.addEventListener('click', () => console.debug(`clicked button ${btn.id}`));
       btn.disabled = false;
     }
   }
@@ -122,33 +118,3 @@ export default class SequencerApp extends EventTarget {
 }
 
 let sequencerApp = new SequencerApp();
-
-
-// Notes
-/*
-# 808 Instruments
-
-listen to them: <https://www.youtube.com/watch?v=gsZ7izQpywY>
-
-- accent
-- bass drum
-- snare drum
-- low tom
-- low conga
-- mid tom
-- mid conga
-- hi tom
-- hi conga
-- rim shot
-- claves
-- hand clap
-- maracas
-- cow bell
-- cymbal
-- open hi-hat
-- closed hi-hat
-
-16 steps
-
-
-*/
