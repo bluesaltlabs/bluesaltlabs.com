@@ -29,7 +29,7 @@ export default class SequencerVectors {
   }
 
   // The base sequencer pad key vector.
-  getBaseSequencerPadKeyVector(index) {
+  getBaseSequencerPadKeyVector(row, column) {
     const width = 75;
     const height = 120;
     const rx = 8, ry = 8;
@@ -37,8 +37,8 @@ export default class SequencerVectors {
 
     // Create the base vector container
     const svg = this.getBaseSVG({ width, height });
-    svg.setAttribute('x', 250 + (index * 100));
-    svg.setAttribute('y', 850);
+    svg.setAttribute('x', 250 + (column * 100));
+    svg.setAttribute('y', 50 + (row * 145));
 
     // Create the key background rectangle
     const keyBg = this.getBasicRect({
@@ -51,14 +51,14 @@ export default class SequencerVectors {
     keyFaceBack.setAttribute('d',
       'M 5 55 c 0 -10 10 -10 10 -10 h 45 c 0 0 10 0 10 10 v 50 c 0 10 0 10 -10 10 h -45 c -10 0 -10 0 -10 -10 Z'
     );
-    keyFaceBack.setAttribute('fill', '#ffff1180'); // temp
+    keyFaceBack.setAttribute('fill', 'var(--color-green, #55ff55)'); // temp
 
     const keyFaceFront = document.createElementNS(SVG_NAMESPACE, 'path');
 
     keyFaceFront.setAttribute('d',
       'M 6 55 c 0 -7 7 -7 7 -7 h 47 c 0 0 9 0 9 7 v 52 c 0 7 0 7 -7 7 h -49 c -7 0 -7 0 -7 -7 Z'
     );
-    keyFaceFront.setAttribute('fill', '#ffff1180'); // temp
+    keyFaceFront.setAttribute('fill', 'var(--color-blue, #5555ff)'); // temp
 
     // create the key light
     const keyLight = document.createElementNS(SVG_NAMESPACE, 'circle');
@@ -116,23 +116,8 @@ export default class SequencerVectors {
   }
 
 
-  getBaseSVG(attributes) {
-    const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
 
-    const { width, height, ...rest } = attributes;
-
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-
-    for(let key in rest) {
-      svg.setAttribute(key, rest[key]);
-    }
-
-    console.debug(svg); // debug
-
-    return svg;
-  }
+  // todo: these methods should move to their own class designed specifically for building SVGs //
 
   getBasicRect(attributes) {
     const { width, height, ...rest } = attributes;
@@ -157,6 +142,24 @@ export default class SequencerVectors {
 //    console.debug(shape); // debug
 
     return shape;
+  }
+
+  getBaseSVG(attributes) {
+    const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
+
+    const { width, height, ...rest } = attributes;
+
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+    for(let key in rest) {
+      svg.setAttribute(key, rest[key]);
+    }
+
+    console.debug(svg); // debug
+
+    return svg;
   }
 
 }

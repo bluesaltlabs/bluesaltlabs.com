@@ -42,13 +42,16 @@ export default class SequencerApp extends EventTarget {
     const sv = this.vectors.getSequencerContainerVector();
 
     // Add sequencer pad keys
-    for (let i = 0; i < 16; i++) {
-      const sqKey = this.vectors.getBaseSequencerPadKeyVector(i);
+    // todo: the extra rows are temporary for now. make this look more like an actual TR-808 sequencer
+    for(let row = 0; row < 7; row++) {
+      for (let col = 0; col < 16; col++) {
+        const sqKey = this.vectors.getBaseSequencerPadKeyVector(row, col);
 
-      // todo: add event listeners to key. may need to pass them in?
+        // todo: add event listeners to key. may need to pass them in?
 
-      // append key to sequencer container vector
-      sv.appendChild(sqKey);
+        // append key to sequencer container vector
+        sv.appendChild(sqKey);
+      }
     }
 
     // todo: more buttons, etc.
