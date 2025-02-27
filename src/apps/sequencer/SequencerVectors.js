@@ -1,4 +1,4 @@
-import { SVG_NAMESPACE, sample_keys } from './constants';
+import { SVG_NAMESPACE, sample_keys, sample_names, sample_urls } from './constants';
 
 
 
@@ -70,6 +70,11 @@ export default class SequencerVectors {
     svg.appendChild(keyFaceBack);
     svg.appendChild(keyFaceFront);
     svg.appendChild(keyLight);
+
+    // add test event listener
+    // svg.addEventListener('click', () => {
+    //   console.log(`Key ${id} clicked!`);
+    // });
 
     return svg;
   }

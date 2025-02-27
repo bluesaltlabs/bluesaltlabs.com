@@ -19,3 +19,43 @@ export const sample_keys = {
   SAMPLE_808_OPEN_HAT   : 'open_hat',
   SAMPLE_808_CLOSED_HAT : 'closed_hat',
 };
+
+export const sample_names = {
+  SAMPLE_808_ACCENT     : 'Accent',
+  SAMPLE_808_BASS_DRUM  : 'Bass Drum',
+  SAMPLE_808_SNARE_DRUM : 'Snare Drum',
+  SAMPLE_808_LOW_TOM    : 'Low Tom',
+  SAMPLE_808_MID_TOM    : 'Mid Tom',
+  SAMPLE_808_HIGH_TOM   : 'High Tom',
+  SAMPLE_808_RIM_SHOT   : 'Rim Shot',
+  SAMPLE_808_HAND_CLAP  : 'Hand Clap',
+  SAMPLE_808_LOW_CONGA  : 'Low Conga',
+  SAMPLE_808_MID_CONGA  : 'Mid Conga',
+  SAMPLE_808_HIGH_CONGA : 'High Conga',
+  SAMPLE_808_CLAVES     : 'Claves',
+  SAMPLE_808_MARACAS    : 'Maracas',
+  SAMPLE_808_COWBELL    : 'Cowbell',
+  SAMPLE_808_CYMBAL     : 'Cymbal',
+  SAMPLE_808_OPEN_HAT   : 'Open Hat',
+  SAMPLE_808_CLOSED_HAT : 'Closed Hat',
+};
+
+export const sample_urls = {
+  SAMPLE_808_ACCENT     : 'https://bluesaltlabs.github.io/resources/samples/808/accent.wav',
+  SAMPLE_808_BASS_DRUM  : 'https://bluesaltlabs.github.io/resources/samples/808/bass_drum.wav',
+  SAMPLE_808_SNARE_DRUM : 'https://bluesaltlabs.github.io/resources/samples/808/snare_drum.wav',
+  SAMPLE_808_LOW_TOM    : 'https://bluesaltlabs.github.io/resources/samples/808/low_tom.wav',
+  SAMPLE_808_MID_TOM    : 'https://bluesaltlabs.github.io/resources/samples/808/mid_tom.wav',
+  SAMPLE_808_HIGH_TOM   : 'https://bluesaltlabs.github.io/resources/samples/808/high_tom.wav',
+  SAMPLE_808_RIM_SHOT   : 'https://bluesaltlabs.github.io/resources/samples/808/rim_shot.wav',
+  SAMPLE_808_HAND_CLAP  : 'https://bluesaltlabs.github.io/resources/samples/808/hand_clap.wav',
+  SAMPLE_808_LOW_CONGA  : 'https://bluesaltlabs.github.io/resources/samples/808/low_conga.wav',
+  SAMPLE_808_MID_CONGA  : 'https://bluesaltlabs.github.io/resources/samples/808/mid_conga.wav',
+  SAMPLE_808_HIGH_CONGA : 'https://bluesaltlabs.github.io/resources/samples/808/high_conga.wav',
+  SAMPLE_808_CLAVES     : 'https://bluesaltlabs.github.io/resources/samples/808/claves.wav',
+  SAMPLE_808_MARACAS    : 'https://bluesaltlabs.github.io/resources/samples/808/maracas.wav',
+  SAMPLE_808_COWBELL    : 'https://bluesaltlabs.github.io/resources/samples/808/cowbell.wav',
+  SAMPLE_808_CYMBAL     : 'https://bluesaltlabs.github.io/resources/samples/808/cymbal.wav',
+  SAMPLE_808_OPEN_HAT   : 'https://bluesaltlabs.github.io/resources/samples/808/open_hat.wav',
+  SAMPLE_808_CLOSED_HAT : 'https://bluesaltlabs.github.io/resources/samples/808/closed_hat.wav',
+};

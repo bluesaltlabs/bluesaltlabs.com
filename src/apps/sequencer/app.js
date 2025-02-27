@@ -30,7 +30,44 @@ export default class SequencerApp extends EventTarget {
     this.audioStarted = true;
   }
 
-
+  getKeyEventListener(sqKey, col) {
+    switch(col) {
+      case 0: // SAMPLE_808_ACCENT
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_ACCENT`);
+      case 1: // SAMPLE_808_BASS_DRUM
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_BASS_DRUM`);
+      case 2: // SAMPLE_808_SNARE_DRUM
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_SNARE_DRUM`);
+      case 3: // SAMPLE_808_LOW_TOM
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_LOW_TOM`);
+      case 4: // SAMPLE_808_MID_TOM
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MID_TOM`);
+      case 5: // SAMPLE_808_HIGH_TOM
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HIGH_TOM`);
+      case 6: // SAMPLE_808_RIM_SHOT
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_RIM_SHOT`);
+      case 7: // SAMPLE_808_HAND_CLAP
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HAND_CLAP`);
+      case 8: // SAMPLE_808_LOW_CONGA
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_LOW_CONGA`);
+      case 9: // SAMPLE_808_MID_CONGA
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MID_CONGA`);
+      case 10: // SAMPLE_808_HIGH_CONGA
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HIGH_CONGA`);
+      case 11: // SAMPLE_808_CLAVES
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CLAVES`);
+      case 12: // SAMPLE_808_MARACAS
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MARACAS`);
+      case 13: // SAMPLE_808_COWBELL
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_COWBELL`);
+      case 14: // SAMPLE_808_CYMBAL
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CYMBAL`);
+      case 15: // SAMPLE_808_OPEN_HAT
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_OPEN_HAT`);
+      case 16: // SAMPLE_808_CLOSED_HAT
+        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CLOSED_HAT`);
+    }
+  }
 
   // part of init
   buildVectors() {
@@ -42,16 +79,15 @@ export default class SequencerApp extends EventTarget {
     const sv = this.vectors.getSequencerContainerVector();
 
     // Add sequencer pad keys
-    // todo: the extra rows are temporary for now. make this look more like an actual TR-808 sequencer
-    for(let row = 0; row < 7; row++) {
-      for (let col = 0; col < 16; col++) {
-        const sqKey = this.vectors.getBaseSequencerPadKeyVector(row, col);
+    for (let col = 0; col < 16; col++) {
+      const sqKey = this.vectors.getBaseSequencerPadKeyVector(6, col);
+      const keyEventListener = this.getKeyEventListener(sqKey, col);
 
-        // todo: add event listeners to key. may need to pass them in?
+      // Adds event listener to the key
+      sqKey.addEventListener('click', keyEventListener);
 
-        // append key to sequencer container vector
-        sv.appendChild(sqKey);
-      }
+      // append key to sequencer container vector
+      sv.appendChild(sqKey);
     }
 
     // todo: more buttons, etc.
