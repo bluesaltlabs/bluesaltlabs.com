@@ -1,3 +1,7 @@
+import { SVG_NAMESPACE, sample_keys } from './constants';
+
+
+
 export default class SequencerVectors {
 
   // The base sequencer background container.
@@ -5,16 +9,15 @@ export default class SequencerVectors {
     const width = 1920;
     const height = 1080;
 
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.type = 'image/svg+xml';
+    const svg = this.getBaseSVG({ width, height });
     svg.setAttribute('id', 'sequencer-vector');
     svg.setAttribute('width', width);
     svg.setAttribute('height', height);
-    svg.setAttribute('style', 'max-width:100%;height:auto;margin:0auto;display:block;');
+    svg.setAttribute('style', 'max-width:100%;height:auto;margin:0 auto;display:block;');
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
     // Create a background rectangle
-    const sBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    const sBg = document.createElementNS(SVG_NAMESPACE, 'rect');
     sBg.setAttribute('width', width);
     sBg.setAttribute('height', height);
     sBg.setAttribute('rx', '5');
@@ -29,40 +32,36 @@ export default class SequencerVectors {
   getBaseSequencerPadKeyVector(index) {
     const width = 75;
     const height = 120;
+    const rx = 8, ry = 8;
+    const fill = 'var(--color-blue-alt, #5555ff)';
+
     // Create the base vector container
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('y', 850);
+    const svg = this.getBaseSVG({ width, height });
     svg.setAttribute('x', 250 + (index * 100));
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.setAttribute('y', 850);
 
     // Create the key background rectangle
-    const keyBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    keyBg.setAttribute('width', width);
-    keyBg.setAttribute('height', height);
-    keyBg.setAttribute('rx', 8);
-    keyBg.setAttribute('ry', 8);
-    keyBg.setAttribute('fill', 'var(--color-blue-alt, #5555ff)'); // todo: ???
-    //keyBg.setAttribute('fill', 'var(--color-gray-300, #333333)'); // todo: ???
+    const keyBg = this.getBasicRect({
+      width, height, rx, ry, fill
+    });
 
     // Create the key face rectangle
-    const keyFace = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const keyFaceBack = document.createElementNS(SVG_NAMESPACE, 'path');
 
-    keyFace.setAttribute('d',
+    keyFaceBack.setAttribute('d',
       'M 5 55 c 0 -10 10 -10 10 -10 h 45 c 0 0 10 0 10 10 v 50 c 0 10 0 10 -10 10 h -45 c -10 0 -10 0 -10 -10 Z'
     );
-    keyFace.setAttribute('fill', '#ffff1180'); // temp
+    keyFaceBack.setAttribute('fill', '#ffff1180'); // temp
 
-    const keyFace2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const keyFaceFront = document.createElementNS(SVG_NAMESPACE, 'path');
 
-    keyFace2.setAttribute('d',
+    keyFaceFront.setAttribute('d',
       'M 6 55 c 0 -7 7 -7 7 -7 h 47 c 0 0 9 0 9 7 v 52 c 0 7 0 7 -7 7 h -49 c -7 0 -7 0 -7 -7 Z'
     );
-    keyFace2.setAttribute('fill', '#ffff1180'); // temp
+    keyFaceFront.setAttribute('fill', '#ffff1180'); // temp
 
     // create the key light
-    const keyLight = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    const keyLight = document.createElementNS(SVG_NAMESPACE, 'circle');
     keyLight.setAttribute('cx', width / 2);
     keyLight.setAttribute('cy', height / 5);
     keyLight.setAttribute('r', height / 10);
@@ -70,12 +69,43 @@ export default class SequencerVectors {
 
     // Glue the key pieces together.
     svg.appendChild(keyBg);
-    svg.appendChild(keyFace);
-    svg.appendChild(keyFace2);
+    svg.appendChild(keyFaceBack);
+    svg.appendChild(keyFaceFront);
     svg.appendChild(keyLight);
+
     return svg;
   }
 
+
+  // todo: return a vector with a nameplate to place next to the patch sequencer pad buttons.
+  getInstrumentNamePlate(sampleName) {
+    const width = 120;
+    const height = 50;
+    const svg = this.getBaseSVG({ width, height });
+
+    // create name plate background
+    const rect = document.createElementNS(SVG_NAMESPACE, 'rect');
+    rect.setAttribute('x', 0);
+    rect.setAttribute('y', 0);
+    rect.setAttribute('width', width);
+    rect.setAttribute('height', height);
+    rect.setAttribute('fill', '#ffff1180'); // temp
+
+    // create name plate text
+    const text = document.createElementNS(SVG_NAMESPACE, 'text');
+    text.setAttribute('x', width / 2);
+    text.setAttribute('y', height / 2);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('fill', '#000');
+    text.textContent = sampleName;
+
+    // Glue the nameplate pieces together.
+    svg.appendChild(rect);
+    svg.appendChild(text);
+
+    return svg;
+  }
 
   // todo: more vectors.
 
@@ -83,6 +113,50 @@ export default class SequencerVectors {
   // todo: temp
   tempGetDemoIconBanner() {
 
+  }
+
+
+  getBaseSVG(attributes) {
+    const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
+
+    const { width, height, ...rest } = attributes;
+
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+    for(let key in rest) {
+      svg.setAttribute(key, rest[key]);
+    }
+
+    console.debug(svg); // debug
+
+    return svg;
+  }
+
+  getBasicRect(attributes) {
+    const { width, height, ...rest } = attributes;
+
+    const rect = this.getBasicShape('rect', { width, height, ...rest });
+
+    return rect;
+  }
+
+  getBasicShape(type, attributes) {
+    const shape = document.createElementNS(SVG_NAMESPACE, type);
+    const { x, y, ...rest } = attributes;
+
+    shape.setAttribute('x', x ?? 0);
+    shape.setAttribute('y', y ?? 0);
+
+    // Set the shape's attributes
+    for(let key in rest) {
+      shape.setAttribute(key, rest[key]);
+    }
+
+//    console.debug(shape); // debug
+
+    return shape;
   }
 
 }
