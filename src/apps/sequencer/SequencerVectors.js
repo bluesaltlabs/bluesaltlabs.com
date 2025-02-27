@@ -6,7 +6,9 @@ class SequencerVectors {
   // The base sequencer background container.
   getSequencerContainerVector() {
     const width = 1920;
-    const height = 1080;
+    //const height = 1080;
+    const height = 220;
+
 
     const svg = VectorService.getSVG({
       width, height,
@@ -34,9 +36,10 @@ class SequencerVectors {
     const rx = 8, ry = 8;
     const fill = 'var(--color-blue-alt, #5555ff)';
     const id = `sequencer-pad-${row}-${column}`;
+    const sampleKey = this.getSampleKey(column);
 
     // Create the base vector container
-    const svg = VectorService.getSVG({ width, height, id });
+    const svg = VectorService.getSVG({ width, height, id, 'data-sample-key': sampleKey });
     svg.setAttribute('x', 250 + (column * 100));
     svg.setAttribute('y', 50 + (row * 145));
 
@@ -71,6 +74,28 @@ class SequencerVectors {
     svg.appendChild(keyLight);
 
     return svg;
+  }
+
+  getSampleKey(column) {
+    switch(column) {
+      case 0: return 'accent';
+      case 1: return 'bass_drum';
+      case 2: return 'snare_drum';
+      case 3: return 'low_tom';
+      case 4: return 'mid_tom';
+      case 5: return 'high_tom';
+      case 6: return 'rim_shot';
+      case 7: return 'hand_clap';
+      case 8: return 'low_conga';
+      case 9: return 'mid_conga';
+      case 10: return 'high_conga';
+      case 11: return 'claves';
+      case 12: return 'maracas';
+      case 13: return 'cowbell';
+      case 14: return 'cymbal';
+      case 15: return 'open_hat';
+      case 16: return 'closed_hat';
+    }
   }
 
 }
