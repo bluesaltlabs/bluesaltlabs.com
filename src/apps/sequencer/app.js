@@ -24,57 +24,37 @@ export default class SequencerApp extends EventTarget {
   startAudio(e) {
     if( !this.audioStarted ) {
       AudioService.t.start();
-      this.buildSamplePadListeners();    // this.s.synth
+      this.attachTestButtonEventListeners(); // temp
     }
     e.target.disabled = true;
     this.audioStarted = true;
   }
 
-  buildSamplePadListeners() {
 
-  }
 
   // todo: attach event listeners and samples to these buttons.
   getKeyEventListener(sqKey, col) {
-    let eventListener = () => console.debug(`clicked ${sqKey.id} for ${col}`);
+    //let eventListener = () => console.debug(`clicked ${sqKey.id} for ${col}`);
     //this.samplers[col] = this.getPadSamplePlayer();
     //this.getPadSamplePlayer()
     switch(col) {
       case 0: // SAMPLE_808_ACCENT
-        //return () => this.getPadSamplePlayer(sample_urls['808_accent']);
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_ACCENT`);
       case 1: // SAMPLE_808_BASS_DRUM
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_BASS_DRUM`);
       case 2: // SAMPLE_808_SNARE_DRUM
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_SNARE_DRUM`);
       case 3: // SAMPLE_808_LOW_TOM
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_LOW_TOM`);
       case 4: // SAMPLE_808_MID_TOM
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MID_TOM`);
       case 5: // SAMPLE_808_HIGH_TOM
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HIGH_TOM`);
       case 6: // SAMPLE_808_RIM_SHOT
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_RIM_SHOT`);
       case 7: // SAMPLE_808_HAND_CLAP
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HAND_CLAP`);
       case 8: // SAMPLE_808_LOW_CONGA
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_LOW_CONGA`);
       case 9: // SAMPLE_808_MID_CONGA
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MID_CONGA`);
       case 10: // SAMPLE_808_HIGH_CONGA
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_HIGH_CONGA`);
       case 11: // SAMPLE_808_CLAVES
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CLAVES`);
       case 12: // SAMPLE_808_MARACAS
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_MARACAS`);
       case 13: // SAMPLE_808_COWBELL
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_COWBELL`);
       case 14: // SAMPLE_808_CYMBAL
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CYMBAL`);
       case 15: // SAMPLE_808_OPEN_HAT
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_OPEN_HAT`);
       case 16: // SAMPLE_808_CLOSED_HAT
-        return () => console.debug(`clicked ${sqKey.id} for SAMPLE_808_CLOSED_HAT`);
     }
   }
 
@@ -90,10 +70,10 @@ export default class SequencerApp extends EventTarget {
     // Add sequencer pad keys
     for (let col = 0; col < 16; col++) {
       const sqKey = SequencerVectors.getBaseSequencerPadKeyVector(6, col);
-      const keyEventListener = this.getKeyEventListener(sqKey, col);
+      //const keyEventListener = this.getKeyEventListener(sqKey, col);
 
       // Adds event listener to the key
-      sqKey.addEventListener('click', keyEventListener);
+      //sqKey.addEventListener('click', keyEventListener);
 
       // append key to sequencer container vector
       sv.appendChild(sqKey);
@@ -108,13 +88,28 @@ export default class SequencerApp extends EventTarget {
     mountPoint.appendChild(sv);
   }
 
+  attachTestButtonEventListeners() {
+    // loop through each of the buttons in 'test-tone-buttons' container, attach event listeners
+    const testButtons = document.querySelectorAll('.test-tone-btn');
+
+    for (let i = 0; i < testButtons.length; i++) {
+      const btn = testButtons[i];
+
+
+
+      // todo: attach an audio player event listener here instead.
+      btn.addEventListener('click', () => console.debug(`clicked button ${btn.id}`));
+      btn.disabled = false;
+    }
+  }
+
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
       // ???
 
 
       // Build the sequencer vectors
-      this.buildVectors();
+      //this.buildVectors();
 
       // ...
 

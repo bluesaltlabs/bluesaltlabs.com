@@ -8,22 +8,29 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/src/styles/styles.css" />
+    <style>
+      .test-player-container {
+        margin: 12px 8px;
+        padding: 8px 12px;
+        border: 1px solid var(--color-blue-alt, #000000);
+        border-radius: var(--border-radius, 5px);
+      }
+    </style>
 
     <!-- Lit Components -->
     <script type="module" src="/src/components/layout/base.js"></script>
 
+    <!-- Sequencer App -->
     <script type="module" src="/src/apps/sequencer/app.js"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Z40QHPMZ3Y');
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-Z40QHPMZ3Y");
     </script>
-
   </head>
   <body>
     <layout-base title="Sequencer 0.0.1">
@@ -40,13 +47,120 @@
         <div class="pure-u pure-u-1-24">&nbsp;</div>
 
         <div class="pure-u pure-u-22-24">
-          <div style="text-align: center;">
-          <button style="height:50px;min-width:200px;" id="btn-start-audio">Start Audio</button>
-          <p>
-            This is a work in progress.
-          </p>
+          <div style="text-align:center;">
+            <button style="height:50px;min-width:200px;" id="btn-start-audio">
+              Start Audio
+            </button>
+
+            <p>This is a work in progress.</p>
           </div>
+
           <hr />
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_accent">
+              Accent
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_bass_drum">
+              Bass Drum
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_snare_drum">
+              Snare Drum
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_low_tom">
+              Low Tom
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_mid_tom">
+              Mid Tom
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_high_tom">
+              High Tom
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_rim_shot">
+              Rim Shot
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_hand_clap">
+              Hand Clap
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_low_conga">
+              Low Conga
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_mid_conga">
+              Mid Conga
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_high_conga">
+              High Conga
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_claves">
+              Claves
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_maracas">
+              Maracas
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_cowbell">
+              Cowbell
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_cymbal">
+              Cymbal
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_open_hat">
+              Open Hat
+            </button>
+          </div>
+
+          <div class="test-player-container">
+            <button disabled class="test-tone-btn" id="btn_closed_hat">
+              Closed Hat
+            </button>
+          </div>
+
+          <hr />
+
           <div id="sequencer-app"></div>
         </div>
 
