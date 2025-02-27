@@ -97,7 +97,7 @@ export default class SequencerApp extends EventTarget {
 
     for (let i = 0; i < testButtons.length; i++) {
       const btn = testButtons[i];
-      const sampleKey = btn.id.split('btn_')[1];
+      const sampleKey = btn.dataset.sampleKey;
 
       // Initialize the sample player fo this sampleKey
       this.initSamplePlayer(sampleKey);
@@ -105,7 +105,7 @@ export default class SequencerApp extends EventTarget {
       // todo: apparently this is more complicated than just attaching a listener to a button. fine, be that way.
       // Attatch the audio player event.
       btn.addEventListener('click', (e) => {
-        const sampleKey = e.target.id.split('btn_')[1];
+        const sampleKey = btn.dataset.sampleKey;
         // Fire a new custom event
         document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } }));
          //console.debug(`clicked button ${btn.id} '${sampleKey}' | ${e.target.dataset.sampleKey}`);
