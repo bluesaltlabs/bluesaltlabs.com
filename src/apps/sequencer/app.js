@@ -26,6 +26,7 @@ export default class SequencerApp extends EventTarget {
   // Initialize a sample player instance for the specified sample key. Creates document event listener.
   initSamplePlayer(sampleKey) {
     // console.debug(`triggered initSamplePlayer for ${sampleKey}`)
+    this.initSampleEventListeners(sampleKey);
 
     // get the url of the sample
     // todo: obviously this shouldn't be hard-coded.
@@ -37,6 +38,20 @@ export default class SequencerApp extends EventTarget {
         // console.debug(`samplePlayer ${sampleKey} onload`);
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('active');
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('inactive');
+
+        // set sample start time value
+        document.getElementById(`${sampleKey}_start_time`);
+        element.value = 0;
+        element.max = this.samplePlayers[sampleKey]?.length ?? null;
+
+        // set sample end time value
+        document.getElementById(`${sampleKey}_end_time`);
+        element.value = this.samplePlayers[sampleKey]?.length ?? null;
+        element.max = this.samplePlayers[sampleKey]?.length ?? null;
+
+        console.debug(`samplePlayer ${sampleKey} initialized with time value ${this.samplePlayers[sampleKey]?.length ?? null}`); // debug
+
+
       },
       onstop: () => {
         // console.debug(`samplePlayer ${sampleKey}: onstop`);
@@ -44,7 +59,7 @@ export default class SequencerApp extends EventTarget {
       }
     }).toDestination();
 
-    this.initSampleEventListeners(sampleKey);
+
   }
 
   initSampleEventListeners(sampleKey) {
@@ -93,6 +108,8 @@ export default class SequencerApp extends EventTarget {
   }
 
   handleSequencerEvent(sampleKey, eventKey, value) {
+    // console.debug("handling sequencer event", { sampleKey, eventKey, value }); // debug
+
     try {
       if(eventKey === 'play') {
         // trigger sequencer pad light.
@@ -189,6 +206,7 @@ export default class SequencerApp extends EventTarget {
 
       // Attach element loop event listener
       element = document.getElementById(`${sampleKey}_loop`);
+      element.value = false;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const loop = e.target.checked;
@@ -198,6 +216,7 @@ export default class SequencerApp extends EventTarget {
 
       // Attach element reverse event listener
       element = document.getElementById(`${sampleKey}_reverse`);
+      element.value = false;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const reverse = e.target.checked;
@@ -207,13 +226,13 @@ export default class SequencerApp extends EventTarget {
 
       // Attach element volume event listener
       element = document.getElementById(`${sampleKey}_volume`);
+      element.value = 0;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const volume = parseInt(e.target.value);
         document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_volume`, { detail: { action: 'volume', sampleKey, value: volume } }));
       });
       element.disabled = false;
-
 
       // Attach element start time event listener
       element = document.getElementById(`${sampleKey}_start_time`);

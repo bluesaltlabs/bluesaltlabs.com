@@ -111,7 +111,6 @@
               <span>Volume</span>
             </label>
             |
-            <!-- todo: update this loop checkbox so that it works -->
             <label for="accent_loop">
               <input type="checkbox" id="accent_loop" data-sample-key="accent" disabled />
               <span>Loop?</span>
@@ -123,17 +122,17 @@
             </label>
             |
             <label for="accent_start_time">
-              <input type="number" id="accent_start_time" min="0" data-sample-key="accent" disabled />
+              <input type="number" id="accent_start_time" min="0" step="0.01" data-sample-key="accent" disabled />
               <span>Start</span>
             </label>
             |
             <label for="accent_end_time">
-              <input type="number" id="accent_end_time" min="0" data-sample-key="accent" disabled />
+              <input type="number" id="accent_end_time" min="0" step="0.01" data-sample-key="accent" disabled />
               <span>End</span>
             </label>
             |
             <label for="accent_playback_rate">
-              <input type="number" id="accent_playback_rate" min="0" data-sample-key="accent" disabled />
+              <input type="number" id="accent_playback_rate" min="0" step="0.01" value="1" data-sample-key="accent" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -160,17 +159,17 @@
             </label>
             |
             <label for="bass_drum_start_time">
-              <input type="number" id="bass_drum_start_time" min="0" data-sample-key="bass_drum" disabled />
+              <input type="number" id="bass_drum_start_time" min="0" step="0.01" max="0.6" value="0" data-sample-key="bass_drum" disabled />
               <span>Start</span>
             </label>
             |
             <label for="bass_drum_end_time">
-              <input type="number" id="bass_drum_end_time" min="0" data-sample-key="bass_drum" disabled />
+              <input type="number" id="bass_drum_end_time" min="0" step="0.01" data-sample-key="bass_drum" disabled />
               <span>End</span>
             </label>
             |
             <label for="bass_drum_playback_rate">
-              <input type="number" id="bass_drum_playback_rate" min="0" data-sample-key="bass_drum" disabled />
+              <input type="number" id="bass_drum_playback_rate" min="0" step="0.01" value="1" data-sample-key="bass_drum" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -197,17 +196,17 @@
             </label>
             |
             <label for="snare_drum_start_time">
-              <input type="number" id="snare_drum_start_time" min="0" data-sample-key="snare_drum" disabled />
+              <input type="number" id="snare_drum_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="snare_drum" disabled />
               <span>Start</span>
             </label>
             |
             <label for="snare_drum_end_time">
-              <input type="number" id="snare_drum_end_time" min="0" data-sample-key="snare_drum" disabled />
+              <input type="number" id="snare_drum_end_time" min="0" step="0.01" data-sample-key="snare_drum" disabled />
               <span>End</span>
             </label>
             |
             <label for="snare_drum_playback_rate">
-              <input type="number" id="snare_drum_playback_rate" min="0" data-sample-key="snare_drum" disabled />
+              <input type="number" id="snare_drum_playback_rate" min="0" step="0.01" value="1" data-sample-key="snare_drum" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -234,17 +233,17 @@
             </label>
             |
             <label for="low_tom_start_time">
-              <input type="number" id="low_tom_start_time" min="0" data-sample-key="low_tom" disabled />
+              <input type="number" id="low_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="low_tom" disabled />
               <span>Start</span>
             </label>
             |
             <label for="low_tom_end_time">
-              <input type="number" id="low_tom_end_time" min="0" data-sample-key="low_tom" disabled />
+              <input type="number" id="low_tom_end_time" min="0" step="0.01" data-sample-key="low_tom" disabled />
               <span>End</span>
             </label>
             |
             <label for="low_tom_playback_rate">
-              <input type="number" id="low_tom_playback_rate" min="0" data-sample-key="low_tom" disabled />
+              <input type="number" id="low_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="low_tom" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -271,17 +270,17 @@
             </label>
             |
             <label for="mid_tom_start_time">
-              <input type="number" id="mid_tom_start_time" min="0" data-sample-key="mid_tom" disabled />
+              <input type="number" id="mid_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="mid_tom" disabled />
               <span>Start</span>
             </label>
             |
             <label for="mid_tom_end_time">
-              <input type="number" id="mid_tom_end_time" min="0" data-sample-key="mid_tom" disabled />
+              <input type="number" id="mid_tom_end_time" min="0" step="0.01" data-sample-key="mid_tom" disabled />
               <span>End</span>
             </label>
             |
             <label for="mid_tom_playback_rate">
-              <input type="number" id="mid_tom_playback_rate" min="0" data-sample-key="mid_tom" disabled />
+              <input type="number" id="mid_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="mid_tom" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -308,17 +307,17 @@
             </label>
             |
             <label for="high_tom_start_time">
-              <input type="number" id="high_tom_start_time" min="0" data-sample-key="high_tom" disabled />
+              <input type="number" id="high_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="high_tom" disabled />
               <span>Start</span>
             </label>
             |
             <label for="high_tom_end_time">
-              <input type="number" id="high_tom_end_time" min="0" data-sample-key="high_tom" disabled />
+              <input type="number" id="high_tom_end_time" min="0" step="0.01" data-sample-key="high_tom" disabled />
               <span>End</span>
             </label>
             |
             <label for="high_tom_playback_rate">
-              <input type="number" id="high_tom_playback_rate" min="0" data-sample-key="high_tom" disabled />
+              <input type="number" id="high_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="high_tom" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -345,17 +344,17 @@
             </label>
             |
             <label for="rim_shot_start_time">
-              <input type="number" id="rim_shot_start_time" min="0" data-sample-key="rim_shot" disabled />
+              <input type="number" id="rim_shot_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="rim_shot" disabled />
               <span>Start</span>
             </label>
             |
             <label for="rim_shot_end_time">
-              <input type="number" id="rim_shot_end_time" min="0" data-sample-key="rim_shot" disabled />
+              <input type="number" id="rim_shot_end_time" min="0" step="0.01" data-sample-key="rim_shot" disabled />
               <span>End</span>
             </label>
             |
             <label for="rim_shot_playback_rate">
-              <input type="number" id="rim_shot_playback_rate" min="0" data-sample-key="rim_shot" disabled />
+              <input type="number" id="rim_shot_playback_rate" min="0" step="0.01" value="1" data-sample-key="rim_shot" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -382,17 +381,17 @@
             </label>
             |
             <label for="hand_clap_start_time">
-              <input type="number" id="hand_clap_start_time" min="0" data-sample-key="hand_clap" disabled />
+              <input type="number" id="hand_clap_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="hand_clap" disabled />
               <span>Start</span>
             </label>
             |
             <label for="hand_clap_end_time">
-              <input type="number" id="hand_clap_end_time" min="0" data-sample-key="hand_clap" disabled />
+              <input type="number" id="hand_clap_end_time" min="0" step="0.01" data-sample-key="hand_clap" disabled />
               <span>End</span>
             </label>
             |
             <label for="hand_clap_playback_rate">
-              <input type="number" id="hand_clap_playback_rate" min="0" data-sample-key="hand_clap" disabled />
+              <input type="number" id="hand_clap_playback_rate" min="0" step="0.01" value="1" data-sample-key="hand_clap" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -419,17 +418,17 @@
             </label>
             |
             <label for="low_conga_start_time">
-              <input type="number" id="low_conga_start_time" min="0" data-sample-key="low_conga" disabled />
+              <input type="number" id="low_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="low_conga" disabled />
               <span>Start</span>
             </label>
             |
             <label for="low_conga_end_time">
-              <input type="number" id="low_conga_end_time" min="0" data-sample-key="low_conga" disabled />
+              <input type="number" id="low_conga_end_time" min="0" step="0.01" data-sample-key="low_conga" disabled />
               <span>End</span>
             </label>
             |
             <label for="low_conga_playback_rate">
-              <input type="number" id="low_conga_playback_rate" min="0" data-sample-key="low_conga" disabled />
+              <input type="number" id="low_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="low_conga" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -456,17 +455,17 @@
             </label>
             |
             <label for="mid_conga_start_time">
-              <input type="number" id="mid_conga_start_time" min="0" data-sample-key="mid_conga" disabled />
+              <input type="number" id="mid_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="mid_conga" disabled />
               <span>Start</span>
             </label>
             |
             <label for="mid_conga_end_time">
-              <input type="number" id="mid_conga_end_time" min="0" data-sample-key="mid_conga" disabled />
+              <input type="number" id="mid_conga_end_time" min="0" step="0.01" data-sample-key="mid_conga" disabled />
               <span>End</span>
             </label>
             |
             <label for="mid_conga_playback_rate">
-              <input type="number" id="mid_conga_playback_rate" min="0" data-sample-key="mid_conga" disabled />
+              <input type="number" id="mid_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="mid_conga" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -493,17 +492,17 @@
             </label>
             |
             <label for="high_conga_start_time">
-              <input type="number" id="high_conga_start_time" min="0" data-sample-key="high_conga" disabled />
+              <input type="number" id="high_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="high_conga" disabled />
               <span>Start</span>
             </label>
             |
             <label for="high_conga_end_time">
-              <input type="number" id="high_conga_end_time" min="0" data-sample-key="high_conga" disabled />
+              <input type="number" id="high_conga_end_time" min="0" step="0.01" data-sample-key="high_conga" disabled />
               <span>End</span>
             </label>
             |
             <label for="high_conga_playback_rate">
-              <input type="number" id="high_conga_playback_rate" min="0" data-sample-key="high_conga" disabled />
+              <input type="number" id="high_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="high_conga" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -530,17 +529,17 @@
             </label>
             |
             <label for="claves_start_time">
-              <input type="number" id="claves_start_time" min="0" data-sample-key="claves" disabled />
+              <input type="number" id="claves_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="claves" disabled />
               <span>Start</span>
             </label>
             |
             <label for="claves_end_time">
-              <input type="number" id="claves_end_time" min="0" data-sample-key="claves" disabled />
+              <input type="number" id="claves_end_time" min="0" step="0.01" data-sample-key="claves" disabled />
               <span>End</span>
             </label>
             |
             <label for="claves_playback_rate">
-              <input type="number" id="claves_playback_rate" min="0" data-sample-key="claves" disabled />
+              <input type="number" id="claves_playback_rate" min="0" step="0.01" value="1" data-sample-key="claves" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -567,17 +566,17 @@
             </label>
             |
             <label for="maracas_start_time">
-              <input type="number" id="maracas_start_time" min="0" data-sample-key="maracas" disabled />
+              <input type="number" id="maracas_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="maracas" disabled />
               <span>Start</span>
             </label>
             |
             <label for="maracas_end_time">
-              <input type="number" id="maracas_end_time" min="0" data-sample-key="maracas" disabled />
+              <input type="number" id="maracas_end_time" min="0" step="0.01" data-sample-key="maracas" disabled />
               <span>End</span>
             </label>
             |
             <label for="maracas_playback_rate">
-              <input type="number" id="maracas_playback_rate" min="0" data-sample-key="maracas" disabled />
+              <input type="number" id="maracas_playback_rate" min="0" step="0.01" value="1" data-sample-key="maracas" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -604,17 +603,17 @@
             </label>
             |
             <label for="cowbell_start_time">
-              <input type="number" id="cowbell_start_time" min="0" data-sample-key="cowbell" disabled />
+              <input type="number" id="cowbell_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="cowbell" disabled />
               <span>Start</span>
             </label>
             |
             <label for="cowbell_end_time">
-              <input type="number" id="cowbell_end_time" min="0" data-sample-key="cowbell" disabled />
+              <input type="number" id="cowbell_end_time" min="0" step="0.01" data-sample-key="cowbell" disabled />
               <span>End</span>
             </label>
             |
             <label for="cowbell_playback_rate">
-              <input type="number" id="cowbell_playback_rate" min="0" data-sample-key="cowbell" disabled />
+              <input type="number" id="cowbell_playback_rate" min="0" step="0.01" value="1" data-sample-key="cowbell" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -641,17 +640,17 @@
             </label>
             |
             <label for="cymbal_start_time">
-              <input type="number" id="cymbal_start_time" min="0" data-sample-key="cymbal" disabled />
+              <input type="number" id="cymbal_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="cymbal" disabled />
               <span>Start</span>
             </label>
             |
             <label for="cymbal_end_time">
-              <input type="number" id="cymbal_end_time" min="0" data-sample-key="cymbal" disabled />
+              <input type="number" id="cymbal_end_time" min="0" step="0.01" data-sample-key="cymbal" disabled />
               <span>End</span>
             </label>
             |
             <label for="cymbal_playback_rate">
-              <input type="number" id="cymbal_playback_rate" min="0" data-sample-key="cymbal" disabled />
+              <input type="number" id="cymbal_playback_rate" min="0" step="0.01" value="1" data-sample-key="cymbal" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -678,17 +677,17 @@
             </label>
             |
             <label for="open_hat_start_time">
-              <input type="number" id="open_hat_start_time" min="0" data-sample-key="open_hat" disabled />
+              <input type="number" id="open_hat_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="open_hat" disabled />
               <span>Start</span>
             </label>
             |
             <label for="open_hat_end_time">
-              <input type="number" id="open_hat_end_time" min="0" data-sample-key="open_hat" disabled />
+              <input type="number" id="open_hat_end_time" min="0" step="0.01" data-sample-key="open_hat" disabled />
               <span>End</span>
             </label>
             |
             <label for="open_hat_playback_rate">
-              <input type="number" id="open_hat_playback_rate" min="0" data-sample-key="open_hat" disabled />
+              <input type="number" id="open_hat_playback_rate" min="0" step="0.01" value="1" data-sample-key="open_hat" disabled />
               <span>Rate</span>
             </label>
           </div>
@@ -715,17 +714,17 @@
             </label>
             |
             <label for="closed_hat_start_time">
-              <input type="number" id="closed_hat_start_time" min="0" data-sample-key="closed_hat" disabled />
+              <input type="number" id="closed_hat_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="closed_hat" disabled />
               <span>Start</span>
             </label>
             |
             <label for="closed_hat_end_time">
-              <input type="number" id="closed_hat_end_time" min="0" data-sample-key="closed_hat" disabled />
+              <input type="number" id="closed_hat_end_time" min="0" step="0.01" data-sample-key="closed_hat" disabled />
               <span>End</span>
             </label>
             |
             <label for="closed_hat_playback_rate">
-              <input type="number" id="closed_hat_playback_rate" min="0" data-sample-key="closed_hat" disabled />
+              <input type="number" id="closed_hat_playback_rate" min="0" step="0.01" value="1" data-sample-key="closed_hat" disabled />
               <span>Rate</span>
             </label>
           </div>
