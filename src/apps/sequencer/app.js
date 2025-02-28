@@ -10,8 +10,6 @@ export default class SequencerApp extends EventTarget {
     this.audioStarted = false;
     this.samplePlayers = [];
 
-    //
-
     this.init();
   }
 
@@ -27,31 +25,7 @@ export default class SequencerApp extends EventTarget {
 
   // Initialize a sample player instance for the specified sample key. Creates document event listener.
   initSamplePlayer(sampleKey) {
-    console.debug(`triggered initSamplePlayer for ${sampleKey}`)
-
-    // Add event listener for sample play event
-    document.addEventListener(`sample_${sampleKey}_play`, (e) => {
-      console.debug(`triggered sample_${sampleKey}_play event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
-      this.triggerSampleEvent(sampleKey, 'play', e.detail?.value);
-    });
-
-    // Add event listener for sample loop event
-    document.addEventListener(`sample_${sampleKey}_loop`, (e) => {
-      console.debug(`triggered sample_${sampleKey}_loop event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
-      this.triggerSampleEvent(sampleKey, 'loop', e.detail?.value);
-    });
-
-    // Add event listener for sample reverse event
-    document.addEventListener(`sample_${sampleKey}_reverse`, (e) => {
-      console.debug(`triggered sample_${sampleKey}_reverse event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
-      this.triggerSampleEvent(sampleKey, 'reverse', e.detail?.value);
-    });
-
-    // Add event listener for sample volume event
-    document.addEventListener(`sample_${sampleKey}_volume`, (e) => {
-      console.debug(`triggered sample_${sampleKey}_volume event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
-      this.triggerSampleEvent(sampleKey, 'volume', e.detail?.value);
-    });
+    // console.debug(`triggered initSamplePlayer for ${sampleKey}`)
 
     // get the url of the sample
     // todo: obviously this shouldn't be hard-coded.
@@ -60,61 +34,104 @@ export default class SequencerApp extends EventTarget {
     this.samplePlayers[sampleKey] = new AudioService.t.Player({
       url: sampleUrl,
       onload: () => {
-        // console.debug(`samplePlayer ${sampleKey} onload`)
+        // console.debug(`samplePlayer ${sampleKey} onload`);
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('active');
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('inactive');
       },
       onstop: () => {
-        // console.debug(`samplePlayer ${sampleKey}: onstop`)
+        // console.debug(`samplePlayer ${sampleKey}: onstop`);
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('playing');
       }
     }).toDestination();
+
+    this.initSampleEventListeners(sampleKey);
   }
 
-  triggerSampleEvent(sampleKey, eventKey, value) {
-    // todo: trigger the sample player for the specified key.
-    if(eventKey === 'play') {
-      try {
+  initSampleEventListeners(sampleKey) {
+
+    // Add event listener for sample play event
+    document.addEventListener(`sample_${sampleKey}_play`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_play event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'play', e.detail?.value);
+    });
+
+    // Add event listener for sample loop event
+    document.addEventListener(`sample_${sampleKey}_loop`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_loop event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'loop', e.detail?.value);
+    });
+
+    // Add event listener for sample reverse event
+    document.addEventListener(`sample_${sampleKey}_reverse`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_reverse event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'reverse', e.detail?.value);
+    });
+
+    // Add event listener for sample volume event
+    document.addEventListener(`sample_${sampleKey}_volume`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_volume event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'volume', e.detail?.value);
+    });
+
+    // Add event listener for sample start_time event
+    document.addEventListener(`sample_${sampleKey}_start_time`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_start_time event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'start_time', e.detail?.value);
+    });
+
+    // Add event listener for sample end_time event
+    document.addEventListener(`sample_${sampleKey}_end_time`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_end_time event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'end_time', e.detail?.value);
+    });
+
+    // Add event listener for sample playback_rate event
+    document.addEventListener(`sample_${sampleKey}_playback_rate`, (e) => {
+      console.debug(`triggered sample_${sampleKey}_playback_rate event`, { action: e.detail.action, sampleKey: e.detail.sampleKey, detail: e.detail });
+      this.handleSequencerEvent(sampleKey, 'playback_rate', e.detail?.value);
+    });
+  }
+
+  handleSequencerEvent(sampleKey, eventKey, value) {
+    try {
+      if(eventKey === 'play') {
         // trigger sequencer pad light.
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('playing');
-      } catch(e) { console.error(e); }
-
-      try {
         // Play the sample
-        this.samplePlayers[sampleKey].start()
-        // console.debug("samplePlayer", { player: this.samplePlayers[sampleKey] })
-      } catch(e) { console.error(e); }
+        this.samplePlayers[sampleKey].start();
+        return;
+      }
 
-      return;
-    }
-
-    if(eventKey === 'loop') {
-      try {
-        console.debug("triggered loop event", { player: this.samplePlayers[sampleKey] })
-        // todo: update this sample to play looped
+      if(eventKey === 'loop') {
         this.samplePlayers[sampleKey].loop = !!value;
-      } catch(e) { console.error(e); }
-      return
-    }
+        return;
+      }
 
-    if(eventKey === 'reverse') {
-      try {
-        console.debug("triggered reverse event", { player: this.samplePlayers[sampleKey] })
+      if(eventKey === 'reverse') {
         this.samplePlayers[sampleKey].reverse = !!value;
-      } catch(e) { console.error(e); }
-      return
-    }
+        return;
+      }
 
-    if(eventKey === 'volume') {
-      try {
-        console.debug("triggered volume event", { player: this.samplePlayers[sampleKey], volume: value })
-
-        // Update this sample's volume setting
+      if(eventKey === 'volume') {
         this.samplePlayers[sampleKey].volume.value = value;
-      } catch(e) { console.error(e); }
-      return
-    }
+        return;
+      }
 
+      if(eventKey === 'start_time') {
+        this.samplePlayers[sampleKey].loopStart = value;
+        return;
+      }
+
+      if(eventKey === 'end_time') {
+        this.samplePlayers[sampleKey].loopEnd = value;
+      }
+
+      if(eventKey === 'playback_rate') {
+        this.samplePlayers[sampleKey].playbackRate = value;
+        return;
+      }
+
+    } catch(e) { console.error(e); }
   }
 
   // part of init
@@ -151,7 +168,6 @@ export default class SequencerApp extends EventTarget {
       // Initialize the sample player fo this sampleKey
       this.initSamplePlayer(sampleKey);
 
-      // todo: apparently this is more complicated than just attaching a listener to a button. fine, be that way.
       // Attatch the audio player event.
       btn.addEventListener('click', (e) => {
         const sampleKey = btn.dataset.sampleKey;
@@ -173,38 +189,58 @@ export default class SequencerApp extends EventTarget {
 
       // Attach element loop event listener
       element = document.getElementById(`${sampleKey}_loop`);
-      element.disabled = false;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const loop = e.target.checked;
-
         document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_loop`, { detail: { action: 'loop', sampleKey, value: loop } }));
       });
+      element.disabled = false;
 
       // Attach element reverse event listener
       element = document.getElementById(`${sampleKey}_reverse`);
-      element.disabled = false;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const reverse = e.target.checked;
-
         document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_reverse`, { detail: { action: 'reverse', sampleKey, value: reverse } }));
       });
+      element.disabled = false;
 
       // Attach element volume event listener
       element = document.getElementById(`${sampleKey}_volume`);
-      element.disabled = false;
       element.addEventListener('change', (e) => {
         const sampleKey = e.target.dataset.sampleKey;
         const volume = parseInt(e.target.value);
-
-
         document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_volume`, { detail: { action: 'volume', sampleKey, value: volume } }));
       });
+      element.disabled = false;
+
 
       // Attach element start time event listener
+      element = document.getElementById(`${sampleKey}_start_time`);
+      element.addEventListener('change', (e) => {
+        const sampleKey = e.target.dataset.sampleKey;
+        const startTime = parseFloat(e.target.value);
+        document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_start_time`, { detail: { action: 'start_time', sampleKey, value: startTime } }));
+      });
+      element.disabled = false;
+
       // Attach element end time event listener
+      element = document.getElementById(`${sampleKey}_end_time`);
+      element.addEventListener('change', (e) => {
+        const sampleKey = e.target.dataset.sampleKey;
+        const endTime = parseFloat(e.target.value);
+        document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_end_time`, { detail: { action: 'end_time', sampleKey, value: endTime } }));
+      });
+      element.disabled = false;
+
       // Attach element playback rate event listener
+      element = document.getElementById(`${sampleKey}_playback_rate`);
+      element.addEventListener('change', (e) => {
+        const sampleKey = e.target.dataset.sampleKey;
+        const playbackRate = parseFloat(e.target.value);
+        document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_playback_rate`, { detail: { action: 'playback_rate', sampleKey, value: playbackRate } }));
+      });
+      element.disabled = false;
     }
   }
 
