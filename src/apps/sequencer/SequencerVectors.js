@@ -1,4 +1,4 @@
-import { SVG_NAMESPACE, sample_keys, sample_names, sample_urls } from './constants';
+//import { SVG_NAMESPACE, sample_keys, sample_names, sample_urls } from './constants';
 import VectorService from '@/services/VectorService';
 
 class SequencerVectors {
