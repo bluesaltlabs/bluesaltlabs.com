@@ -11,9 +11,9 @@
     <style>
       .sequencer-vector {
         max-width:100%;
-        height:auto;
+        height: auto;
         margin:0 auto;
-        display:block;
+        display: block;
       }
       .test-player-container {
         margin: 12px 8px;
@@ -25,11 +25,9 @@
       .test-player-container input[type='number'] {
         max-width: 50px;
       }
-
       .test-tone-btn {
-        min-width: 120px;
+        min-width: 60px;
       }
-
       .sequencer-pad.active circle {
         fill: var(--color-red, #f00);
         stroke: var(--color-red, #00f);
@@ -38,7 +36,6 @@
                     stroke 200ms ease-in-out,
                     stroke-width 75ms ease-in-out;
       }
-
       .sequencer-pad.playing circle {
         fill: var(--color-green, #0f0);
         stroke: var(--color-green, #0f0);
@@ -50,6 +47,63 @@
 
       .sequencer-pad.inactive circle {
         fill: #882222ee80;
+      }
+
+      .controls-container,
+      .sequence-buttons-container {
+        overflow-x: auto;
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: var(--border-radius, 5px);
+        background: #40404080;
+      }
+
+      .sample-sequence-btn {
+        color: #ccc;
+        background-color: var(--color-gray-200, #80808080);
+        border-color: var(--color-gray-200, #80808080);
+        transition: background-color 100ms ease-in-out,
+                    border-color 100ms ease-in-out,
+                    color 100ms ease-in-out;
+        border-radius: var(--border-radius, 5px);
+        width: 36px;
+        height: 36px;
+        text-align: center;
+
+        &:disabled, &.disabled {
+          border-style: groove;
+
+          &:hover {
+            border-style: groove;
+          }
+        }
+
+        &:not(:disabled) {
+          border-style: outset;
+
+          &:hover {
+            border-style: groove;
+            border-color: var(--color-green, #0f0);
+            background-color: var(--color-green, #0f0);
+          }
+        }
+
+        &.active {
+          border-style: inset;
+
+          &:not(:disabled) {
+            color: #fff;
+            background-color: var(--color-green, #0f0);
+            border-color: var(--color-green, #0f0);
+            border-radius: var(--border-radius, 5px);
+
+            &:hover {
+              border-style: groove;
+              background-color: var(--color-red, #f00);
+              border-color: var(--color-red, #f00);
+            }
+          }
+        }
       }
     </style>
 
@@ -100,638 +154,102 @@
 
           <hr />
 
+
+          <!-- Controls -->
+          <h3>Master Controls</h3>
           <div class="test-player-container">
-            <button id="btn-play-audio" disabled>
-              Play
-            </button>
-          </div>
-          <!-- Accent -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="accent" disabled>
-              Accent
-            </button>
-            |
-            <label for="accent_volume">
-              <input type="range" id="accent_volume" min="-50" max="5" value="0" step="1" data-sample-key="accent" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="accent_loop">
-              <input type="checkbox" id="accent_loop" data-sample-key="accent" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="accent_reverse">
-              <input type="checkbox" id="accent_reverse" data-sample-key="accent" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="accent_start_time">
-              <input type="number" id="accent_start_time" min="0" step="0.01" data-sample-key="accent" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="accent_end_time">
-              <input type="number" id="accent_end_time" min="0" step="0.01" data-sample-key="accent" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="accent_playback_rate">
-              <input type="number" id="accent_playback_rate" min="0" step="0.01" value="1" data-sample-key="accent" disabled />
-              <span>Rate</span>
-            </label>
+            <div class="controls-container">
+              <button id="btn-play-audio" disabled>
+                Play
+              </button>
+              |
+              <button id="btn-stop-audio" disabled>
+                Stop
+              </button>
+              |
+              <label for="master_volume">
+                <input type="range" id="master_volume" min="-50" max="5" value="0" step="1" disabled />
+                <span>Volume</span>
+              </label>
+            </div>
           </div>
 
-          <!-- Bass Drum -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="bass_drum" disabled>
-              Bass Drum
-            </button>
-            |
-            <label for="bass_drum_volume">
-              <input type="range" id="bass_drum_volume" min="-50" max="5" value="0" step="1" data-sample-key="bass_drum" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="bass_drum_loop">
-              <input type="checkbox" id="bass_drum_loop" data-sample-key="bass_drum" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="bass_drum_reverse">
-              <input type="checkbox" id="bass_drum_reverse" data-sample-key="bass_drum" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="bass_drum_start_time">
-              <input type="number" id="bass_drum_start_time" min="0" step="0.01" max="0.6" value="0" data-sample-key="bass_drum" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="bass_drum_end_time">
-              <input type="number" id="bass_drum_end_time" min="0" step="0.01" data-sample-key="bass_drum" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="bass_drum_playback_rate">
-              <input type="number" id="bass_drum_playback_rate" min="0" step="0.01" value="1" data-sample-key="bass_drum" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
 
-          <!-- Snare Drum -->
+          <!-- Instrument -->
+          <h3>Instrument Controls</h3>
           <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="snare_drum" disabled>
-              Snare Drum
-            </button>
-            |
-            <label for="snare_drum_volume">
-              <input type="range" id="snare_drum_volume" min="-50" max="5" value="0" step="1" data-sample-key="snare_drum" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="snare_drum_loop">
-              <input type="checkbox" id="snare_drum_loop" data-sample-key="snare_drum" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="snare_drum_reverse">
-              <input type="checkbox" id="snare_drum_reverse" data-sample-key="snare_drum" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="snare_drum_start_time">
-              <input type="number" id="snare_drum_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="snare_drum" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="snare_drum_end_time">
-              <input type="number" id="snare_drum_end_time" min="0" step="0.01" data-sample-key="snare_drum" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="snare_drum_playback_rate">
-              <input type="number" id="snare_drum_playback_rate" min="0" step="0.01" value="1" data-sample-key="snare_drum" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
+            <div class="controls-container">
+              <label for="sample_select">
+                <select id="sample_select" disabled>
+                  <option>Select...</option>
+                  <option value="accent">Accent</option>
+                  <option value="bass_drum">Bass Drum</option>
+                  <option value="snare_drum">Snare Drum</option>
+                  <option value="low_tom">Low Tom</option>
+                  <option value="mid_tom">Mid Tom</option>
+                  <option value="high_tom">High Tom</option>
+                  <option value="rim_shot">Rim Shot</option>
+                  <option value="hand_clap">Hand Clap</option>
+                  <option value="low_conga">Low Conga</option>
+                  <option value="mid_conga">Mid Conga</option>
+                  <option value="high_conga">High Conga</option>
+                  <option value="claves">Claves</option>
+                  <option value="maracas">Maracas</option>
+                  <option value="cowbell">Cowbell</option>
+                  <option value="cymbal">Cymbal</option>
+                  <option value="open_hat">Open Hat</option>
+                  <option value="closed_hat">Closed Hat</option>
+                </select>
+              </label>
+              |
+              <button class="test-tone-btn" disabled>
+                Play
+              </button>
+              |
+              <label for="sample_volume">
+                <input type="range" id="sample_volume" min="-50" max="5" value="0" step="1" disabled />
+                <span>Volume</span>
+              </label>
+              |
+              <label for="sample_reverse">
+                <input type="checkbox" id="sample_reverse" disabled />
+                <span>Reverse?</span>
+              </label>
+              |
+              <label for="sample_start_time">
+                <input type="number" id="sample_start_time" min="0" step="0.01" disabled />
+                <span>Start</span>
+              </label>
+              |
+              <label for="sample_end_time">
+                <input type="number" id="sample_end_time" min="0" step="0.01" disabled />
+                <span>End</span>
+              </label>
+              |
+              <label for="sample_playback_rate">
+                <input type="number" id="sample_playback_rate" min="0" step="0.01" value="1" disabled />
+                <span>Rate</span>
+              </label>
+            </div>
 
-          <!-- Low Tom -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="low_tom" disabled>
-              Low Tom
-            </button>
-            |
-            <label for="low_tom_volume">
-              <input type="range" id="low_tom_volume" min="-50" max="5" value="0" step="1" data-sample-key="low_tom" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="low_tom_loop">
-              <input type="checkbox" id="low_tom_loop" data-sample-key="low_tom" disabled>
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="low_tom_reverse">
-              <input type="checkbox" id="low_tom_reverse" data-sample-key="low_tom" disabled>
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="low_tom_start_time">
-              <input type="number" id="low_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="low_tom" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="low_tom_end_time">
-              <input type="number" id="low_tom_end_time" min="0" step="0.01" data-sample-key="low_tom" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="low_tom_playback_rate">
-              <input type="number" id="low_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="low_tom" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Mid Tom -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="mid_tom" disabled>
-              Mid Tom
-            </button>
-            |
-            <label for="mid_tom_volume">
-              <input type="range" id="mid_tom_volume" min="-50" max="5" value="0" step="1" data-sample-key="mid_tom" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="mid_tom_loop">
-              <input type="checkbox" id="mid_tom_loop" data-sample-key="mid_tom" disabled>
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="mid_tom_reverse">
-              <input type="checkbox" id="mid_tom_reverse" data-sample-key="mid_tom" disabled>
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="mid_tom_start_time">
-              <input type="number" id="mid_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="mid_tom" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="mid_tom_end_time">
-              <input type="number" id="mid_tom_end_time" min="0" step="0.01" data-sample-key="mid_tom" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="mid_tom_playback_rate">
-              <input type="number" id="mid_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="mid_tom" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- High Tom -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="high_tom" disabled>
-              High Tom
-            </button>
-            |
-            <label for="high_tom_volume">
-              <input type="range" id="high_tom_volume" min="-50" max="5" value="0" step="1" data-sample-key="high_tom" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="high_tom_loop">
-              <input type="checkbox" id="high_tom_loop" data-sample-key="high_tom" disabled>
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="high_tom_reverse">
-              <input type="checkbox" id="high_tom_reverse" data-sample-key="high_tom" disabled>
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="high_tom_start_time">
-              <input type="number" id="high_tom_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="high_tom" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="high_tom_end_time">
-              <input type="number" id="high_tom_end_time" min="0" step="0.01" data-sample-key="high_tom" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="high_tom_playback_rate">
-              <input type="number" id="high_tom_playback_rate" min="0" step="0.01" value="1" data-sample-key="high_tom" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Rim Shot -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="rim_shot" disabled disabled>
-              Rim Shot
-            </button>
-            |
-            <label for="rim_shot_volume">
-              <input type="range" id="rim_shot_volume" min="-50" max="5" value="0" step="1" data-sample-key="rim_shot" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="rim_shot_loop">
-              <input type="checkbox" id="rim_shot_loop" data-sample-key="rim_shot" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="rim_shot_reverse">
-              <input type="checkbox" id="rim_shot_reverse" data-sample-key="rim_shot" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="rim_shot_start_time">
-              <input type="number" id="rim_shot_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="rim_shot" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="rim_shot_end_time">
-              <input type="number" id="rim_shot_end_time" min="0" step="0.01" data-sample-key="rim_shot" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="rim_shot_playback_rate">
-              <input type="number" id="rim_shot_playback_rate" min="0" step="0.01" value="1" data-sample-key="rim_shot" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Hand Clap -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="hand_clap" disabled>
-              Hand Clap
-            </button>
-            |
-            <label for="hand_clap_volume">
-              <input type="range" id="hand_clap_volume" min="-50" max="5" value="0" step="1" data-sample-key="hand_clap" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="hand_clap_loop">
-              <input type="checkbox" id="hand_clap_loop" data-sample-key="hand_clap" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="hand_clap_reverse">
-              <input type="checkbox" id="hand_clap_reverse" data-sample-key="hand_clap" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="hand_clap_start_time">
-              <input type="number" id="hand_clap_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="hand_clap" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="hand_clap_end_time">
-              <input type="number" id="hand_clap_end_time" min="0" step="0.01" data-sample-key="hand_clap" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="hand_clap_playback_rate">
-              <input type="number" id="hand_clap_playback_rate" min="0" step="0.01" value="1" data-sample-key="hand_clap" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Low Conga -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="low_conga" disabled>
-              Low Conga
-            </button>
-            |
-            <label for="low_conga_volume">
-              <input type="range" id="low_conga_volume" min="-50" max="5" value="0" step="1" data-sample-key="low_conga" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="low_conga_loop">
-              <input type="checkbox" id="low_conga_loop" data-sample-key="low_conga" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="low_conga_reverse">
-              <input type="checkbox" id="low_conga_reverse" data-sample-key="low_conga" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="low_conga_start_time">
-              <input type="number" id="low_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="low_conga" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="low_conga_end_time">
-              <input type="number" id="low_conga_end_time" min="0" step="0.01" data-sample-key="low_conga" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="low_conga_playback_rate">
-              <input type="number" id="low_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="low_conga" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Mid Conga -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="mid_conga" disabled>
-              Mid Conga
-            </button>
-            |
-            <label for="mid_conga_volume">
-              <input type="range" id="mid_conga_volume" min="-50" max="5" value="0" step="1" data-sample-key="mid_conga" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="mid_conga_loop">
-              <input type="checkbox" id="mid_conga_loop" data-sample-key="mid_conga" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="mid_conga_reverse">
-              <input type="checkbox" id="mid_conga_reverse" data-sample-key="mid_conga" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="mid_conga_start_time">
-              <input type="number" id="mid_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="mid_conga" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="mid_conga_end_time">
-              <input type="number" id="mid_conga_end_time" min="0" step="0.01" data-sample-key="mid_conga" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="mid_conga_playback_rate">
-              <input type="number" id="mid_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="mid_conga" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- High Conga -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="high_conga" disabled>
-              High Conga
-            </button>
-            |
-            <label for="high_conga_volume">
-              <input type="range" id="high_conga_volume" min="-50" max="5" value="0" step="1" data-sample-key="high_conga" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="high_conga_loop">
-              <input type="checkbox" id="high_conga_loop" data-sample-key="high_conga" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="high_conga_reverse">
-              <input type="checkbox" id="high_conga_reverse" data-sample-key="high_conga" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="high_conga_start_time">
-              <input type="number" id="high_conga_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="high_conga" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="high_conga_end_time">
-              <input type="number" id="high_conga_end_time" min="0" step="0.01" data-sample-key="high_conga" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="high_conga_playback_rate">
-              <input type="number" id="high_conga_playback_rate" min="0" step="0.01" value="1" data-sample-key="high_conga" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Claves -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="claves" disabled>
-              Claves
-            </button>
-            |
-            <label for="claves_volume">
-              <input type="range" id="claves_volume" min="-50" max="5" value="0" step="1" data-sample-key="claves" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="claves_loop">
-              <input type="checkbox" id="claves_loop" data-sample-key="claves" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="claves_reverse">
-              <input type="checkbox" id="claves_reverse" data-sample-key="claves" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="claves_start_time">
-              <input type="number" id="claves_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="claves" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="claves_end_time">
-              <input type="number" id="claves_end_time" min="0" step="0.01" data-sample-key="claves" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="claves_playback_rate">
-              <input type="number" id="claves_playback_rate" min="0" step="0.01" value="1" data-sample-key="claves" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Maracas -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="maracas" disabled>
-              Maracas
-            </button>
-            |
-            <label for="maracas_volume">
-              <input type="range" id="maracas_volume" min="-50" max="5" value="0" step="1" data-sample-key="maracas" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="maracas_loop">
-              <input type="checkbox" id="maracas_loop" data-sample-key="maracas" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="maracas_reverse">
-              <input type="checkbox" id="maracas_reverse" data-sample-key="maracas" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="maracas_start_time">
-              <input type="number" id="maracas_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="maracas" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="maracas_end_time">
-              <input type="number" id="maracas_end_time" min="0" step="0.01" data-sample-key="maracas" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="maracas_playback_rate">
-              <input type="number" id="maracas_playback_rate" min="0" step="0.01" value="1" data-sample-key="maracas" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Cowbell -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="cowbell" disabled>
-              Cowbell
-            </button>
-            |
-            <label for="cowbell_volume">
-              <input type="range" id="cowbell_volume" min="-50" max="5" value="0" step="1" data-sample-key="cowbell" disabled />
-              <span>Volume</span>
-            </label>
-            |
-            <label for="cowbell_loop">
-              <input type="checkbox" id="cowbell_loop" data-sample-key="cowbell" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="cowbell_reverse">
-              <input type="checkbox" id="cowbell_reverse" data-sample-key="cowbell" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="cowbell_start_time">
-              <input type="number" id="cowbell_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="cowbell" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="cowbell_end_time">
-              <input type="number" id="cowbell_end_time" min="0" step="0.01" data-sample-key="cowbell" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="cowbell_playback_rate">
-              <input type="number" id="cowbell_playback_rate" min="0" step="0.01" value="1" data-sample-key="cowbell" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Cymbal -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="cymbal" disabled>
-              Cymbal
-            </button>
-            |
-            <label for="cymbal_volume">
-              <input type="range" id="cymbal_volume" min="-50" max="5" value="0" step="1" data-sample-key="cymbal" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="cymbal_loop">
-              <input type="checkbox" id="cymbal_loop" data-sample-key="cymbal" disabled>
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="cymbal_reverse">
-              <input type="checkbox" id="cymbal_reverse" data-sample-key="cymbal" disabled>
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="cymbal_start_time">
-              <input type="number" id="cymbal_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="cymbal" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="cymbal_end_time">
-              <input type="number" id="cymbal_end_time" min="0" step="0.01" data-sample-key="cymbal" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="cymbal_playback_rate">
-              <input type="number" id="cymbal_playback_rate" min="0" step="0.01" value="1" data-sample-key="cymbal" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Open Hat -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="open_hat" disabled>
-              Open Hat
-            </button>
-            |
-            <label for="open_hat_volume">
-              <input type="range" id="open_hat_volume" min="-50" max="5" value="0" step="1" data-sample-key="open_hat" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="open_hat_loop">
-              <input type="checkbox" id="open_hat_loop" data-sample-key="open_hat" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="open_hat_reverse">
-              <input type="checkbox" id="open_hat_reverse" data-sample-key="open_hat" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="open_hat_start_time">
-              <input type="number" id="open_hat_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="open_hat" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="open_hat_end_time">
-              <input type="number" id="open_hat_end_time" min="0" step="0.01" data-sample-key="open_hat" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="open_hat_playback_rate">
-              <input type="number" id="open_hat_playback_rate" min="0" step="0.01" value="1" data-sample-key="open_hat" disabled />
-              <span>Rate</span>
-            </label>
-          </div>
-
-          <!-- Closed Hat -->
-          <div class="test-player-container">
-            <button class="test-tone-btn" data-sample-key="closed_hat" disabled>
-              Closed Hat
-            </button>
-            |
-            <label for="closed_hat_volume">
-              <input type="range" id="closed_hat_volume" min="-50" max="5" value="0" step="1" data-sample-key="closed_hat" disabled>
-              <span>Volume</span>
-            </label>
-            |
-            <label for="closed_hat_loop">
-              <input type="checkbox" id="closed_hat_loop" data-sample-key="closed_hat" disabled />
-              <span>Loop?</span>
-            </label>
-            |
-            <label for="closed_hat_reverse">
-              <input type="checkbox" id="closed_hat_reverse" data-sample-key="closed_hat" disabled />
-              <span>Reverse?</span>
-            </label>
-            |
-            <label for="closed_hat_start_time">
-              <input type="number" id="closed_hat_start_time" min="0" step="0.01" max="0.5" value="0" data-sample-key="closed_hat" disabled />
-              <span>Start</span>
-            </label>
-            |
-            <label for="closed_hat_end_time">
-              <input type="number" id="closed_hat_end_time" min="0" step="0.01" data-sample-key="closed_hat" disabled />
-              <span>End</span>
-            </label>
-            |
-            <label for="closed_hat_playback_rate">
-              <input type="number" id="closed_hat_playback_rate" min="0" step="0.01" value="1" data-sample-key="closed_hat" disabled />
-              <span>Rate</span>
-            </label>
+            <div class="sequence-buttons-container">
+              <button class="sample-sequence-btn" id="ssb_01" disabled>01</button>
+              <button class="sample-sequence-btn" id="ssb_02" disabled>02</button>
+              <button class="sample-sequence-btn" id="ssb_03" disabled>03</button>
+              <button class="sample-sequence-btn" id="ssb_04" disabled>04</button>
+              <button class="sample-sequence-btn" id="ssb_05" disabled>05</button>
+              <button class="sample-sequence-btn" id="ssb_06" disabled>06</button>
+              <button class="sample-sequence-btn" id="ssb_07" disabled>07</button>
+              <button class="sample-sequence-btn" id="ssb_08" disabled>08</button>
+              <button class="sample-sequence-btn" id="ssb_09" disabled>09</button>
+              <button class="sample-sequence-btn" id="ssb_10" disabled>10</button>
+              <button class="sample-sequence-btn" id="ssb_11" disabled>11</button>
+              <button class="sample-sequence-btn" id="ssb_12" disabled>12</button>
+              <button class="sample-sequence-btn" id="ssb_13" disabled>13</button>
+              <button class="sample-sequence-btn" id="ssb_14" disabled>14</button>
+              <button class="sample-sequence-btn" id="ssb_15" disabled>15</button>
+              <button class="sample-sequence-btn" id="ssb_16" disabled>16</button>
+            </div>
           </div>
 
         </div>
