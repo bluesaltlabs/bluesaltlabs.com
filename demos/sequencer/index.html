@@ -25,11 +25,21 @@
       }
 
       .sequencer-pad.active circle {
-        fill: var(--color-red, #ff0);
+        fill: var(--color-red, #f00);
+        stroke: var(--color-red, #00f);
+        stroke-width: 0px;
+        transition: fill 200ms ease-in-out,
+                    stroke 200ms ease-in-out,
+                    stroke-width 75ms ease-in-out;
       }
 
       .sequencer-pad.playing circle {
-        fill: #fff;
+        fill: var(--color-green, #0f0);
+        stroke: var(--color-green, #0f0);
+        stroke-width: 5px;
+        transition: fill 75ms ease-in-out,
+                    stroke 75ms ease-in-out,
+                    stroke-width 75ms ease-in-out;
       }
 
       .sequencer-pad.inactive circle {
