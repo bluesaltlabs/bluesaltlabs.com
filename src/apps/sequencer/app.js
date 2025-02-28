@@ -94,6 +94,7 @@ export default class SequencerApp extends EventTarget {
 
     // Mount the sequencer vector to the app mount point.
     const mountPoint = document.getElementById('sequencer-app');
+    mountPoint.innerHTML = ``; // clear the loading animation from the mount point
     mountPoint.appendChild(sv);
   }
 

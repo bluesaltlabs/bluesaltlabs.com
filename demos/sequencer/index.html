@@ -39,6 +39,7 @@
 
     <!-- Lit Components -->
     <script type="module" src="/src/components/layout/base.js"></script>
+    <script type="module" src="/src/components/loading-grid.js"></script>
 
     <!-- Sequencer App -->
     <script type="module" src="/src/apps/sequencer/app.js"></script>
@@ -77,6 +78,12 @@
 
           <hr />
 
+          <div id="sequencer-app">
+            <loading-grid class="mx-auto"></loading-grid>
+          </div>
+
+          <hr />
+
           <!-- Accent -->
           <div class="test-player-container">
             <button class="test-tone-btn" data-sample-key="accent" disabled>
@@ -88,6 +95,7 @@
               <span>Volume</span>
             </label>
             |
+            <!-- todo: update this loop checkbox so that it works -->
             <label for="accent_loop">
               <input type="checkbox" id="accent_loop" data-sample-key="accent" disabled />
               <span>Loop?</span>
@@ -805,9 +813,6 @@
             </label>
           </div>
 
-          <hr />
-
-          <div id="sequencer-app"></div>
         </div>
 
         <div class="pure-u pure-u-1-24">&nbsp;</div>
