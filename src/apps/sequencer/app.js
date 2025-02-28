@@ -42,11 +42,21 @@ export default class SequencerApp extends EventTarget {
     this.samplePlayers[sampleKey] = new AudioService.t.Player({
       url: sampleUrl,
       onload: () => {
+        console.debug(`samplePlayer ${sampleKey} onload`)
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('active');
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('inactive');
       },
       onended: () => {
+        console.debug(`samplePlayer ${sampleKey}: onended`)
         document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('active');
+      },
+      onstart: () => {
+        console.debug(`samplePlayer ${sampleKey}: onstart`)
+        document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('playing');
+      },
+      onstop: () => {
+        console.debug(`samplePlayer ${sampleKey}: onstop`)
+        document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('playing');
       }
     }).toDestination();
   }
@@ -54,19 +64,16 @@ export default class SequencerApp extends EventTarget {
   triggerSample(sampleKey) {
     // todo: trigger the sample player for the specified key.
     try {
-      this.samplePlayers[sampleKey].start();
       // trigger sequencer pad light.
+      document.getElementById(`sequencer-pad-${sampleKey}`).classList.add('playing');
+    } catch(e) { console.error(e); }
 
-
-      //this.samplePlayers[sampleKey].onended(() => {
-        //document.getElementById(`sequencer-pad-${sampleKey}`).classList.remove('active');
-        //});
-
-    } catch(e) {
-      console.error(e);
-    }
+    try {
+      // Play the sample
+      this.samplePlayers[sampleKey].start()
+      // console.debug("samplePlayer", { player: this.samplePlayers[sampleKey] })
+    } catch(e) { console.error(e); }
   }
-
 
   // part of init
   buildVectors() {
@@ -78,7 +85,7 @@ export default class SequencerApp extends EventTarget {
     const sv = SequencerVectors.getSequencerContainerVector();
 
     // Add sequencer pad keys
-    for (let col = 0; col < 16; col++) {
+    for (let col = 0; col < 17; col++) {
       const sqKey = SequencerVectors.getBaseSequencerPadKeyVector(0, col);
 
       // append key to sequencer container vector

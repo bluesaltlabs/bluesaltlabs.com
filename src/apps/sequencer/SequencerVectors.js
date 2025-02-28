@@ -45,7 +45,7 @@ class SequencerVectors {
       class: 'sequencer-pad inactive',
       'data-sample-key': sampleKey
     });
-    svg.setAttribute('x', 250 + (column * 100));
+    svg.setAttribute('x', 200 + (column * 100));
     svg.setAttribute('y', 50 + (row * 145));
 
     // Create the key background rectangle
