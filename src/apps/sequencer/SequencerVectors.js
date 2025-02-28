@@ -78,10 +78,12 @@ class SequencerVectors {
     svg.appendChild(keyFaceFront);
     svg.appendChild(keyLight);
 
-    // add a test event listener to the SVG
+    // add a click event listener to the SVG
     svg.addEventListener('click', (e) => {
       console.debug(`SVG ${sampleKey} click triggered!!`, { e });
-      document.dispatchEvent(new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } }));
+      document.dispatchEvent(
+        new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } })
+      );
     });
 
     return svg;
