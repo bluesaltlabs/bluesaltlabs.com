@@ -12,8 +12,7 @@ class SequencerVectors {
 
     const svg = VectorService.getSVG({
       width, height,
-      id: 'sequencer-vector',
-      style: 'max-width:100%;height:auto;margin:0 auto;display:block;'
+      class: 'sequencer-vector',
     });
 
     // Create a background rectangle
@@ -80,7 +79,7 @@ class SequencerVectors {
 
     // add a click event listener to the SVG
     svg.addEventListener('click', (e) => {
-      console.debug(`SVG ${sampleKey} click triggered!!`, { e });
+      //console.debug(`SVG ${sampleKey} click triggered!!`, { e });
       document.dispatchEvent(
         new CustomEvent(`sample_${sampleKey}_play`, { detail: { sampleKey, action: 'play' } })
       );
