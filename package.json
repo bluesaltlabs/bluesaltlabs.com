@@ -10,6 +10,9 @@
   "dependencies": {
     "lit": "^3.2.1",
     "marked": "^15.0.7",
+    "marked-code-format": "^1.1.6",
+    "marked-custom-heading-id": "^2.0.11",
+    "marked-gfm-heading-id": "^4.1.1",
     "purecss": "^3.0.0",
     "tone": "^15.0.4",
     "universal-router": "^9.2.1"
