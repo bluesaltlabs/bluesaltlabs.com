@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="/src/styles/styles.css" />
     <link rel="stylesheet" href="/src/styles/vectors.css" />
 
-    <!-- Lit Components -->
+    <!-- Web Components -->
     <script type="module" src="/src/components/layout/base.js"></script>
+    <script type="module" src="/src/components/tools/markdown-parser.js"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
@@ -19,7 +20,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-Z40QHPMZ3Y');
     </script>
 
@@ -39,50 +39,49 @@
         <div class="pure-u pure-u-1-24 pure-u-xl-1-5">&nbsp;</div>
 
         <div class="pure-u pure-u-22-24 pure-u-xl-3-5">
+
           <h1>Creating Scalable Vector Graphics</h1>
-          <p>
-            The full Scalable Vector Graphics (SVG) 2 language specification is available at
-            <a href="https://www.w3.org/TR/SVG2/Overview.html" target="_blank">w3.org/TR/SVG2/Overview.html</a>, but it's long and overwhelming.
-            Below are notes taken for my reference while learning to build SVGs from a programmer's perspective.
-          </p>
 
-          https://www.w3.org/TR/SVG2/shapes.html
+<markdown-parser>
+The full Scalable Vector Graphics (SVG) 2 language specification is available at
+<a href="https://www.w3.org/TR/SVG2/Overview.html" target="_blank">w3.org/TR/SVG2/Overview.html</a>, but it's long and overwhelming.
+Below are notes taken for my reference while learning to build SVGs from a programmer's perspective.
 
-          <section id="reference">
-            <h2>Reference Information</h2>
-            <p>
-              Reference information for SVG element shapes.
-              <!-- encode HTML with this tool: https://www.w3docs.com/tools/html-encoder -->
-              <!-- More good reference information: https://uipencil.com/2023/02/12/getting-started-with-drawing-svgs-in-html-and-css/ -->
-            </p>
+[SVG Shapes Documentation](https://www.w3.org/TR/SVG2/shapes.html)
 
-            <h2>Basic Shapes</h2>
-            <ul>
-              <li><a href="#shapes__rect">Rectangle (<code>rect</code>)</a></li>
-              <li><a href="#shapes__circle">Circle (<code>circle</code>)</a></li>
-              <li><a href="#shapes__ellipse">Ellipse (<code>ellipse</code>)</a></li>
-              <li><a href="#shapes__line">Line (<code>line</code>)</a></li>
-              <li><a href="#shapes__polyline">Polyline (<code>polyline</code>)</a></li>
-              <li><a href="#shapes__polygon">Polygon (<code>polygon</code>)</a></li>
-              <li>
-                <a href="#shapes__path">Path (<code>path</code>)</a>
-                <ul>
-                  <li><code><a href="#shapes__path_m">M / m</a></code> = moveto (move from one point to another point)</li>
-                  <li><code><a href="#shapes__path_l">L / l</a></code> = lineto (create a line)</li>
-                  <li><code><a href="#shapes__path_h">H / h</a></code> = horizontal lineto (create a horizontal line)</li>
-                  <li><code><a href="#shapes__path_v">V / v</a></code> = vertical lineto (create a vertical line)</li>
-                  <li><code><a href="#shapes__path_c">C / c</a></code> = curveto (create a curve)</li>
-                  <li><code><a href="#shapes__path_s">S / s</a></code> = smooth curveto (create a smooth curve)</li>
-                  <li><code><a href="#shapes__path_q">Q / q</a></code> = quadratic Bézier curve (create a quadratic Bézier curve)</li>
-                  <li><code><a href="#shapes__path_t">T / t</a></code> = smooth quadratic Bézier curveto (create a smooth quadratic Bézier curve)</li>
-                  <li><code><a href="#shapes__path_a">A / a</a></code> = elliptical Arc (create a elliptical arc)</li>
-                  <li><code><a href="#shapes__path_z">Z / z</a></code> = closepath (close the path)</li>
-                </ul>
-              </li>
-              <li><a href="#shapes__text">Text (<code>text</code>)</a></li>
-            </ul>
+---
 
-            <hr />
+## Reference Information
+Reference information for SVG element shapes.
+<!-- encode HTML with this tool: https://www.w3docs.com/tools/html-encoder -->
+<!-- More good reference information: https://uipencil.com/2023/02/12/getting-started-with-drawing-svgs-in-html-and-css/ -->
+
+
+## Basic Shapes
+- [Rectangle (`rect`)](#shapes__rect)
+- [Circle (`circle`)](#shapes__circle)
+- [Ellipse (`ellipse`)](#shapes__ellipse)
+- [Line (`line`)](#shapes__line)
+- [Polyline (`polyline`)](#shapes__polyline)
+- [Polygon (`polygon`)](#shapes__polygon)
+- [Path (`path`)](#shapes__path)
+  - [M / m](#shapes__path_m) - moveto (move from one point to another point)
+  - [L / l](#shapes__path_l) - lineto (create a line)
+  - [H / h](#shapes__path_h) - horizontal lineto (create a horizontal line)
+  - [V / v](#shapes__path_v) - vertical lineto (create a vertical line)
+  - [C / c](#shapes__path_c) - curveto (create a curve)
+  - [S / s](#shapes__path_s) - smooth curveto (create a smooth curve)
+  - [Q / q](#shapes__path_q) - quadratic Bézier curve (create a quadratic Bézier curve)
+  - [T / t](#shapes__path_t) - smooth quadratic Bézier curveto (create a smooth quadratic Bézier curve)
+  - [A / a](#shapes__path_a) - elliptical Arc (create a elliptical arc)
+  - [Z / z](#shapes__path_z) - closepath (close the path)
+- [Text (`text`)](#shapes__text)
+
+---
+
+</markdown-parser>
+
+
 
             <!-- Basic Shapes: Rectangle -->
             <div class="reference-section">
@@ -641,7 +640,6 @@
               </p>
             </div>
 
-          </section>
 
         </div>
 
