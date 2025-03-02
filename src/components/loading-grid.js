@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
+// todo: update this so it's not a LitElement
 class LoadingGrid extends LitElement {
   static styles = css`
     /* todo: update this so I don't have to explicitly define all these divs. use ::after */

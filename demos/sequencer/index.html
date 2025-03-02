@@ -112,8 +112,10 @@
     <script type="module" src="/src/components/layout/base.js"></script>
     <script type="module" src="/src/components/loading-grid.js"></script>
 
+
     <!-- Sequencer App -->
     <script type="module" src="/src/apps/sequencer/app.js"></script>
+    <script type="module" src="/src/apps/sequencer/grid-sequencer-test.js"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z40QHPMZ3Y"></script>
@@ -161,7 +163,7 @@
 
           <hr />
 
-          <!-- Controls -->
+          <!-- Master Controls -->
           <h3>Master Controls</h3>
           <div class="test-player-container">
             <div class="controls-container">
@@ -180,7 +182,7 @@
             </div>
           </div>
 
-          <!-- Instrument -->
+          <!-- Instrument Controls -->
           <h3>Instrument Controls</h3>
           <div class="test-player-container">
             <div class="controls-container">
@@ -256,6 +258,10 @@
               <button class="sample-sequence-btn" id="ssb_16" disabled>16</button>
             </div>
           </div>
+
+          <hr />
+
+          <grid-sequencer-test></grid-sequencer-test>
 
         </div>
 
