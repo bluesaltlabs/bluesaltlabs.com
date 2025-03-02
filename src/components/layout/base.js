@@ -2,6 +2,8 @@ import { LitElement, html, css } from 'lit-element';
 import './header.js';
 import './footer.js';
 
+// todo: refactor this so it doesn't use lit, but is instead a plain custom component
+// todo: add functionality to this to manage site-level state (like the page title).
 export class LayoutBase extends LitElement {
   static styles = css`
     .max-w-screen { max-width: 100vw; } /*  */

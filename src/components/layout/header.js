@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
+// todo: refactor this so it doesn't use lit, but is instead a plain custom component
 export class LayoutHeader extends LitElement {
   static styles = css`
     header {

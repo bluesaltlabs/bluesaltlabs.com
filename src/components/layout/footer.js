@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit-element';
 
 const year = new Date()?.getFullYear();
 
+// todo: refactor this so it doesn't use lit, but is instead a plain custom component
 export class LayoutFooter extends LitElement {
   static styles = css`
     footer {

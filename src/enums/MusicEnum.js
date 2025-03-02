@@ -7,7 +7,6 @@ class MusicEnum {
     G: "G",
     A: "A",
     B: "B",
-
   };
 
   static OCTIVES = {
