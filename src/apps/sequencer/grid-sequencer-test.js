@@ -1,10 +1,25 @@
 
-const sequenceBtnCss = `
+// todo: figure out why this doesn't work on mobile (although it's just a test grid so it probably doesn't matter)
+const css = `
+  .sequencer-grid {
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 4px;
+    padding: 4px;
+    overflow-x: auto;
+    border: 2px inset var(--color-blue-alt);
+    border-radius: var(--border-radius, 5px);
+
+  }
+  sequencer-button,
   button {
-    position: relative;
     width: 64px;
     height: 64px;
-    margin: 2px;
+  }
+  button {
     border-radius: var(--border-radius, 5px);
     border: 2px outset var(--color-gray-400);
     color: #fff;
@@ -41,138 +56,6 @@ const sequenceBtnCss = `
   }
 `;
 
-
-const sequencerCss = `
-  .grid-sequencer-test {
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(16, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .grid-item {
-    background-color: #80808080; /* todo: change this color */
-    color: #ffffff80; /* todo: change this color */
-    width: 75px;
-    height: 75px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 3px;
-    text-align: center;
-
-    &.playing {
-      background-color: #80808080; /* todo: change this color */
-      color: #ffffff80; /* todo: change this color */
-
-      &:hover, &.hover {
-        background-color: #80808080; /* todo: change this color */
-        color: #ffffff80; /* todo: change this color */
-      }
-    }
-
-    &.selected {
-      background-color: #80808080; /* todo: change this color */
-      color: #ffffff80; /* todo: change this color */
-
-      &:hover, &.hover {
-        background-color: #80808080; /* todo: change this color */
-        color: #ffffff80; /* todo: change this color */
-      }
-    }
-
-    &.disabled {
-      background-color: #80808080; /* todo: change this color */
-      color: #ffffff80; /* todo: change this color */
-
-      &:hover, &.hover {
-        background-color: #80808080; /* todo: change this color */
-        color: #ffffff80; /* todo: change this color */
-      }
-    }
-  }
-`;
-
-const sequencerHtml = `
-  <div class="grid-sequencer-test">
-    <!-- create a grid with 4 rows and 16 columns, populate cells with buttons -->
-    <div class="grid-container">
-    <!-- todo: update these styles so they match what I want them to look like.  -->
-      <div class="grid-item">normal</div>
-      <div class="grid-item disabled">disabled</div>
-      <div class="grid-item playing">playing</div>
-      <div class="grid-item selected">selected</div>
-      <div class="grid-item playing selected">playing, selected</div>
-      <div class="grid-item selected disabled">selected, disabled</div>
-      <div class="grid-item">07</div>
-      <div class="grid-item">08</div>
-      <div class="grid-item">09</div>
-      <div class="grid-item">10</div>
-      <div class="grid-item">11</div>
-      <div class="grid-item">12</div>
-      <div class="grid-item">13</div>
-      <div class="grid-item">14</div>
-      <div class="grid-item">15</div>
-      <div class="grid-item">16</div>
-
-      <div class="grid-item hover">hover, normal</div>
-      <div class="grid-item hover disabled">hover, disabled</div>
-      <div class="grid-item hover playing">hover, playing</div>
-      <div class="grid-item hover selected">hover, selected</div>
-      <div class="grid-item hover playing selected">hover, playing, selected</div>
-      <div class="grid-item hover selected disabled">hover, selected, disabled</div>
-      <div class="grid-item">23</div>
-      <div class="grid-item">24</div>
-      <div class="grid-item">25</div>
-      <div class="grid-item">26</div>
-      <div class="grid-item">27</div>
-      <div class="grid-item">28</div>
-      <div class="grid-item">29</div>
-      <div class="grid-item">30</div>
-      <div class="grid-item">31</div>
-      <div class="grid-item">32</div>
-
-      <div class="grid-item">33</div>
-      <div class="grid-item">34</div>
-      <div class="grid-item">35</div>
-      <div class="grid-item">36</div>
-      <div class="grid-item">37</div>
-      <div class="grid-item">38</div>
-      <div class="grid-item">39</div>
-      <div class="grid-item">40</div>
-      <div class="grid-item">41</div>
-      <div class="grid-item">42</div>
-      <div class="grid-item">43</div>
-      <div class="grid-item">44</div>
-      <div class="grid-item">45</div>
-      <div class="grid-item">46</div>
-      <div class="grid-item">47</div>
-      <div class="grid-item">48</div>
-
-      <div class="grid-item">49</div>
-      <div class="grid-item">50</div>
-      <div class="grid-item">51</div>
-      <div class="grid-item">52</div>
-      <div class="grid-item">53</div>
-      <div class="grid-item">54</div>
-      <div class="grid-item">55</div>
-      <div class="grid-item">56</div>
-      <div class="grid-item">57</div>
-      <div class="grid-item">58</div>
-      <div class="grid-item">59</div>
-      <div class="grid-item">60</div>
-      <div class="grid-item">61</div>
-      <div class="grid-item">62</div>
-      <div class="grid-item">63</div>
-      <div class="grid-item">64</div>
-    </div>
-  </div>
-`;
-
-
 /* GridSequencerTest */
 export class GridSequencerTest extends HTMLElement {
 
@@ -183,47 +66,80 @@ export class GridSequencerTest extends HTMLElement {
 
   connectedCallback() {
     // todo: attach event listeners?
+    //
   }
 
   init() {
     this.attachShadow({ mode: 'open' });
-    // todo: instead of using a template, generate button grid based on a variable.
-    this.shadowRoot.innerHTML = `<style>${sequencerCss}</style>${sequencerHtml}`;
+    this.shadowRoot.innerHTML = `<style>${css}</style>`;
+
+    const template = document.createElement('template');
+    const grid = document.createElement('div');
+    grid.className = 'sequencer-grid';
+
+    // todo: loop over this 16 times to create squares.
+    // todo: save the state of all of this somehow and send events to the console when state changes.
+    for (let r = 0; r < 4; r++) {
+
+      for (let c = 0; c < 16; c++) {
+        let gb = document.createElement('sequencer-button')
+        gb.id = `button-${r}-${c}`;
+        gb.setAttribute('data-row', r);
+        gb.setAttribute('data-col', c);
+        gb.innerHTML = `test${r}${c}`;
+        gb.disabled = true;
+        grid.appendChild(gb);
+      }
+    }
+    template.content.appendChild(grid);
+
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
 }
 
-/* SequencerGridButton */
-export class SequencerGridButton extends HTMLElement {
-  static get observedAttributes() { return ["class", "disabled"]; }
+/* SequencerButton */
+export class SequencerButton extends HTMLElement {
+  static get observedAttributes() { return ["id","class", "disabled"]; }
 
   constructor() {
     super();
+    this.active = false;
     this.init();
   }
 
   init() {
     // todo: build the button template
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.innerHTML = `
-      <style>${sequenceBtnCss}</style>
+    this.innerHTML = `
       <button><slot></slot></button>
     `;
+
+    this.querySelector('button').addEventListener('click', (e) => {
+      const { row, col } = this.dataset;
+
+      console.debug(`clicked ${this.id}`, { row, col });
+      this.active = true;
+      // todo: set up a listener for this event.
+      this.dispatchEvent(new CustomEvent('sequencer-button-clicked', { detail: { row, col } }));
+    })
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "id") {
+      this.querySelector("button").id = `${newValue}`;
+    }
     if (name === "class") {
-      this.shadowRoot.querySelector("button").className = `${newValue}`;
+      this.querySelector("button").className = `${newValue}`;
       return;
     }
     if (name === "disabled") {
-      this.shadowRoot.querySelector("button").disabled = !!newValue;
+      this.querySelector("button").disabled = (newValue || newValue === "") ? "disabled" : "";
       return;
     }
   }
 }
 
 customElements.define('grid-sequencer-test', GridSequencerTest);
-customElements.define('sequencer-grid-button', SequencerGridButton);
+customElements.define('sequencer-button', SequencerButton);
 
 export default GridSequencerTest;
