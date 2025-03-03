@@ -11,8 +11,6 @@ const css = `
     gap: 4px;
     padding: 4px;
     overflow-x: auto;
-    border: 2px inset var(--color-blue-alt);
-    border-radius: var(--border-radius, 5px);
 
 
   }
