@@ -69,8 +69,8 @@ todo
 |4|`selected`|primary color background, `inset` border.|The button is selected, and the associated note will play when the column is playing. show primary color.|
 |5|`selected playing`|primary color background, `inset` border, column background change|The button is selected and the associated column is currently playing.|
 |6|`hover normal`|transparent primary color background, `groove` border|Suggests selected state by showing diminished '`selected`' color.|
-|7|`hover selected`|partial active gray background, `groove` border|Suggests de-selected state by showing diminished `normal` color.|
-|8|`hover playing` |transparent primary color background, `groove` border, column background change|same as hover+normal, except background will affect button color (?)|
+|7|`hover playing` |transparent primary color background, `groove` border, column background change|same as hover+normal, except background will affect button color (?)|
+|8|`hover selected`|partial active gray background, `groove` border|Suggests de-selected state by showing diminished `normal` color.|
 |9|`hover selected playing`|partial active gray background, `groove` border, column background change|same as hover+selected, except the background will affect button color (?)|
 
 </markdown-parser>
@@ -78,24 +78,15 @@ todo
 <style>
   :root {
     --bg-disabled: var(--color-gray-400);
-    --bg-normal: var(--color-gray-200);
+    --bg-normal: var(--color-gray-100);
     --bg-selected: var(--color-blue-alt);
-    --bg-playing: var(--color-gray-200);
-    --bg-selected-playing:  var(--color-blue-alt);
     --bg-hover: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
-    --bg-hover-selected: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
-    --bg-hover-playing: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
-    --bg-hover-selected-playing: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
 
-    --border-color-disabled: #000; /* todo */
-    --border-color-normal: #000; /* todo */
-    --border-color-selected: #000; /* todo */
-    --border-color-playing: #000; /* todo */
-    --border-color-selected-playing: #000; /* todo */
-    --border-color-hover: #000; /* todo */
-    --border-color-hover-selected: #000; /* todo */
-    --border-color-hover-playing: #000; /* todo */
-    --border-color-hover-selected-playing: #000; /* todo */
+    --border-color-disabled: var(--color-gray-100);
+    --border-color-normal: var(--color-gray-400);
+    --border-color-selected: var(--color-blue);
+    --border-color-playing: var(--color-green);
+    --border-color-hover: var(--color-blue-alt);
   }
 
   .btn-container {
@@ -118,10 +109,15 @@ todo
                 border-color 200ms ease-in-out;
 
     &:not(.disabled) {
+      &.selected {
+        border-style: inset;
+        border-color: var(--border-color-selected);
+        background-color: var(--bg-selected);
+      }
       &.playing {
         border-color: var(--border-color-playing);
-        background-color: var(--bg-playing);
 
+        /* fake background color for playing column */
         &::before {
           content: "";
           display: block;
@@ -133,31 +129,12 @@ todo
           background: color-mix(in srgb, var(--color-blue-alt) 25%, #ffffff00);
         }
       }
-      &.selected {
-        border-style: inset;
-        border-color: var(--border-color-selected);
-        background-color: var(--bg-selected);
-        &.playing {
-          border-color: var(--border-color-selected-playing);
-          background-color: var(--bg-selected-playing);
-        }
-      }
       &:hover, &.hover {
         transition: background-color 200ms ease-in-out,
                     border-color 200ms ease-in-out;
-        border-color: var(--border-color-hover);
         border-style: groove;
+        border-color: var(--border-color-hover);
         background-color: var(--bg-hover);
-
-        &.selected {
-          border-style: groove;
-          border-color: var(--border-color-hover-selected);
-          background-color: var(--bg-hover-selected);
-        }
-        &.playing {
-          border-color: var(--border-color-hover-playing);
-          background-color: var(--bg-hover-playing);
-        }
       }
     }
 
@@ -178,8 +155,8 @@ todo
   <button id="4" class="sequencer-btn selected">4</button><!-- selected -->
   <button id="5" class="sequencer-btn selected playing">5</button><!-- selected+playing -->
   <button id="6" class="sequencer-btn hover">6</button><!-- hover+normal -->
-  <button id="7" class="sequencer-btn hover selected">7</button><!-- hover+selected -->
-  <button id="8" class="sequencer-btn hover playing">8</button><!-- hover+playing -->
+  <button id="7" class="sequencer-btn hover playing">7</button><!-- hover+playing -->
+  <button id="8" class="sequencer-btn hover selected">8</button><!-- hover+selected -->
   <button id="9" class="sequencer-btn hover selected playing">9</button><!-- hover+selected+playing -->
 </div>
 
