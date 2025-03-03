@@ -1,3 +1,4 @@
+import AudioService from '@/services/AudioService'
 
 // todo: figure out why this doesn't work on mobile (although it's just a test grid so it probably doesn't matter)
 const css = `
@@ -5,7 +6,7 @@ const css = `
     display: grid;
     place-items: center;
     justify-content: center;
-    grid-template-columns: repeat(16, 1fr);
+    grid-template-columns: repeat(17, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 4px;
     padding: 4px;
@@ -33,13 +34,20 @@ const css = `
         border-style: inset;
         border-color: var(--color-blue);
         background-color: var(--color-blue-alt);
+        &.playing {
+           background-color: var(--color-blue-light);
+        }
+        &:hover, &.hover {
+          border-color: color-mix(in srgb, var(--color-blue-light) 50%, var(--color-gray-100));
+          background-color: color-mix(in srgb, var(--color-blue-light) 50%, var(--color-gray-100));
+        }
       }
       &:hover, &.hover {
         transition: background-color 100ms ease-in-out,
                     border-color 100ms ease-in-out;
         border-style: groove;
         border-color: var(--color-blue-alt);
-        background-color: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+        background-color: color-mix(in srgb, var(--color-gray-500) 33%, #ffffff);
       }
       &.playing {
         border-color: var(--color-green);
@@ -58,15 +66,17 @@ const css = `
 
 /* GridSequencerTest */
 export class GridSequencerTest extends HTMLElement {
-
   constructor() {
     super();
     this.init();
   }
 
   connectedCallback() {
-    // todo: attach event listeners?
-    //
+
+    document.addEventListener('sequencer-button-clicked', (e) => {
+      console.debug('Button clicked:', e.detail);
+      // todo: handle sequencer button click event.
+    });
   }
 
   init() {
@@ -77,10 +87,11 @@ export class GridSequencerTest extends HTMLElement {
     const grid = document.createElement('div');
     grid.className = 'sequencer-grid';
 
-    // todo: loop over this 16 times to create squares.
     // todo: save the state of all of this somehow and send events to the console when state changes.
-    for (let r = 0; r < 4; r++) {
-
+    for (let r = 0; r < 17; r++) {
+      let rowName = document.createElement('div');
+      rowName.innerText = `Row ${r}`;
+      grid.appendChild(rowName);
       for (let c = 0; c < 16; c++) {
         let gb = document.createElement('sequencer-button')
         gb.id = `button-${r}-${c}`;
@@ -104,7 +115,8 @@ export class SequencerButton extends HTMLElement {
 
   constructor() {
     super();
-    this.active = false;
+    this.selected = false;
+    this.playing  = false;
     this.init();
   }
 
@@ -114,17 +126,30 @@ export class SequencerButton extends HTMLElement {
       <button><slot></slot></button>
     `;
 
-    this.querySelector('button').addEventListener('click', (e) => {
+    // Listen for 'toggle-selected' event
+    this.addEventListener('toggle-selected', (e) => {
       const { row, col } = this.dataset;
+      this.selected = !this.selected;
+      this.classList.toggle('selected', this.selected);
+      console.debug(`toggle-selected sequencer button ${this.id}`, { e, row, col, selected: this.selected });
+    });
 
-      console.debug(`clicked ${this.id}`, { row, col });
-      this.active = true;
-      // todo: set up a listener for this event.
-      this.dispatchEvent(new CustomEvent('sequencer-button-clicked', { detail: { row, col } }));
-    })
+    // Listen for 'toggle-playing' event
+    this.addEventListener('toggle-playing', (e) => {
+      const { row, col } = this.dataset;
+      this.playing = !this.playing;
+      this.classList.toggle('playing', this.playing);
+      console.debug(`toggle-playing sequencer button ${this.id}`, { e, row, col, playing: this.playing });
+    });
+
+    // Fire 'toggle' event when button is clicked
+    this.addEventListener('click', (e) => {
+      this.dispatchEvent(new CustomEvent('toggle-selected', { detail: { e, selected: this.selected } }));
+    });
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    // console.debug(`attributeChangedCallback`, { name, oldValue, newValue });
     if (name === "id") {
       this.querySelector("button").id = `${newValue}`;
     }

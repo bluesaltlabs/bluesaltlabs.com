@@ -80,7 +80,8 @@ todo
               --bg-disabled: var(--color-gray-400);
               --bg-normal: var(--color-gray-100);
               --bg-selected: var(--color-blue-alt);
-              --bg-hover: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+              --bg-selected-playing: var(--color-blue-light);
+              --bg-hover: color-mix(in srgb, var(--color-gray-500) 33%, #ffffff);
 
               --border-color-disabled: var(--color-gray-100);
               --border-color-normal: var(--color-gray-400);
@@ -115,6 +116,13 @@ todo
                   border-style: inset;
                   border-color: var(--border-color-selected);
                   background-color: var(--bg-selected);
+                  &.playing {
+                     background-color: var(--bg-selected-playing);
+                  }
+                  &:hover, &.hover {
+                    border-color: color-mix(in srgb, var(--color-blue-light) 50%, var(--color-gray-100));
+                    background-color: color-mix(in srgb, var(--color-blue-light) 50%, var(--color-gray-100));
+                  }
                 }
                 &:hover, &.hover {
                   transition: background-color 200ms ease-in-out,
