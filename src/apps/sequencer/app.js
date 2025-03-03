@@ -3,6 +3,7 @@ import SequencerVectors from './SequencerVectors';
 import { sample_keys, sample_urls } from './constants';
 
 
+// todo: this should be updated to be an actual component and not just a javascript class.
 /* Sequencer App */
 class SequencerApp extends EventTarget {
   constructor() {

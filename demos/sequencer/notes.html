@@ -45,23 +45,144 @@
 <markdown-parser class="reference-section">
 
 ## Contents
-- [Heading 1](#heading-1)
-- [Heading 2](#heading-2)
+- [Next](#next)
+- [Button States](#button-states)
 
 ---
 
-## Heading 1
+
+## Next
 
 todo
 
 
-## Heading 2
+---
 
-todo
+## Button States
+
+
+|#|State|Styling|Notes|
+|-|-------|-------|-----|
+|1|`disabled`|disabled gray background, `groove` border|The button is not enabled, and hovering has no effect. show `not-allowed` pointer. This state overrides other states.|
+|2|`normal`|active gray background, `outset` border|Button is ready to be selected, but associated note is not active. Hovering and clicking the button will change its state.|
+|3|`playing`|active gray background, `outset` border, column background change|The button's column is playing, but the button is not selected.|
+|4|`selected`|primary color background, `inset` border.|The button is selected, and the associated note will play when the column is playing. show primary color.|
+|5|`selected playing`|primary color background, `inset` border, column background change|The button is selected and the associated column is currently playing.|
+|6|`hover normal`|transparent primary color background, `groove` border|Suggests selected state by showing diminished '`selected`' color.|
+|7|`hover selected`|partial active gray background, `groove` border|Suggests de-selected state by showing diminished `normal` color.|
+|8|`hover playing` |transparent primary color background, `groove` border, column background change|same as hover+normal, except background will affect button color (?)|
+|9|`hover selected playing`|partial active gray background, `groove` border, column background change|same as hover+selected, except the background will affect button color (?)|
 
 </markdown-parser>
 
-<!-- <markdown-parser class="reference-section"></markdown-parser> -->
+<style>
+  :root {
+    --bg-disabled: var(--color-gray-400);
+    --bg-normal: var(--color-gray-200);
+    --bg-selected: var(--color-blue-alt);
+    --bg-playing: var(--color-gray-200);
+    --bg-selected-playing:  var(--color-blue-alt);
+    --bg-hover: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+    --bg-hover-selected: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+    --bg-hover-playing: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+    --bg-hover-selected-playing: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+
+    --border-color-disabled: #000; /* todo */
+    --border-color-normal: #000; /* todo */
+    --border-color-selected: #000; /* todo */
+    --border-color-playing: #000; /* todo */
+    --border-color-selected-playing: #000; /* todo */
+    --border-color-hover: #000; /* todo */
+    --border-color-hover-selected: #000; /* todo */
+    --border-color-hover-playing: #000; /* todo */
+    --border-color-hover-selected-playing: #000; /* todo */
+  }
+
+  .btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    margin: 2em auto;
+  }
+  .sequencer-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border-radius: var(--border-radius, 5px);
+    border: 2px outset var(--border-color-normal);
+    color: #fff;
+    background-color: var(--bg-normal);
+    transition: background-color 200ms ease-in-out,
+                border-color 200ms ease-in-out;
+
+    &:not(.disabled) {
+      &.playing {
+        border-color: var(--border-color-playing);
+        background-color: var(--bg-playing);
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: -7px;
+          left: -7px;
+          width: 62px;
+          height: 62px;
+          background: color-mix(in srgb, var(--color-blue-alt) 25%, #ffffff00);
+        }
+      }
+      &.selected {
+        border-style: inset;
+        border-color: var(--border-color-selected);
+        background-color: var(--bg-selected);
+        &.playing {
+          border-color: var(--border-color-selected-playing);
+          background-color: var(--bg-selected-playing);
+        }
+      }
+      &:hover, &.hover {
+        transition: background-color 200ms ease-in-out,
+                    border-color 200ms ease-in-out;
+        border-color: var(--border-color-hover);
+        border-style: groove;
+        background-color: var(--bg-hover);
+
+        &.selected {
+          border-style: groove;
+          border-color: var(--border-color-hover-selected);
+          background-color: var(--bg-hover-selected);
+        }
+        &.playing {
+          border-color: var(--border-color-hover-playing);
+          background-color: var(--bg-hover-playing);
+        }
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      border-style: groove;
+      border-color: var(--border-color-disabled);
+      background-color: var(--bg-disabled);
+    }
+  }
+</style>
+
+<div class="btn-container">
+  <button id="1" class="sequencer-btn disabled">1</button><!-- disabled -->
+  <button id="2" class="sequencer-btn">2</button><!-- normal -->
+  <button id="3" class="sequencer-btn playing">3</button><!-- playing -->
+  <button id="4" class="sequencer-btn selected">4</button><!-- selected -->
+  <button id="5" class="sequencer-btn selected playing">5</button><!-- selected+playing -->
+  <button id="6" class="sequencer-btn hover">6</button><!-- hover+normal -->
+  <button id="7" class="sequencer-btn hover selected">7</button><!-- hover+selected -->
+  <button id="8" class="sequencer-btn hover playing">8</button><!-- hover+playing -->
+  <button id="9" class="sequencer-btn hover selected playing">9</button><!-- hover+selected+playing -->
+</div>
+
 
         </div>
 

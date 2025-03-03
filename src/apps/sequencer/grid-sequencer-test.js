@@ -1,5 +1,12 @@
 
-const css = `
+const gridBtnCss = `
+  .foobar {
+
+  }
+`;
+
+
+const sequencerCss = `
   .grid-sequencer-test {
   }
 
@@ -53,7 +60,7 @@ const css = `
   }
 `;
 
-const html = `
+const sequencerHtml = `
   <div class="grid-sequencer-test">
     <!-- create a grid with 4 rows and 16 columns, populate cells with buttons -->
     <div class="grid-container">
@@ -130,7 +137,8 @@ const html = `
 `;
 
 
-class GridSequencerTest extends HTMLElement {
+/* GridSequencerTest */
+export class GridSequencerTest extends HTMLElement {
 
   constructor() {
     super();
@@ -143,13 +151,38 @@ class GridSequencerTest extends HTMLElement {
 
   init() {
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    // todo: instead of using a template, generate button grid based on a variable.
+    this.shadowRoot.innerHTML = `<style>${sequencerCss}</style>${sequencerHtml}`;
   }
 
 }
 
-const template = document.createElement('template');
-template.innerHTML = `<style>${css}</style>${html}`;
+/* SequencerGridButton */
+export class SequencerGridButton extends HTMLElement {
+  static get observedAttributes() { return ["class"]; }
+
+  constructor() {
+    super();
+    this.init();
+  }
+
+  init() {
+    // todo: build the button template
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = `
+      <style>${gridBtnCss}</style>
+      <button><slot></slot></button>
+    `;
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "class") {
+      this.shadowRoot.querySelector("button").className = `${newValue}`;
+    }
+  }
+}
 
 customElements.define('grid-sequencer-test', GridSequencerTest);
+customElements.define('sequencer-grid-button', SequencerGridButton);
+
 export default GridSequencerTest;
