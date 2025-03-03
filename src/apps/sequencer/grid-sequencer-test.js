@@ -1,7 +1,43 @@
 
-const gridBtnCss = `
-  .foobar {
+const sequenceBtnCss = `
+  button {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 2px;
+    border-radius: var(--border-radius, 5px);
+    border: 2px outset var(--color-gray-400);
+    color: #fff;
+    background-color: var(--color-gray-100);
+    transition: background-color 150ms ease-in-out,
+                border-color 150ms ease-in-out;
 
+    &:not(.disabled) {
+      cursor: pointer;
+      &.selected {
+        border-style: inset;
+        border-color: var(--color-blue);
+        background-color: var(--color-blue-alt);
+      }
+      &:hover, &.hover {
+        transition: background-color 100ms ease-in-out,
+                    border-color 100ms ease-in-out;
+        border-style: groove;
+        border-color: var(--color-blue-alt);
+        background-color: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+      }
+      &.playing {
+        border-color: var(--color-green);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      border-style: groove;
+      border-color: var(--color-gray-100);
+      background-color: var(--color-gray-400);
+    }
   }
 `;
 
@@ -159,7 +195,7 @@ export class GridSequencerTest extends HTMLElement {
 
 /* SequencerGridButton */
 export class SequencerGridButton extends HTMLElement {
-  static get observedAttributes() { return ["class"]; }
+  static get observedAttributes() { return ["class", "disabled"]; }
 
   constructor() {
     super();
@@ -170,7 +206,7 @@ export class SequencerGridButton extends HTMLElement {
     // todo: build the button template
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
-      <style>${gridBtnCss}</style>
+      <style>${sequenceBtnCss}</style>
       <button><slot></slot></button>
     `;
   }
@@ -178,6 +214,11 @@ export class SequencerGridButton extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "class") {
       this.shadowRoot.querySelector("button").className = `${newValue}`;
+      return;
+    }
+    if (name === "disabled") {
+      this.shadowRoot.querySelector("button").disabled = !!newValue;
+      return;
     }
   }
 }

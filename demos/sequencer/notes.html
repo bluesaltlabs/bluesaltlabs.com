@@ -75,90 +75,92 @@ todo
 
 </markdown-parser>
 
-<style>
-  :root {
-    --bg-disabled: var(--color-gray-400);
-    --bg-normal: var(--color-gray-100);
-    --bg-selected: var(--color-blue-alt);
-    --bg-hover: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
+          <style>
+            :root {
+              --bg-disabled: var(--color-gray-400);
+              --bg-normal: var(--color-gray-100);
+              --bg-selected: var(--color-blue-alt);
+              --bg-hover: color-mix(in srgb, var(--color-blue-alt) 50%, var(--color-gray-200));
 
-    --border-color-disabled: var(--color-gray-100);
-    --border-color-normal: var(--color-gray-400);
-    --border-color-selected: var(--color-blue);
-    --border-color-playing: var(--color-green);
-    --border-color-hover: var(--color-blue-alt);
-  }
+              --border-color-disabled: var(--color-gray-100);
+              --border-color-normal: var(--color-gray-400);
+              --border-color-selected: var(--color-blue);
+              --border-color-playing: var(--color-green);
+              --border-color-hover: var(--color-blue-alt);
+            }
 
-  .btn-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+            .btn-container {
+              /*
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              */
+              margin: 2em auto;
+            }
+            .sequencer-btn {
+              position: relative;
+              width: 64px;
+              height: 64px;
+              margin: 2px;
+              border-radius: var(--border-radius, 5px);
+              border: 2px outset var(--border-color-normal);
+              color: #fff;
+              background-color: var(--bg-normal);
+              transition: background-color 150ms ease-in-out,
+                          border-color 150ms ease-in-out;
 
-    margin: 2em auto;
-  }
-  .sequencer-btn {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-    border-radius: var(--border-radius, 5px);
-    border: 2px outset var(--border-color-normal);
-    color: #fff;
-    background-color: var(--bg-normal);
-    transition: background-color 200ms ease-in-out,
-                border-color 200ms ease-in-out;
+              &:not(.disabled) {
+                cursor: pointer;
+                &.selected {
+                  border-style: inset;
+                  border-color: var(--border-color-selected);
+                  background-color: var(--bg-selected);
+                }
+                &:hover, &.hover {
+                  transition: background-color 200ms ease-in-out,
+                              border-color 200ms ease-in-out;
+                  border-style: groove;
+                  border-color: var(--border-color-hover);
+                  background-color: var(--bg-hover);
+                }
+                &.playing {
+                  border-color: var(--border-color-playing);
 
-    &:not(.disabled) {
-      &.selected {
-        border-style: inset;
-        border-color: var(--border-color-selected);
-        background-color: var(--bg-selected);
-      }
-      &.playing {
-        border-color: var(--border-color-playing);
+                  /* fake background color for playing column */
+                  &::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -7px;
+                    left: -7px;
+                    width: 74px;
+                    height: 74px;
+                    background-color: color-mix(in srgb, var(--color-blue-alt) 25%, #ffffff00);
+                  }
+                }
+              }
 
-        /* fake background color for playing column */
-        &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: -7px;
-          left: -7px;
-          width: 62px;
-          height: 62px;
-          background: color-mix(in srgb, var(--color-blue-alt) 25%, #ffffff00);
-        }
-      }
-      &:hover, &.hover {
-        transition: background-color 200ms ease-in-out,
-                    border-color 200ms ease-in-out;
-        border-style: groove;
-        border-color: var(--border-color-hover);
-        background-color: var(--bg-hover);
-      }
-    }
+              &.disabled {
+                pointer-events: none;
+                cursor: not-allowed;
+                border-style: groove;
+                border-color: var(--border-color-disabled);
+                background-color: var(--bg-disabled);
+              }
+            }
+          </style>
 
-    &.disabled {
-      pointer-events: none;
-      cursor: not-allowed;
-      border-style: groove;
-      border-color: var(--border-color-disabled);
-      background-color: var(--bg-disabled);
-    }
-  }
-</style>
-
-<div class="btn-container">
-  <button id="1" class="sequencer-btn disabled">1</button><!-- disabled -->
-  <button id="2" class="sequencer-btn">2</button><!-- normal -->
-  <button id="3" class="sequencer-btn playing">3</button><!-- playing -->
-  <button id="4" class="sequencer-btn selected">4</button><!-- selected -->
-  <button id="5" class="sequencer-btn selected playing">5</button><!-- selected+playing -->
-  <button id="6" class="sequencer-btn hover">6</button><!-- hover+normal -->
-  <button id="7" class="sequencer-btn hover playing">7</button><!-- hover+playing -->
-  <button id="8" class="sequencer-btn hover selected">8</button><!-- hover+selected -->
-  <button id="9" class="sequencer-btn hover selected playing">9</button><!-- hover+selected+playing -->
-</div>
+          <div class="btn-container">
+            <button id="1" class="sequencer-btn disabled">1</button><!-- disabled -->
+            <button id="2" class="sequencer-btn">2</button><!-- normal -->
+            <button id="3" class="sequencer-btn playing">3</button><!-- playing -->
+            <button id="4" class="sequencer-btn selected">4</button><!-- selected -->
+            <button id="5" class="sequencer-btn selected playing">5</button><!-- selected+playing -->
+            <button id="6" class="sequencer-btn hover">6</button><!-- hover+normal -->
+            <button id="7" class="sequencer-btn hover playing">7</button><!-- hover+playing -->
+            <button id="8" class="sequencer-btn hover selected">8</button><!-- hover+selected -->
+            <button id="9" class="sequencer-btn hover selected playing">9</button><!-- hover+selected+playing -->
+          </div>
 
 
         </div>
