@@ -1,4 +1,4 @@
-import AudioService from '@/services/AudioService'
+import { sample_keys, sample_names } from './constants';
 
 // todo: figure out why this doesn't work on mobile (although it's just a test grid so it probably doesn't matter)
 const css = `
@@ -14,7 +14,17 @@ const css = `
     border: 2px inset var(--color-blue-alt);
     border-radius: var(--border-radius, 5px);
 
+
   }
+  .sample-name {
+    background-color: var(--color-blue);
+    padding: 10px 5px;
+    margin: 0 auto;
+    border-radius: var(--border-radius, 5px);
+    width: 100%;
+    text-align: right;
+  }
+
   sequencer-button,
   button {
     width: 64px;
@@ -87,16 +97,18 @@ export class GridSequencerTest extends HTMLElement {
     const grid = document.createElement('div');
     grid.className = 'sequencer-grid';
 
-    // todo: save the state of all of this somehow and send events to the console when state changes.
-    for (let r = 0; r < 17; r++) {
+    for (let r = 0; r < sample_keys.length; r++) {
+      let sampleKey = sample_keys[r];
       let rowName = document.createElement('div');
-      rowName.innerText = `Row ${r}`;
+      rowName.classList.add('sample-name')
+      rowName.innerText = `${sample_names[sampleKey]}`;
       grid.appendChild(rowName);
       for (let c = 0; c < 16; c++) {
         let gb = document.createElement('sequencer-button')
         gb.id = `button-${r}-${c}`;
         gb.setAttribute('data-row', r);
         gb.setAttribute('data-col', c);
+        gb.setAttribute('data-sample-key', sampleKey);
         gb.innerHTML = `test${r}${c}`;
         gb.disabled = true;
         grid.appendChild(gb);
@@ -127,24 +139,24 @@ export class SequencerButton extends HTMLElement {
     `;
 
     // Listen for 'toggle-selected' event
-    this.addEventListener('toggle-selected', (e) => {
-      const { row, col } = this.dataset;
+    this.addEventListener('toggle-selected', () => {
+      const { row, col, sampleKey } = this.dataset;
       this.selected = !this.selected;
       this.classList.toggle('selected', this.selected);
-      console.debug(`toggle-selected sequencer button ${this.id}`, { e, row, col, selected: this.selected });
+      console.debug(`toggle-selected sequencer button ${this.id}`, { row, col, sampleKey, selected: this.selected });
     });
 
     // Listen for 'toggle-playing' event
-    this.addEventListener('toggle-playing', (e) => {
-      const { row, col } = this.dataset;
+    this.addEventListener('toggle-playing', () => {
+      const { row, col, sampleKey } = this.dataset;
       this.playing = !this.playing;
       this.classList.toggle('playing', this.playing);
-      console.debug(`toggle-playing sequencer button ${this.id}`, { e, row, col, playing: this.playing });
+      console.debug(`toggle-playing sequencer button ${this.id}`, { row, col, sampleKey, playing: this.playing });
     });
 
     // Fire 'toggle' event when button is clicked
-    this.addEventListener('click', (e) => {
-      this.dispatchEvent(new CustomEvent('toggle-selected', { detail: { e, selected: this.selected } }));
+    this.addEventListener('click', () => {
+      this.dispatchEvent(new Event('toggle-selected'));
     });
   }
 
