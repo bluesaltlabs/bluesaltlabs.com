@@ -1,0 +1,96 @@
+.sequencer-vector {
+  max-width:100%;
+  height: auto;
+  margin:0 auto;
+  display: block;
+}
+.test-player-container {
+  margin: 12px 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-blue-alt, #000000);
+  border-radius: var(--border-radius, 5px);
+}
+
+.test-player-container input[type='number'] {
+  max-width: 50px;
+}
+.test-tone-btn {
+  min-width: 60px;
+}
+.sequencer-pad.active circle {
+  fill: var(--color-red, #f00);
+  stroke: var(--color-red, #00f);
+  stroke-width: 0px;
+  transition: fill 200ms ease-in-out,
+              stroke 200ms ease-in-out,
+              stroke-width 75ms ease-in-out;
+}
+.sequencer-pad.playing circle {
+  fill: var(--color-green, #0f0);
+  stroke: var(--color-green, #0f0);
+  stroke-width: 5px;
+  transition: fill 75ms ease-in-out,
+              stroke 75ms ease-in-out,
+              stroke-width 75ms ease-in-out;
+}
+
+.sequencer-pad.inactive circle {
+  fill: #882222ee80;
+}
+
+.controls-container,
+.sequence-buttons-container {
+  overflow-x: auto;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: var(--border-radius, 5px);
+  background: #40404080;
+}
+
+.sample-sequence-btn {
+  color: #ccc;
+  background-color: var(--color-gray-200, #80808080);
+  border-color: var(--color-gray-200, #80808080);
+  transition: background-color 100ms ease-in-out,
+              border-color 100ms ease-in-out,
+              color 100ms ease-in-out;
+  border-radius: var(--border-radius, 5px);
+  width: 36px;
+  height: 36px;
+  text-align: center;
+
+  &:disabled, &.disabled {
+    border-style: groove;
+
+    &:hover {
+      border-style: groove;
+    }
+  }
+
+  &:not(:disabled) {
+    border-style: outset;
+
+    &:hover {
+      border-style: groove;
+      border-color: var(--color-green, #0f0);
+      background-color: var(--color-green, #0f0);
+    }
+  }
+
+  &.active {
+    border-style: inset;
+
+    &:not(:disabled) {
+      color: #fff;
+      background-color: var(--color-green, #0f0);
+      border-color: var(--color-green, #0f0);
+      border-radius: var(--border-radius, 5px);
+
+      &:hover {
+        border-style: groove;
+        background-color: var(--color-red, #f00);
+        border-color: var(--color-red, #f00);
+      }
+    }
+  }
+}

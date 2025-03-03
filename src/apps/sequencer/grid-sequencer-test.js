@@ -134,11 +134,6 @@ class GridSequencerTest extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    // todo: init shadow dom and create child elements.
-
     this.init();
   }
 
@@ -147,7 +142,8 @@ class GridSequencerTest extends HTMLElement {
   }
 
   init() {
-    // todo
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
 }
